@@ -13,6 +13,8 @@ OBJ_DIR	= ./obj
 
 RM		= rm -rf
 
+INCLUDE	= ./includes/
+
 VPATH	= ./src/ ./lists/
 
 #Git config
@@ -21,12 +23,12 @@ ADD		= .
 
 #Rules
 $(OBJ_DIR)/%.o: %.c
-			$(CC) $(CFLAGS) -c $< -o $@
+			$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
 
 all:		obj_dir $(NAME)
 
 $(NAME):	$(OBJ)
-			$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+			$(CC) $(CFLAGS) -I $(INCLUDE) $(OBJ) -o $(NAME)
 
 obj_dir:
 		mkdir -p $(OBJ_DIR)
@@ -41,7 +43,7 @@ fclean:	clean
 
 re:		fclean all
 
-git:
+git:	fclean
 		git status
 		@echo $(SEP)
 		git add $(ADD)
