@@ -13,27 +13,28 @@
 #include "minishell.h"
 
 void	parse(char *line);
-void	split_line(char *line);
+char	*split_line(char *line);
 char	*worddup(const char *s, size_t len);
 int		has_double_quotation(char *str, char quot);
+char	*handle_quotes(char **ptr_len, char quot);
+void	error(void);
 
 int	main(void)
 {
 	char *line;
 
 	line = readline("miau> ");
-	split_line(line);
 
-	//parse(line);
+
+	parse(line);
 	free(line);
 
 	return (0);
 }
 
-void	split_line(char *line)
+char	*split_line(char *line)
 {
 	char	*ptr_len;
-	size_t	i;
 	char	*content;
 	char	quot;
 
@@ -43,27 +44,37 @@ void	split_line(char *line)
 		if (*ptr_len == 39 || *ptr_len == 34)
 		{
 			quot = *ptr_len;
-			i = 0;
-			if (has_double_quotation(ptr_len, *(ptr_len)) == 1)
-			{
-				ptr_len++;
-				while (ptr_len[i])
-				{
-					if (ptr_len[i] == quot)
-					{
-						content = worddup(ptr_len, i);
-						printf("%s\n", content);
-						ptr_len += i;
-						break ;
-					}
-					i++;
-				}
-			}
-			else
-				printf("Error de quotation!\n");
+			content = handle_quotes(&ptr_len, quot);
 		}
 		ptr_len++;
 	}
+	return (content);
+}
+
+char	*handle_quotes(char **ptr_len, char quot)
+{
+	int	i;
+	char	*content;
+
+	i = 0;
+	content = NULL;
+	if (has_double_quotation((*ptr_len), **ptr_len) == 1)
+	{
+		(*ptr_len)++;
+		while ((*ptr_len)[i])
+		{
+			if ((*ptr_len)[i] == quot)
+			{
+				content = worddup((*ptr_len), i);
+				(*ptr_len) += i;
+				break ;
+			}
+			i++;
+		}
+	}
+	else
+		error();
+	return (content);
 }
 
 // "main function"
@@ -75,7 +86,7 @@ int	has_double_quotation(char *str, char quot)
 
 	ret = 0;
 	count = 0;
-	printf("str = %s\n", str);
+	//printf("str = %s\n", str);
 	while (*str)
 	{
 		if (*str == quot)
@@ -94,7 +105,7 @@ char	*worddup(const char *s, size_t len)
 
 	str = malloc(len + 1);
 	if (str == NULL)
-		return (NULL);
+		error();
 	offset = 0;
 	while (offset < len)
 	{
@@ -105,21 +116,15 @@ char	*worddup(const char *s, size_t len)
 	return (str);
 }
 
-/* if (len)
-		{
-			res[counter] = worddup(s, len);
-			if (res[counter++] == NULL)
-				return (kill(res, counter - 1));
-		}
- */
-
-
 void	parse(char *line)
 {
-	int	i;
+	size_t	i;
+	char	*word;
 
 	i = 0;
-	while ((size_t)i < strlen(line))
+	word = split_line(line);
+	printf("%s\n", word);
+	while (i < strlen(line))
 	{
 		if (strchr(SEP, line[i]))
 		{
@@ -127,4 +132,10 @@ void	parse(char *line)
 		}
 		i++;
 	}
+}
+
+void	error(void)
+{
+	perror("Error!");
+	exit(1);
 }
