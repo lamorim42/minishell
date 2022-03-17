@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 09:28:24 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:35 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:19:26 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <string.h>
+# include "libft.h"
 
 # define STDIN 0
 
