@@ -17,13 +17,13 @@ char	*split_line(char *line);
 char	*worddup(const char *s, size_t len);
 int		has_double_quotation(char *str, char quot);
 char	*handle_quotes(char **ptr_len, char quot);
-void	error(void);
+void	return_error(void);
 
 int	main(void)
 {
 	char *line;
 
-	line = readline("miau> ");
+	line = readline(STDIN_FILENO);
 
 
 	parse(line);
@@ -73,7 +73,7 @@ char	*handle_quotes(char **ptr_len, char quot)
 		}
 	}
 	else
-		error();
+		return_error();
 	return (content);
 }
 
@@ -105,7 +105,7 @@ char	*worddup(const char *s, size_t len)
 
 	str = malloc(len + 1);
 	if (str == NULL)
-		error();
+		return_error();
 	offset = 0;
 	while (offset < len)
 	{
@@ -134,7 +134,7 @@ void	parse(char *line)
 	}
 }
 
-void	error(void)
+void	return_error(void)
 {
 	perror("Error!");
 	exit(1);
