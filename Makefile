@@ -1,11 +1,13 @@
 #Name
 NAME	= minishell
-CC		= gcc
+CC		= clang
 CFLAGS	= -Wall -Werror -Wextra -g
 
 
 # Source
 SRC		=	main.c \
+LIBFT_PATH = ./Libft
+LIBFT = $(LIBFT_PATH)/libft.a
 
 OBJTS	= $(SRC:.c=.o)
 OBJ		= $(addprefix ./obj/, $(OBJTS))
@@ -13,7 +15,7 @@ OBJ_DIR	= ./obj
 
 RM		= rm -rf
 
-INCLUDE	= ./includes/
+INCLUDE	= includes/
 
 VPATH	= ./src/ ./lists/
 
@@ -28,7 +30,7 @@ $(OBJ_DIR)/%.o: %.c
 all:		obj_dir $(NAME)
 
 $(NAME):	$(OBJ)
-			$(CC) $(CFLAGS) -I $(INCLUDE) $(OBJ) -o $(NAME)
+			$(CC) $(CFLAGS) -lreadline -I $(INCLUDE) $(OBJ) -o $(NAME)
 
 obj_dir:
 		mkdir -p $(OBJ_DIR)
