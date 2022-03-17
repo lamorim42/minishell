@@ -1,51 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/25 15:38:13 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/27 16:24:03 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	char *line;
+	size_t	dest_i;
+	size_t	src_i;
+	size_t	i;
+	size_t	j;
 
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
-
-	i = 0;
-	while ((size_t)i < strlen(line))
+	dest_i = ft_strlen(dest);
+	src_i = ft_strlen(src);
+	i = dest_i;
+	j = 0;
+	if (dest_i >= size)
+		return (src_i + size);
+	while (src[j] != '\0' && i < (size - 1))
 	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
+		dest[i] = src[j];
 		i++;
+		j++;
 	}
+	dest[i] = '\0';
+	return (src_i + dest_i);
 }
- */

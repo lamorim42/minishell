@@ -6,6 +6,7 @@ CFLAGS	= -Wall -Werror -Wextra -g
 
 # Source
 SRC		=	main.c \
+
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
@@ -29,19 +30,24 @@ $(OBJ_DIR)/%.o: %.c
 
 all:		obj_dir $(NAME)
 
-$(NAME):	$(OBJ)
-			$(CC) $(CFLAGS) -lreadline -I $(INCLUDE) $(OBJ) -o $(NAME)
+$(NAME):	$(OBJ) $(LIBFT)
+			$(CC) $(CFLAGS) -lreadline -I $(INCLUDE) $(OBJ) $(LIBFT) -o $(NAME)
 
 obj_dir:
 		mkdir -p $(OBJ_DIR)
 
+$(LIBFT):
+			make -C $(LIBFT_PATH)
+
 clean:
 		$(RM) $(OBJ)
+		make clean -C $(LIBFT_PATH)
 
 
 fclean:	clean
 		$(RM) $(NAME)
 		$(RM) obj/
+		make fclean -C $(LIBFT_PATH)
 
 re:		fclean all
 

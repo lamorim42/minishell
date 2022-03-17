@@ -1,51 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/24 10:38:54 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/27 15:02:25 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+void	*ft_memchr(const void *str, int c, size_t n)
 {
-	char *line;
-
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
+	size_t			i;
+	unsigned char	*str1;
 
 	i = 0;
-	while ((size_t)i < strlen(line))
+	str1 = (unsigned char *)str;
+	while (i < n)
 	{
-		if (strchr(SEP, line[i]))
+		if (str1[i] == (unsigned char) c)
 		{
-			printf("oiii\n");
+			return (&str1[i]);
 		}
 		i++;
 	}
+	return (NULL);
 }
- */

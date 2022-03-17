@@ -1,51 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/28 15:05:50 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/28 23:01:58 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char *line;
+	unsigned int	number;
 
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
-
-	i = 0;
-	while ((size_t)i < strlen(line))
+	if (n < 0)
 	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
-		i++;
+		number = n * -1;
+		ft_putchar_fd('-', fd);
+	}
+	else
+	{
+		number = n;
+	}
+	if (number / 10 < 1)
+	{
+		ft_putchar_fd((number + '0'), fd);
+	}
+	else
+	{
+		ft_putnbr_fd(number / 10, fd);
+		ft_putnbr_fd(number % 10, fd);
 	}
 }
- */

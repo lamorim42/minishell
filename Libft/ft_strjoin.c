@@ -1,51 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/28 11:41:46 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/28 23:35:45 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char *line;
+	char	*str;
+	size_t	s1_len;
+	size_t	s2_len;
 
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!(str))
+		return (0);
+	ft_strlcpy(str, s1, s1_len + 1);
+	ft_strlcat(str + (s1_len), s2, s2_len + 1);
+	return (str);
 }
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
-
-	i = 0;
-	while ((size_t)i < strlen(line))
-	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
-		i++;
-	}
-}
- */

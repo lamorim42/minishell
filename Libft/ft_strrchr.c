@@ -1,51 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/26 14:21:36 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/27 16:19:07 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+char	*ft_strrchr(const char *str, int c)
 {
-	char *line;
+	int		i;
+	size_t	len;
 
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
-
-	i = 0;
-	while ((size_t)i < strlen(line))
+	len = ft_strlen(str);
+	i = len;
+	while (i >= 0)
 	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
-		i++;
+		if (str[i] == (char)c)
+			return ((char *)str + i);
+		i--;
 	}
+	str = NULL;
+	return ((char *)str);
 }
- */

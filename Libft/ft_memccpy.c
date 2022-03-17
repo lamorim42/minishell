@@ -1,51 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/24 10:41:23 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/29 01:14:39 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	char *line;
-
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
+	size_t			i;
+	unsigned char	*dst1;
+	unsigned char	*src2;
 
 	i = 0;
-	while ((size_t)i < strlen(line))
+	dst1 = (unsigned char *)dest;
+	src2 = (unsigned char *)src;
+	while (i < n)
 	{
-		if (strchr(SEP, line[i]))
+		dst1[i] = src2[i];
+		if (src2[i] == (unsigned char) c)
 		{
-			printf("oiii\n");
+			return ((void *)dest + i + 1);
 		}
 		i++;
 	}
+	return (0);
 }
- */

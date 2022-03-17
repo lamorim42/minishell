@@ -1,51 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/28 14:49:41 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/28 22:48:41 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+void	ft_putendl_fd(char *s, int fd)
 {
-	char *line;
-
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
+	if (!s || fd < 0)
+		return ;
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
-
-	i = 0;
-	while ((size_t)i < strlen(line))
-	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
-		i++;
-	}
-}
- */

@@ -1,51 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/06/04 16:47:17 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/06/08 23:38:14 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
-{
-	char *line;
-
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
+int	ft_lstsize(t_list *lst)
 {
 	int	i;
 
 	i = 0;
-	while ((size_t)i < strlen(line))
+	while (lst)
 	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
+		lst = lst->next;
 		i++;
 	}
+	return (i);
 }
- */

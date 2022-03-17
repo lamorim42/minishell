@@ -1,51 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/27 11:39:59 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/06/10 12:23:33 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+char	*ft_strdup(const char *str1)
 {
-	char *line;
+	int		i;
+	int		len;
+	char	*new_str;
 
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
-
+	len = 0;
+	while (str1[len])
+		len++;
+	new_str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!(new_str))
+		return (NULL);
 	i = 0;
-	while ((size_t)i < strlen(line))
+	while (str1[i])
 	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
+		new_str[i] = str1[i];
 		i++;
 	}
+	new_str[i] = '\0';
+	return (new_str);
 }
- */

@@ -1,51 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/28 13:48:11 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/28 23:18:37 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char *line;
-
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
+	size_t	len;
+	size_t	i;
+	char	*str;
 
 	i = 0;
-	while ((size_t)i < strlen(line))
+	if (!s || !f)
+		return (NULL);
+	len = ft_strlen(s);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
+		return (NULL);
+	while (i < len)
 	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
+		str[i] = f(i, s[i]);
 		i++;
 	}
+	str[i] = '\0';
+	return (str);
 }
- */

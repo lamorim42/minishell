@@ -1,51 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/26 21:29:01 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/28 15:55:55 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+void	*ft_calloc(size_t nitems, size_t size)
 {
-	char *line;
-
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
+	char	*ptr;
+	size_t	i;
 
 	i = 0;
-	while ((size_t)i < strlen(line))
+	ptr = malloc(nitems * size);
+	if (ptr == 0)
+		return (NULL);
+	else
 	{
-		if (strchr(SEP, line[i]))
+		while (i < (nitems * size))
 		{
-			printf("oiii\n");
+			ptr[i] = '\0';
+			i++;
 		}
-		i++;
+		return (ptr);
 	}
 }
- */

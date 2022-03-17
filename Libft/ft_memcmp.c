@@ -1,51 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/25 13:22:02 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/05/27 15:04:04 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+int	ft_memcmp(const void *str1, const void *str2, size_t n)
 {
-	char *line;
-
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
+	size_t				i;
+	unsigned const char	*s1;
+	unsigned const char	*s2;
 
 	i = 0;
-	while ((size_t)i < strlen(line))
+	s1 = (unsigned const char *)str1;
+	s2 = (unsigned const char *)str2;
+	while (i < n)
 	{
-		if (strchr(SEP, line[i]))
+		if (s1[i] != s2[i])
 		{
-			printf("oiii\n");
+			return (s1[i] - s2[i]);
 		}
 		i++;
 	}
+	return (0);
 }
- */

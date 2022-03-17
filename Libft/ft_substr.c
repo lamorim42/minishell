@@ -1,51 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Created: 2021/05/27 18:16:43 by dmonteir          #+#    #+#             */
+/*   Updated: 2021/06/10 14:11:43 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-void	parse(char *line);
+#include "libft.h"
 
-int	main(void)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char *line;
+	char			*sub;
+	unsigned int	i;
 
-	printf("miau>");
-	line = readline(STDIN);
-
-	linked(line);
-
-	parse(line);
-	free(line);
-
-	return (0);
+	if (!s)
+		return (NULL);
+	i = ft_strlen(s);
+	if (i < start)
+		return (ft_strdup(""));
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (!(sub))
+		return (NULL);
+	ft_strlcpy (sub, s + start, len + 1);
+	return (sub);
 }
-
-void	linked(char *line)
-{
-	t_stack *
-}
-
-void	parse(char *line)
-{
-	int	i;
-
-	i = 0;
-	while ((size_t)i < strlen(line))
-	{
-		if (strchr(SEP, line[i]))
-		{
-			printf("oiii\n");
-		}
-		i++;
-	}
-}
- */
