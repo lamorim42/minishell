@@ -1,0 +1,1 @@
+-> Fazer uma função split que pega casos com '' e ""
