@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 09:57:16 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:25:30 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 void	parse(char *line);
+char	**split_line(char *line);
 
 int	main(void)
 {
@@ -20,8 +21,7 @@ int	main(void)
 
 	printf("miau>");
 	line = readline(STDIN);
-
-	linked(line);
+	split_line(line);
 
 	parse(line);
 	free(line);
@@ -29,9 +29,15 @@ int	main(void)
 	return (0);
 }
 
-void	linked(char *line)
+char	**split_line(char *line)
 {
-	t_stack *
+	char	**splited;
+
+	splited = ft_split(line, ' ');
+	printf("splited: %s\n", splited[0]);
+	printf("splited: %s\n", splited[1]);
+	printf("splited: %s\n", splited[2]);
+	return (splited);
 }
 
 void	parse(char *line)
@@ -48,4 +54,3 @@ void	parse(char *line)
 		i++;
 	}
 }
- */
