@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 13:48:47by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/17 16:44:32 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ char	*worddup(const char *s, size_t len);
 int		has_double_quotation(char *str, char quot);
 char	*handle_quotes(char **ptr_len, char quot);
 void	return_error(void);
+char	*handle_space(char **ptr_len);
 
 int	main(void)
 {
 	char *line;
 
-	line = readline(STDIN_FILENO);
+	line = readline("miau> ");
 
 
 	parse(line);
@@ -45,8 +46,35 @@ char	*split_line(char *line)
 		{
 			quot = *ptr_len;
 			content = handle_quotes(&ptr_len, quot);
+			printf("quots content: %s\n", content);
+		}
+		if (*ptr_len == 32 && (*(ptr_len + 1) != 39 && *(ptr_len + 1) != 34))
+		{
+			ptr_len++;
+			content = handle_space(&ptr_len);
+			printf("space content: %s\n", content);
 		}
 		ptr_len++;
+	}
+	return (content);
+}
+
+char	*handle_space(char **ptr_len)
+{
+	int		i;
+	char	*content;
+
+	i = 0;
+	content = NULL;
+	while ((*ptr_len)[i])
+	{
+		if ((*ptr_len)[i] == 32 || (*ptr_len)[i + 1] == '\0')
+		{
+			content = worddup(*ptr_len, i);
+			*ptr_len += (i - 1);
+			break ;
+		}
+		i++;
 	}
 	return (content);
 }
@@ -123,7 +151,7 @@ void	parse(char *line)
 
 	i = 0;
 	word = split_line(line);
-	printf("%s\n", word);
+	printf("word: %s\n", word);
 	while (i < strlen(line))
 	{
 		if (strchr(SEP, line[i]))
