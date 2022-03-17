@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/17 13:17:43 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/17 13:48:47by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void	parse(char *line);
 void	split_line(char *line);
 char	*worddup(const char *s, size_t len);
+int		has_double_quotation(char *str, char quot);
 
 int	main(void)
 {
 	char *line;
 
-	line = readline("miau>");
+	line = readline("miau> ");
 	split_line(line);
 
 	//parse(line);
@@ -31,40 +32,59 @@ int	main(void)
 
 void	split_line(char *line)
 {
-	//char	**splited;
 	char	*ptr_len;
 	size_t	i;
 	char	*content;
+	char	quot;
 
-	i = 0;
 	ptr_len = line;
 	while (*ptr_len)
 	{
 		if (*ptr_len == 39 || *ptr_len == 34)
 		{
-			//copiar tudo que tem dentro das aspas simples
-			ptr_len++;
-			while (ptr_len[i])
+			quot = *ptr_len;
+			i = 0;
+			if (has_double_quotation(ptr_len, *(ptr_len)) == 1)
 			{
-				//printf("%c\n", ptr_len[i]);
-				if (ptr_len[i] == 39 || ptr_len[i] == 34)
+				ptr_len++;
+				while (ptr_len[i])
 				{
-					content = worddup(ptr_len, i);
-					printf("%s\n", content);
-					break ;
+					if (ptr_len[i] == quot)
+					{
+						content = worddup(ptr_len, i);
+						printf("%s\n", content);
+						ptr_len += i;
+						break ;
+					}
+					i++;
 				}
-				i++;
 			}
-			//printf("content: %s\n", content);
+			else
+				printf("Error de quotation!\n");
 		}
-		/* else if (line[i] == ' ')
-		{
-
-		} */
 		ptr_len++;
-		//printf("%s\n",ptr_len);
 	}
-	//return (void);
+}
+
+// "main function"
+
+int	has_double_quotation(char *str, char quot)
+{
+	int	ret;
+	int	count;
+
+	ret = 0;
+	count = 0;
+	printf("str = %s\n", str);
+	while (*str)
+	{
+		if (*str == quot)
+			count++;
+		str++;
+	}
+	if (count % 2 == 0)
+		ret = 1;
+	return (ret);
 }
 
 char	*worddup(const char *s, size_t len)
