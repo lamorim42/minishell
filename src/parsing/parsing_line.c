@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/18 10:18:20 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/03/18 09:24:14 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/03/18 09:29:04 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+# include "minishell.h"
 
-
-
-int	main(void)
+void	parse(char *line)
 {
-	//t_stack	*stack;
-	char *line;
+	size_t	i;
+	char	*word;
 
-	line = readline("miau> ");
-
-	//create_stack(&stack);
-	parse(line);
-	free(line);
-
-	return (0);
-}
-
-
-
-void	return_error(void)
-{
-	perror("Error!");
-	exit(1);
+	i = 0;
+	word = split_line(line);
+	//printf("word: %s\n", word);
+	while (i < strlen(line))
+	{
+		if (strchr(SEP, line[i]))
+		{
+			printf("oiii\n");
+		}
+		i++;
+	}
 }

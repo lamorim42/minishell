@@ -4,8 +4,12 @@ CC		= clang
 CFLAGS	= -Wall -Werror -Wextra -g
 
 
-# Source
+#Source
 SRC		=	main.c \
+			list.c \
+			split.c \
+			parsing_line.c \
+			parsing_quotes.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -16,9 +20,9 @@ OBJ_DIR	= ./obj
 
 RM		= rm -rf
 
-INCLUDE	= includes/
+INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/ ./lists/
+VPATH	= ./src/ ./lists/ ./src/parsing/
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"
@@ -26,12 +30,12 @@ ADD		= .
 
 #Rules
 $(OBJ_DIR)/%.o: %.c
-			$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
+			$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 all:		obj_dir $(NAME)
 
 $(NAME):	$(OBJ) $(LIBFT)
-			$(CC) $(CFLAGS) -lreadline -I $(INCLUDE) $(OBJ) $(LIBFT) -o $(NAME)
+			$(CC) $(CFLAGS) -lreadline $(INCLUDE) $(OBJ) $(LIBFT) -o $(NAME)
 
 obj_dir:
 		mkdir -p $(OBJ_DIR)
