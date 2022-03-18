@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/18 10:16:30 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:33:59 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ t_node	*new_node(char *str);
 void	add_back_stack(char *content, t_node **head);
 void	print_list(t_stack **stack);
 char	*handle_first_arg(char **ptr_len);
+void	clean_list(t_node **head);
 
 #endif
