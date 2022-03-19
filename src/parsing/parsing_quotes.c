@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:26:45 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/18 09:27:28 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/19 19:50:35 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	has_double_quotation(char *str, char quot)
 
 	ret = 0;
 	count = 0;
-	//printf("str = %s\n", str);
 	while (*str)
 	{
 		if (*str == quot)
