@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/18 10:18:20 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:27:04 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@
 
 int	main(void)
 {
-	//t_stack	*stack;
+	t_stack	*stack;
 	char *line;
 
 	line = readline("miau> ");
 
+	stack = malloc(sizeof(t_stack));
 	//create_stack(&stack);
-	parse(line);
+	parse(line, &stack);
 	free(line);
 
 	return (0);
 }
-
-
 
 void	return_error(void)
 {
