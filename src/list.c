@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 09:46:03 by lamorim           #+#    #+#             */
-/*   Updated: 2022/03/18 19:33:38 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/19 19:58:04 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	add_back_stack(char *content, t_node **head)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = node;
-	printf("add new node\n");
+	//printf("add new node\n");
 }
 
 /* void create_stack(t_stack **stack)
@@ -48,16 +48,17 @@ void	add_back_stack(char *content, t_node **head)
 	temp = (*stack)->
 } */
 
-void	print_list(t_stack **stack)
+void	print_list(t_node **stack)
 {
 	t_node *temp;
-	temp = (*stack)->array;
+	temp = (*stack);
 
 	while(temp)
 	{
 		printf("%s\n", temp->str);
 		temp = temp->next;
 	}
+	printf("----------------------\n");
 }
 
 void	clean_list(t_node **head)
