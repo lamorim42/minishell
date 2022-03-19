@@ -6,26 +6,83 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:24:14 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/18 09:29:04 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/19 20:09:53 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-void	parse(char *line)
+void	parse(char *line, t_stack **stacks)
 {
-	size_t	i;
-	char	*word;
 
+	int	counter_red;
+	size_t	i;
+	t_node	*linked_list;
 	i = 0;
-	word = split_line(line);
-	//printf("word: %s\n", word);
+	counter_red = 0;
+	linked_list = split_line(line);
 	while (i < strlen(line))
 	{
 		if (strchr(SEP, line[i]))
 		{
-			printf("oiii\n");
+			counter_red++;
+			if (line[i + 1] == '>' || line[i + 1] == '<')
+				i++;
 		}
 		i++;
 	}
+	cut_linked(stacks, linked_list, counter_red);
+}
+
+void	cut_linked(t_stack **stacks, t_node *linked_list, int counter_red)
+{
+	int	i;
+	int	counter;
+
+	counter = 0;
+	i = 0;
+	if (counter_red == 0)
+	{
+		(*stacks)->array_list = malloc(sizeof(t_node *));
+		(*stacks)->array_list[0] = linked_list;
+	}
+	else
+	{
+		(*stacks)->array_list = malloc(sizeof(t_node *) * (counter_red + 1));
+		while (linked_list != NULL)
+		{
+			printf("Antes do i++: %s\n", linked_list->str);
+			(*stacks)->array_list[i] = copy_list(&linked_list);
+			i++;
+		}
+	}
+	while (counter < i)
+	{
+		print_list(&((*stacks)->array_list[counter]));
+		counter++;
+	}
+}
+
+t_node	*copy_list(t_node **linked_list)
+{
+	t_node *copy_array;
+
+	copy_array = NULL;
+	while ((*linked_list) != NULL \
+	&& !ft_strchr((*linked_list)->str, '|') \
+	&& !ft_strchr((*linked_list)->str, '>') \
+	&& !ft_strchr((*linked_list)->str, '<'))
+	{
+		if (copy_array == NULL)
+			copy_array = new_node((*linked_list)->str);
+		else
+			add_back_stack((*linked_list)->str, &copy_array);
+		(*linked_list) = (*linked_list)->next;
+	}
+	if ((*linked_list) != NULL)
+	{
+		add_back_stack((*linked_list)->str, &copy_array);
+		(*linked_list) = (*linked_list)->next;
+	}
+	return (copy_array);
 }
