@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/18 19:33:59 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/19 19:11:15 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
+# include "../Libft/libft.h"
 
-# define SEP "|"
+# define SEP "|><"
+
 
 typedef struct s_node
 {
@@ -31,11 +33,11 @@ typedef struct s_node
 
 typedef struct s_stack
 {
-	t_node *array;
+	t_node	**array_list;
 }	t_stack;
 
-void	parse(char *line);
-char	*split_line(char *line);
+void	parse(char *line, t_stack **stacks);
+t_node	*split_line(char *line);
 char	*worddup(const char *s, size_t len);
 int		has_double_quotation(char *str, char quot);
 char	*handle_quotes(char **ptr_len, char quot);
@@ -45,8 +47,12 @@ char	*handle_space(char **ptr_len);
 //linked list
 t_node	*new_node(char *str);
 void	add_back_stack(char *content, t_node **head);
-void	print_list(t_stack **stack);
+void	print_list(t_node **stack);
 char	*handle_first_arg(char **ptr_len);
 void	clean_list(t_node **head);
+
+//parse linked_list
+void	cut_linked(t_stack **stacks, t_node *linked_list, int counter_red);
+t_node	*copy_list(t_node **linked_list);
 
 #endif
