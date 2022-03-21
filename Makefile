@@ -6,6 +6,8 @@ CFLAGS	= -Wall -Werror -Wextra -g
 
 #Source
 SRC		=	main.c \
+			count_words.c \
+			get_tokens.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -18,7 +20,7 @@ RM		= rm -rf
 
 INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/
+VPATH	= ./src/ ./src/tokenizer/
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"
