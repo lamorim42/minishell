@@ -6,10 +6,6 @@ CFLAGS	= -Wall -Werror -Wextra -g
 
 #Source
 SRC		=	main.c \
-			list.c \
-			split.c \
-			parsing_line.c \
-			parsing_quotes.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -22,7 +18,7 @@ RM		= rm -rf
 
 INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/ ./lists/ ./src/parsing/
+VPATH	= ./src/
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"
