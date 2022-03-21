@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/21 19:45:19 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/21 20:25:50 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**token(char *line)
 	size_t	words;
 	char	*ptr;
 	int		i;
-	int		counter = 0;
+	//int		counter = 0;
 
 	if (!line)
 		return (NULL);
@@ -44,11 +44,11 @@ char	**token(char *line)
 		}
 	}
 	tokens[i] = NULL;
-	while (counter < i)
-	{
-		printf("Tokens: %s\n", tokens[counter]);
-		counter++;
-	}
+//	while (counter < i)
+//	{
+//		printf("Tokens: %s\n", tokens[counter]);
+//		counter++;
+//	}
 	return (tokens);
 }
 
