@@ -35,7 +35,7 @@ $(OBJ_DIR)/%.o: %.c
 all:		obj_dir $(NAME)
 
 $(NAME):	$(OBJ) $(LIBFT)
-			$(CC) $(CFLAGS) -lreadline $(INCLUDE) $(OBJ) $(LIBFT) -o $(NAME)
+			$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
 
 obj_dir:
 		mkdir -p $(OBJ_DIR)

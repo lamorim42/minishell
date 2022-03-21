@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 09:24:14 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/19 20:09:53 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/21 14:51:32 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ t_node	*copy_list(t_node **linked_list)
 	t_node *copy_array;
 
 	copy_array = NULL;
-	while ((*linked_list) != NULL \
-	&& !ft_strchr((*linked_list)->str, '|') \
-	&& !ft_strchr((*linked_list)->str, '>') \
+	while ((*linked_list) != NULL
+	&& !ft_strchr((*linked_list)->str, '|')
+	&& !ft_strchr((*linked_list)->str, '>')
 	&& !ft_strchr((*linked_list)->str, '<'))
 	{
 		if (copy_array == NULL)
