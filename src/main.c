@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/21 16:41:05 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/21 19:34:10 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	main(void)
 {
@@ -19,17 +18,19 @@ int	main(void)
 
 	line = readline("miau> ");
 
+	token(line);
 	free(line);
 
 	return (0);
 }
 
-char	**token(const char *line)
+char	**token(char *line)
 {
 	char	**tokens;
 	size_t	words;
 	char	*ptr;
 	int		i;
+	int		counter = 0;
 
 	if (!line)
 		return (NULL);
@@ -37,21 +38,33 @@ char	**token(const char *line)
 	tokens = malloc(sizeof(char *) * (words + 1));
 	i = 0;
 	ptr = line;
-	while (ptr)
+	while (*ptr)
 	{
-		if (*ptr != SPACE)
+		//printf("while do ptr\n");
+		if (*ptr != SPC && *ptr != QUOT && *ptr != DQUOT)
 		{
+			//printf("i do space = %d\n", i);
 			tokens[i] = worddup(&ptr);
 			i++;
 		}
-		else if (*ptr == SPACE)
+		else if (*ptr == SPC)
 			ptr++;
 		else if (*ptr == QUOT || *ptr == DQUOT)
+		{
+			tokens[i] = quotdup(&ptr);
+			i++;
+		}
 	}
-
+	tokens[i] = NULL;
+	while (counter < i)
+	{
+		printf("Tokens: %s\n", tokens[counter]);
+		counter++;
+	}
+	return (tokens);
 }
 
-size_t	count_words(const char *s)
+size_t	count_words(char *s)
 {
 	int		is_word;
 	size_t	words;
@@ -60,19 +73,19 @@ size_t	count_words(const char *s)
 	is_word = 0;
 	while (*s)
 	{
-		if (!is_word && *s != SPACE)
+		if (!is_word && *s != SPC)
 		{
 			is_word = 1;
 			words++;
 		}
-		else if (is_word && *s == SPACE)
+		else if (is_word && *s == SPC)
 			is_word = 0;
 		s++;
 	}
 	return (words);
 }
 
-char	*worddup(const char **s)
+char	*worddup(char **s)
 {
 	char	*str;
 	size_t	offset;
@@ -82,16 +95,19 @@ char	*worddup(const char **s)
 		return (NULL);
 	str = *s;
 	len = 0;
-	while (*str != SPACE && *str != NULL)
+	while (*str != SPC && *str != '\0')
 	{
+		//printf("while1 do worddup\n");
 		len++;
 		str++;
 	}
+	//printf("%zu\n", len);
 	str = malloc(len + 1);
 	offset = 0;
 	while (offset < len)
 	{
-		str[offset] = s[offset];
+		//printf("while do worddup\n");
+		str[offset] = (*s)[offset];
 		offset++;
 	}
 	str[offset] = '\0';
@@ -99,7 +115,9 @@ char	*worddup(const char **s)
 	return (str);
 }
 
-char	*quotdup(const char **s)
+// miau "gatinho" "oi"
+
+char	*quotdup(char **s)
 {
 	char	*str;
 	size_t	offset;
@@ -107,12 +125,14 @@ char	*quotdup(const char **s)
 
 	if (*s == NULL)
 		return (NULL);
-	str = *(s + 1);
+	str = *s + 1;
+	//printf("%s\n", str);
 	len = 0;
-	if (!has_double_quotation(str, *s))
-		return (NULL);
-	while (*str != SPACE && *str != NULL)
+	if (has_double_quotation(str, **s))
+		return_error();
+	while (*str != **s)
 	{
+		//printf("while do quotdup\n");
 		len++;
 		str++;
 	}
@@ -120,11 +140,12 @@ char	*quotdup(const char **s)
 	offset = 0;
 	while (offset < len)
 	{
-		str[offset] = s[offset];
+		//printf("while2 do quotdup\n");
+		str[offset] = (*s + 1)[offset];
 		offset++;
 	}
 	str[offset] = '\0';
-	*s += len;
+	*s += len + 2;
 	return (str);
 }
 
@@ -144,4 +165,9 @@ int	has_double_quotation(char *str, char quot)
 	if (count % 2 == 0)
 		ret = 1;
 	return (ret);
+}
+
+void	return_error(void)
+{
+	printf("error!\n");
 }
