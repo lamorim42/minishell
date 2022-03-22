@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/21 17:33:24 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/22 16:17:27 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ size_t	count_words(char *s);
 char	*worddup(char **s);
 char	*quotdup(char **s);
 int	has_double_quotation(char *str, char quot);
+
+//Lex
+char	**tokens_classification(char **tokens);
 
 //error
 void	return_error(void);
