@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/22 17:12:48 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/22 19:57:26 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
+
+char	*char_cat(char *str, char c);
 
 char	**token(char *line)
 {
@@ -22,12 +24,13 @@ char	**token(char *line)
 	if (!line)
 		return (NULL);
 	words = count_words(line);
+	printf("words: %zu\n", words);
 	tokens = malloc(sizeof(char *) * (words + 1));
 	i = 0;
 	ptr = line;
 	while (*ptr)
 	{
-		if (*ptr != SPC && *ptr != QUOT && *ptr != DQUOT)
+		if (*ptr != SPC && *ptr != QUOT && *ptr != DQUOT && *ptr != '|')
 		{
 			tokens[i] = worddup(&ptr);
 			i++;
@@ -39,40 +42,90 @@ char	**token(char *line)
 			tokens[i] = quotdup(&ptr);
 			i++;
 		}
+		else if (*ptr == '|')
+		{
+			tokens[i] = ft_strdup("|");
+			i++;
+			ptr++;
+		}
+	}
+	tokens[i] = NULL;
+	while (*tokens)
+	{
+		printf("%s\n", *tokens);
+		tokens++;
 	}
 	printf("%s\n", *tokens);
-	tokens[i] = NULL;
 	return (tokens);
 }
-
-
 
 char	*worddup(char **s)
 {
 	char	*str;
-	size_t	offset;
+	//size_t	offset;
 	size_t	len;
+	char	*temp;
+	char	*join;
 
 	if (*s == NULL)
 		return (NULL);
-	str = *s;
+	temp = *s;
 	len = 0;
-	while (*str != SPC && *str != '\0')
+	str = NULL;
+	join = ft_strdup("");
+
+	while (!ft_strchr("| ", *temp) && *temp)
 	{
+		if (*temp == QUOT || *temp == DQUOT)
+			temp++;
+		else
+		{
+			str = join;
+			join = char_cat(join, *temp);
+			free(str);
+			temp++;
+		}
+		len++;
+	}
+
+	/* while (!ft_strchr("| ", *str) && *str != '\0')
+	{
+		printf("dentro do lex: %zu\n", len);
 		len++;
 		str++;
-	}
-	str = malloc(len + 1);
+	} */
+/* 	str = malloc(len + 1);
 	offset = 0;
 	while (offset < len)
 	{
 		str[offset] = (*s)[offset];
 		offset++;
 	}
-	str[offset] = '\0';
+	str[offset] = '\0'; */
 	*s += len;
-	return (str);
+	return (join);
 }
+
+char	*char_cat(char *str, char c)
+{
+	char	*str_cat;
+	size_t	len;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(str);
+	str_cat = malloc(sizeof(char) * (len + 2));
+	while(str[i])
+	{
+		str_cat[i] = str[i];
+		i++;
+	}
+	str_cat[i] = c;
+	str_cat[i + 1] = '\0';
+
+	return (str_cat);
+}
+
 
 char	*quotdup(char **s)
 {
