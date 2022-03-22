@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/22 08:38:18 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:58:13 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int	main(void)
 	char	**table;
 	char	**table_redirect;
 	int		count_sep;
-	//int		i;
 
 	count_sep = 0;
-	//i = 0;
 	line = readline("miau> ");
 	temp = line;
 
@@ -74,12 +72,6 @@ char	**table_cmds(char **tokens, int size)
 		}
 	}
 	table[i] = NULL;
-	/* temp = table;
-	while (*temp)
-	{
-		printf("temp: %s\n", *temp);
-		temp++;
-	} */
 	return (table);
 }
 
@@ -97,7 +89,6 @@ char	**table_red(char **tokens, int size)
 	{
 		if (ft_strchr(*temp, '|') || ft_strchr(*temp, '>'))
 		{
-			printf("%d\n", i);
 			array_red[i] = ft_strdup(*temp);
 			i++;
 			temp++;
@@ -107,10 +98,7 @@ char	**table_red(char **tokens, int size)
 	array_red[i] = NULL;
 	temp = array_red;
 	while (*temp)
-	{
-		printf("array_red: %s\n", *temp);
 		temp++;
-	}
 	return (array_red);
 }
 

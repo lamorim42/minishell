@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/21 20:25:50 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/22 15:57:15 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	**token(char *line)
 	size_t	words;
 	char	*ptr;
 	int		i;
-	//int		counter = 0;
 
 	if (!line)
 		return (NULL);
@@ -28,10 +27,8 @@ char	**token(char *line)
 	ptr = line;
 	while (*ptr)
 	{
-		//printf("while do ptr\n");
 		if (*ptr != SPC && *ptr != QUOT && *ptr != DQUOT)
 		{
-			//printf("i do space = %d\n", i);
 			tokens[i] = worddup(&ptr);
 			i++;
 		}
@@ -44,11 +41,6 @@ char	**token(char *line)
 		}
 	}
 	tokens[i] = NULL;
-//	while (counter < i)
-//	{
-//		printf("Tokens: %s\n", tokens[counter]);
-//		counter++;
-//	}
 	return (tokens);
 }
 
@@ -66,16 +58,13 @@ char	*worddup(char **s)
 	len = 0;
 	while (*str != SPC && *str != '\0')
 	{
-		//printf("while1 do worddup\n");
 		len++;
 		str++;
 	}
-	//printf("%zu\n", len);
 	str = malloc(len + 1);
 	offset = 0;
 	while (offset < len)
 	{
-		//printf("while do worddup\n");
 		str[offset] = (*s)[offset];
 		offset++;
 	}
@@ -83,8 +72,6 @@ char	*worddup(char **s)
 	*s += len;
 	return (str);
 }
-
-// miau "gatinho" "oi"
 
 char	*quotdup(char **s)
 {
@@ -95,13 +82,11 @@ char	*quotdup(char **s)
 	if (*s == NULL)
 		return (NULL);
 	str = *s + 1;
-	//printf("%s\n", str);
 	len = 0;
 	if (has_double_quotation(str, **s))
 		return_error();
 	while (*str != **s)
 	{
-		//printf("while do quotdup\n");
 		len++;
 		str++;
 	}
@@ -109,7 +94,6 @@ char	*quotdup(char **s)
 	offset = 0;
 	while (offset < len)
 	{
-		//printf("while2 do quotdup\n");
 		str[offset] = (*s + 1)[offset];
 		offset++;
 	}
