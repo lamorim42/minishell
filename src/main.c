@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/22 15:58:13 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/22 16:19:35 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(void)
 	char	*line;
 	char	*temp;
 	char	**tokens;
+	char	**lex_token;
 	char	**table;
 	char	**table_redirect;
 	int		count_sep;
@@ -36,6 +37,7 @@ int	main(void)
 	}
 
 	tokens = token(line);
+	lex_token = tokens_classification(tokens);
 	table = table_cmds(tokens, count_sep);
 	table_redirect = table_red(tokens, count_sep);
 
