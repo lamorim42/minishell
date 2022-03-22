@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_words.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:43:15 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/21 19:43:53 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:40:49 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ size_t	count_words(char *s)
 	is_word = 0;
 	while (*s)
 	{
-		if (!is_word && *s != SPC)
+		if (!is_word && !ft_strchr("| ", *s))
 		{
 			is_word = 1;
 			words++;
 		}
-		else if (is_word && *s == SPC)
+		else if (is_word && ft_strchr("| ", *s))
 			is_word = 0;
 		s++;
 	}
+	printf("words: %zu\n", words);
 	return (words);
 }
