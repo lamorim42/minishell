@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/22 16:19:35 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/22 19:06:38 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**table_cmds(char **tokens, int size);
-char	**table_red(char **tokens, int size);
 
 int	main(void)
 {
@@ -21,8 +18,8 @@ int	main(void)
 	char	*temp;
 	char	**tokens;
 	char	**lex_token;
-	char	**table;
-	char	**table_redirect;
+	/* char	**table;
+	char	**table_redirect; */
 	int		count_sep;
 
 	count_sep = 0;
@@ -38,15 +35,13 @@ int	main(void)
 
 	tokens = token(line);
 	lex_token = tokens_classification(tokens);
-	table = table_cmds(tokens, count_sep);
-	table_redirect = table_red(tokens, count_sep);
 
 	free(line);
 
 	return (0);
 }
 
-char	**table_cmds(char **tokens, int size)
+/* char	**table_cmds(char **tokens, int size)
 {
 	char	**temp;
 	char	**table;
@@ -102,7 +97,7 @@ char	**table_red(char **tokens, int size)
 	while (*temp)
 		temp++;
 	return (array_red);
-}
+} */
 
 void	return_error(void)
 {
