@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex.c                                              :+:      :+:    :+:   */
+/*   gramatic.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 16:03:24 by lamorim           #+#    #+#             */
-/*   Updated: 2022/03/23 16:27:43 by lamorim          ###   ########.fr       */
+/*   Created: 2022/03/23 08:34:54 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/03/23 15:19:47 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+# include "minishell.h"
 
-char	**tokens_classification(char **tokens)
+void	rules_grammar(char	**lex_tokens)
 {
-	char	**lex_tokens;
+	int	i;
 	char	**temp;
-	int		len;
-	len = ft_array_len(tokens);
-	lex_tokens = malloc(sizeof(char *) * (len + 1));
 	temp = lex_tokens;
-	while (*tokens)
+
+	i = 0;
+	if (ft_strncmp(temp[0], "WORD", 4))
+		syntax_error();
+
+	while (temp[i])
+		i++;
+	if (!ft_strncmp(temp[i - 1], "PIPE", 4))
 	{
-		if (!ft_strncmp(*tokens, "|", 1))
-			*temp = ft_strdup("PIPE");
-		else
-			*temp = ft_strdup("WORD");
-		tokens++;
-		temp++;
+		printf("LEmbrar de lidar com o | no final aqui\n");
 	}
-	*temp = NULL;
-	temp = lex_tokens;
-	while (*temp)
-	{
-		temp++;
-	}
-	return (lex_tokens);
+}
+
+void	syntax_error(void)
+{
+	printf("syntax error near unexpected token\n");
+	exit(1);
 }
