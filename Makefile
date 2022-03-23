@@ -11,6 +11,7 @@ SRC		=	main.c \
 			lex.c \
 			grammar.c \
 			array.c \
+			procecc_exec.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -23,7 +24,7 @@ RM		= rm -rf
 
 INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/ ./src/tokenizer/ ./src/parsing/
+VPATH	= ./src/ ./src/tokenizer/ ./src/parsing/ ./src/executor/
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"
