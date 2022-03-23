@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/22 16:17:27 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/23 10:24:17 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ int	has_double_quotation(char *str, char quot);
 //Lex
 char	**tokens_classification(char **tokens);
 
+//grammar
+void	rules_grammar(char	**lex_tokens);
+
 //error
 void	return_error(void);
+void	syntax_error(void);
 #endif
