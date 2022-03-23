@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:03:24 by lamorim           #+#    #+#             */
-/*   Updated: 2022/03/22 17:15:02 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/23 08:23:51 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ char	**tokens_classification(char **tokens)
 {
 	char	**lex_tokens;
 	char	**temp;
-
-	lex_tokens = malloc(sizeof(char *) * (ft_array_len(tokens) + 1));
+	int		len;
+	len = ft_array_len(tokens);
+	lex_tokens = malloc(sizeof(char *) * (len + 1));
 	temp = lex_tokens;
 	while (*tokens)
 	{
@@ -34,7 +35,6 @@ char	**tokens_classification(char **tokens)
 	temp = lex_tokens;
 	while (*temp)
 	{
-		printf("lex: %s\n", *temp);
 		temp++;
 	}
 	return (lex_tokens);
@@ -43,12 +43,14 @@ char	**tokens_classification(char **tokens)
 int	ft_array_len(char **array)
 {
 	int	len;
+	char	**temp;
 
+	temp = array;
 	len = 0;
-	while (*array)
+	while (*temp)
 	{
 		len++;
-		array++;
+		temp++;
 	}
 	return (len);
 }
