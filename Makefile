@@ -9,6 +9,7 @@ SRC		=	main.c \
 			count_words.c \
 			get_tokens.c \
 			lex.c \
+			gramatic.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -21,7 +22,7 @@ RM		= rm -rf
 
 INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/ ./src/tokenizer/
+VPATH	= ./src/ ./src/tokenizer/ ./src/parsing/
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"
