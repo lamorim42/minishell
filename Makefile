@@ -10,6 +10,7 @@ SRC		=	main.c \
 			get_tokens.c \
 			lex.c \
 			gramatic.c \
+			array.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
