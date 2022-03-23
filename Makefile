@@ -9,7 +9,7 @@ SRC		=	main.c \
 			count_words.c \
 			get_tokens.c \
 			lex.c \
-			gramatic.c \
+			grammar.c \
 			array.c \
 
 LIBFT_PATH = ./Libft
