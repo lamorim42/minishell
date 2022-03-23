@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/22 19:06:38 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/23 10:23:21 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(void)
 
 	tokens = token(line);
 	lex_token = tokens_classification(tokens);
+	rules_grammar(lex_token);
 
 	free(line);
 
