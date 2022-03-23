@@ -3,43 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/23 10:23:21 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:28:14 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	init_line(t_line *line);
+
 int	main(void)
 {
-	char	*line;
-	char	*temp;
-	char	**tokens;
-	char	**lex_token;
-	/* char	**table;
-	char	**table_redirect; */
-	int		count_sep;
+	t_line	line;
+	int		i;
 
-	count_sep = 0;
-	line = readline("miau> ");
-	temp = line;
+	i = 0;
+	init_line(&line);
+	line.pipeline = readline("miau> ");
+	line.tks = token(line.pipeline);
+	line.lex = tokens_classification(line.tks);
+	rules_grammar(line.lex);
 
-	while (*temp)
+	while (line.tks[i])
 	{
-		if (*temp == '|')
-			count_sep++;
-		temp++;
+		printf("toke = %s <=> lex = %s\n", line.tks[i], line.lex[i]);
+		i++;
 	}
 
-	tokens = token(line);
-	lex_token = tokens_classification(tokens);
-	rules_grammar(lex_token);
-
-	free(line);
-
+	free(line.pipeline);
+	ft_free_array(&(line.tks));
+	ft_free_array(&(line.lex));
 	return (0);
+}
+
+void	init_line(t_line *line)
+{
+	line->pipeline = NULL;
+	line->tks = NULL;
+	line->lex = NULL;
 }
 
 /* char	**table_cmds(char **tokens, int size)
