@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/23 08:23:41 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/23 15:12:53 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-char	*char_cat(char *str, char c);
+char	*ft_catchr(char *str, char c);
 
 char	**token(char *line)
 {
@@ -80,7 +80,7 @@ char	*worddup(char **s)
 		else
 		{
 			str = join;
-			join = char_cat(join, *temp);
+			join = ft_catchr(join, *temp);
 			free(str);
 			temp++;
 		}
@@ -105,7 +105,7 @@ char	*worddup(char **s)
 	return (join);
 }
 
-char	*char_cat(char *str, char c)
+char	*ft_catchr(char *str, char c)
 {
 	char	*str_cat;
 	size_t	len;
