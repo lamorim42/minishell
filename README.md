@@ -1,3 +1,2 @@
--> Pensar na gramática
--> Pegar o token e colocar em suas regras de gramatica
--> percorrer array pra verificar a sequenciaS
+->array de cada comando
+->uma função que da done no comando que a gente ja copiou
