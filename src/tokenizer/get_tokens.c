@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/22 19:57:26 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/23 08:23:41 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	**token(char *line)
 	if (!line)
 		return (NULL);
 	words = count_words(line);
-	printf("words: %zu\n", words);
 	tokens = malloc(sizeof(char *) * (words + 1));
 	i = 0;
 	ptr = line;
@@ -50,12 +49,12 @@ char	**token(char *line)
 		}
 	}
 	tokens[i] = NULL;
-	while (*tokens)
+	/* while (*tokens)
 	{
 		printf("%s\n", *tokens);
 		tokens++;
 	}
-	printf("%s\n", *tokens);
+	printf("%s\n", *tokens); */
 	return (tokens);
 }
 
@@ -90,7 +89,7 @@ char	*worddup(char **s)
 
 	/* while (!ft_strchr("| ", *str) && *str != '\0')
 	{
-		printf("dentro do lex: %zu\n", len);
+		f("dentro do lex: %zu\n", len);
 		len++;
 		str++;
 	} */
