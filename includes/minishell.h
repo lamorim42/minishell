@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/23 16:28:56 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/23 17:41:06 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_line {
 	char	*pipeline;
 	char	**tks;
 	char	**lex;
+	char	**cpy;
+	int		nb_pipes;
 }			t_line;
 
 //tokenizer
@@ -42,12 +44,17 @@ int		has_double_quotation(char *str, char quot);
 //Lex
 char	**tokens_classification(char **tokens);
 
+// executor
+//void	create_cmd(t_line *line);
+
 //grammar
 void	rules_grammar(char	**lex_tokens);
 
 //array
 void	ft_free_array(char ***mtx);
 int		ft_array_len(char **array);
+char	**copy_array(char **tokens);
+void	count_pipe(t_line *line);
 
 //error
 void	return_error(void);
