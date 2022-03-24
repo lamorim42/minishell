@@ -3,34 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   count_words.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:43:15 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/23 16:18:34 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/24 17:13:29 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
+// ta errada!
 size_t	count_words(char *s)
 {
-	int		is_word;
 	size_t	words;
+	int		i;
 
+	i = 1;
 	words = 0;
-	is_word = 0;
-	while (*s)
+	while (s[i])
 	{
-		if (ft_strchr("|", *s))
+		if (s[i] == ' ' && s[i + 1] != ' ' && s[i + 1] != '\0')
 			words++;
-		if (!is_word && !ft_strchr("| ", *s))
-		{
-			is_word = 1;
-			words++;
-		}
-		else if (is_word && ft_strchr("| ", *s))
-			is_word = 0;
-		s++;
+		i++;
 	}
+	printf("%zu\n", words);
 	return (words);
 }
