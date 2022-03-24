@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/23 16:18:03 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/24 10:32:01 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	**token(char *line)
 	if (!line)
 		return (NULL);
 	words = count_words(line);
+	printf("words: %zu\n", words);
 	tokens = malloc(sizeof(char *) * (words + 1));
 	i = 0;
 	ptr = line;
@@ -38,7 +39,7 @@ char	**token(char *line)
 			ptr++;
 		else if (*ptr == QUOT || *ptr == DQUOT)
 		{
-			tokens[i] = quotdup(&ptr);
+			tokens[i] = quotdup(&ptr, *ptr);
 			i++;
 		}
 		else if (*ptr == '|')
@@ -49,12 +50,7 @@ char	**token(char *line)
 		}
 	}
 	tokens[i] = NULL;
-	/* while (*tokens)
-	{
-		printf("%s\n", *tokens);
-		tokens++;
-	}
-	printf("%s\n", *tokens); */
+	print_array("token", tokens);
 	return (tokens);
 }
 
@@ -126,7 +122,7 @@ char	*char_cat(char *str, char c)
 }
 
 
-char	*quotdup(char **s)
+char	*quotdup(char **s, char	quot)
 {
 	char	*str;
 	size_t	offset;
@@ -134,24 +130,22 @@ char	*quotdup(char **s)
 
 	if (*s == NULL)
 		return (NULL);
-	str = *s + 1;
+	str = *s;
 	len = 0;
-	if (has_double_quotation(str, **s))
-		return_error();
-	while (*str != **s)
-	{
+	//if (has_double_quotation(str, quot))
+	//	printf("Don't has duble!\n");
+	len++;
+	while (str[len] != quot)
 		len++;
-		str++;
-	}
-	str = malloc(len + 1);
+	str = malloc(len + 2);
 	offset = 0;
-	while (offset < len)
+	while (offset <= len)
 	{
-		str[offset] = (*s + 1)[offset];
+		str[offset] = (*s)[offset];
 		offset++;
 	}
 	str[offset] = '\0';
-	*s += len + 2;
+	*s += len + 1;
 	return (str);
 }
 
@@ -168,7 +162,7 @@ int	has_double_quotation(char *str, char quot)
 			count++;
 		str++;
 	}
-	if (count % 2 == 0)
+	if (count % 2 != 0)
 		ret = 1;
 	return (ret);
 }
