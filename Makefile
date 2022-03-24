@@ -8,10 +8,11 @@ CFLAGS	= -Wall -Werror -Wextra -g
 SRC		=	main.c \
 			count_words.c \
 			get_tokens.c \
-			lex.c \
-			grammar.c \
+			lexical_analysis.c \
+			syntax_analisys.c \
 			array.c \
 			procecc_exec.c \
+			utils.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
