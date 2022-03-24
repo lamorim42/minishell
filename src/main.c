@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/23 17:36:20 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/24 09:20:24 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@ int	main(void)
 	i = 0;
 	init_line(&line);
 	line.pipeline = readline("miau> ");
-	count_pipe(&line);
-	line.tks = token(line.pipeline);
-	line.lex = tokens_classification(line.tks);
-	rules_grammar(line.lex);
-	line.cpy = copy_array(line.tks);
+	if (ft_strlen(line.pipeline))
+	{
+		count_pipe(&line);
+		line.tks = token(line.pipeline);
+		line.lex = lexical_analysis(line.tks);
+		syntax_analisys(line.lex);
+		//expansão
+		line.cpy = copy_array(line.tks);
 
 
-	free(line.pipeline);
-	ft_free_array(&(line.tks));
-	ft_free_array(&(line.lex));
+		free(line.pipeline);
+		ft_free_array(&(line.tks));
+		ft_free_array(&(line.lex));
+	}
 	return (0);
 }
 
