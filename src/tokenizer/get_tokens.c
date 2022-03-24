@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/24 10:32:01 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/24 14:39:11 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,19 @@ char	**token(char *line)
 char	*worddup(char **s)
 {
 	char	*str;
-	//size_t	offset;
+	size_t	offset;
 	size_t	len;
 	char	*temp;
-	char	*join;
+	//char	*join;
 
 	if (*s == NULL)
 		return (NULL);
 	temp = *s;
 	len = 0;
 	str = NULL;
-	join = ft_strdup("");
+	//join = ft_strdup("");
 
-	while (!ft_strchr("| ", *temp) && *temp)
+	/* while (!ft_strchr("| ", *temp) && *temp)
 	{
 		if (*temp == QUOT || *temp == DQUOT)
 			temp++;
@@ -81,24 +81,23 @@ char	*worddup(char **s)
 			temp++;
 		}
 		len++;
-	}
-
-	/* while (!ft_strchr("| ", *str) && *str != '\0')
-	{
-		f("dentro do lex: %zu\n", len);
-		len++;
-		str++;
 	} */
-/* 	str = malloc(len + 1);
+
+	while (!ft_strchr("| ", *temp) && *temp)
+	{
+		len++;
+		temp++;
+	}
+	str = malloc(len + 1);
 	offset = 0;
 	while (offset < len)
 	{
 		str[offset] = (*s)[offset];
 		offset++;
 	}
-	str[offset] = '\0'; */
+	str[offset] = '\0';
 	*s += len;
-	return (join);
+	return (str);
 }
 
 char	*char_cat(char *str, char c)
