@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex.c                                              :+:      :+:    :+:   */
+/*   lexical_analysis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:03:24 by lamorim           #+#    #+#             */
-/*   Updated: 2022/03/23 16:27:43 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/24 09:53:10 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**tokens_classification(char **tokens)
+char	**lexical_analysis(char **tokens)
 {
 	char	**lex_tokens;
 	char	**temp;
@@ -31,9 +31,6 @@ char	**tokens_classification(char **tokens)
 	}
 	*temp = NULL;
 	temp = lex_tokens;
-	while (*temp)
-	{
-		temp++;
-	}
+	print_array("Lex", lex_tokens);
 	return (lex_tokens);
 }
