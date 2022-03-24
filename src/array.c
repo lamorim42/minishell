@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   array.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:25:41 by lamorim           #+#    #+#             */
-/*   Updated: 2022/03/23 16:28:21 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/24 16:10:10 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+//Tá errada
 int	ft_array_len(char **array)
 {
 	int	len;
@@ -24,6 +26,7 @@ int	ft_array_len(char **array)
 		len++;
 		temp++;
 	}
+	printf("%d\n", len);
 	return (len);
 }
 
