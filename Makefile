@@ -6,7 +6,7 @@ CFLAGS	= -Wall -Werror -Wextra -g
 
 #Source
 SRC		=	main.c \
-			count_words.c \
+			count_tokens.c \
 			get_tokens.c \
 			lexical_analysis.c \
 			syntax_analisys.c \
