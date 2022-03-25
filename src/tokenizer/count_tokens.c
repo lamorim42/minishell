@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:43:15 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/25 10:34:57 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/25 16:11:54 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ size_t	count_tokens(char *s)
 		if (*s == QUOT || *s == DQUOT)
 		{
 			if (has_double_quotation(s, *s) == 1)
-				printf("Don't has dquot!\n");
+				{
+					printf("Don't has dquot!\n");
+					exit(1);
+				}
 			count_word(&s, *s, &words);
 		}
 		else if (!is_word && !ft_strchr("| ", *s))
@@ -65,7 +68,6 @@ void	count_word(char **s, char quot, size_t *words)
 		while ((*s)[i] != quot && (*s)[i])
 			i++;
 	}
-
 	else if (ft_strchr("| ", (*s)[(i + 1)]))
 		(*words)++;
 	*s += i;
