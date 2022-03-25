@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/25 08:12:24 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/25 18:52:00 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef struct s_line {
 	char	**tks;
 	char	**lex;
 	char	**cpy;
+	char	***array_cmds;
 	int		nb_pipes;
+	int		nb_cmds;
 }			t_line;
 
 //tokenizer
@@ -53,7 +55,9 @@ void	syntax_analisys(char	**lex_tokens);
 //array
 void	ft_free_array(char ***mtx);
 int		ft_array_len(char **array);
-char	**copy_array(char **tokens);
+char	**copy_array(char **tokens, int size);
+void	create_cmd(t_line *line);
+void	array_cmd(t_line *line);
 
 //Commands
 void	count_pipe(t_line *line);
