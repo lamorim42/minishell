@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:43:15 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/25 09:16:59 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/25 10:34:57 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,13 @@ void	count_word(char **s, char quot, size_t *words)
 		while ((*s)[i] != quot && (*s)[i])
 			i++;
 	}
+
+	else if (ft_strchr("| ", (*s)[(i + 1)]))
+		(*words)++;
 	*s += i;
 }
+
+// Não verificar usando while, mas com uma strchr para encontrar " " ou qualquer
+//outro separador
+//a verificação com else if conta uma palavra quando encontra "|" mesmo quando
+//  ca"t"|" cat"|, preciso verificar melhor
