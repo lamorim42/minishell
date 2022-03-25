@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_words.c                                      :+:      :+:    :+:   */
+/*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:43:15 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/24 18:46:47 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/25 09:16:59 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
+void	count_word(char **s, char quot, size_t *words);
+
 // ta errada!
-size_t	count_words(char *s)
+size_t	count_tokens(char *s)
 {
 	size_t	words;
 	int		is_word;
@@ -25,7 +27,13 @@ size_t	count_words(char *s)
 	{
 		if (ft_strchr("|", *s))
 			words++;
-		if (!is_word && !ft_strchr("| ", *s))
+		if (*s == QUOT || *s == DQUOT)
+		{
+			if (has_double_quotation(s, *s) == 1)
+				printf("Don't has dquot!\n");
+			count_word(&s, *s, &words);
+		}
+		else if (!is_word && !ft_strchr("| ", *s))
 		{
 			is_word = 1;
 			words++;
@@ -36,4 +44,26 @@ size_t	count_words(char *s)
 	}
 	printf("%zu\n", words);
 	return (words);
+}
+
+void	count_word(char **s, char quot, size_t *words)
+{
+	int	i;
+
+	i = 1;
+	while ((*s)[i] != quot && (*s)[i])
+	{
+		if ((*s)[i] == SPC)
+		{
+			(*words)++;
+			break;
+		}
+		i++;
+	}
+	if ((*s)[i] != quot)
+	{
+		while ((*s)[i] != quot && (*s)[i])
+			i++;
+	}
+	*s += i;
 }
