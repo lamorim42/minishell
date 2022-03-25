@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/24 14:39:11 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/25 09:26:30 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**token(char *line)
 
 	if (!line)
 		return (NULL);
-	words = count_words(line);
+	words = count_tokens(line);
 	printf("words: %zu\n", words);
 	tokens = malloc(sizeof(char *) * (words + 1));
 	i = 0;
@@ -120,7 +120,7 @@ char	*char_cat(char *str, char c)
 	return (str_cat);
 }
 
-
+// copiar string até o final, não só até as próximas aspas, ex: "c"at
 char	*quotdup(char **s, char	quot)
 {
 	char	*str;
