@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/24 09:56:58 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/25 08:12:24 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_line {
 
 //tokenizer
 char	**token(char *line);
-size_t	count_words(char *s);
+size_t	count_tokens(char *s);
 char	*worddup(char **s);
 char	*quotdup(char **s,char quot);
 int		has_double_quotation(char *str, char quot);
