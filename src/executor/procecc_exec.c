@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:39:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/25 19:38:32 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/29 11:23:39 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,34 +64,36 @@ void	array_cmd(t_line *line)
 {
 	int		i;
 	int		j;
-	int		reset;
 	char	**temp;
 
 	i = 0;
 	j = 0;
 	temp = line->tks;
+	/* while (temp[i])
+	{
+		printf("%s\n", temp[i++]);
+	} */
+	//printf("%s\n", temp[0]);
 
-	line->array_cmds = malloc(sizeof(char **) * (line->nb_pipes + 2));
+	line->array_cmds = malloc(sizeof(char **) * ((line->nb_pipes * 2) + 2));
 	while (temp[i])
 	{
-		if (ft_strchr(temp[i], '|'))
+		if (temp[i + 1] == NULL)
 		{
-			if (j == 0)
-			{
-				line->array_cmds[j] = copy_array(&temp[j], reset);
-				reset = 0;
-				j++;
-			}
-		} else if (ft_strchr(temp[i + 1], '\0'))
+			line->array_cmds[j] = ft_strdup(temp[i]);
+			j++;
+		}
+		else if (temp[i + 1] && temp[i + 1][0] == '|')
 		{
-			line->array_cmds[j] = copy_array(&temp[i], reset);
-			reset = 0;
+			line->array_cmds[j] = ft_strdup(temp[i]);
 			j++;
 		}
 		i++;
-		reset++;
 	}
 	line->array_cmds[j] = NULL;
-	print_array("array_cmd", line->array_cmds[0]);
-	//print_array("array_cmd", line->array_cmds[1]);
+	j = 0;
+	while (line->array_cmds[j])
+	{
+		printf("%s\n", line->array_cmds[j++]);
+	}
 }
