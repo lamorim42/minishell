@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/25 18:53:35 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/29 08:50:58 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void init_line(t_line *line);
 
-int main(void)
+int	main(void)
 {
 	t_line line;
 	int i;
 
 	i = 0;
+	/* if (argc != 1)
+		printf("Use ./minishell"); */
 	init_line(&line);
 	line.pipeline = readline("miau> ");
 	if (ft_strlen(line.pipeline))
