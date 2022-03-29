@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:39:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/29 11:23:39 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/29 17:10:24 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,34 @@ void	count_pipe(t_line *line)
 
 void	create_cmd(t_line *line)
 {
-	int		i;
+	int		len;
+	int		size;
+
+	len = 0;
+	size = 0;
+
+	line->array_cmds_cpy = malloc(sizeof(char **) * (line->nb_pipes * 2) + 2);
 
 
-	i = 0;
-	while(line->tks[i])
+	//line->array_cmds_cpy[1][0] = ft_strdup(line->tks[len]);
+
+	while (line->tks[len])
 	{
-		if (ft_strchr(line->tks[i], '|'))
-			break;
-		line->nb_cmds++;
-		i++;
+		while (ft_strncmp(line->lex[len], "PIPE", 4))
+			len++;
+		if (size == 0)
+			line->array_cmds_cpy[size] = copy_array(line->tks, len);
+		else
+			line->array_cmds_cpy[size + 1] = copy_array(&line->tks[len], 1);
+		size++;
+		len++;
 	}
+	print_array("array\n", line->array_cmds_cpy[0]);
+	print_array("array\n", line->array_cmds_cpy[1]);
+	//printf("%s\n", line->array_cmds_cpy[1]);
 }
 
+//precisamos de um array que conte como 1 todos cmds antes e depois dos separadores.
 void	array_cmd(t_line *line)
 {
 	int		i;
@@ -75,7 +90,7 @@ void	array_cmd(t_line *line)
 	} */
 	//printf("%s\n", temp[0]);
 
-	line->array_cmds = malloc(sizeof(char **) * ((line->nb_pipes * 2) + 2));
+	line->array_cmds = malloc(sizeof(char **) * ((line->nb_pipes * 2) + 1));
 	while (temp[i])
 	{
 		if (temp[i + 1] == NULL)
@@ -92,8 +107,8 @@ void	array_cmd(t_line *line)
 	}
 	line->array_cmds[j] = NULL;
 	j = 0;
-	while (line->array_cmds[j])
+	/* while (line->array_cmds[j])
 	{
 		printf("%s\n", line->array_cmds[j++]);
-	}
+	} */
 }
