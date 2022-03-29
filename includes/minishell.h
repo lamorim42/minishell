@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/25 18:52:00 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/29 11:08:30 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_line {
 	char	**tks;
 	char	**lex;
 	char	**cpy;
-	char	***array_cmds;
+	char	**array_cmds;
 	int		nb_pipes;
 	int		nb_cmds;
 }			t_line;
