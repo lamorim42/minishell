@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/29 11:34:40 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/29 15:43:22 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,6 @@ char	*quotdup(char **s, char	quot)
 		return (NULL);
 	str = *s;
 	len = 0;
-	//if (has_double_quotation(str, quot))
-	//	printf("Don't has duble!\n");
 	len++;
 	while (str[len] != quot)
 		len++;
