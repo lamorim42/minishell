@@ -33,3 +33,5 @@ valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./
 - Testar no começo com um comando apenas ate o execve funcionar
 - testar com pipes
 - testar com varios pipes
+
+## lidar com aspas
