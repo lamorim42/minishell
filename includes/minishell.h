@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 00:46:10 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/30 11:18:52 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,17 @@ typedef struct s_line {
 	char	**tks;
 	char	**lex;
 	char	**cpy;
-	char	**array_cmds;
-	char	***array_cmds_cpy;
+	char	***array_cmds;
+	char	**array_cmds_cpy;
 	int		nb_pipes;
 	int		nb_cmds;
+	char	**argv;
+	char	**envp;
+	int		argc;
+	char	**path;
 }			t_line;
+
+void	init_line(t_line *line, int argc, char **argv, char **envp);
 
 //tokenizer
 char	**token(char *line);
@@ -51,6 +57,11 @@ char	**lexical_analysis(char **tokens);
 //void	create_cmd(t_line *line);
 void	ft_free_arrcmds(char ***mtx);
 
+//path
+char	*get_path(t_line *line);
+void	split_path(t_line *line);
+void	str_cmd(t_line *line);
+
 //grammar
 void	syntax_analisys(char	**lex_tokens);
 
@@ -60,6 +71,7 @@ int		ft_array_len(char **array);
 char	**copy_array(char **tokens, int size);
 void	create_cmd(t_line *line);
 void	array_cmd(t_line *line);
+void	str_cmd(t_line *line);
 
 //Commands
 void	count_pipe(t_line *line);
