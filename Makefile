@@ -13,6 +13,7 @@ SRC		=	main.c \
 			array.c \
 			procecc_exec.c \
 			utils.c \
+			exec_cmd.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
