@@ -1,10 +1,12 @@
 # TODO
 
-- array de cada comando
+- [ ] passar a trim no line->cmds_table
 
-- uma função que da done no comando que a gente ja copiou
+- [ ] criar map para passar a trim
 
-- testes
+- [x] array de cada comando
+
+- [ ] testes
 
 # Tests
 
