@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 11:39:34 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:08:02 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_line line;
-	int i;
+	t_line	line;
+	int	i;
 
 	i = 0;
 	/* if (argc != 1)
@@ -31,10 +31,13 @@ int	main(int argc, char **argv, char **envp)
 		// expansão
 		create_cmd(&line);
 		str_cmd(&line);
-		//split_path(&line);
+		split_path(&line);
+		line.bin = check_path(&line);
 
 		free(line.pipeline);
-		ft_free_array(line.array_cmds_cpy);
+		ft_free_array(line.bin);
+		ft_free_array(line.cmds_table);
+		ft_free_array(line.path);
 		ft_free_array(line.tks);
 		ft_free_array(line.lex);
 		ft_free_arrcmds(line.array_cmds);
@@ -54,6 +57,7 @@ void	init_line(t_line *line, int argc, char **argv, char **envp)
 	line->envp = envp;
 	line->argc = argc;
 	line->path = NULL;
+	line->bin = NULL;
 }
 
 /* char	**table_cmds(char **tokens, int size)
