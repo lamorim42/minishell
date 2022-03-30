@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   procecc_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:39:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/29 17:10:24 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/29 23:02:26by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
+
 
 char	**copy_array(char **tokens, int size)
 {
@@ -25,7 +26,7 @@ char	**copy_array(char **tokens, int size)
 	i = 0;
 	while (i < size)
 	{
-		array_cpy[i] = tokens[i];
+		array_cpy[i] = ft_strdup(tokens[i]);
 		i++;
 	}
 	array_cpy[i] = NULL;
@@ -49,66 +50,46 @@ void	create_cmd(t_line *line)
 {
 	int		len;
 	int		size;
+	char	**temp_lex = NULL;
+	char	**temp_tks = NULL;
 
-	len = 0;
 	size = 0;
-
-	line->array_cmds_cpy = malloc(sizeof(char **) * (line->nb_pipes * 2) + 2);
-
-
-	//line->array_cmds_cpy[1][0] = ft_strdup(line->tks[len]);
-
-	while (line->tks[len])
+	line->array_cmds_cpy = malloc(sizeof(char **) * ((line->nb_pipes * 2) + 2));
+	temp_lex = line->lex;
+	temp_tks = line->tks;
+	while (*temp_tks)
 	{
-		while (ft_strncmp(line->lex[len], "PIPE", 4))
+		len = 0;
+		while (temp_lex[len] && ft_strncmp(temp_lex[len], "PIPE", 4))
 			len++;
-		if (size == 0)
-			line->array_cmds_cpy[size] = copy_array(line->tks, len);
-		else
-			line->array_cmds_cpy[size + 1] = copy_array(&line->tks[len], 1);
+		line->array_cmds_cpy[size] = copy_array(temp_tks, len);
 		size++;
+		if (temp_tks[len])
+		{
+			line->array_cmds_cpy[size] = copy_array(&temp_tks[len], 1);
+			size++;
+		}
+		temp_tks += len + (temp_tks[len] != NULL);
+		temp_lex += len + (temp_lex[len] != NULL);
+	}
+	line->array_cmds_cpy[size] = NULL;
+	len = 0;
+	while (line->array_cmds_cpy[len])
+	{
+		print_array("array[len]", line->array_cmds_cpy[len]);
 		len++;
 	}
-	print_array("array\n", line->array_cmds_cpy[0]);
-	print_array("array\n", line->array_cmds_cpy[1]);
-	//printf("%s\n", line->array_cmds_cpy[1]);
 }
 
-//precisamos de um array que conte como 1 todos cmds antes e depois dos separadores.
-void	array_cmd(t_line *line)
+void	ft_free_arrcmds(char ***mtx)
 {
 	int		i;
-	int		j;
-	char	**temp;
 
 	i = 0;
-	j = 0;
-	temp = line->tks;
-	/* while (temp[i])
+	while (mtx[i])
 	{
-		printf("%s\n", temp[i++]);
-	} */
-	//printf("%s\n", temp[0]);
-
-	line->array_cmds = malloc(sizeof(char **) * ((line->nb_pipes * 2) + 1));
-	while (temp[i])
-	{
-		if (temp[i + 1] == NULL)
-		{
-			line->array_cmds[j] = ft_strdup(temp[i]);
-			j++;
-		}
-		else if (temp[i + 1] && temp[i + 1][0] == '|')
-		{
-			line->array_cmds[j] = ft_strdup(temp[i]);
-			j++;
-		}
+		ft_free_array(mtx[i]);
 		i++;
 	}
-	line->array_cmds[j] = NULL;
-	j = 0;
-	/* while (line->array_cmds[j])
-	{
-		printf("%s\n", line->array_cmds[j++]);
-	} */
+	free(mtx);
 }

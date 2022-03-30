@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical_analysis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 16:03:24 by lamorim           #+#    #+#             */
-/*   Updated: 2022/03/25 16:16:24 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 01:57:23 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	**lexical_analysis(char **tokens)
 	char	**lex_tokens;
 	char	**temp;
 	int		len;
+
 	len = ft_array_len(tokens);
 	lex_tokens = malloc(sizeof(char *) * (len + 1));
 	temp = lex_tokens;
@@ -30,7 +31,5 @@ char	**lexical_analysis(char **tokens)
 		temp++;
 	}
 	*temp = NULL;
-	temp = lex_tokens;
-	//print_array("Lex", lex_tokens);
 	return (lex_tokens);
 }

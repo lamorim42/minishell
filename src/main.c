@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/29 12:34:07 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 02:32:30 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ int	main(void)
 		syntax_analisys(line.lex);
 		// expansão
 		create_cmd(&line);
-		array_cmd(&line);
+		//array_cmd(&line);
 
 		free(line.pipeline);
-		ft_free_array(&(line.tks));
-		ft_free_array(&(line.lex));
+		ft_free_array(line.tks);
+		ft_free_array(line.lex);
+		ft_free_arrcmds(line.array_cmds_cpy);
 	}
 	return (0);
 }

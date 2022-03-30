@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:43:15 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/25 16:11:54 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 02:12:23 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ size_t	count_tokens(char *s)
 			is_word = 0;
 		s++;
 	}
-	printf("%zu\n", words);
+	//printf("%zu\n", words);
 	return (words);
 }
 
