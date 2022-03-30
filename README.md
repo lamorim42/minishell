@@ -28,3 +28,8 @@
 ## Valgrind flags
 
 valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
+## Init Execve
+- Testar no começo com um comando apenas ate o execve funcionar
+- testar com pipes
+- testar com varios pipes
