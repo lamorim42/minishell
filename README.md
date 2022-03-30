@@ -1,19 +1,30 @@
-->array de cada comando
+# TODO
 
-->uma função que da done no comando que a gente ja copiou
+- array de cada comando
 
-->testes
+- uma função que da done no comando que a gente ja copiou
 
-miau"|""dasdas" = word pipe word
+- testes
 
-"miau"|miau" = erro
+# Tests
 
-l"s" -a "|" "miau" = word word pipe word
+- miau"|""dasdas" = word pipe word
 
-adasd huasd ashdau| Z| haud | asduas
+- "miau"|miau" = erro
 
-"cat"|"c"at|c"a"t|ca"t"|" cat"|"cat -e "
- ca"t"|" cat"| = COUNT TA ERRADO
+- l"s" -a "|" "miau" = word word pipe word
 
-// Usar Hashtable (ela guarda os valores da variavel PATH do sistema e é com ela
-//que conseguimos construir os builtins) para verificar as builtins
+- adasd huasd ashdau| Z| haud | asduas
+
+- "cat"|"c"at|c"a"t|ca"t"|" cat"|"cat -e "
+- ca"t"|" cat"| = COUNT TA ERRADO
+
+# Idias
+
+- Usar Hashtable (ela guarda os valores da variavel PATH do sistema e é com ela
+
+- que conseguimos construir os builtins) para verificar as builtins
+
+## Valgrind flags
+
+valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
