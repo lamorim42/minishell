@@ -89,20 +89,22 @@ void	str_cmd(t_line *line)
 	char	*temp;
 
 	size = 0;
-	line->array_cmds_cpy = malloc(sizeof(char **) * (line->nb_pipes + 2));
+	line->cmds_table = malloc(sizeof(char **) * (line->nb_pipes + 2));
 	temp = line->pipeline;
 	while (*temp)
 	{
 		len = 0;
+		while (*temp && *temp == ' ')
+			temp++;
 		while (temp[len] && temp[len] != '|')
 			len++;
-		line->array_cmds_cpy[size] = ft_substr(temp, 0, len);
+		line->cmds_table[size] = ft_substr(temp, 0, len);
 		size++;
 		temp += len + (temp[len] != '\0');
 	}
-	line->array_cmds_cpy[size] = NULL;
+	line->cmds_table[size] = NULL;
 
-	print_array("array_cpy", line->array_cmds_cpy);
+	print_array("array_cpy", line->cmds_table);
 
 }
 
