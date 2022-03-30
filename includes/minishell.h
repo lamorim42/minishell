@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/29 16:10:19 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 00:46:10 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ char	**lexical_analysis(char **tokens);
 
 // executor
 //void	create_cmd(t_line *line);
+void	ft_free_arrcmds(char ***mtx);
 
 //grammar
 void	syntax_analisys(char	**lex_tokens);
 
 //array
-void	ft_free_array(char ***mtx);
+void	ft_free_array(char **mtx);
 int		ft_array_len(char **array);
 char	**copy_array(char **tokens, int size);
 void	create_cmd(t_line *line);
