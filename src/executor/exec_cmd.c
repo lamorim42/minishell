@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:57:33 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 11:34:55 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:43:29 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-/* char	*get_path(t_line *line)
+char	*get_path(t_line *line)
 {
 	int		i;
 	char	*path;
@@ -27,6 +27,8 @@
 			break ;
 		}
 		i++;
+		free(path);
+		path = NULL;
 	}
 	//printf("%s\n", line->path);
 	return (path);
@@ -38,31 +40,51 @@ void	split_path(t_line *line)
 
 	path_cmd = get_path(line);
 	line->path = ft_split(path_cmd, ':');
-
+	free(path_cmd);
 	print_array("print array", line->path);
 }
 
-char	*check_path(t_line *line)
+char	**check_path(t_line *line)
 {
 	int	i;
+	int	j;
+	int	len;
 	char	*cmd;
-	char	*bin;
+	char	**bin;
 	//char	*temp;
 
-	i = 0;
-
-	while(line->path[i])
+	j = 0;
+	len = ft_array_len(line->cmds_table);
+	bin = malloc(sizeof(char *) * (len + 1));
+	while(line->cmds_table[j])
 	{
-		cmd = ft_strjoin("/", line->array_cmds[i]);
-		bin = ft_strjoin(line->path[i], cmd);
-		if (access(bin, F_OK | X_OK) == 1)
+		i = 0;
+		//printf("line->cmds[%d] = %s\n", j, line->cmds_table[j]);
+		cmd = ft_strjoin("/", line->cmds_table[j]);
+		while (line->path[i])
 		{
-			free(bin);
-			break ;
+			bin[j] = ft_strjoin(line->path[i], cmd);
+			printf("bin (while)= %s\n", bin[j]);
+			if (!access(bin[j], F_OK))
+			{
+				//printf("cmd = %s\n", cmd);
+				free(cmd);
+				cmd = NULL;
+				break ;
+			}
+			else
+				i++;
+			free(bin[j]);
+			bin[j] = NULL;
 		}
-		else
-			return (bin);
-		i++;
+		if (cmd)
+			free(cmd);
+		if (bin[j] == NULL)
+			bin[j] = ft_strdup("null");
+		//printf("depois do while do i\n");
+		j++;
 	}
-	return (NULL);
-} */
+	bin[j] = NULL;
+	print_array("bin", bin);
+	return (bin);
+}
