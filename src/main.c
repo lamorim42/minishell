@@ -6,15 +6,13 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 09:47:32 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 11:39:34 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void init_line(t_line *line);
-
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_line line;
 	int i;
@@ -22,7 +20,7 @@ int	main(void)
 	i = 0;
 	/* if (argc != 1)
 		printf("Use ./minishell"); */
-	init_line(&line);
+	init_line(&line, argc, argv, envp);
 	line.pipeline = readline("miau> ");
 	if (ft_strlen(line.pipeline))
 	{
@@ -32,16 +30,19 @@ int	main(void)
 		syntax_analisys(line.lex);
 		// expansão
 		create_cmd(&line);
+		str_cmd(&line);
+		//split_path(&line);
 
 		free(line.pipeline);
+		ft_free_array(line.array_cmds_cpy);
 		ft_free_array(line.tks);
 		ft_free_array(line.lex);
-		ft_free_arrcmds(line.array_cmds_cpy);
+		ft_free_arrcmds(line.array_cmds);
 	}
 	return (0);
 }
 
-void init_line(t_line *line)
+void	init_line(t_line *line, int argc, char **argv, char **envp)
 {
 	line->pipeline = NULL;
 	line->tks = NULL;
@@ -49,6 +50,10 @@ void init_line(t_line *line)
 	line->nb_pipes = 0;
 	line->nb_cmds = 0;
 	line->array_cmds = NULL;
+	line->argv = argv;
+	line->envp = envp;
+	line->argc = argc;
+	line->path = NULL;
 }
 
 /* char	**table_cmds(char **tokens, int size)
