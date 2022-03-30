@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 11:18:52 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:06:19 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ typedef struct s_line {
 	char	**lex;
 	char	**cpy;
 	char	***array_cmds;
-	char	**array_cmds_cpy;
+	char	**cmds_table;
 	int		nb_pipes;
 	int		nb_cmds;
 	char	**argv;
 	char	**envp;
 	int		argc;
 	char	**path;
+	char	**bin;
 }			t_line;
 
 void	init_line(t_line *line, int argc, char **argv, char **envp);
@@ -56,6 +57,7 @@ char	**lexical_analysis(char **tokens);
 // executor
 //void	create_cmd(t_line *line);
 void	ft_free_arrcmds(char ***mtx);
+char	**check_path(t_line *line);
 
 //path
 char	*get_path(t_line *line);
