@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/23 15:12:53 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/30 09:52:58 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**token(char *line)
 
 	if (!line)
 		return (NULL);
-	words = count_words(line);
+	words = count_tokens(line);
 	tokens = malloc(sizeof(char *) * (words + 1));
 	i = 0;
 	ptr = line;
@@ -38,7 +38,7 @@ char	**token(char *line)
 			ptr++;
 		else if (*ptr == QUOT || *ptr == DQUOT)
 		{
-			tokens[i] = quotdup(&ptr);
+			tokens[i] = quotdup(&ptr, *ptr);
 			i++;
 		}
 		else if (*ptr == '|')
@@ -49,31 +49,25 @@ char	**token(char *line)
 		}
 	}
 	tokens[i] = NULL;
-	/* while (*tokens)
-	{
-		printf("%s\n", *tokens);
-		tokens++;
-	}
-	printf("%s\n", *tokens); */
 	return (tokens);
 }
 
 char	*worddup(char **s)
 {
 	char	*str;
-	//size_t	offset;
+	size_t	offset;
 	size_t	len;
 	char	*temp;
-	char	*join;
+	//char	*join;
 
 	if (*s == NULL)
 		return (NULL);
 	temp = *s;
 	len = 0;
 	str = NULL;
-	join = ft_strdup("");
+	//join = ft_strdup("");
 
-	while (!ft_strchr("| ", *temp) && *temp)
+	/* while (!ft_strchr("| ", *temp) && *temp)
 	{
 		if (*temp == QUOT || *temp == DQUOT)
 			temp++;
@@ -85,24 +79,23 @@ char	*worddup(char **s)
 			temp++;
 		}
 		len++;
-	}
-
-	/* while (!ft_strchr("| ", *str) && *str != '\0')
-	{
-		f("dentro do lex: %zu\n", len);
-		len++;
-		str++;
 	} */
-/* 	str = malloc(len + 1);
+
+	while (!ft_strchr("| ", *temp) && *temp)
+	{
+		len++;
+		temp++;
+	}
+	str = malloc(len + 1);
 	offset = 0;
 	while (offset < len)
 	{
 		str[offset] = (*s)[offset];
 		offset++;
 	}
-	str[offset] = '\0'; */
+	str[offset] = '\0';
 	*s += len;
-	return (join);
+	return (str);
 }
 
 char	*ft_catchr(char *str, char c)
@@ -125,8 +118,8 @@ char	*ft_catchr(char *str, char c)
 	return (str_cat);
 }
 
-
-char	*quotdup(char **s)
+// copiar string até o final, não só até as próximas aspas, ex: "c"at
+char	*quotdup(char **s, char	quot)
 {
 	char	*str;
 	size_t	offset;
@@ -134,24 +127,20 @@ char	*quotdup(char **s)
 
 	if (*s == NULL)
 		return (NULL);
-	str = *s + 1;
+	str = *s;
 	len = 0;
-	if (has_double_quotation(str, **s))
-		return_error();
-	while (*str != **s)
-	{
+	len++;
+	while (str[len] != quot)
 		len++;
-		str++;
-	}
-	str = malloc(len + 1);
+	str = malloc(len + 2);
 	offset = 0;
-	while (offset < len)
+	while (offset <= len)
 	{
-		str[offset] = (*s + 1)[offset];
+		str[offset] = (*s)[offset];
 		offset++;
 	}
 	str[offset] = '\0';
-	*s += len + 2;
+	*s += len + 1;
 	return (str);
 }
 
@@ -168,7 +157,7 @@ int	has_double_quotation(char *str, char quot)
 			count++;
 		str++;
 	}
-	if (count % 2 == 0)
+	if (count % 2 != 0)
 		ret = 1;
 	return (ret);
 }

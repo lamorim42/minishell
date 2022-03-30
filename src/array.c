@@ -1,33 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   array.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/26 15:47:44 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/29 23:13:08 by lamorim          ###   ########.fr       */
+/*   Created: 2022/03/23 16:25:41 by lamorim           #+#    #+#             */
+/*   Updated: 2022/03/30 02:11:24 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char *str1, const char *str2, size_t n)
+
+//Tá errada
+int	ft_array_len(char **array)
 {
-	size_t			i;
-	unsigned char	*s1;
-	unsigned char	*s2;
+	int	len;
+	char	**temp;
+
+	temp = array;
+	len = 0;
+	while (*temp)
+	{
+		len++;
+		temp++;
+	}
+	return (len);
+}
+
+void	ft_free_array(char **mtx)
+{
+	int	i;
 
 	i = 0;
-	s1 = (unsigned char *)str1;
-	s2 = (unsigned char *)str2;
-	while (i < n && (s1[i] && s2[i]))
+	while ((mtx)[i])
 	{
-		if (s1[i] != s2[i])
-		{
-			return (s1[i] - s2[i]);
-		}
+		free((mtx)[i]);
 		i++;
 	}
-	return (0);
+	free(mtx);
 }

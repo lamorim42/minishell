@@ -6,39 +6,49 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/22 19:06:38 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/30 09:47:32 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void init_line(t_line *line);
+
 int	main(void)
 {
-	char	*line;
-	char	*temp;
-	char	**tokens;
-	char	**lex_token;
-	/* char	**table;
-	char	**table_redirect; */
-	int		count_sep;
+	t_line line;
+	int i;
 
-	count_sep = 0;
-	line = readline("miau> ");
-	temp = line;
-
-	while (*temp)
+	i = 0;
+	/* if (argc != 1)
+		printf("Use ./minishell"); */
+	init_line(&line);
+	line.pipeline = readline("miau> ");
+	if (ft_strlen(line.pipeline))
 	{
-		if (*temp == '|')
-			count_sep++;
-		temp++;
+		count_pipe(&line);
+		line.tks = token(line.pipeline);
+		line.lex = lexical_analysis(line.tks);
+		syntax_analisys(line.lex);
+		// expansão
+		create_cmd(&line);
+
+		free(line.pipeline);
+		ft_free_array(line.tks);
+		ft_free_array(line.lex);
+		ft_free_arrcmds(line.array_cmds_cpy);
 	}
-
-	tokens = token(line);
-	lex_token = tokens_classification(tokens);
-
-	free(line);
-
 	return (0);
+}
+
+void init_line(t_line *line)
+{
+	line->pipeline = NULL;
+	line->tks = NULL;
+	line->lex = NULL;
+	line->nb_pipes = 0;
+	line->nb_cmds = 0;
+	line->array_cmds = NULL;
 }
 
 /* char	**table_cmds(char **tokens, int size)
@@ -99,7 +109,7 @@ char	**table_red(char **tokens, int size)
 	return (array_red);
 } */
 
-void	return_error(void)
+void return_error(void)
 {
 	printf("error!\n");
 }

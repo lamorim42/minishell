@@ -1,14 +1,18 @@
 #Name
 NAME	= minishell
 CC		= clang
-CFLAGS	= -Wall -Werror -Wextra -g
+CFLAGS	= -Wall -Werror -Wextra -g3
 
 
 #Source
 SRC		=	main.c \
-			count_words.c \
+			count_tokens.c \
 			get_tokens.c \
-			lex.c \
+			lexical_analysis.c \
+			syntax_analisys.c \
+			array.c \
+			procecc_exec.c \
+			utils.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -21,7 +25,7 @@ RM		= rm -rf
 
 INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/ ./src/tokenizer/
+VPATH	= ./src/ ./src/tokenizer/ ./src/parsing/ ./src/executor/
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"

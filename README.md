@@ -1,6 +1,35 @@
+# TODO
 
--> Lidar com a perca da referencia do primeiro content na handle_quotes
--> É na split_line que vai acontecer a pop da linked_list
--> Pensar na gramática
--> Pegar o token e colocar em suas regras de gramatica
--> percorrer array pra verificar a sequenciaS
+- array de cada comando
+
+- uma função que da done no comando que a gente ja copiou
+
+- testes
+
+# Tests
+
+- miau"|""dasdas" = word pipe word
+
+- "miau"|miau" = erro
+
+- l"s" -a "|" "miau" = word word pipe word
+
+- adasd huasd ashdau| Z| haud | asduas
+
+- "cat"|"c"at|c"a"t|ca"t"|" cat"|"cat -e "
+- ca"t"|" cat"| = COUNT TA ERRADO
+
+# Idias
+
+- Usar Hashtable (ela guarda os valores da variavel PATH do sistema e é com ela
+
+- que conseguimos construir os builtins) para verificar as builtins
+
+## Valgrind flags
+
+valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+
+## Init Execve
+- Testar no começo com um comando apenas ate o execve funcionar
+- testar com pipes
+- testar com varios pipes
