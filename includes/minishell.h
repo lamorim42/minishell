@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 16:06:19 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/31 22:00:34 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,11 @@ typedef struct s_line {
 	char	**bin;
 }			t_line;
 
-void	init_line(t_line *line, int argc, char **argv, char **envp);
-
 //tokenizer
-char	**token(char *line);
-size_t	count_tokens(char *s);
+char	**get_tokens(char *line);
 char	*worddup(char **s);
-char	*quotdup(char **s,char quot);
 int		has_double_quotation(char *str, char quot);
+char	*quotdup(char **s, char	quot);
 
 //Lex
 char	**lexical_analysis(char **tokens);
@@ -71,16 +68,14 @@ void	syntax_analisys(char	**lex_tokens);
 void	ft_free_array(char **mtx);
 int		ft_array_len(char **array);
 char	**copy_array(char **tokens, int size);
-void	create_cmd(t_line *line);
 void	array_cmd(t_line *line);
-void	str_cmd(t_line *line);
 
 //Commands
-void	count_pipe(t_line *line);
+void	create_cmd_arr(t_line *line);
+void	create_cmd_table(t_line *line);
 
 //error
 void	return_error(void);
-void	syntax_error(void);
 
 //utils
 void	print_array(char *msg, char **array);

@@ -6,11 +6,14 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 16:08:02 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/31 21:59:40 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	init_line(t_line *line, int argc, char **argv, char **envp);
+static void	count_pipe(t_line *line);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -25,12 +28,12 @@ int	main(int argc, char **argv, char **envp)
 	if (ft_strlen(line.pipeline))
 	{
 		count_pipe(&line);
-		line.tks = token(line.pipeline);
+		line.tks = get_tokens(line.pipeline);
 		line.lex = lexical_analysis(line.tks);
 		syntax_analisys(line.lex);
 		// expansão
-		create_cmd(&line);
-		str_cmd(&line);
+		create_cmd_arr(&line);
+		create_cmd_table(&line);
 		split_path(&line);
 		line.bin = check_path(&line);
 
@@ -45,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-void	init_line(t_line *line, int argc, char **argv, char **envp)
+static void	init_line(t_line *line, int argc, char **argv, char **envp)
 {
 	line->pipeline = NULL;
 	line->tks = NULL;
@@ -58,6 +61,19 @@ void	init_line(t_line *line, int argc, char **argv, char **envp)
 	line->argc = argc;
 	line->path = NULL;
 	line->bin = NULL;
+}
+
+static void	count_pipe(t_line *line)
+{
+	char	*temp;
+
+	temp = line->pipeline;
+	while (*temp)
+	{
+		if (*temp == '|')
+			line->nb_pipes++;
+		temp++;
+	}
 }
 
 /* char	**table_cmds(char **tokens, int size)

@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grammar.c                                          :+:      :+:    :+:   */
+/*   syntax_analisys.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 08:34:54 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/24 08:57:04 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/03/31 21:52:56 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
+
+static void	syntax_error(void);
 
 void	syntax_analisys(char	**lex_tokens)
 {
@@ -34,7 +36,7 @@ void	syntax_analisys(char	**lex_tokens)
 	}
 }
 
-void	syntax_error(void)
+static void	syntax_error(void)
 {
 	printf("syntax error near unexpected token\n");
 	exit(1);
