@@ -19,6 +19,7 @@
 - adasd huasd ashdau| Z| haud | asduas
 
 - "cat"|"c"at|c"a"t|ca"t"|" cat"|"cat -e "
+
 - ca"t"|" cat"| = COUNT TA ERRADO
 
 # Idias
