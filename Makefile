@@ -14,6 +14,7 @@ SRC		=	main.c \
 			handle_path.c \
 			array.c \
 			print_utils.c \
+			exec_cmd.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
