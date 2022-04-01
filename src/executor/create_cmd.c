@@ -52,27 +52,27 @@ void	create_cmd_arr(t_line *line)
 void	create_cmd_table(t_line *line)
 {
 	int	size;
-	int	len;
-	char	*temp;
+	int	i;
+	char	***temp;
 
 	size = 0;
+	i = 0;
 	line->cmds_table = malloc(sizeof(char **) * (line->nb_pipes + 2));
-	temp = line->pipeline;
-	while (*temp)
+	temp = line->array_cmds;
+	while (temp[i])
 	{
-		len = 0;
-		while (*temp && *temp == ' ')
-			temp++;
-		while (temp[len] && temp[len] != '|')
-			len++;
-		line->cmds_table[size] = ft_substr(temp, 0, len);
-		size++;
-		temp += len + (temp[len] != '\0');
+		if (temp[i][0][0] == '|')
+			;
+		else
+		{
+			line->cmds_table[size] = ft_strtrim(temp[i][0], " ");
+			size++;
+		}
+		i++;
 	}
 	line->cmds_table[size] = NULL;
 
 	print_array("array_cpy", line->cmds_table);
-
 }
 
 void	ft_free_arrcmds(char ***mtx)
