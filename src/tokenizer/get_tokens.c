@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:44:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 09:52:58 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/03/31 21:47:18 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-char	*ft_catchr(char *str, char c);
+static void		count_word(char **s, char quot, size_t *words);
+static size_t	count_tokens(char *s);
 
-char	**token(char *line)
+char	**get_tokens(char *line)
 {
 	char	**tokens;
 	size_t	words;
@@ -52,112 +53,65 @@ char	**token(char *line)
 	return (tokens);
 }
 
-char	*worddup(char **s)
+static size_t	count_tokens(char *s)
 {
-	char	*str;
-	size_t	offset;
-	size_t	len;
-	char	*temp;
-	//char	*join;
+	size_t	words;
+	int		is_word;
 
-	if (*s == NULL)
-		return (NULL);
-	temp = *s;
-	len = 0;
-	str = NULL;
-	//join = ft_strdup("");
+	is_word = 0;
+	words = 0;
 
-	/* while (!ft_strchr("| ", *temp) && *temp)
+	while (*s)
 	{
-		if (*temp == QUOT || *temp == DQUOT)
-			temp++;
-		else
+		if (ft_strchr("|", *s))
+			words++;
+		if (*s == QUOT || *s == DQUOT)
 		{
-			str = join;
-			join = ft_catchr(join, *temp);
-			free(str);
-			temp++;
+			if (has_double_quotation(s, *s) == 1)
+				{
+					printf("Don't has dquot!\n");
+					exit(1);
+				}
+			count_word(&s, *s, &words);
 		}
-		len++;
-	} */
-
-	while (!ft_strchr("| ", *temp) && *temp)
-	{
-		len++;
-		temp++;
+		else if (!is_word && !ft_strchr("| ", *s))
+		{
+			is_word = 1;
+			words++;
+		}
+		else if (is_word && ft_strchr("| ", *s))
+			is_word = 0;
+		s++;
 	}
-	str = malloc(len + 1);
-	offset = 0;
-	while (offset < len)
-	{
-		str[offset] = (*s)[offset];
-		offset++;
-	}
-	str[offset] = '\0';
-	*s += len;
-	return (str);
+	//printf("%zu\n", words);
+	return (words);
 }
 
-char	*ft_catchr(char *str, char c)
+static void	count_word(char **s, char quot, size_t *words)
 {
-	char	*str_cat;
-	size_t	len;
-	int		i;
+	int	i;
 
-	i = 0;
-	len = ft_strlen(str);
-	str_cat = malloc(sizeof(char) * (len + 2));
-	while(str[i])
+	i = 1;
+	while ((*s)[i] != quot && (*s)[i])
 	{
-		str_cat[i] = str[i];
+		if ((*s)[i] == SPC)
+		{
+			(*words)++;
+			break;
+		}
 		i++;
 	}
-	str_cat[i] = c;
-	str_cat[i + 1] = '\0';
-
-	return (str_cat);
-}
-
-// copiar string até o final, não só até as próximas aspas, ex: "c"at
-char	*quotdup(char **s, char	quot)
-{
-	char	*str;
-	size_t	offset;
-	size_t	len;
-
-	if (*s == NULL)
-		return (NULL);
-	str = *s;
-	len = 0;
-	len++;
-	while (str[len] != quot)
-		len++;
-	str = malloc(len + 2);
-	offset = 0;
-	while (offset <= len)
+	if ((*s)[i] != quot)
 	{
-		str[offset] = (*s)[offset];
-		offset++;
+		while ((*s)[i] != quot && (*s)[i])
+			i++;
 	}
-	str[offset] = '\0';
-	*s += len + 1;
-	return (str);
+	else if (ft_strchr("| ", (*s)[(i + 1)]))
+		(*words)++;
+	*s += i;
 }
 
-int	has_double_quotation(char *str, char quot)
-{
-	int	ret;
-	int	count;
-
-	ret = 0;
-	count = 0;
-	while (*str)
-	{
-		if (*str == quot)
-			count++;
-		str++;
-	}
-	if (count % 2 != 0)
-		ret = 1;
-	return (ret);
-}
+// Não verificar usando while, mas com uma strchr para encontrar " " ou qualquer
+//outro separador
+//a verificação com else if conta uma palavra quando encontra "|" mesmo quando
+//  ca"t"|" cat"|, preciso verificar melhor
