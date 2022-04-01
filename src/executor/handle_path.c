@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   handle_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:57:33 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/30 16:43:29 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/01 09:25:06 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	split_path(t_line *line)
 	path_cmd = get_path(line);
 	line->path = ft_split(path_cmd, ':');
 	free(path_cmd);
-	print_array("print array", line->path);
+	//print_array("print array", line->path);
 }
 
 char	**check_path(t_line *line)
@@ -64,7 +64,7 @@ char	**check_path(t_line *line)
 		while (line->path[i])
 		{
 			bin[j] = ft_strjoin(line->path[i], cmd);
-			printf("bin (while)= %s\n", bin[j]);
+			//printf("bin (while)= %s\n", bin[j]);
 			if (!access(bin[j], F_OK))
 			{
 				//printf("cmd = %s\n", cmd);
