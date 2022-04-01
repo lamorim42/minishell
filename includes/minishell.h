@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/31 22:00:34 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/01 10:52:01 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <readline/history.h>
 # include <string.h>
 # include "../Libft/libft.h"
-
+# include <sys/wait.h>
+# include <sys/types.h>
 # define SPC 32
 # define QUOT 34
 # define DQUOT 39
@@ -40,6 +41,8 @@ typedef struct s_line {
 	int		argc;
 	char	**path;
 	char	**bin;
+	char	**map_cmds;
+	int		fd[2];
 }			t_line;
 
 //tokenizer
@@ -55,6 +58,8 @@ char	**lexical_analysis(char **tokens);
 //void	create_cmd(t_line *line);
 void	ft_free_arrcmds(char ***mtx);
 char	**check_path(t_line *line);
+void	exec_cmd(t_line *line);
+void	ft_fork(t_line *line);
 
 //path
 char	*get_path(t_line *line);
