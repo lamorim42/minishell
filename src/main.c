@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/31 21:59:40 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/01 10:54:01 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	init_line(t_line *line, int argc, char **argv, char **envp);
 static void	count_pipe(t_line *line);
+void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set));
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -33,9 +34,12 @@ int	main(int argc, char **argv, char **envp)
 		syntax_analisys(line.lex);
 		// expansão
 		create_cmd_arr(&line);
+		arr_map(&line, ft_strtrim);
 		create_cmd_table(&line);
 		split_path(&line);
 		line.bin = check_path(&line);
+		//exec_cmd(&line);
+		ft_fork(&line);
 
 		free(line.pipeline);
 		ft_free_array(line.bin);
@@ -75,6 +79,26 @@ static void	count_pipe(t_line *line)
 		temp++;
 	}
 }
+
+void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set))
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = 0;
+	while (line->array_cmds[len])
+		len++;
+
+	line->map_cmds = malloc(sizeof(char *) * (len + 1));
+	while(line->array_cmds[i])
+	{
+		line->map_cmds[i] = (*f)(line->array_cmds[i][0], " ");
+		i++;
+	}
+	printf("len %d\n", len);
+}
+
 
 /* char	**table_cmds(char **tokens, int size)
 {
