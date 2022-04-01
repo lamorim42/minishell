@@ -13,40 +13,7 @@
 # include "minishell.h"
 
 
-char	**copy_array(char **tokens, int size)
-{
-	char	**array_cpy;
-	int		len;
-	int		i;
-
-
-	len = ft_array_len(tokens);
-	array_cpy = malloc(sizeof(char *) * (len + 1));
-
-	i = 0;
-	while (i < size)
-	{
-		array_cpy[i] = ft_strdup(tokens[i]);
-		i++;
-	}
-	array_cpy[i] = NULL;
-	return(array_cpy);
-}
-
-void	count_pipe(t_line *line)
-{
-	char	*temp;
-
-	temp = line->pipeline;
-	while (*temp)
-	{
-		if (*temp == '|')
-			line->nb_pipes++;
-		temp++;
-	}
-}
-
-void	create_cmd(t_line *line)
+void	create_cmd_arr(t_line *line)
 {
 	int		len;
 	int		size;
@@ -82,7 +49,7 @@ void	create_cmd(t_line *line)
 }
 
 
-void	str_cmd(t_line *line)
+void	create_cmd_table(t_line *line)
 {
 	int	size;
 	int	len;
