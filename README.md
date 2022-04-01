@@ -37,4 +37,8 @@ valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./
 - testar com pipes
 - testar com varios pipes
 
-## lidar com aspas
+## Flags
+flag para verificar quais file descriptors estão abertos no fim da execução do programa
+	valgrind --track-fds=yes
+flag para verificar leaks de memória nos processos filhos
+	valgrind --trace-children=yes
