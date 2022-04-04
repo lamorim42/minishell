@@ -3,7 +3,6 @@ NAME	= minishell
 CC		= clang
 CFLAGS	= -Wall -Werror -Wextra -g3
 
-
 #Source
 SRC		=	main.c \
 			get_tokens.c \
