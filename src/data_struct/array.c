@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:25:41 by lamorim           #+#    #+#             */
-/*   Updated: 2022/03/31 21:54:39 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/04 09:05:13 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	**copy_array(char **tokens, int size)
 
 	len = ft_array_len(tokens);
 	array_cpy = malloc(sizeof(char *) * (len + 1));
-
+	if (array_cpy == NULL)
+		return_error();
 	i = 0;
 	while (i < size)
 	{
