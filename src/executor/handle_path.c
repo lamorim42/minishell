@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:57:33 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/01 09:25:06 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/04 09:06:36 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	**check_path(t_line *line)
 	j = 0;
 	len = ft_array_len(line->cmds_table);
 	bin = malloc(sizeof(char *) * (len + 1));
+	if(bin == NULL)
+		return_error();
 	while(line->cmds_table[j])
 	{
 		i = 0;
