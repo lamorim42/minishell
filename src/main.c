@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/01 10:54:01 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:41:36 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int	main(int argc, char **argv, char **envp)
 		create_cmd_table(&line);
 		split_path(&line);
 		line.bin = check_path(&line);
-		//exec_cmd(&line);
+		// exec_cmd(&line);
+			// funç
+				// if (i + 1 == pipe)
 		ft_fork(&line);
 
 		free(line.pipeline);
@@ -99,6 +101,33 @@ void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set))
 	printf("len %d\n", len);
 }
 
+int	check_open_pipe(t_line *line)
+{
+	int	i;
+
+	i = 0;
+	if (line->nb_pipes > 0)
+	{
+		if (pipe(line->fd) == -1)
+			return (-1);
+		i++;
+	}
+	return (i);
+}
+
+void	maneger_exec(t_line *line)
+{
+	int	pipx;
+	int	pid;
+
+	pipx = check_open_pipe(line);
+	if (pipx < 0)
+		return_error();
+	else if (pipx == 0)
+		ft_fork(line);
+	else
+		ft_fork(line);
+}
 
 /* char	**table_cmds(char **tokens, int size)
 {
