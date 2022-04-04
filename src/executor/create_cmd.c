@@ -22,6 +22,8 @@ void	create_cmd_arr(t_line *line)
 
 	size = 0;
 	line->array_cmds = malloc(sizeof(char **) * ((line->nb_pipes * 2) + 2));
+	if(line->array_cmds == NULL)
+		return_error();
 	temp_lex = line->lex;
 	temp_tks = line->tks;
 	while (*temp_tks)
@@ -58,6 +60,8 @@ void	create_cmd_table(t_line *line)
 	size = 0;
 	i = 0;
 	line->cmds_table = malloc(sizeof(char **) * (line->nb_pipes + 2));
+	if(line->cmds_table == NULL)
+		return_error();
 	temp = line->array_cmds;
 	while (temp[i])
 	{
