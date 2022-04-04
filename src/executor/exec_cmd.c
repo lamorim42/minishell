@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 09:28:09 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/01 10:51:09 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/01 16:57:20 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,22 @@ void	exec_cmd(t_line *line)
 
 void	ft_fork(t_line *line)
 {
-	int	cmd;
+	int	pid;
 
-	cmd = fork();
+	pid = fork();
 
-	if (cmd < 0)
+	if (pid < 0)
 		return_error();
-	if (cmd == 0)
-		exec_cmd(line);
+	if (pid == 0)
+		ft_dup_pipe(line);
 	else
-		waitpid(cmd, NULL, 0);
+		waitpid(pid, NULL, 0);
+}
+
+void	ft_dup_pipe(t_line *line)
+{
+	dup2(STDOUT_FILENO, line->fd[1]);
+	close(line->fd[1]);
+	close(line->fd[0]);
+	exec_cmd(line);
 }
