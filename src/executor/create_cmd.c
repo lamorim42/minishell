@@ -12,7 +12,6 @@
 
 # include "minishell.h"
 
-
 void	create_cmd_arr(t_line *line)
 {
 	int		len;
@@ -42,14 +41,7 @@ void	create_cmd_arr(t_line *line)
 		temp_lex += len + (temp_lex[len] != NULL);
 	}
 	line->array_cmds[size] = NULL;
-	/* len = 0;
-	while (line->array_cmds[len])
-	{
-		print_array("array[len]", line->array_cmds[len]);
-		len++;
-	} */
 }
-
 
 void	create_cmd_table(t_line *line)
 {
@@ -75,8 +67,6 @@ void	create_cmd_table(t_line *line)
 		i++;
 	}
 	line->cmds_table[size] = NULL;
-
-	print_array("array_cpy", line->cmds_table);
 }
 
 void	ft_free_arrcmds(char ***mtx)
