@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/04 11:41:13 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/06 09:11:57 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_line {
 	char	**bin;
 	char	**map_cmds;
 	int		fd[2];
-	int		**array_fd;
 	int		*array_pid;
 }			t_line;
 
@@ -60,15 +59,14 @@ char	**lexical_analysis(char **tokens);
 //void	create_cmd(t_line *line);
 void	ft_free_arrcmds(char ***mtx);
 char	**check_path(t_line *line);
-void	exec_cmd(t_line *line, int i);
-void	ft_fork(t_line *line, int i);
+void	exec_cmd(t_line *line, int i, int j);
+void	ft_fork(t_line *line, int i, int j);
 void	ft_dup_pipe(t_line *line, int i);
 void	exec_cmd_pipe(t_line *line);
 void	get_pid(t_line *line, int pid, int i);
 void	get_fd(t_line *line, int i);
-void	dup_in(t_line *line, int j);
-void	dup_out(t_line *line, int j);
-
+void	dup_in(t_line *line);
+void	dup_out(t_line *line);
 
 //path
 char	*get_path(t_line *line);
