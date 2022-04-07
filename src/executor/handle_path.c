@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:57:33 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/04 09:06:36 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/06 09:28:35 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*get_path(t_line *line)
 		free(path);
 		path = NULL;
 	}
-	//printf("%s\n", line->path);
 	return (path);
 }
 
@@ -41,7 +40,6 @@ void	split_path(t_line *line)
 	path_cmd = get_path(line);
 	line->path = ft_split(path_cmd, ':');
 	free(path_cmd);
-	//print_array("print array", line->path);
 }
 
 char	**check_path(t_line *line)
@@ -51,7 +49,6 @@ char	**check_path(t_line *line)
 	int	len;
 	char	*cmd;
 	char	**bin;
-	//char	*temp;
 
 	j = 0;
 	len = ft_array_len(line->cmds_table);
@@ -61,15 +58,12 @@ char	**check_path(t_line *line)
 	while(line->cmds_table[j])
 	{
 		i = 0;
-		//printf("line->cmds[%d] = %s\n", j, line->cmds_table[j]);
 		cmd = ft_strjoin("/", line->cmds_table[j]);
 		while (line->path[i])
 		{
 			bin[j] = ft_strjoin(line->path[i], cmd);
-			//printf("bin (while)= %s\n", bin[j]);
 			if (!access(bin[j], F_OK))
 			{
-				//printf("cmd = %s\n", cmd);
 				free(cmd);
 				cmd = NULL;
 				break ;
@@ -83,10 +77,8 @@ char	**check_path(t_line *line)
 			free(cmd);
 		if (bin[j] == NULL)
 			bin[j] = ft_strdup("null");
-		//printf("depois do while do i\n");
 		j++;
 	}
 	bin[j] = NULL;
-	print_array("bin", bin);
 	return (bin);
 }

@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/04 11:55:14 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/06 10:18:26 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_line(t_line *line, int argc, char **argv, char **envp);
 static void	count_pipe(t_line *line);
-void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set));
+//void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set));
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -26,28 +26,30 @@ int	main(int argc, char **argv, char **envp)
 		printf("Use ./minishell"); */
 	init_line(&line, argc, argv, envp);
 	line.pipeline = readline("miau> ");
-	if (ft_strlen(line.pipeline))
+	while (1)
 	{
-		count_pipe(&line);
-		line.tks = get_tokens(line.pipeline);
-		line.lex = lexical_analysis(line.tks);
-		syntax_analisys(line.lex);
-		// expansão
-		create_cmd_arr(&line);
-		arr_map(&line, ft_strtrim);
-		create_cmd_table(&line);
-		split_path(&line);
-		line.bin = check_path(&line);
-		exec_cmd_pipe(&line);
-		//ft_fork(&line);
-
-		free(line.pipeline);
-		ft_free_array(line.bin);
-		ft_free_array(line.cmds_table);
-		ft_free_array(line.path);
-		ft_free_array(line.tks);
-		ft_free_array(line.lex);
-		ft_free_arrcmds(line.array_cmds);
+		if (ft_strlen(line.pipeline))
+		{
+			count_pipe(&line);
+			line.tks = get_tokens(line.pipeline);
+			line.lex = lexical_analysis(line.tks);
+			syntax_analisys(line.lex);
+			// expansão
+			create_cmd_arr(&line);
+		//	arr_map(&line, ft_strtrim);
+			create_cmd_table(&line);
+			split_path(&line);
+			line.bin = check_path(&line);
+			exec_cmd_pipe(&line);
+			//ft_fork(&line);
+			free(line.pipeline);
+			ft_free_array(line.bin);
+			ft_free_array(line.cmds_table);
+			ft_free_array(line.path);
+			ft_free_array(line.tks);
+			ft_free_array(line.lex);
+			ft_free_arrcmds(line.array_cmds);
+		}
 	}
 	return (0);
 }
@@ -65,24 +67,6 @@ static void	init_line(t_line *line, int argc, char **argv, char **envp)
 	line->argc = argc;
 	line->path = NULL;
 	line->bin = NULL;
-	init_array_pid(line);
-	init_array_fd(line);
-}
-
-void	init_array_pid(t_line *line)
-{
-	line->array_pid = malloc(sizeof(int *) * (line->nb_cmds + 1));
-	if (line->array_pid == NULL)
-		return_error();
-	line->array_pid[line->nb_cmds] = '\0';
-}
-
-void	init_array_fd(t_line *line)
-{
-	line->array_fd = malloc(sizeof(int **) * (line->nb_pipes + 1));
-	if (line->array_fd == NULL)
-		return_error();
-	line->array_fd[line->nb_pipes] = NULL;
 }
 
 static void	count_pipe(t_line *line)
@@ -98,7 +82,7 @@ static void	count_pipe(t_line *line)
 	}
 }
 
-void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set))
+/* void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set))
 {
 	int	len;
 	int	i;
@@ -107,7 +91,6 @@ void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set))
 	len = 0;
 	while (line->array_cmds[len])
 		len++;
-
 	line->map_cmds = malloc(sizeof(char *) * (len + 1));
 	if(line->map_cmds == NULL)
 		return_error();
@@ -116,8 +99,7 @@ void	arr_map(t_line *line, char *(*f)(char const *s1, char const *set))
 		line->map_cmds[i] = (*f)(line->array_cmds[i][0], " ");
 		i++;
 	}
-	printf("len %d\n", len);
-}
+} */
 
 void return_error(void)
 {
