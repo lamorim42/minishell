@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_str_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 19:43:15 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/03/31 21:47:39 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/10 21:00:53 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 char	*worddup(char **s)
 {
@@ -79,7 +79,7 @@ char	*worddup(char **s)
 //}
 
 // copiar string até o final, não só até as próximas aspas, ex: "c"at
-char	*quotdup(char **s, char	quot)
+char	*quotdup(char **s, char quot)
 {
 	char	*str;
 	size_t	offset;
