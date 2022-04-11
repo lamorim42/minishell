@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 void	create_cmd_arr(t_line *line)
 {
@@ -21,7 +21,7 @@ void	create_cmd_arr(t_line *line)
 
 	size = 0;
 	line->array_cmds = malloc(sizeof(char **) * ((line->nb_pipes * 2) + 2));
-	if(line->array_cmds == NULL)
+	if (line->array_cmds == NULL)
 		return_error();
 	temp_lex = line->lex;
 	temp_tks = line->tks;
