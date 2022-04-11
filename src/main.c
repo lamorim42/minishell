@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:29:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/06 10:18:26 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/10 20:56:41 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static void	count_pipe(t_line *line);
 int	main(int argc, char **argv, char **envp)
 {
 	t_line	line;
-	int	i;
+	int		i;
 
 	i = 0;
-	/* if (argc != 1)
-		printf("Use ./minishell"); */
+	if (argc != 1)
+		printf("Use ./minishell");
 	init_line(&line, argc, argv, envp);
 	line.pipeline = readline("miau> ");
 	while (1)
@@ -101,7 +101,7 @@ static void	count_pipe(t_line *line)
 	}
 } */
 
-void return_error(void)
+void	return_error(void)
 {
 	printf("error!\n");
 }
