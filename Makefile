@@ -39,7 +39,7 @@ $(NAME):	$(OBJ) $(LIBFT)
 			$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
 
 obj_dir:
-		mkdir -p $(OBJ_DIR)
+			mkdir -p $(OBJ_DIR)
 
 $(LIBFT):
 			make -C $(LIBFT_PATH)
@@ -68,7 +68,7 @@ git:	fclean
 		git status
 
 test:	obj_dir $(OBJ_TESTS) $(OBJ)
-		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_TESTS) $(OBJ) -o tests_minishell -lcriterion
+		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_TESTS) $(OBJ) $(LIBFT) -o tests_minishell -lcriterion
 		./tests_minishell
 
 .PHONY= all clean fclean re $(NAME)
