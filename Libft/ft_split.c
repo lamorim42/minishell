@@ -6,11 +6,12 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 01:34:39 by dmonteir          #+#    #+#             */
-/*   Updated: 2021/05/31 13:05:36 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/10 20:55:01 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 static size_t	count_words(const char *s, char c)
 {
 	int		is_word;

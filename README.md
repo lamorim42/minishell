@@ -42,3 +42,6 @@ flag para verificar quais file descriptors estão abertos no fim da execução d
 	valgrind --track-fds=yes
 flag para verificar leaks de memória nos processos filhos
 	valgrind --trace-children=yes
+
+
+# fazer testes para lidar com mais pipes no exec_pipe
