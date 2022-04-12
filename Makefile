@@ -27,7 +27,7 @@ VPATH	= ./src/ ./src/tokens/ ./tests
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"
-ADD		= .
+add		= .
 
 #Rules
 $(OBJ_DIR)/%.o: %.c
@@ -46,11 +46,13 @@ $(LIBFT):
 
 clean:
 		$(RM) $(OBJ)
+		$(RM) $(OBJ_TESTS)
 		make clean -C $(LIBFT_PATH)
 
 
 fclean:	clean
 		$(RM) $(NAME)
+		$(RM) tests_minishell
 		$(RM) obj/
 		make fclean -C $(LIBFT_PATH)
 
@@ -59,14 +61,14 @@ re:		fclean all
 git:	fclean
 		git status
 		@echo $(SEP)
-		git add $(ADD)
+		git add $(add)
 		@echo $(SEP)
 		git commit
 		@echo $(SEP)
 		git status
 
-test:	obj_dir $(OBJ_TESTS) $(OBJ_DIR)
-		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_TESTS) $(OBJ_DIR) -o tests_minishell -lcriterion
+test:	obj_dir $(OBJ_TESTS) $(OBJ)
+		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_TESTS) $(OBJ) -o tests_minishell -lcriterion
 		./tests_minishell
 
 .PHONY= all clean fclean re $(NAME)
