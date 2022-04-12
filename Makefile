@@ -5,15 +5,9 @@ CFLAGS	= -Wall -Werror -Wextra -g3
 
 #Source
 SRC		=	main.c \
-			get_tokens.c \
-			tokens_str_utils.c \
-			lexical_analysis.c \
-			syntax_analisys.c \
-			create_cmd.c \
-			handle_path.c \
-			array.c \
-			print_utils.c \
-			exec_cmd.c \
+			count_tks.c \
+
+SRC_TEST = tests_minishell.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -22,12 +16,14 @@ OBJTS	= $(SRC:.c=.o)
 OBJ		= $(addprefix ./obj/, $(OBJTS))
 OBJ_DIR	= ./obj
 
+OBJTS_TESTS	= $(SRC_TEST:.c=.o)
+OBJ_TESTS		= $(addprefix ./obj/, $(OBJTS_TESTS))
+
 RM		= rm -rf
 
 INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/ ./src/tokenizer/ ./src/parsing/ ./src/executor/ \
-			./src/data_struct/
+VPATH	= ./src/ ./src/tokens/ ./tests
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"
@@ -68,5 +64,9 @@ git:	fclean
 		git commit
 		@echo $(SEP)
 		git status
+
+test:	obj_dir $(OBJ_TESTS) $(OBJ_DIR)
+		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_TESTS) $(OBJ_DIR) -o tests_minishell -lcriterion
+		./tests_minishell
 
 .PHONY= all clean fclean re $(NAME)

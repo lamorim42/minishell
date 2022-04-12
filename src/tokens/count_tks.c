@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   count_tks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 09:38:59 by lamorim           #+#    #+#             */
-/*   Updated: 2022/03/24 09:50:57 by lamorim          ###   ########.fr       */
+/*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/04/11 20:47:00 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+//# include "minishell.h"
 
-void	print_array(char *msg, char **array)
+int	count_tks(char *line)
 {
-	int	i = 0;
-	while (array[i])
+	int counter;
+
+	counter = 0;
+	while (*line)
 	{
-		printf("%s: %s\n", msg, array[i]);
-		i++;
+		if (*line == ' ')
+			counter++;
+		line++;
 	}
-	printf("%s\n", array[i]);
+	if (*line == '\0')
+		counter++;
+	return (counter);
 }
