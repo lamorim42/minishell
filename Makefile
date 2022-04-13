@@ -6,6 +6,7 @@ CFLAGS	= -Wall -Werror -Wextra -g3
 #Source
 SRC		=	main.c \
 			count_tks.c \
+			tokenizer.c \
 
 SRC_TEST = tests_minishell.c \
 
