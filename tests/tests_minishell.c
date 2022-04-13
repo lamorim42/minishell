@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   tests_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:17:11 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/12 21:01:22 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/13 20:50:31 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //# include "minishell.h"
-# include "criterion/criterion.h"
+# include <criterion/criterion.h>
 # include <stdio.h>
-int count_tks(char *line);
+# include "minishell.h"
+
+char	**tokenizer(char *line);
 
 Test(count_tks, test_count_words)
 {
@@ -231,7 +233,28 @@ Test(count_tks, test_count_tks_with_squots_and_quots)
 	line = "echo \"abba \'ebba\' obba\"";
 	esperado = 2;
 	resultado = count_tks(line);
-	dprintf(2, "resultado = %d\n", resultado);
+	//dprintf(2, "resultado = %d\n", resultado);
 
 	cr_assert_eq(resultado, esperado);
 }
+
+// Tokenizer
+
+Test(tokenizer, test_tokenizer_ls)
+{
+	char	*line = "ls";
+	char	*esperado[] = {"ls", NULL};
+	char	**resultado = tokenizer(line);
+
+	cr_assert_str_eq(resultado[0], esperado[0]);
+}
+
+Test(tokenizer, test_tokenizer_ls_With_more_cmds)
+{
+	char	*line = "ls -a";
+	char	*esperado[] = {"ls", "-a", NULL};
+	char	**resultado = tokenizer(line);
+
+	cr_assert_str_eq(resultado[0], esperado[0]);
+}
+// fazer o while para testar um array de strings.
