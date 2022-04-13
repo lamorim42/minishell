@@ -1,47 +1,12 @@
-# TODO
 
-- [ ] passar a trim no line->cmds_table
+# Onde estamos
 
-- [ ] criar map para passar a trim
+Estamos fazendo apenas a tokenização, após esse momento analizamos se no token
+tem ou não o par de aspas. Se tiver vamos para função que explode as aspas, se
+não tiver vamos para função que abre o here_doc.
 
-- [x] array de cada comando
+- **exemplo:**
 
-- [ ] testes
-
-# Tests
-
-- miau"|""dasdas" = word pipe word
-
-- "miau"|miau" = erro
-
-- l"s" -a "|" "miau" = word word pipe word
-
-- adasd huasd ashdau| Z| haud | asduas
-
-- "cat"|"c"at|c"a"t|ca"t"|" cat"|"cat -e "
-
-- ca"t"|" cat"| = COUNT TA ERRADO
-
-# Idias
-
-- Usar Hashtable (ela guarda os valores da variavel PATH do sistema e é com ela
-
-- que conseguimos construir os builtins) para verificar as builtins
-
-## Valgrind flags
-
-valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
-
-## Init Execve
-- Testar no começo com um comando apenas ate o execve funcionar
-- testar com pipes
-- testar com varios pipes
-
-## Flags
-flag para verificar quais file descriptors estão abertos no fim da execução do programa
-	valgrind --track-fds=yes
-flag para verificar leaks de memória nos processos filhos
-	valgrind --trace-children=yes
-
-
-# fazer testes para lidar com mais pipes no exec_pipe
+"ls -a -> abre here_doc -> recebe restante do comando até as aspas ->
+substitui o token ("ls -a) por ("ls -a o_que_vem_do_here_doc") e provalvemente
+vai dar ruim.
