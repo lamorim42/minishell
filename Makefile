@@ -67,8 +67,11 @@ git:	fclean
 		@echo $(SEP)
 		git status
 
-test:	obj_dir $(OBJ_TESTS) $(OBJ)
+test:	obj_dir $(OBJ_TESTS) $(OBJ) $(LIBFT)
 		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_TESTS) $(OBJ) $(LIBFT) -o tests_minishell -lcriterion
 		./tests_minishell
+
+gdb:	obj_dir $(OBJ) $(LIBFT)
+		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o a.out
 
 .PHONY= all clean fclean re $(NAME)
