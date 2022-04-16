@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:17:11 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/13 20:50:31 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/16 19:48:47 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,31 @@ Test(tokenizer, test_tokenizer_ls_With_more_cmds)
 	char	*line = "ls -a";
 	char	*esperado[] = {"ls", "-a", NULL};
 	char	**resultado = tokenizer(line);
+	int		i;
+	int		limite;
 
-	cr_assert_str_eq(resultado[0], esperado[0]);
+	i = 0;
+	limite = 2;
+	while (i < limite)
+	{
+		cr_assert_str_eq(resultado[i], esperado[i]);
+		i++;
+	}
 }
-// fazer o while para testar um array de strings.
+
+Test(tokenizer, test_tokenizer_ls_With_more_cmds)
+{
+	char	*line = "ls -a|";
+	char	*esperado[] = {"ls", "-a", "|", NULL};
+	char	**resultado = tokenizer(line);
+	int		i;
+	int		limite;
+
+	i = 0;
+	limite = 3;
+	while (i < limite)
+	{
+		cr_assert_str_eq(resultado[i], esperado[i]);
+		i++;
+	}
+}
