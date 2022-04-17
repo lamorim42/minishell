@@ -8,7 +8,8 @@ SRC		=	main.c \
 			count_tks.c \
 			tokenizer.c \
 
-SRC_TEST = tests_minishell.c \
+SRC_TEST = tests_count_tks.c \
+			tests_tokenizer.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -70,7 +71,6 @@ git:	fclean
 
 test:	obj_dir $(OBJ_TESTS) $(OBJ) $(LIBFT)
 		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_TESTS) $(OBJ) $(LIBFT) -o tests_minishell -lcriterion
-		./tests_minishell
 
 gdb:	obj_dir $(OBJ) $(LIBFT)
 		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o a.out
