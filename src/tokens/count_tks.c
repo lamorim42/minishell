@@ -6,12 +6,12 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/12 20:51:26 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/18 20:51:56 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //# include "minishell.h"
-#include "../Libft/libft.h"
+#include "../../Libft/libft.h"
 
 static void	update_counter_flag(int *counter, int *flag);
 static void	count_inside_quot_as_one_word(char **line);
