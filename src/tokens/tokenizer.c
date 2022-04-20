@@ -6,11 +6,11 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/16 19:36:47 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/19 20:02:31 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 char	*worddup(char **s);
 
 char	**tokenizer(char *line)
@@ -21,7 +21,7 @@ char	**tokenizer(char *line)
 	char	*ptr;
 	count = count_tks(line);
 
-	tokens = malloc(sizeof(char *) * (count + 1));
+	tokens = (char **)malloc(sizeof(char *) * (count + 1));
 	ptr = line;
 	while(*ptr)
 	{
@@ -50,7 +50,7 @@ char	*worddup(char **s)
 
 	while ((*s)[len] && !ft_strchr("| ", (*s)[len]))
 		len++;
-	str = malloc(len + 1);
+	str = (char *)malloc(len + 1);
 	if (str == NULL)
 		return(NULL);
 	offset = 0;

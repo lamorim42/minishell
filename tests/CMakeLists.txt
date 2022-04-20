@@ -46,6 +46,7 @@ target_sources(
 		../Libft/ft_putstr_fd.c
 		../Libft/ft_putendl_fd.c
 		../Libft/ft_putnbr_fd.c
+		../Libft/ft_arrcmp.c
 )
 
 # Link runTests with what we want to test and the GTest and pthread library
@@ -57,6 +58,7 @@ target_sources(
 		../Libft/libft.h
 	PRIVATE
 		tests_count_tks.cpp
+		tests_tokenizer.cpp
 )
 target_link_libraries(
 	runTests
