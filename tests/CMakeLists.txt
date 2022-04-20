@@ -47,6 +47,7 @@ target_sources(
 		../Libft/ft_putendl_fd.c
 		../Libft/ft_putnbr_fd.c
 		../Libft/ft_arrcmp.c
+		../Libft/ft_free_arr.c
 )
 
 # Link runTests with what we want to test and the GTest and pthread library

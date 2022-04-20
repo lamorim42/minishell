@@ -17,6 +17,8 @@
 #include "../Libft/ft_strlcpy.c"
 #include "../Libft/ft_strlen.c"
 #include "../Libft/ft_arrcmp.c"
+#include "../Libft/ft_strncmp.c"
+#include "../Libft/ft_free_arr.c"
 
 // Tokenizer
 
@@ -26,30 +28,31 @@ TEST(tokenizer, test_tokenizer_ls)
 	char *esperado[] = {"ls", NULL};
 	char	**resultado = tokenizer(line);
 
+	std::cout << "testando" << std::endl;
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
 }
 
-/* TEST(tokenizer, test_tokenizer_ls_With_more_cmds)
+TEST(tokenizer, test_tokenizer_ls_With_more_cmds)
 {
-	std::string line = "ls -a";
+	char	*line = "ls -a";
 	char	*esperado[] = {"ls", "-a", NULL};
-	char	**resultado = tokenizer((char *)line.c_str());
+	char	**resultado = tokenizer(line);
 
 
-	for (int i = 0; i < 3; ++i) {
- 		EXPECT_STREQ(resultado[i], esperado[i]) << "Vectors x and y differ at index " << i;
-	}
+	std::cout << "testando2" << std::endl;
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
 
-} */
 
-
-/* TEST(tokenizer, test_tokenizer_ls_a_pipe)
+TEST(tokenizer, test_tokenizer_ls_a_pipe)
 {
-	std::string line = "ls -a|";
+	char	*line = "ls -a|";
 	char	*esperado[] = {"ls", "-a", "|", NULL};
-	char	**resultado = tokenizer((char *)line.c_str());
+	char	**resultado = tokenizer(line);
 
-	 for (int i = 0; i < 3; ++i) {
- 		EXPECT_STREQ(resultado[i], esperado[i]) << "Vectors x and y differ at index " << i;
-	}
-} */
+	std::cout << "testando3" << std::endl;
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
