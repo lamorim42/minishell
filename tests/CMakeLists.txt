@@ -60,6 +60,10 @@ target_sources(
 	PRIVATE
 		tests_count_tks.cpp
 		tests_tokenizer.cpp
+		tests_lexical_analyzer.cpp
+		../src/tokens/count_tks.c
+		../src/tokens/tokenizer.c
+		../src/tokens/lexical_analyzer.c
 )
 target_link_libraries(
 	runTests

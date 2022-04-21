@@ -20,37 +20,61 @@
 #include "../Libft/ft_arrcmp.c"
 #include "../Libft/ft_strncmp.c"
 #include "../Libft/ft_free_arr.c"
+#include "../includes/minishell.h"
 
 // Tokenizer
 
 TEST(tokenizer, test_tokenizer_ls)
 {
-	char *line = "ls";
+	t_line	line;
+	line.str = "ls";
 	char *esperado[] = {"ls", NULL};
-	char	**resultado = tokenizer(line);
+	char	**resultado = tokenizer(&line);
 
-	std::cout << "testando" << std::endl;
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
 
 TEST(tokenizer, test_tokenizer_ls_With_more_cmds)
 {
-	char	*line = "ls -a";
+	t_line	line;
+	line.str =  "ls -a";
 	char	*esperado[] = {"ls", "-a", NULL};
-	char	**resultado = tokenizer(line);
+	char	**resultado = tokenizer(&line);
 
-	std::cout << "testando2" << std::endl;
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
 
 TEST(tokenizer, test_tokenizer_ls_a_pipe)
 {
-	char	*line = "ls -a|";
+	t_line	line;
+	line.str =  "ls -a|";
 	char	*esperado[] = {"ls", "-a", "|", NULL};
-	std::cout << "oiiiiiii" << std::endl;
-	char	**resultado = tokenizer(line);
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_ls_a_pipe_cat_e)
+{
+	t_line	line;
+	line.str =  "ls -a|cat -e";
+	char	*esperado[] = {"ls", "-a", "|", "cat", "-e", NULL};
+	char	**resultado = tokenizer(&line);
+
+	std::cout << resultado[3] << std::endl;
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_ls_pipe_cat)
+{
+	t_line	line;
+	line.str = "ls | cat";
+	char	*esperado[] = {"ls", "|", "cat", NULL};
+	char	**resultado = tokenizer(&line);
 
 	std::cout << resultado[3] << std::endl;
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);

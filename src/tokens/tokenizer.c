@@ -3,35 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/20 20:29:46 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/21 15:44:01 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 char	*worddup(char **s);
 
-char	**tokenizer(char *line)
+char	**tokenizer(t_line *line)
 {
 	char	**tokens;
 	int		count;
 	int		i = 0;
 	char	*ptr;
 
-	count = count_tks(line);
+	count = count_tks(line->str);
 	tokens = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!tokens)
 		return (NULL);
-	ptr = line;
+	ptr = line->str;
 	while(*ptr)
 	{
-		if (*ptr == '|')
-		{
-			tokens[i] = ft_strdup(ptr);
-			ptr++;
-		}
 		if (*ptr && *ptr != ' ')
 		{
 			tokens[i] = worddup(&ptr);
@@ -47,19 +42,22 @@ char	**tokenizer(char *line)
 char	*worddup(char **s)
 {
 	char	*str;
-	size_t	offset;
 	size_t	len;
 
 	if (*s == NULL)
 		return (NULL);
 	len = 0;
 	str = NULL;
-	while ((*s)[len] && !ft_strchr("| ", (*s)[len]))
+	if (ft_strchr("|", **s))
 		len++;
+	else
+	{
+		while ((*s)[len] && !ft_strchr("| ", (*s)[len]))
+			len++;
+	}
 	str = (char *)malloc(len + 1);
 	if (str == NULL)
 		return(NULL);
-	offset = 0;
 	ft_strlcpy(str, *s, len + 1);
 	*s += len;
 	return (str);

@@ -7,9 +7,7 @@ CFLAGS	= -Wall -Werror -Wextra -g3
 SRC		=	main.c \
 			count_tks.c \
 			tokenizer.c \
-
-SRC_TEST = tests_count_tks.c \
-			tests_tokenizer.c \
+			lexical_analyzer.c
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
