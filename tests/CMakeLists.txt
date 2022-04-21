@@ -61,9 +61,13 @@ target_sources(
 		tests_count_tks.cpp
 		tests_tokenizer.cpp
 		tests_lexical_analyzer.cpp
+		tests_sintax_analysis.cpp
+		tests_clean_tokens.cpp
 		../src/tokens/count_tks.c
 		../src/tokens/tokenizer.c
 		../src/tokens/lexical_analyzer.c
+		../src/tokens/sintax_analysis.c
+		../src/tokens/clean_tokens.c
 )
 target_link_libraries(
 	runTests
