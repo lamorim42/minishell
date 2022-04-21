@@ -13,6 +13,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include "../src/tokens/tokenizer.c"
+#include "../Libft/ft_strdup.c"
 #include "../Libft/ft_memcmp.c"
 #include "../Libft/ft_strlcpy.c"
 #include "../Libft/ft_strlen.c"
@@ -39,20 +40,19 @@ TEST(tokenizer, test_tokenizer_ls_With_more_cmds)
 	char	*esperado[] = {"ls", "-a", NULL};
 	char	**resultado = tokenizer(line);
 
-
 	std::cout << "testando2" << std::endl;
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
 
-
 TEST(tokenizer, test_tokenizer_ls_a_pipe)
 {
 	char	*line = "ls -a|";
 	char	*esperado[] = {"ls", "-a", "|", NULL};
+	std::cout << "oiiiiiii" << std::endl;
 	char	**resultado = tokenizer(line);
 
-	std::cout << "testando3" << std::endl;
+	std::cout << resultado[3] << std::endl;
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
