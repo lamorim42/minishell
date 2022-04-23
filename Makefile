@@ -10,6 +10,7 @@ SRC		=	main.c \
 			lexical_analyzer.c \
 			sintax_analysis.c \
 			clean_tokens.c \
+			path_finder.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
@@ -25,7 +26,7 @@ RM		= rm -rf
 
 INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/ ./src/tokens/ ./tests
+VPATH	= ./src/ ./src/tokens/ ./src/exec
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"

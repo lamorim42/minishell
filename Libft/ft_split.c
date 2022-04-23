@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 01:34:39 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/10 20:55:01 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/23 11:45:43 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*worddup(const char *s, size_t len)
 	char	*str;
 	size_t	offset;
 
-	str = malloc(len + 1);
+	str = (char *)malloc(len + 1);
 	if (str == NULL)
 		return (NULL);
 	offset = 0;
@@ -82,7 +82,7 @@ char	**ft_split(const char *s, char c)
 	if (s == NULL)
 		return (NULL);
 	words = count_words(s, c);
-	res = malloc((words + 1) * sizeof(char *));
+	res = (char **)malloc((words + 1) * sizeof(char *));
 	if (res == NULL)
 		return (NULL);
 	counter = 0;
@@ -93,7 +93,7 @@ char	**ft_split(const char *s, char c)
 		{
 			res[counter] = worddup(s, len);
 			if (res[counter++] == NULL)
-				return (kill(res, counter - 1));
+				return ((char **)kill(res, counter - 1));
 		}
 		s += len + 1;
 	}
