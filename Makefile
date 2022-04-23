@@ -9,6 +9,7 @@ SRC		=	main.c \
 			tokenizer.c \
 			lexical_analyzer.c \
 			sintax_analysis.c \
+			clean_tokens.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a

@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   path_finder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 13:48:11 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/22 16:51:23 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/04/23 10:12:02 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/04/23 10:25:08 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char **path_finder(char **cmds)
 {
-	size_t	len;
-	size_t	i;
-	char	*str;
+	char **paths;
 
-	i = 0;
-	if (!s || !f)
-		return (NULL);
-	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		str[i] = f(i, s[i]);
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	paths = NULL;
+
+	return (paths);
 }

@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/21 17:58:25 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/23 10:11:05 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_line {
 	char	**tks;
 	char	**lex;
 	char	**cmds;
+	char	**bin;
 	int		tks_nbr;
 }			t_line;
 

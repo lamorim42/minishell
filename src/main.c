@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/21 17:58:01 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/23 10:10:24 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	facade(t_line *line)
 		{
 			printf("Syntax ERROR!\n");
 		}
-		else
-			printf("%s\n", line->str);
 		line->cmds = clean_tokens(line);
+		line->bin = path_finder(line);
+		printf("%s\n", line->cmds[0]);
 		free_line(line);
 	}
 }
