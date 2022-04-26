@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:12:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/23 11:55:14 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/25 20:30:44 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ char *path_finder(t_line *line)
 		}
 		i++;
 	}
-	printf("bin: %s\n", bin);
+	//printf("bin: %s\n", bin);
 	return (bin);
 }
