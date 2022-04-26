@@ -70,6 +70,7 @@ target_sources(
 		../src/tokens/sintax_analysis.c
 		../src/tokens/clean_tokens.c
 		../src/exec/path_finder.c
+		../src/init.c
 )
 target_link_libraries(
 	runTests
