@@ -11,6 +11,11 @@ SRC		=	main.c \
 			sintax_analysis.c \
 			clean_tokens.c \
 			path_finder.c \
+			init.c \
+			exec_path.c \
+			init_fork.c \
+			signals.c \
+
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a
