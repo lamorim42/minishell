@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/23 12:24:00 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/04/26 20:31:33 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	facade(t_line *line);
-void	free_line(t_line *line);
 void	free_array(char **mtx);
 
 int	main(int argc, char **argv, char **envp)
@@ -22,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc > 1)
 		return (1);
+	init_line(&line);
 	dprintf(2, "só um argv %s\n", argv[0]);
 	line.envp = envp;
 	facade(&line);
@@ -32,8 +32,14 @@ void	facade(t_line *line)
 {
 	while (1)
 	{
+		signals(line);
 		line->str = readline("miau> ");
-		if (ft_strlen(line->str) > 0)
+		if (line->str == NULL)
+		{
+			write(2, "exit\n", 6);
+			exit(1);
+		}
+		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
 			line->tks_nbr = count_tks(line->str);
 			line->tks = tokenizer(line);
@@ -44,7 +50,8 @@ void	facade(t_line *line)
 			}
 			line->cmds = clean_tokens(line);
 			line->bin = path_finder(line);
-			printf("%s\n", line->cmds[0]);
+			init_fork(line);
+			//printf("%s\n", line->cmds[0]);
 			free_line(line);
 		}
 	}
