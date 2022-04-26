@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:55:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/23 10:05:43 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/04/25 19:45:50 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char **clean_tokens(t_line *line)
 	char **cmds;
 	int i;
 	i = 0;
-
+	cmds = NULL;
 	cmds = (char **)malloc(sizeof(char **) * (line->tks_nbr + 1));
 	while (line->tks[i])
 	{
