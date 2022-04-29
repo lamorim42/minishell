@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   lexical_analyzer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 13:48:11 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/22 16:51:23 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/04/21 14:57:15 by lamorim           #+#    #+#             */
+/*   Updated: 2022/04/21 16:25:03 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	**lexical_analyzer(t_line *line)
 {
-	size_t	len;
-	size_t	i;
-	char	*str;
+	int		i;
+	char	**lex;
 
 	i = 0;
-	if (!s || !f)
-		return (NULL);
-	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
-		return (NULL);
-	while (i < len)
+	lex = (char **)malloc(sizeof(char *) * (line->tks_nbr + 1));
+	while (line->tks[i])
 	{
-		str[i] = f(i, s[i]);
+		if (!ft_strncmp(line->tks[i], "|", 1))
+			lex[i] = ft_strdup("PIPE");
+		else
+			lex [i] = ft_strdup("WORD");
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	lex[i] = NULL;
+	return (lex);
 }

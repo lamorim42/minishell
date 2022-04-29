@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   init_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 08:15:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/18 20:55:34 by lamorim          ###   ########.fr       */
+/*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/04/25 20:34:23 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *_new)
+void	init_fork(t_line *line)
 {
-	t_list	*ptr;
-
-	ptr = *lst;
-	*lst = _new;
-	_new->next = ptr;
+	line->pid = fork();
+	if (line->pid == 0)
+		exec_path(line);
+	waitpid(line->pid, NULL, 0);
 }

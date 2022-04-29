@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 08:15:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/18 20:55:34 by lamorim          ###   ########.fr       */
+/*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/04/25 20:20:03 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *_new)
+void	exec_path(t_line *line)
 {
-	t_list	*ptr;
-
-	ptr = *lst;
-	*lst = _new;
-	_new->next = ptr;
+	if (!execve(line->bin, line->cmds, line->envp))
+		free_line(line);
 }
+

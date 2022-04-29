@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_free_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 08:15:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/18 20:55:34 by lamorim          ###   ########.fr       */
+/*   Created: 2022/04/19 21:27:15 by lamorim           #+#    #+#             */
+/*   Updated: 2022/04/19 21:28:55 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *_new)
+void	ft_free_arr(char **mtx)
 {
-	t_list	*ptr;
+	int	i;
 
-	ptr = *lst;
-	*lst = _new;
-	_new->next = ptr;
+	i = 0;
+	while ((mtx)[i])
+	{
+		free((mtx)[i]);
+		i++;
+	}
+	free(mtx);
 }

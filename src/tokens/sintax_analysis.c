@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   sintax_analysis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 08:15:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/18 20:55:34 by lamorim          ###   ########.fr       */
+/*   Created: 2022/04/21 16:36:27 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/04/21 16:58:04 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *_new)
+int	sintax_analysis(char **lex)
 {
-	t_list	*ptr;
-
-	ptr = *lst;
-	*lst = _new;
-	_new->next = ptr;
+	int		i;
+	i = 0;
+	if (!ft_strncmp(lex[0], "PIPE", 4))
+		return(0);
+	/*while(lex[i])
+	{
+		if (ft_strncmp(lex[i + 1], "PIPE", 4))
+			return(0);
+		i++;
+	} */
+	return (1);
 }

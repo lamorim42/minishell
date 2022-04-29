@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 13:48:11 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/22 16:51:23 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/04/25 20:42:50 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/04/26 20:05:48 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	sig_handler(int sig);
+
+void	sig_handler(int sig)
 {
-	size_t	len;
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	if (!s || !f)
-		return (NULL);
-	len = ft_strlen(s);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
-		return (NULL);
-	while (i < len)
+	// printf("%d\n", sig);
+	if (sig == 3)
+		return ;
+	else
 	{
-		str[i] = f(i, s[i]);
-		i++;
+		write(2, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
-	str[i] = '\0';
-	return (str);
+}
+
+void	signals(t_line *line)
+{
+	line->tks_nbr = 1;
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
 }

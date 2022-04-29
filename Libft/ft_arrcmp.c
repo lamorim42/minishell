@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_arrcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 08:15:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/18 20:55:34 by lamorim          ###   ########.fr       */
+/*   Created: 2022/04/19 20:44:11 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/04/21 14:33:06 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-void	ft_lstadd_front(t_list **lst, t_list *_new)
+int	ft_arrcmp(char **arr1,char **arr2)
 {
-	t_list	*ptr;
+	int i = 0;
 
-	ptr = *lst;
-	*lst = _new;
-	_new->next = ptr;
+	if (arr1 == NULL || arr2 == NULL)
+		return (-1);
+	while (arr1[i] && arr2[i])
+	{
+		if (ft_strncmp(arr1[i], arr2[i], ft_strlen(arr1[i])))
+			return (1);
+		i++;
+	}
+	if (arr1[i] || arr2[i])
+		return (1);
+	return (0);
 }

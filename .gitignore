@@ -1,2 +1,7 @@
 *.vscode
 readline.supp
+tests_minishell
+tests/CMakeFiles
+tests/cmake_install.cmake
+tests/CMakeCache.txt
+tests/Makefile
