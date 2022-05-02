@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/29 20:04:08 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/02 20:12:38 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,23 @@
 # include <sys/wait.h>
 # include <signal.h>
 
+typedef struct s_pipe_list {
+	char				*bin;
+	char				**args;
+	char				**envp;
+	struct s_pipe_list	*next;
+}	t_pipe_list;
+
 typedef struct s_line {
-	char	*str;
-	char	**tks;
-	char	**lex;
-	char	**cmds;
-	char	*bin;
-	int		tks_nbr;
-	char	**envp;
-	int		pid;
+	char		*str;
+	char		**tks;
+	char		**lex;
+	char		**cmds;
+	char		*bin;
+	int			tks_nbr;
+	char		**envp;
+	int			pid;
+	t_pipe_list	list_cmds;
 }				t_line;
 
 int		count_tks(char *line);
@@ -44,5 +52,9 @@ void	exec_path(t_line *line);
 void	init_fork(t_line *line);
 
 char	*path_finder(t_line *line);
+void	print_array(char *msg, char **array);
+t_pipe_list	*new_node(char *bin, char **args, char** envp);
+
+void	creat_cmd_list(t_line *line);
 
 #endif

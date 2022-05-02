@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/21 15:44:01 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/02 19:32:13 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	**tokenizer(t_line *line)
 			ptr++;
 	}
 	tokens[i] = NULL;
+	print_array("Tokens", tokens);
 	return (tokens);
 }
 
