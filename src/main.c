@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/02 20:12:18 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/03 19:37:05 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	facade(t_line *line)
 			{
 				printf("Syntax ERROR!\n");
 			}
-			creat_cmdlst(line);
+			creat_cmd_list(line);
 			line->bin = path_finder(line);
 			init_fork(line);
 			//printf("%s\n", line->cmds[0]);
