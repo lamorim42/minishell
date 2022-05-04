@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/02 20:12:38 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/03 20:19:36 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ typedef struct s_pipe_list {
 
 typedef struct s_line {
 	char		*str;
+	char		**ctks;
 	char		**tks;
 	char		**lex;
-	char		**cmds;
+	char		***cmds;
 	char		*bin;
 	int			tks_nbr;
 	char		**envp;
@@ -40,6 +41,7 @@ typedef struct s_line {
 	t_pipe_list	list_cmds;
 }				t_line;
 
+int ft_array_len(char **array);
 int		count_tks(char *line);
 void	signals(t_line *line);
 char	**tokenizer(t_line *line);
@@ -50,6 +52,7 @@ void	init_line(t_line *line);
 void	free_line(t_line *line);
 void	exec_path(t_line *line);
 void	init_fork(t_line *line);
+char	***creat_cmd(t_line *line, char **ctks);
 
 char	*path_finder(t_line *line);
 void	print_array(char *msg, char **array);

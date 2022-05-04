@@ -16,6 +16,7 @@ SRC		=	main.c \
 			init_fork.c \
 			signals.c \
 			make_list.c \
+			creat_cmdlst.c \
 
 
 LIBFT_PATH = ./Libft
