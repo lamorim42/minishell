@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:12:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/25 20:30:44 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/03 19:43:46 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ char *path_finder(t_line *line)
 	int		len;
 	int		i;
 
-	len = ft_array_len(line->cmds);
+	len = ft_array_len(line->ctks);
 	paths = split_path(line);
-	cmd = ft_strjoin("/", line->cmds[0]);
+	cmd = ft_strjoin("/", line->ctks[0]);
 	i = 0;
 	while (paths[i])
 	{
