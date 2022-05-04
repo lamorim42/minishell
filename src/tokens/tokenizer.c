@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/02 19:32:13 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/03 19:46:50 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**tokenizer(t_line *line)
 			ptr++;
 	}
 	tokens[i] = NULL;
-	print_array("Tokens", tokens);
+	//print_array("Tokens", tokens);
 	return (tokens);
 }
 
