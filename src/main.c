@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/03 19:37:05 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/10 19:59:33 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	facade(t_line *line)
 {
 	while (1)
 	{
+
 		signals(line);
 		line->str = readline("miau> ");
 		if (line->str == NULL)
@@ -41,6 +42,7 @@ void	facade(t_line *line)
 		}
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
+			static int i = 0;
 			line->tks_nbr = count_tks(line->str);
 			line->tks = tokenizer(line);
 			line->lex = lexical_analyzer(line);
@@ -50,7 +52,11 @@ void	facade(t_line *line)
 			}
 			creat_cmd_list(line);
 			line->bin = path_finder(line);
-			init_fork(line);
+			population_linked_list(line);
+
+			init_fork(line, &i);
+			i++;
+			init_fork(line, &i);
 			//printf("%s\n", line->cmds[0]);
 			free_line(line);
 		}
