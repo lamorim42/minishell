@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/03 20:19:36 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:18:18 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ typedef struct s_line {
 	char		*str;
 	char		**ctks;
 	char		**tks;
+	int			fd[2];
 	char		**lex;
 	char		***cmds;
 	char		*bin;
 	int			tks_nbr;
 	char		**envp;
 	int			pid;
-	t_pipe_list	list_cmds;
+	t_pipe_list	*list_cmds;
 }				t_line;
 
 int ft_array_len(char **array);
@@ -50,9 +51,12 @@ int		sintax_analysis(char **lex);
 char	**clean_tokens(t_line *line);
 void	init_line(t_line *line);
 void	free_line(t_line *line);
-void	exec_path(t_line *line);
-void	init_fork(t_line *line);
+void	exec_path(t_line *line, int *i);
+void	init_fork(t_line *line, int *i);
 char	***creat_cmd(t_line *line, char **ctks);
+//linked list
+void population_linked_list(t_line *line);
+void	add_back_list(t_pipe_list **list, t_pipe_list **node);
 
 char	*path_finder(t_line *line);
 void	print_array(char *msg, char **array);
