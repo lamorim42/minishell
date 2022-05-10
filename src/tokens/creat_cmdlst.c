@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/03 21:11:59 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/10 19:38:39 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ char	***creat_cmd(t_line *line, char **ctks)
 		i++;
 	}
 	line->cmds[j] = NULL;
-	int counter = 0;
+	/* int counter = 0;
 	while (counter < j)
 	{
 		print_array("cmds", line->cmds[counter]);
 		counter++;
-	}
+	} */
 	// Lembrar de colocar o | junto a esse array
 	// para se colocar em uma linked list com separações
 	// Assim ja teremos os blocos de comandos e podemos verificar se temos redirect;
