@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/10 20:18:18 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:34:25 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 typedef struct s_pipe_list {
 	char				*bin;
 	char				**args;
-	char				**envp;
 	struct s_pipe_list	*next;
+	struct s_pipe_list	*prev;
 }	t_pipe_list;
 
 typedef struct s_line {
@@ -35,7 +35,6 @@ typedef struct s_line {
 	int			fd[2];
 	char		**lex;
 	char		***cmds;
-	char		*bin;
 	int			tks_nbr;
 	char		**envp;
 	int			pid;
@@ -48,19 +47,31 @@ void	signals(t_line *line);
 char	**tokenizer(t_line *line);
 char	**lexical_analyzer(t_line *line);
 int		sintax_analysis(char **lex);
-char	**clean_tokens(t_line *line);
-void	init_line(t_line *line);
-void	free_line(t_line *line);
-void	exec_path(t_line *line, int *i);
-void	init_fork(t_line *line, int *i);
-char	***creat_cmd(t_line *line, char **ctks);
-//linked list
-void population_linked_list(t_line *line);
-void	add_back_list(t_pipe_list **list, t_pipe_list **node);
 
-char	*path_finder(t_line *line);
+void	init_line(t_line *line);
+//free
+void	free_line(t_line *line);
+char	**clean_tokens(t_line *line);
+void	free_list(t_pipe_list *list);
+
+//exec
+void	init_fork(t_line *line, t_pipe_list *list);
+void	exec_path(t_line *line, t_pipe_list *list);
+void	exec_list(t_line *line);
+
+char	***creat_cmd(t_line *line, char **ctks);
+
+//bin
+void	list_generation_bin(t_line *line);
+//linked list
+void	population_linked_list(t_line *line);
+void	add_back_list(t_pipe_list **list, t_pipe_list **node);
+void	print_list(t_pipe_list *stack);
+t_pipe_list	*new_node(char **args);
+
+
+char	*path_finder(t_line *line, char *cmd);
 void	print_array(char *msg, char **array);
-t_pipe_list	*new_node(char *bin, char **args, char** envp);
 
 void	creat_cmd_list(t_line *line);
 
