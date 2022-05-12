@@ -6,13 +6,13 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/10 20:22:10 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/11 21:07:04 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_list(t_pipe_list *stack);
+
 
 // t_node    *new_node(char *str)
 // {
@@ -103,23 +103,22 @@ void population_linked_list(t_line *line)
 {
 	t_pipe_list *temp;
 	int i;
-	i = 0;
 
+	temp = NULL;
+	i = 0;
 	while (line->cmds[i])
 	{
 		if (line->list_cmds == NULL)
 		{
-			line->list_cmds = new_node(line->bin, line->cmds[i], line->envp);
+			line->list_cmds = new_node(line->cmds[i]);
 		}
 		else
 		{
-			temp = new_node(line->bin, line->cmds[i], line->envp);
+			temp = new_node(line->cmds[i]);
 			add_back_list(&line->list_cmds, &temp);
 		}
 		i++;
 	}
-
-	print_list(line->list_cmds);
 }
 
 void	add_back_list(t_pipe_list **list, t_pipe_list **node)
@@ -136,19 +135,22 @@ void	add_back_list(t_pipe_list **list, t_pipe_list **node)
 		while (temp->next != NULL)
 		{
 			temp = temp->next;
-		}
-		temp->next = *node;
+		};
+		temp->next = (*node);
+		(*node)->prev = temp;
 	}
 }
 
-t_pipe_list	*new_node(char *bin, char **args, char** envp)
+t_pipe_list	*new_node(char **args)
 {
 	t_pipe_list	*node;
 
 	node = (t_pipe_list *)malloc(sizeof(t_pipe_list));
-	node->bin = bin;
+	node->prev = (t_pipe_list *)malloc(sizeof(t_pipe_list *));
+	node->next = (t_pipe_list *)malloc(sizeof(t_pipe_list *));
+	node->prev = NULL;
+	node->bin = NULL;
 	node->args = args;
-	node->envp = envp;
 	node->next = NULL;
 	return (node);
 }
