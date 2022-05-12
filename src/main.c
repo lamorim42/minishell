@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/10 19:59:33 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:55:55 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	facade(t_line *line)
 		}
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
-			static int i = 0;
 			line->tks_nbr = count_tks(line->str);
 			line->tks = tokenizer(line);
 			line->lex = lexical_analyzer(line);
@@ -51,12 +50,11 @@ void	facade(t_line *line)
 				printf("Syntax ERROR!\n");
 			}
 			creat_cmd_list(line);
-			line->bin = path_finder(line);
-			population_linked_list(line);
 
-			init_fork(line, &i);
-			i++;
-			init_fork(line, &i);
+			population_linked_list(line);
+			list_generation_bin(line);
+			exec_list(line);
+			//init_fork(line, &i);
 			//printf("%s\n", line->cmds[0]);
 			free_line(line);
 		}
@@ -65,9 +63,37 @@ void	facade(t_line *line)
 
 void free_line(t_line *line)
 {
+	int i;
+	i = 0;
 	free_array(line->tks);
 	free_array(line->lex);
+	while (line->cmds && line->cmds[i])
+	{
+		free_array(line->cmds[i]);
+		i++;
+	}
+	free(line->cmds[i]);
+	free_list(line->list_cmds);
+
 	free(line->str);
+}
+
+void free_list(t_pipe_list *list)
+{
+	t_pipe_list *tmp;
+	t_pipe_list *aux;
+
+	tmp = list;
+	while (tmp)
+	{
+		aux = tmp->next;
+		tmp->args = NULL;
+		tmp->bin = NULL;
+		free(tmp);
+		tmp = aux;
+		if (tmp)
+			tmp->prev = NULL;
+	}
 }
 
 void free_array(char **mtx)
