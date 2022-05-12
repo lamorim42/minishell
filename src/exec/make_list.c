@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/11 21:07:04 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:12:37 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void population_linked_list(t_line *line)
 	int i;
 
 	temp = NULL;
+	line->list_cmds = NULL;
 	i = 0;
 	while (line->cmds[i])
 	{
@@ -135,7 +136,7 @@ void	add_back_list(t_pipe_list **list, t_pipe_list **node)
 		while (temp->next != NULL)
 		{
 			temp = temp->next;
-		};
+		}
 		temp->next = (*node);
 		(*node)->prev = temp;
 	}
@@ -146,11 +147,9 @@ t_pipe_list	*new_node(char **args)
 	t_pipe_list	*node;
 
 	node = (t_pipe_list *)malloc(sizeof(t_pipe_list));
-	node->prev = (t_pipe_list *)malloc(sizeof(t_pipe_list *));
-	node->next = (t_pipe_list *)malloc(sizeof(t_pipe_list *));
 	node->prev = NULL;
+	node->next = NULL;
 	node->bin = NULL;
 	node->args = args;
-	node->next = NULL;
 	return (node);
 }

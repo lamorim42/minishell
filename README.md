@@ -28,16 +28,16 @@ Lembrar de que quando tiver DOIS PIPES um atras do outro seve-se retornar 0 na s
 | `waitpid` | suspends execution of the calling thread until a child specified by *pid* argument has change state | `pid_t pid`, `int *wstatus`, `int options` | `pid_t` |
 | `wait3` | is similar to *waitpid*, but sdditionally return resource usage information about the child | `int *wstatus`, `int options`, `struct rusage *rusage` | `pid_t` |
 | `wait4` | is similar to *waitpid*, but sdditionally return resource usage information about the child | `pid_t pid`, `int *wstatus`, `int options`, `struct rusage *rusage` | `pid_t` |
-| signal |      |||
-| sigaction |   |||
-| sigemptyset | |||
-| sigaddset |   |||
-| kill |        |||
-| getcwd |      |||
-| chdir |       |||
-| stat |        |||
-| lstat |       |||
-| fstat |       |||
+| `signal` | sets the disposition of the signal *signum* to *handler* | `int signum`, `sighandler_t handler` | returns the previus value of the signal handler of *SIG_ERR* on error |
+| sigaction | system call is used to change the action taken by a process on receipt of a specific signal | `int signum`, `const struct sigaction *act`, `struct sigaction *oldact` | `0` on success, `-1` on error |
+| sigemptyset | allow the manipulation of POSIX signal set. Initializes the signal set given by *set* to empty, with all signals excluded from the set | `sigset_t *set` | `0` on success, `-1` on error |
+| sigaddset | add signal *signum* from *set* | `sigset *set`, `int signum` | `0` on success, `-1` on error |
+| kill | system call can be used to send any signal to any process group or process | `pid_t pid`, `int sig` | `0` on success, `-1` on error and *errno* is set appropriately |
+| getcwd |  |||
+| chdir |  |||
+| stat |  |||
+| lstat |  |||
+| fstat |  |||
 | unlink |      |||
 | [dup](https://www.mkssoftware.com/docs/man3/dup.3.asp) |Duplica um File Descriptor. Quando da certo retorna um fd com o: Mesmo arquivo aberto (ou pipe) do arquivo original, mesmo ponteiro de arquivo (ambos os descritores de arquivo compartilham um ponteiro de arquivo), Mesmo modo de acesso (leitura, gravação ou leitura/gravação)|int dup(int fildes)|Success: Retorna um int com o fd duplicado, Error: Retorna -1 e define errno para o valor retornado|
 | [dup2](https://www.mkssoftware.com/docs/man3/dup2.3.asp#:~:text=The%20dup2()%20function%20duplicates,any%20locks%20with%20the%20original.) |Duplica um File Descriptor aberto em outro File Descriptor|int dup(int fildes, int fildes2);|Success: Retorna um int com o fd duplicado, Error: Retorna -1 e define errno para o valor retornado|
