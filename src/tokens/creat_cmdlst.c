@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/10 19:38:39 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:59:19 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	***creat_cmd(t_line *line, char **ctks)
 			count_pipes++;
 		i++;
 	}
-	line->cmds = ft_calloc((count_pipes + (count_pipes + 1)), (sizeof(char **)));
+	line->cmds = ft_calloc((count_pipes + (count_pipes + 2)), (sizeof(char **)));
 	if (line->cmds == NULL)
 		return (NULL);
 	i = 0;
