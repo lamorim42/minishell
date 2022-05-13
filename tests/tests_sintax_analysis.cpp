@@ -21,3 +21,13 @@ TEST(sintax_analysis, pipe_before_ls_ok)
 
 	EXPECT_TRUE(sintax_analysis(lex) == 0);
 }
+
+TEST(sintax_analysis, redo_pipe)
+{
+	char **lex = (char **)malloc(sizeof(char **) * 3);
+	lex[0] = "REDO";
+	lex[1] = "PIPE";
+	lex[2] = NULL;
+
+	EXPECT_TRUE(sintax_analysis(lex) == 0);
+}

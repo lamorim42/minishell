@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/12 19:28:20 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/13 20:14:14 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@
 # include <signal.h>
 
 typedef struct s_pipe_list {
-	char				*bin;
 	char				**args;
+	union
+	{
+		char			*bin;
+		int				fd[2];
+	};
 	struct s_pipe_list	*next;
 	struct s_pipe_list	*prev;
 }	t_pipe_list;

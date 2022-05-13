@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "../src/tokens/clean_tokens.c"
 #include "../Libft/ft_strtrim.c"
+#include "../Libft/ft_bzero.c"
 #include "../src/init.c"
 #include <stdio.h>
 

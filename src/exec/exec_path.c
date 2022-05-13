@@ -21,15 +21,15 @@ void	exec_path(t_line *line, t_pipe_list *list)
 	prev = list->prev;
 	if (next && next->args && !ft_strncmp(next->args[0], "PIPE", 4))
 	{
-		dup2(line->fd[1], STDOUT_FILENO);
-		close(line->fd[0]);
-		close(line->fd[1]);
+		dup2(list->next->fd[1], STDOUT_FILENO);
+		close(list->next->fd[0]);
+		close(list->next->fd[1]);
 	}
 	if (prev && prev->args && !ft_strncmp(list->prev->args[0], "PIPE", 4))
 	{
-		dup2(line->fd[0], STDIN_FILENO);
-		close(line->fd[1]);
-		close(line->fd[0]);
+		dup2(list->prev->fd[0], STDIN_FILENO);
+		close(list->prev->fd[1]);
+		close(list->prev->fd[0]);
 	}
 	//print_array("cmds", line->ctks)
 

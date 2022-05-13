@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical_analyzer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:57:15 by lamorim           #+#    #+#             */
-/*   Updated: 2022/04/21 16:25:03 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/13 19:29:49 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	**lexical_analyzer(t_line *line)
 	{
 		if (!ft_strncmp(line->tks[i], "|", 1))
 			lex[i] = ft_strdup("PIPE");
+		else if (!ft_strncmp(line->tks[i], ">", 1))
+			lex[i] = ft_strdup("REDO");
 		else
 			lex [i] = ft_strdup("WORD");
 		i++;

@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/12 15:26:57 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/13 19:54:08 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,19 @@ void	facade(t_line *line)
 			if (!sintax_analysis(line->lex))
 			{
 				printf("Syntax ERROR!\n");
+				free_array(line->tks);
+				free_array(line->lex);
+				free(line->str);
 			}
-			creat_cmd_list(line);
-
-			population_linked_list(line);
-			list_generation_bin(line);
-			exec_list(line);
-			//init_fork(line, &i);
-			//printf("%s\n", line->cmds[0]);
-			free_line(line);
+			else
+			{
+				creat_cmd_list(line);
+				population_linked_list(line);
+				list_generation_bin(line);
+				exec_list(line);
+				add_history(line->str);
+				free_line(line);
+			}
 		}
 		else
 		{
@@ -68,8 +72,11 @@ void free_line(t_line *line)
 {
 	int i;
 	i = 0;
+
+	free_list(line->list_cmds);
 	free_array(line->tks);
 	free_array(line->lex);
+	free_array(line->ctks);
 	free(line->str);
 	while (line->cmds && line->cmds[i])
 	{
@@ -78,7 +85,6 @@ void free_line(t_line *line)
 	}
 	free(line->cmds[i]);
 	free(line->cmds);
-	free_list(line->list_cmds);
 }
 
 void free_list(t_pipe_list *list)
@@ -90,6 +96,8 @@ void free_list(t_pipe_list *list)
 	while (tmp)
 	{
 		aux = tmp->next;
+		if(ft_strncmp(tmp->args[0], "PIPE", 4))
+			free(tmp->bin);
 		free(tmp);
 		tmp = aux;
 	}

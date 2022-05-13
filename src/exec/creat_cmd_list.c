@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   creat_cmdlst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/11 20:59:19 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/13 19:52:26 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// ls ; pipe = 0 => 0 + (0 + 1)
-// ls | echo ; pipe = 1 => 1 + (1+1)
+
 void	creat_cmd_list(t_line *line);
 char	**copy_array(char **tokens, int size);
 void	ft_free_array(char **mtx);
