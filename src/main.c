@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/13 19:54:08 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/14 21:58:16 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	facade(t_line *line)
 		}
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
+			init_hash();
 			line->tks_nbr = count_tks(line->str);
 			line->tks = tokenizer(line);
 			line->lex = lexical_analyzer(line);

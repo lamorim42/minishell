@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/13 20:14:14 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/15 20:43:34 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+
+//#define size_table 19211
+#define size_table 149
+
+typedef struct s_hash_item {
+	char* key;
+	char* value;
+}	t_hash_item;
+
+typedef struct s_hash_table {
+	t_hash_item** item;
+	int size;
+	int count;
+}	t_hash_table;
 
 typedef struct s_pipe_list {
 	char				**args;
@@ -57,6 +71,7 @@ void	init_line(t_line *line);
 void	free_line(t_line *line);
 char	**clean_tokens(t_line *line);
 void	free_list(t_pipe_list *list);
+void	init_hash();
 
 //exec
 void	init_fork(t_line *line, t_pipe_list *list);
