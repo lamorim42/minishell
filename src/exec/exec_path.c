@@ -14,6 +14,7 @@
 
 void	exec_path(t_line *line, t_pipe_list *list)
 {
+	// ls | grep file
 	t_pipe_list	*next;
 	t_pipe_list	*prev;
 

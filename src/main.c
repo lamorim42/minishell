@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/13 19:54:08 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/17 23:03:11 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	facade(t_line *line)
 {
 	while (1)
 	{
-
 		signals(line);
 		line->str = readline("miau> ");
 		if (line->str == NULL)

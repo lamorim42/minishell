@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_cmdlst.c                                     :+:      :+:    :+:   */
+/*   creat_cmd_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/13 19:52:26 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/18 19:47:25 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,36 @@ char	***creat_cmd(t_line *line, char **ctks)
 			count_pipes++;
 		i++;
 	}
-	line->cmds = ft_calloc((count_pipes + (count_pipes + 2)), (sizeof(char **)));
+	line->cmds = ft_calloc((count_pipes * 2) + 2, (sizeof(char **)));
 	if (line->cmds == NULL)
 		return (NULL);
 	i = 0;
-	while (lex && lex[i])
+	while (ctks && lex[i])
 	{
+		// ls -a > file
 		if (!ft_strncmp(lex[i], "WORD", 4))
 			count_words++;
-		if (lex[i + 1] == NULL || !ft_strncmp(lex[i], "PIPE", 4))
+		if (lex[i + 1] == NULL || !ft_strncmp(lex[i], "PIPE", 4)
+			|| !ft_strncmp(lex[i], "REDO", 4))
 		{
+			printf("if i = %d | lex = %s\n", i, lex[i]);
 			line->cmds[j] = copy_array(ctks, count_words);
+			print_array("cmds WORD", line->cmds[j]);
+			ctks += count_words;
 			j++;
 			if (!ft_strncmp(lex[i], "PIPE", 4))
 			{
 				line->cmds[j] = copy_array(&lex[i], 1);
+				print_array("cmds PIPE", line->cmds[j]);
 				j++;
 			}
-			ctks += count_words + (lex[i + 1] != NULL);
+			if (!ft_strncmp(lex[i], "REDO", 4))
+			{
+				line->cmds[j] = copy_array(ctks, 2);
+				print_array("cmds REDO", line->cmds[j]);
+				ctks += 2 + (lex[i + 1] != NULL);
+				j++;
+			}
 			count_words = 0;
 		}
 		i++;

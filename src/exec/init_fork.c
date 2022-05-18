@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/13 18:34:10 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/14 19:02:53 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_fork(t_line *line, t_pipe_list *list)
 {
+	// ls | grep file
 	if (list->next && !ft_strncmp(list->next->args[0], "PIPE", 4))
 	{
 		if (pipe(list->next->fd) != 0)
