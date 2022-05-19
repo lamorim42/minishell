@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/15 20:43:34 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:37:05 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 
 //#define size_table 19211
 #define size_table 149
+
+typedef struct s_node {
+	t_hash_item *item;
+	t_node next;
+}	t_node;
 
 typedef struct s_hash_item {
 	char* key;
