@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:49:43 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/16 20:15:35 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/16 20:18:41 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,11 +166,6 @@ void hash_insert(t_hash_table *table, char *key, char *value)
 
 void handle_collision(t_hash_table *table, t_hash_item *item)
 {
-	while (item[index] != NULL)
-	{
-		index = next_local(index);
-	}
-
 	printf("Collision detected\n");
 	printf("%s\n", item->key);
 	print_table(table);
