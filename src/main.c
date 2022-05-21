@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/17 23:03:11 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/21 20:00:35 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	facade(t_line *line)
 	{
 		signals(line);
 		line->str = readline("miau> ");
-		if (line->str == NULL)
+		if (line->str == NULL && !line->sig)
 		{
 			write(2, "exit\n", 6);
 			exit(1);
@@ -95,7 +95,8 @@ void free_list(t_pipe_list *list)
 	while (tmp)
 	{
 		aux = tmp->next;
-		if(ft_strncmp(tmp->args[0], "PIPE", 4))
+		if(tmp->args[0] && ft_strncmp(tmp->args[0], "PIPE", 4)
+			&& ft_strncmp(tmp->args[0], "REDO", 4))
 			free(tmp->bin);
 		free(tmp);
 		tmp = aux;

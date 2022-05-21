@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/14 18:48:52 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/21 19:00:59 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <fcntl.h>
 
 typedef struct s_pipe_list {
 	char				**args;
@@ -42,6 +43,7 @@ typedef struct s_line {
 	int			tks_nbr;
 	char		**envp;
 	int			pid;
+	int			sig;
 	t_pipe_list	*list_cmds;
 }				t_line;
 

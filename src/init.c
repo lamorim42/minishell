@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:54:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/12 19:40:10 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/21 19:01:23 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	init_line(t_line *line)
 	line->cmds = NULL;
 	line->str = NULL;
 	line->ctks = NULL;
+	line->sig = 1;
 	ft_bzero(line->fd, 2);
 }
