@@ -40,5 +40,6 @@ void	exec_path(t_line *line, t_pipe_list *list)
 	if (!execve(list->bin, list->args, line->envp))
 	{
 		free_line(line);
+		exit(1);
 	}
 }

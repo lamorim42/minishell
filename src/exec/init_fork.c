@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/21 17:08:24 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/23 17:33:06 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ void	init_fork(t_line *line, t_pipe_list *list)
 		}
 	}
 
-	line->pid = fork();
 	if (list && !ft_strncmp(list->args[0], "REDO", 4))
 		close(list->fd[0]);
-	if (line->pid == 0)
+	else if (ft_strncmp(list->args[0], "PIPE", 4)
+			&& ft_strncmp(list->args[0], "REDO", 4))
 	{
-		exec_path(line, list);
+		line->pid = fork();
+		if (line->pid == 0)
+			exec_path(line, list);
 	}
 	if (list->prev && !ft_strncmp(list->prev->args[0], "PIPE", 4))
 	{

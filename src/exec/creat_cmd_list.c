@@ -62,10 +62,7 @@ char	***creat_cmd(t_line *line, char **ctks)
 			}
 			if (!ft_strncmp(lex[i], "REDO", 4))
 			{
-				if (!ft_strncmp(line->ctks[0], ">", 1))
-					line->cmds[j] = make_redirect(lex[i], ctks[1]);
-				else
-					line->cmds[j] = make_redirect(lex[i], ctks[0]);
+				line->cmds[j] = make_redirect(lex[i], ctks[1]);
 				ctks += 2;
 				j++;
 				i++;

@@ -45,11 +45,7 @@ void	exec_list(t_line *line)
 			}
 			close(temp->fd[0]);
 		}
-		if (temp->args[0] && ft_strncmp(temp->args[0], "PIPE", 4)
-			&& ft_strncmp(temp->args[0], "REDO", 4))
-		{
-			init_fork(line, temp);
-		}
+		init_fork(line, temp);
 		temp = temp->next;
 	}
 }
