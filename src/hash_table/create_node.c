@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:09:43 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/23 22:14:21 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:15:34 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_hash_item *create_item(char *key, char *value)
 
 	item->key = ft_strdup(key);
 	item->value = ft_strdup(value);
+	item->next = NULL;
 
 	return item;
 }
