@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:09:39 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/23 21:00:25 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:15:56 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@ t_hash_table *create_table(int size)
 
 	while (i < table->size)
 	{
-		//table->item[i] = NULL;
-		table->item[i] = (t_hash_item *)ft_calloc(sizeof(t_hash_item), size);
-		//table->item[i]->key = NULL;
-		//table->item[i]->value = NULL;
+		table->item[i] = NULL;
 		i++;
 	}
-
 	return table;
 }
