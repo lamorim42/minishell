@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/13 18:34:10 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/21 13:54:44 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_fork(t_line *line, t_pipe_list *list)
 	{
 		exec_path(line, list);
 	}
+	//Ver por que o waitpid deve ficar no fim.
+	//waitpid(line->pid, NULL, 0);
 	if (list->prev && !ft_strncmp(list->prev->args[0], "PIPE", 4))
 	{
 		close(list->prev->fd[0]);
