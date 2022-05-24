@@ -19,6 +19,13 @@ SRC		=	main.c \
 			creat_cmd_list.c \
 			list_commands.c \
 			init_hash.c \
+			create_node.c \
+			create_table.c \
+			free_itens.c \
+			hash_function.c \
+			insert_node.c \
+			search_item.c \
+			delete_node.c \
 
 
 LIBFT_PATH = ./Libft
