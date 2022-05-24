@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/19 19:37:05 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/23 22:07:02 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,14 @@
 //#define size_table 19211
 #define size_table 149
 
-typedef struct s_node {
-	t_hash_item *item;
-	t_node next;
-}	t_node;
-
 typedef struct s_hash_item {
 	char* key;
 	char* value;
+	struct s_hash_item *next;
 }	t_hash_item;
 
 typedef struct s_hash_table {
-	t_hash_item** item;
+	struct s_hash_item **item;
 	int size;
 	int count;
 }	t_hash_table;
@@ -93,6 +89,16 @@ void	add_back_list(t_pipe_list **list, t_pipe_list **node);
 void	print_list(t_pipe_list *stack);
 t_pipe_list	*new_node(char **args);
 
+//hashTable
+t_hash_item	*create_item(char *key, char *value);
+t_hash_table	*create_table(int size);
+void	free_item(t_hash_item *item);
+void	free_table(t_hash_table **table);
+void	init_hash();
+void	hash_insert(t_hash_table **table, char *key, char *value);
+char	*search_item(t_hash_table **table, char *key);
+unsigned long	hash_function(char *str);
+void	table_delete(t_hash_table **table, char *key);
 
 char	*path_finder(t_line *line, char *cmd);
 void	print_array(char *msg, char **array);
