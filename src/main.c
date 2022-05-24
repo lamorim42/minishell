@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/14 21:58:16 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/21 11:43:36 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_line line;
 
-	if (argc > 1 || ft_strncmp(argv[0], "./minishell", 3))
-		return (1);
+	if(argv[0] == NULL && argc > 1)
+		return 1;
+	/* if (argc > 1 || ft_strncmp(argv[0], "./minishell", 3))
+		return (1); */
 	init_line(&line);
 	line.envp = envp;
 	facade(&line);
