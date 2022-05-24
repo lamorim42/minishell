@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/02 20:12:18 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/23 18:50:56 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_line line;
 
-	if (argc > 1)
+	if (argc > 1 || ft_strncmp(argv[0], "./minishell", 3))
 		return (1);
 	init_line(&line);
-	dprintf(2, "só um argv %s\n", argv[0]);
 	line.envp = envp;
 	facade(&line);
 	return (0);
@@ -47,21 +46,44 @@ void	facade(t_line *line)
 			if (!sintax_analysis(line->lex))
 			{
 				printf("Syntax ERROR!\n");
+				free_array(line->tks);
+				free_array(line->lex);
+				free(line->str);
 			}
-			creat_cmdlst(line);
-			line->bin = path_finder(line);
-			init_fork(line);
-			//printf("%s\n", line->cmds[0]);
-			free_line(line);
+			else
+			{
+				creat_cmd_list(line);
+				population_linked_list(line);
+				list_generation_bin(line);
+				exec_list(line);
+				add_history(line->str);
+				free_line(line);
+			}
+		}
+		else
+		{
+			free(line->str);
 		}
 	}
 }
 
 void free_line(t_line *line)
 {
+	int i;
+	i = 0;
+
+	free_list(line->list_cmds);
 	free_array(line->tks);
 	free_array(line->lex);
+	free_array(line->ctks);
 	free(line->str);
+	while (line->cmds && line->cmds[i])
+	{
+		free_array(line->cmds[i]);
+		i++;
+	}
+	free(line->cmds[i]);
+	free(line->cmds);
 }
 
 void free_array(char **mtx)

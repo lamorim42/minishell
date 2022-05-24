@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/02 19:32:13 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/18 10:39:39 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**tokenizer(t_line *line)
 			ptr++;
 	}
 	tokens[i] = NULL;
-	print_array("Tokens", tokens);
+	//print_array("Tokens", tokens);
 	return (tokens);
 }
 
@@ -49,11 +49,11 @@ char	*worddup(char **s)
 		return (NULL);
 	len = 0;
 	str = NULL;
-	if (ft_strchr("|", **s))
+	if (ft_strchr("|>", **s))
 		len++;
 	else
 	{
-		while ((*s)[len] && !ft_strchr("| ", (*s)[len]))
+		while ((*s)[len] && !ft_strchr("|> ", (*s)[len]))
 			len++;
 	}
 	str = (char *)malloc(len + 1);

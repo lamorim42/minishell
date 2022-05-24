@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:12:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/25 20:30:44 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/11 21:52:58 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,24 @@ static char **split_path(t_line *line)
 	return (path);
 }
 
-char *path_finder(t_line *line)
+char *path_finder(t_line *line, char *cmd)
 {
 	char	**paths;
 	char	*bin;
-	char	*cmd;
-	int		len;
+	char	*cmd_bin;
 	int		i;
 
-	len = ft_array_len(line->cmds);
+	//len = ft_array_len(line->ctks);
 	paths = split_path(line);
-	cmd = ft_strjoin("/", line->cmds[0]);
+	//cmd = ft_strjoin("/", line->ctks[0]);
+	cmd_bin = ft_strjoin("/", cmd);
 	i = 0;
 	while (paths[i])
 	{
-		bin = ft_strjoin(paths[i], cmd);
+		bin = ft_strjoin(paths[i], cmd_bin);
 		if (!access(bin, F_OK))
 		{
-			free(cmd);
+			free(cmd_bin);
 			break ;
 		}
 		else
@@ -90,6 +90,7 @@ char *path_finder(t_line *line)
 		}
 		i++;
 	}
+	ft_free_arr(paths);
 	//printf("bin: %s\n", bin);
 	return (bin);
 }

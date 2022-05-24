@@ -63,13 +63,11 @@ target_sources(
 		tests_lexical_analyzer.cpp
 		tests_sintax_analysis.cpp
 		tests_clean_tokens.cpp
-		tests_path_finder.cpp
 		../src/tokens/count_tks.c
 		../src/tokens/tokenizer.c
 		../src/tokens/lexical_analyzer.c
 		../src/tokens/sintax_analysis.c
 		../src/tokens/clean_tokens.c
-		../src/exec/path_finder.c
 		../src/init.c
 )
 target_link_libraries(

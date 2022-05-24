@@ -46,3 +46,21 @@ TEST(lexical_analyzes, ls_to_word_pipe_word)
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 }
+
+TEST(lexical_analyzes, ls_to_word_red_pipe_word)
+{
+	t_line	line;
+	line.tks_nbr = 3;
+	line.tks = (char**)malloc(sizeof(char *) * 6);
+	line.tks[0] = ft_strdup("ls");
+	line.tks[1] = ft_strdup(">");
+	line.tks[2] = ft_strdup("file");
+	line.tks[3] = ft_strdup("|");
+	line.tks[4] = ft_strdup("ls");
+	line.tks[5] = NULL;
+	char	*tks[] = {"ls", ">", "file", "|", "ls", NULL};
+	char	*esperado[] = {"WORD", "REDO", "WORD", "PIPE", "WORD", NULL};
+	char	**resultado = lexical_analyzer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
