@@ -14,7 +14,7 @@ vai dar ruim.
 - *tests to do*
 
 - [ ] ls | grep 'Libft'
-- [ ] ls | grep Libft | tr f \"
+- [ ] lakdjsf > fileout
 
 # Não esquecer que quando arrays de strings começarem com aspas que não são fechadasm, as words são contadas como uma!!
 

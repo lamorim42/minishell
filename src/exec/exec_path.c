@@ -36,12 +36,14 @@ void	exec_path(t_line *line, t_pipe_list *list)
 		|| !ft_strncmp(next->args[0], "REDA", 4)))
 	{
 		dup2(list->next->fd[0], STDOUT_FILENO);
+		close(list->next->fd[0]);
 	}
 	//print_array("cmds", line->ctks)
 
 	if (!execve(list->bin, list->args, line->envp))
 	{
 		free_line(line);
+		close(STDOUT_FILENO);
 		exit(1);
 	}
 }
