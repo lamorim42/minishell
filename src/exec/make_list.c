@@ -6,33 +6,11 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/13 18:29:03 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/23 18:52:32 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-
-// t_node    *new_node(char *str)
-// {
-//     t_node    *node;
-
-//     node = malloc(sizeof(t_node));
-//     if (!node)
-//         return (NULL);
-//     else
-//     {
-//         node->str = str;
-//         node->next = NULL;
-//     }
-//     return (node);
-// }
-
-// ls -la | echo oi
-// bin = /usr/lin/ls
-// args = "ls", "-la"
-// envp = envp
 
 /*
 t_node	*copy_list(t_node **linked_list)
@@ -59,8 +37,6 @@ t_node	*copy_list(t_node **linked_list)
 	return (copy_array);
 }
 
-
-
 void	clean_list(t_node **head)
 {
 	t_node	*temp;
@@ -77,13 +53,6 @@ void	clean_list(t_node **head)
 		temp = aux;
 	}
 }  */
-
-/* void add_back_stack(t_pipe_list *list)
-{
-
-} */
-
-//ls -a | echo oi
 
 void	print_list(t_pipe_list *stack)
 {
@@ -152,4 +121,21 @@ t_pipe_list	*new_node(char **args)
 	node->bin = NULL;
 	node->args = args;
 	return (node);
+}
+
+void free_list(t_pipe_list *list)
+{
+	t_pipe_list *tmp;
+	t_pipe_list *aux;
+
+	tmp = list;
+	while (tmp)
+	{
+		aux = tmp->next;
+		if(tmp->args[0] && ft_strncmp(tmp->args[0], "PIPE", 4)
+			&& ft_strncmp(tmp->args[0], "REDO", 4))
+			free(tmp->bin);
+		free(tmp);
+		tmp = aux;
+	}
 }

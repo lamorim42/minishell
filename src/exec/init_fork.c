@@ -14,16 +14,31 @@
 
 void	init_fork(t_line *line, t_pipe_list *list)
 {
+	// ls | grep file
 	if (list->next && !ft_strncmp(list->next->args[0], "PIPE", 4))
 	{
 		if (pipe(list->next->fd) != 0)
 			dprintf(2, "pipe error\n");
 	}
-
-	line->pid = fork();
-	if (line->pid == 0)
+	else if (list->next && !ft_strncmp(list->next->args[0], "REDO", 4))
 	{
-		exec_path(line, list);
+		list->next->fd[0] = open(list->next->args[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (list->next->fd[0] == -1)
+		{
+			perror(list->next->args[1]);
+			free_list(list);
+			exit(1);
+		}
+	}
+
+	if (list && !ft_strncmp(list->args[0], "REDO", 4))
+		close(list->fd[0]);
+	else if (ft_strncmp(list->args[0], "PIPE", 4)
+			&& ft_strncmp(list->args[0], "REDO", 4))
+	{
+		line->pid = fork();
+		if (line->pid == 0)
+			exec_path(line, list);
 	}
 	//Ver por que o waitpid deve ficar no fim.
 	//waitpid(line->pid, NULL, 0);

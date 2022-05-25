@@ -33,7 +33,6 @@ void	facade(t_line *line)
 {
 	while (1)
 	{
-
 		signals(line);
 		line->str = readline("miau> ");
 		if (line->str == NULL)
@@ -88,22 +87,6 @@ void free_line(t_line *line)
 	}
 	free(line->cmds[i]);
 	free(line->cmds);
-}
-
-void free_list(t_pipe_list *list)
-{
-	t_pipe_list *tmp;
-	t_pipe_list *aux;
-
-	tmp = list;
-	while (tmp)
-	{
-		aux = tmp->next;
-		if(ft_strncmp(tmp->args[0], "PIPE", 4))
-			free(tmp->bin);
-		free(tmp);
-		tmp = aux;
-	}
 }
 
 void free_array(char **mtx)

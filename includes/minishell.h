@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <fcntl.h>
 
 //#define size_table 19211
 #define size_table 149
@@ -57,37 +58,45 @@ typedef struct s_line {
 	int			tks_nbr;
 	char		**envp;
 	int			pid;
+	int			sig;
 	t_pipe_list	*list_cmds;
 }				t_line;
 
-int ft_array_len(char **array);
-int		count_tks(char *line);
-void	signals(t_line *line);
-char	**tokenizer(t_line *line);
-char	**lexical_analyzer(t_line *line);
-int		sintax_analysis(char **lex);
+int			ft_array_len(char **array);
+int			count_tks(char *line);
+void		signals(t_line *line);
+char		**tokenizer(t_line *line);
+char		**lexical_analyzer(t_line *line);
+int			sintax_analysis(char **lex);
+void		init_line(t_line *line);
 
-void	init_line(t_line *line);
 //free
 void	free_line(t_line *line);
 char	**clean_tokens(t_line *line);
 void	free_list(t_pipe_list *list);
 void	init_hash();
 
+void		free_line(t_line *line);
+char		**clean_tokens(t_line *line);
+
+
 //exec
-void	init_fork(t_line *line, t_pipe_list *list);
-void	exec_path(t_line *line, t_pipe_list *list);
-void	exec_list(t_line *line);
+void		init_fork(t_line *line, t_pipe_list *list);
+char		*path_finder(t_line *line, char *cmd);
+void		exec_path(t_line *line, t_pipe_list *list);
+void		population_linked_list(t_line *line);
+void		exec_list(t_line *line);
+void		creat_cmd_list(t_line *line);
+void		list_generation_bin(t_line *line);
 
-char	***creat_cmd(t_line *line, char **ctks);
+char		***creat_cmd(t_line *line, char **ctks);
 
-//bin
-void	list_generation_bin(t_line *line);
 //linked list
-void	population_linked_list(t_line *line);
-void	add_back_list(t_pipe_list **list, t_pipe_list **node);
-void	print_list(t_pipe_list *stack);
+void		add_back_list(t_pipe_list **list, t_pipe_list **node);
+void		print_list(t_pipe_list *stack);
 t_pipe_list	*new_node(char **args);
+void		free_list(t_pipe_list *list);
+
 
 //hashTable
 t_hash_item	*create_item(char *key, char *value);
@@ -101,8 +110,10 @@ unsigned long	hash_function(char *str);
 void	table_delete(t_hash_table **table, char *key);
 
 char	*path_finder(t_line *line, char *cmd);
-void	print_array(char *msg, char **array);
 
-void	creat_cmd_list(t_line *line);
+//Debug functions
+void	print_array(char *msg, char **array);
+void	print_list(t_pipe_list *stack);
+
 
 #endif

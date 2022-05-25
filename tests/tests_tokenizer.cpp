@@ -76,7 +76,6 @@ TEST(tokenizer, test_tokenizer_ls_pipe_cat)
 	char	*esperado[] = {"ls", "|", "cat", NULL};
 	char	**resultado = tokenizer(&line);
 
-	std::cout << resultado[3] << std::endl;
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
@@ -88,7 +87,17 @@ TEST(tokenizer, test_tokenizer_ls__file_pipe_cat)
 	char	*esperado[] = {"ls", ">", "file", "|", "cat", NULL};
 	char	**resultado = tokenizer(&line);
 
-	std::cout << resultado[3] << std::endl;
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_ls_REDO_file)
+{
+	t_line	line;
+	line.str = "ls >file";
+	char	*esperado[] = {"ls", ">", "file", NULL};
+	char	**resultado = tokenizer(&line);
+
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }

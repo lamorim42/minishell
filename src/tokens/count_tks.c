@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/18 20:51:56 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/18 10:36:07 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int	count_tks(char *line)
 	counter = 0;
 	while (*line)
 	{
-		if (ft_strchr("|", *line))
+		if (ft_strchr("|>", *line))
 			counter++;
 		if (!flag && ft_strchr("\"\'", *line))
 		{
 			count_inside_quot_as_one_word(&line);
 			update_counter_flag(&counter, &flag);
 		}
-		else if (!flag && !ft_strchr("| ", *line))
+		else if (!flag && !ft_strchr("|> ", *line))
 			update_counter_flag(&counter, &flag);
-		else if (flag && ft_strchr("| ", *line))
+		else if (flag && ft_strchr("|> ", *line))
 			flag = 0;
 		line++;
 	}

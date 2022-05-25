@@ -11,6 +11,11 @@ não tiver vamos para função que abre o here_doc.
 substitui o token ("ls -a) por ("ls -a o_que_vem_do_here_doc") e provalvemente
 vai dar ruim.
 
+- *tests to do*
+
+- [ ] ls | grep 'Libft'
+- [ ] ls | grep Libft | tr f \"
+
 # Não esquecer que quando arrays de strings começarem com aspas que não são fechadasm, as words são contadas como uma!!
 
 Lembrar de que quando tiver DOIS PIPES um atras do outro seve-se retornar 0 na sintax_analysis.c
