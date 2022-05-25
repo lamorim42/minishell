@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/23 18:56:17 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/23 22:07:02 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
+
+//#define size_table 19211
+#define size_table 149
+
+typedef struct s_hash_item {
+	char* key;
+	char* value;
+	struct s_hash_item *next;
+}	t_hash_item;
+
+typedef struct s_hash_table {
+	struct s_hash_item **item;
+	int size;
+	int count;
+}	t_hash_table;
 
 typedef struct s_pipe_list {
 	char				**args;
@@ -56,8 +71,14 @@ int			sintax_analysis(char **lex);
 void		init_line(t_line *line);
 
 //free
+void	free_line(t_line *line);
+char	**clean_tokens(t_line *line);
+void	free_list(t_pipe_list *list);
+void	init_hash();
+
 void		free_line(t_line *line);
 char		**clean_tokens(t_line *line);
+
 
 //exec
 void		init_fork(t_line *line, t_pipe_list *list);
@@ -75,6 +96,20 @@ void		add_back_list(t_pipe_list **list, t_pipe_list **node);
 void		print_list(t_pipe_list *stack);
 t_pipe_list	*new_node(char **args);
 void		free_list(t_pipe_list *list);
+
+
+//hashTable
+t_hash_item	*create_item(char *key, char *value);
+t_hash_table	*create_table(int size);
+void	free_item(t_hash_item *item);
+void	free_table(t_hash_table **table);
+void	init_hash();
+void	hash_insert(t_hash_table **table, char *key, char *value);
+char	*search_item(t_hash_table **table, char *key);
+unsigned long	hash_function(char *str);
+void	table_delete(t_hash_table **table, char *key);
+
+char	*path_finder(t_line *line, char *cmd);
 
 //Debug functions
 void	print_array(char *msg, char **array);
