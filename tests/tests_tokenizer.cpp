@@ -101,3 +101,25 @@ TEST(tokenizer, test_tokenizer_ls_REDO_file)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
+
+TEST(tokenizer, test_tokenizer_ls_REDA_file)
+{
+	t_line	line;
+	line.str = "ls >> file";
+	char	*esperado[] = {"ls", ">>", "file", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_ls_REDAfile)
+{
+	t_line	line;
+	line.str = "ls >>file";
+	char	*esperado[] = {"ls", ">>", "file", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}

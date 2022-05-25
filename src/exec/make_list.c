@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/23 18:52:32 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/25 11:58:22 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,8 @@ void free_list(t_pipe_list *list)
 	{
 		aux = tmp->next;
 		if(tmp->args[0] && ft_strncmp(tmp->args[0], "PIPE", 4)
-			&& ft_strncmp(tmp->args[0], "REDO", 4))
+			&& ft_strncmp(tmp->args[0], "REDO", 4)
+			&& ft_strncmp(tmp->args[0], "REDA", 4))
 			free(tmp->bin);
 		free(tmp);
 		tmp = aux;

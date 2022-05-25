@@ -31,7 +31,9 @@ void	exec_path(t_line *line, t_pipe_list *list)
 		close(list->prev->fd[1]);
 		close(list->prev->fd[0]);
 	}
-	if (next && next->args && !ft_strncmp(next->args[0], "REDO", 4))
+	if (next && next->args
+		&& (!ft_strncmp(next->args[0], "REDO", 4)
+		|| !ft_strncmp(next->args[0], "REDA", 4)))
 	{
 		dup2(list->next->fd[0], STDOUT_FILENO);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/21 11:43:36 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/25 11:56:39 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	main(int argc, char **argv, char **envp)
 
 	if(argv[0] == NULL && argc > 1)
 		return 1;
-	/* if (argc > 1 || ft_strncmp(argv[0], "./minishell", 3))
-		return (1); */
 	init_line(&line);
 	line.envp = envp;
 	facade(&line);
@@ -38,13 +36,13 @@ void	facade(t_line *line)
 		if (line->str == NULL)
 		{
 			write(2, "exit\n", 6);
-			exit(1);
+			exit(0);
 		}
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
-			init_hash();
 			line->tks_nbr = count_tks(line->str);
 			line->tks = tokenizer(line);
+			//print_array("tks", line->tks);
 			line->lex = lexical_analyzer(line);
 			if (!sintax_analysis(line->lex))
 			{

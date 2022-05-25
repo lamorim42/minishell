@@ -87,9 +87,3 @@ TEST(clean_tokens, no_quots)
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 }
-/* °° explodir aspas
-** achar o path
-** abrir o pipe
-** abrir o fork
-** e executar o comando
- */

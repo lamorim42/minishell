@@ -20,7 +20,8 @@ void	list_generation_bin(t_line *line)
 	while (temp)
 	{
 		if (temp->args && temp->args[0] && ft_strncmp(temp->args[0], "PIPE", 4)
-			&& ft_strncmp(temp->args[0], "REDO", 4))
+			&& ft_strncmp(temp->args[0], "REDO", 4)
+			&& ft_strncmp(temp->args[0], "REDA", 4))
 		{
 			temp->bin = path_finder(line, temp->args[0]);
 		}
@@ -35,9 +36,12 @@ void	exec_list(t_line *line)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		if (!temp->prev && !ft_strncmp(temp->args[0], "REDO", 4))
+		if (!temp->prev && (!ft_strncmp(temp->args[0], "REDO", 4)
+			|| !ft_strncmp(temp->args[0], "REDA", 4)))
 		{
-			temp->fd[0] = open(temp->args[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			temp->fd[0] = open(temp->args[1], O_WRONLY | O_CREAT |
+			(O_TRUNC * (ft_strncmp(temp->args[0], "REDO", 4) == 0)) |
+			(O_APPEND * ft_strncmp(temp->args[0], "REDA", 4) == 0), 0644);
 			if (temp->fd[0] == -1)
 			{
 				perror(temp->args[1]);
