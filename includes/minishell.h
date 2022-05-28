@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/23 22:07:02 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/26 19:24:06 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
+#include <stdlib.h>
 
 //#define size_table 19211
 #define size_table 149
@@ -71,11 +72,11 @@ int			sintax_analysis(char **lex);
 void		init_line(t_line *line);
 
 //free
-void	free_line(t_line *line);
-char	**clean_tokens(t_line *line);
-void	free_list(t_pipe_list *list);
-void	init_hash();
-
+void		free_line(t_line *line);
+char		**clean_tokens(t_line *line);
+void		free_list(t_pipe_list *list);
+void		init_hash();
+void		free_array(char **mtx);
 void		free_line(t_line *line);
 char		**clean_tokens(t_line *line);
 
@@ -88,7 +89,6 @@ void		population_linked_list(t_line *line);
 void		exec_list(t_line *line);
 void		creat_cmd_list(t_line *line);
 void		list_generation_bin(t_line *line);
-
 char		***creat_cmd(t_line *line, char **ctks);
 
 //linked list
@@ -96,7 +96,6 @@ void		add_back_list(t_pipe_list **list, t_pipe_list **node);
 void		print_list(t_pipe_list *stack);
 t_pipe_list	*new_node(char **args);
 void		free_list(t_pipe_list *list);
-
 
 //hashTable
 t_hash_item	*create_item(char *key, char *value);

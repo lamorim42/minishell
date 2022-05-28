@@ -3,56 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   make_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/25 11:58:22 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/27 19:34:40 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-t_node	*copy_list(t_node **linked_list)
-{
-	t_node *copy_array;
-
-	copy_array = NULL;
-	while ((*linked_list) != NULL \
-	&& !ft_strchr((*linked_list)->str, '|') \
-	&& !ft_strchr((*linked_list)->str, '>') \
-	&& !ft_strchr((*linked_list)->str, '<'))
-	{
-		if (copy_array == NULL)
-			copy_array = new_node((*linked_list)->str);
-		else
-			add_back_stack((*linked_list)->str, &copy_array);
-		(*linked_list) = (*linked_list)->next;
-	}
-	if ((*linked_list) != NULL)
-	{
-		add_back_stack((*linked_list)->str, &copy_array);
-		(*linked_list) = (*linked_list)->next;
-	}
-	return (copy_array);
-}
-
-void	clean_list(t_node **head)
-{
-	t_node	*temp;
-	t_node	*aux;
-
-	if (!*head)
-		return ;
-	temp = *head;
-	while (temp)
-	{
-		aux = temp->next;
-		free(temp->str);
-		free(temp);
-		temp = aux;
-	}
-}  */
 
 void	print_list(t_pipe_list *stack)
 {
@@ -62,7 +20,6 @@ void	print_list(t_pipe_list *stack)
 	while(temp)
 	{
 		print_array("Array linked list", temp->args);
-		printf("%s\n", temp->bin);
 		temp = temp->next;
 	}
 	printf("----------------------\n");
@@ -89,6 +46,7 @@ void population_linked_list(t_line *line)
 		}
 		i++;
 	}
+	//print_list(line->list_cmds);
 }
 
 void	add_back_list(t_pipe_list **list, t_pipe_list **node)
@@ -134,7 +92,8 @@ void free_list(t_pipe_list *list)
 		aux = tmp->next;
 		if(tmp->args[0] && ft_strncmp(tmp->args[0], "PIPE", 4)
 			&& ft_strncmp(tmp->args[0], "REDO", 4)
-			&& ft_strncmp(tmp->args[0], "REDA", 4))
+			&& ft_strncmp(tmp->args[0], "REDA", 4)
+			&& ft_strncmp(tmp->args[0], "VAR", 4))
 			free(tmp->bin);
 		free(tmp);
 		tmp = aux;

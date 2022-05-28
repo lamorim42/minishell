@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:12:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/11 21:52:58 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/27 20:30:03 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,8 @@ char *path_finder(t_line *line, char *cmd)
 	char	*cmd_bin;
 	int		i;
 
-	//len = ft_array_len(line->ctks);
 	paths = split_path(line);
-	//cmd = ft_strjoin("/", line->ctks[0]);
+
 	cmd_bin = ft_strjoin("/", cmd);
 	i = 0;
 	while (paths[i])

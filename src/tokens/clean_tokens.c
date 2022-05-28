@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:55:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/02 19:46:53 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/27 19:48:01 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static char *clean_quots(char *tks);
 static int	count_quots(char *tks);
+static char *clean_dolar_and_get_var(char *tks);
 
 char **clean_tokens(t_line *line)
 {
@@ -26,12 +27,31 @@ char **clean_tokens(t_line *line)
 	{
 		if (ft_strchr(line->tks[i], '\"'))
 			cmds[i] = clean_quots(line->tks[i]);
+		else if (ft_strchr(line->tks[i], '$'))
+			cmds[i] = clean_dolar_and_get_var(line->tks[i]);
 		else
 			cmds[i] = ft_strdup(line->tks[i]);
 		i++;
 	}
 	cmds[i] = NULL;
 	return (cmds);
+}
+
+static char *clean_dolar_and_get_var(char *tks)
+{
+	char *var;
+	char *temp;
+
+	var = NULL;
+	if (tks[0] == '$')
+		tks = ft_strtrim(tks, "$");
+	temp = getenv(tks);
+	free(tks);
+	if (temp != NULL)
+		var = ft_strdup(temp);
+	else
+		var = ft_strdup("");
+	return (var);
 }
 
 static char *clean_quots(char *tks)

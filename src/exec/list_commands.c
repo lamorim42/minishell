@@ -19,6 +19,11 @@ void	list_generation_bin(t_line *line)
 	temp = line->list_cmds;
 	while (temp)
 	{
+		//dup da flg pro bin se for builtin
+		if (is_a_builtin() == 0)
+		{
+			continue ;
+		}
 		if (temp->args && temp->args[0] && ft_strncmp(temp->args[0], "PIPE", 4)
 			&& ft_strncmp(temp->args[0], "REDO", 4)
 			&& ft_strncmp(temp->args[0], "REDA", 4))
@@ -27,6 +32,12 @@ void	list_generation_bin(t_line *line)
 		}
 		temp = temp->next;
 	}
+}
+
+int	is_a_builtin()
+{
+
+	return (0);
 }
 
 void	exec_list(t_line *line)
@@ -49,7 +60,15 @@ void	exec_list(t_line *line)
 			}
 			close(temp->fd[0]);
 		}
+
+		/* else if (!temp->prev && !ft_strncmp(temp->args[0], "VAR", 3)))
+		{
+
+		} */
+		//if (temp->bin != "builtin")
 		init_fork(line, temp);
+		//else
+		//fun
 		temp = temp->next;
 	}
 }

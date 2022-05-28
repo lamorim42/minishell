@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/25 11:56:39 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/27 20:27:54 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 void	facade(t_line *line);
-void	free_array(char **mtx);
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -42,22 +42,24 @@ void	facade(t_line *line)
 		{
 			line->tks_nbr = count_tks(line->str);
 			line->tks = tokenizer(line);
-			//print_array("tks", line->tks);
 			line->lex = lexical_analyzer(line);
 			if (!sintax_analysis(line->lex))
 			{
 				printf("Syntax ERROR!\n");
-				free_array(line->tks);
-				free_array(line->lex);
+				ft_free_arr(line->tks);
+				ft_free_arr(line->lex);
 				free(line->str);
 			}
 			else
 			{
 				creat_cmd_list(line);
 				population_linked_list(line);
+				//se é builtin ou não, passar algo pro bin, se não for
+				//se for a flag de bin vai chamar o builtin se não é exec
 				list_generation_bin(line);
 				exec_list(line);
 				add_history(line->str);
+				//print_array("ctks", line->ctks);
 				free_line(line);
 			}
 		}
@@ -74,28 +76,15 @@ void free_line(t_line *line)
 	i = 0;
 
 	free_list(line->list_cmds);
-	free_array(line->tks);
-	free_array(line->lex);
-	free_array(line->ctks);
+	ft_free_arr(line->tks);
+	ft_free_arr(line->lex);
+	ft_free_arr(line->ctks);
 	free(line->str);
 	while (line->cmds && line->cmds[i])
 	{
-		free_array(line->cmds[i]);
+		ft_free_arr(line->cmds[i]);
 		i++;
 	}
 	free(line->cmds[i]);
 	free(line->cmds);
-}
-
-void free_array(char **mtx)
-{
-	int i;
-
-	i = 0;
-	while (mtx[i])
-	{
-		free(mtx[i]);
-		i++;
-	}
-	free(mtx);
 }

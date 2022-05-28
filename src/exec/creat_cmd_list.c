@@ -42,7 +42,7 @@ char	***creat_cmd(t_line *line, char **ctks)
 	i = 0;
 	while (ctks && lex[i])
 	{
-		if (!ft_strncmp(lex[i], "WORD", 4))
+		if ((!ft_strncmp(lex[i], "WORD", 4)) || (!ft_strncmp(lex[i], "VAR", 3)))
 		{
 			count_words++;
 		}
@@ -86,12 +86,14 @@ char	***creat_cmd(t_line *line, char **ctks)
 		i++;
 	}
 	line->cmds[j] = NULL;
+
 	return (line->cmds);
 }
 
 void creat_cmd_list(t_line *line)
 {
 	line->ctks = clean_tokens(line);
+	//print_array("CTKS", line->ctks);
 	line->cmds = creat_cmd(line, line->ctks);
 }
 
