@@ -6,13 +6,13 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 07:11:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/28 11:58:03 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/28 19:08:37 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo()
+void	echo_builtin(t_pipe_list *node)
 {
-
+	printf("%s\n", node->args[1]);
 }

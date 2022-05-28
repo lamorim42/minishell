@@ -19,25 +19,33 @@ void	list_generation_bin(t_line *line)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		//dup da flg pro bin se for builtin
-		if (is_a_builtin() == 0)
+		if (is_a_builtin(&temp->args[0]) == 0)
 		{
-			continue ;
+			temp->bin = ft_strdup("builtin");
+			break ;
 		}
 		if (temp->args && temp->args[0] && ft_strncmp(temp->args[0], "PIPE", 4)
 			&& ft_strncmp(temp->args[0], "REDO", 4)
 			&& ft_strncmp(temp->args[0], "REDA", 4))
-		{
 			temp->bin = path_finder(line, temp->args[0]);
-		}
 		temp = temp->next;
 	}
 }
 
-int	is_a_builtin()
+int	is_a_builtin(char **node)
 {
-
-	return (0);
+	if (ft_strncmp(*node, "echo", 4) == 0 ||
+		ft_strncmp(*node, "cd", 2) == 0 ||
+		ft_strncmp(*node, "pwd", 3) == 0 ||
+		ft_strncmp(*node, "export", 6) == 0 ||
+		ft_strncmp(*node, "unset", 5) == 0 ||
+		ft_strncmp(*node, "env", 3) == 0 ||
+		ft_strncmp(*node, "exit", 4) == 0)
+	{
+		printf("its a builtin\n");
+		return (0);
+	}
+	return (1);
 }
 
 void	exec_list(t_line *line)
@@ -60,15 +68,28 @@ void	exec_list(t_line *line)
 			}
 			close(temp->fd[0]);
 		}
-
-		/* else if (!temp->prev && !ft_strncmp(temp->args[0], "VAR", 3)))
-		{
-
-		} */
-		//if (temp->bin != "builtin")
-		init_fork(line, temp);
-		//else
-		//fun
+		if (ft_strncmp(temp->bin, "builtin", 7) == 0)
+			exec_builtins(temp);
+		else
+			init_fork(line, temp);
 		temp = temp->next;
 	}
+}
+
+void	exec_builtins(t_pipe_list *node)
+{
+	if (ft_strncmp(node->args[0], "echo", 4))
+		echo_builtin(node);
+	/* else if (ft_strncmp(node->args[0], "cd", 2))
+		cd_builtin(node);
+	else if (ft_strncmp(node->args[0], "pwd", 3))
+		pwd_builtin(node);
+	else if (ft_strncmp(node->args[0], "export", 6))
+		export_builtin(node);
+	else if (ft_strncmp(node->args[0], "unset", 5))
+		unset_builtin(node);
+	else if (ft_strncmp(node->args[0], "env", 3))
+		env_builtin(node);
+	else if (ft_strncmp(node->args[0], "exit", 4))
+		exit_builtin(node); */
 }

@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/26 19:24:06 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/28 19:15:44 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void		free_array(char **mtx);
 void		free_line(t_line *line);
 char		**clean_tokens(t_line *line);
 
-
 //exec
 void		init_fork(t_line *line, t_pipe_list *list);
 char		*path_finder(t_line *line, char *cmd);
@@ -90,6 +89,11 @@ void		exec_list(t_line *line);
 void		creat_cmd_list(t_line *line);
 void		list_generation_bin(t_line *line);
 char		***creat_cmd(t_line *line, char **ctks);
+
+//Builtins
+int		is_a_builtin(char **node);
+void	exec_builtins(t_pipe_list *node);
+void	echo_builtin(t_pipe_list *node);
 
 //linked list
 void		add_back_list(t_pipe_list **list, t_pipe_list **node);
