@@ -78,7 +78,7 @@ void	exec_list(t_line *line)
 
 void	exec_builtins(t_pipe_list *node)
 {
-	if (ft_strncmp(node->args[0], "echo", 4))
+	if (ft_strncmp(node->args[0], "echo", 4) == 0)
 		echo_builtin(node);
 	/* else if (ft_strncmp(node->args[0], "cd", 2))
 		cd_builtin(node);
