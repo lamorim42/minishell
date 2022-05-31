@@ -48,12 +48,14 @@ char	***creat_cmd(t_line *line, char **ctks)
 		}
 		if (lex[i + 1] == NULL || !ft_strncmp(lex[i], "PIPE", 4)
 			|| !ft_strncmp(lex[i], "REDO", 4)
-			|| !ft_strncmp(lex[i], "REDA", 4))
+			|| !ft_strncmp(lex[i], "REDA", 4)
+			|| !ft_strncmp(lex[i], "REDI", 4))
 		{
 			if (count_words > 0)
 			{
 				line->cmds[j] = copy_array(ctks, count_words);
-				ctks += count_words + (lex[i + 1] != NULL);
+				ctks += count_words + (lex[i + 1] != NULL
+				&& (ft_strncmp(lex[i + 1], "PIPE", 4) == 0));
 				j++;
 			}
 			if (!ft_strncmp(lex[i], "PIPE", 4))
@@ -77,6 +79,13 @@ char	***creat_cmd(t_line *line, char **ctks)
 					line->cmds[j] = make_redirect(lex[i], ctks[1]);
 				else
 					line->cmds[j] = make_redirect(lex[i], ctks[0]);
+				ctks += 2;
+				j++;
+				i++;
+			}
+			if (!ft_strncmp(lex[i], "REDI", 4))
+			{
+				line->cmds[j] = make_redirect(lex[i], ctks[1]);
 				ctks += 2;
 				j++;
 				i++;
