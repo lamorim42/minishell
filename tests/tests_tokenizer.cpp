@@ -123,3 +123,25 @@ TEST(tokenizer, test_tokenizer_ls_REDAfile)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
+
+TEST(tokenizer, test_tokenizer_ls_redi_file_pipe_cat)
+{
+	t_line	line;
+	line.str = "ls < file | cat";
+	char	*esperado[] = {"ls", "<", "file", "|", "cat", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_ls_redifile_pipe_cat)
+{
+	t_line	line;
+	line.str = "ls <file | cat";
+	char	*esperado[] = {"ls", "<", "file", "|", "cat", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}

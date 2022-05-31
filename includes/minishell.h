@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/23 22:07:02 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:05:46 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,58 +62,55 @@ typedef struct s_line {
 	t_pipe_list	*list_cmds;
 }				t_line;
 
-int			ft_array_len(char **array);
-int			count_tks(char *line);
-void		signals(t_line *line);
-char		**tokenizer(t_line *line);
-char		**lexical_analyzer(t_line *line);
-int			sintax_analysis(char **lex);
-void		init_line(t_line *line);
+int				ft_array_len(char **array);
+int				count_tks(char *line);
+void			signals(t_line *line);
+char			**tokenizer(t_line *line);
+char			**lexical_analyzer(t_line *line);
+int				sintax_analysis(char **lex);
+void			init_line(t_line *line);
 
 //free
-void	free_line(t_line *line);
-char	**clean_tokens(t_line *line);
-void	free_list(t_pipe_list *list);
-void	init_hash();
+void			free_line(t_line *line);
+char			**clean_tokens(t_line *line);
+void			free_list(t_pipe_list *list);
+void			init_hash();
 
-void		free_line(t_line *line);
-char		**clean_tokens(t_line *line);
+void			free_line(t_line *line);
+char			**clean_tokens(t_line *line);
 
 
 //exec
-void		init_fork(t_line *line, t_pipe_list *list);
-char		*path_finder(t_line *line, char *cmd);
-void		exec_path(t_line *line, t_pipe_list *list);
-void		population_linked_list(t_line *line);
-void		exec_list(t_line *line);
-void		creat_cmd_list(t_line *line);
-void		list_generation_bin(t_line *line);
+void			init_fork(t_line *line, t_pipe_list *list);
+char			*path_finder(t_line *line, char *cmd);
+void			exec_path(t_line *line, t_pipe_list *list);
+void			population_linked_list(t_line *line);
+void			exec_list(t_line *line);
+void			creat_cmd_list(t_line *line);
+void			list_generation_bin(t_line *line);
 
-char		***creat_cmd(t_line *line, char **ctks);
+char			***creat_cmd(t_line *line, char **ctks);
+char			*path_finder(t_line *line, char *cmd);
 
 //linked list
-void		add_back_list(t_pipe_list **list, t_pipe_list **node);
-void		print_list(t_pipe_list *stack);
-t_pipe_list	*new_node(char **args);
-void		free_list(t_pipe_list *list);
-
+void			add_back_list(t_pipe_list **list, t_pipe_list **node);
+void			print_list(t_pipe_list *stack);
+t_pipe_list		*new_node(char **args);
+void			free_list(t_pipe_list *list);
 
 //hashTable
-t_hash_item	*create_item(char *key, char *value);
+t_hash_item		*create_item(char *key, char *value);
 t_hash_table	*create_table(int size);
-void	free_item(t_hash_item *item);
-void	free_table(t_hash_table **table);
-void	init_hash();
-void	hash_insert(t_hash_table **table, char *key, char *value);
-char	*search_item(t_hash_table **table, char *key);
+void			free_item(t_hash_item *item);
+void			free_table(t_hash_table **table);
+void			init_hash();
+void			hash_insert(t_hash_table **table, char *key, char *value);
+char			*search_item(t_hash_table **table, char *key);
 unsigned long	hash_function(char *str);
-void	table_delete(t_hash_table **table, char *key);
-
-char	*path_finder(t_line *line, char *cmd);
+void			table_delete(t_hash_table **table, char *key);
 
 //Debug functions
-void	print_array(char *msg, char **array);
-void	print_list(t_pipe_list *stack);
-
+void			print_array(char *msg, char **array);
+void			print_list(t_pipe_list *stack);
 
 #endif

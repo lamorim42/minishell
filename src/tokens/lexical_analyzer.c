@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:57:15 by lamorim           #+#    #+#             */
-/*   Updated: 2022/05/25 10:18:00 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/27 19:27:03 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	**lexical_analyzer(t_line *line)
 			lex[i] = ft_strdup("REDA");
 		else if (!ft_strncmp(line->tks[i], ">", 1))
 			lex[i] = ft_strdup("REDO");
+		else if (!ft_strncmp(line->tks[i], "<", 1))
+			lex[i] = ft_strdup("REDI");
 		else
 			lex [i] = ft_strdup("WORD");
 		i++;
