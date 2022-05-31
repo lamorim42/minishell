@@ -37,9 +37,12 @@ void	exec_path(t_line *line, t_pipe_list *list)
 	{
 		dup2(list->next->fd[0], STDOUT_FILENO);
 	}
-	//print_array("cmds", line->ctks)
-
-	if (!execve(list->bin, list->args, line->envp))
+	if(ft_strncmp(list->bin, "builtin", 7) == 0)
+	{
+		exec_builtins(list);
+		exit(0);
+	}
+	else if (!execve(list->bin, list->args, line->envp))
 	{
 		free_line(line);
 		exit(1);
