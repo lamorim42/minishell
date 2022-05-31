@@ -17,14 +17,14 @@ void	list_generation_bin(t_line *line)
 	t_pipe_list *temp;
 
 	temp = line->list_cmds;
+
 	while (temp)
 	{
 		if (is_a_builtin(&temp->args[0]) == 0)
 		{
 			temp->bin = ft_strdup("builtin");
-			break ;
 		}
-		if (temp->args && temp->args[0] && ft_strncmp(temp->args[0], "PIPE", 4)
+		else if (temp->args && temp->args[0] && ft_strncmp(temp->args[0], "PIPE", 4)
 			&& ft_strncmp(temp->args[0], "REDO", 4)
 			&& ft_strncmp(temp->args[0], "REDA", 4))
 			temp->bin = path_finder(line, temp->args[0]);
@@ -68,10 +68,13 @@ void	exec_list(t_line *line)
 			}
 			close(temp->fd[0]);
 		}
-		if (ft_strncmp(temp->bin, "builtin", 7) == 0)
-			exec_builtins(temp);
-		else
-			init_fork(line, temp);
+
+		init_fork(line, temp);
+
+		//if (ft_strncmp(temp->bin, "builtin", 7) == 0)
+			//exec_builtins(temp);
+
+
 		temp = temp->next;
 	}
 }
@@ -81,8 +84,8 @@ void	exec_builtins(t_pipe_list *node)
 	if (ft_strncmp(node->args[0], "echo", 4) == 0)
 		echo_builtin(node);
 	/* else if (ft_strncmp(node->args[0], "cd", 2))
-		cd_builtin(node);
-	else if (ft_strncmp(node->args[0], "pwd", 3))
+		cd_builtin(node); */
+	/* else if (ft_strncmp(node->args[0], "pwd", 3))
 		pwd_builtin(node);
 	else if (ft_strncmp(node->args[0], "export", 6))
 		export_builtin(node);
@@ -92,4 +95,5 @@ void	exec_builtins(t_pipe_list *node)
 		env_builtin(node);
 	else if (ft_strncmp(node->args[0], "exit", 4))
 		exit_builtin(node); */
+
 }

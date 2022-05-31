@@ -6,14 +6,13 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/27 20:27:54 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:28:11 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 void	facade(t_line *line);
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -54,12 +53,9 @@ void	facade(t_line *line)
 			{
 				creat_cmd_list(line);
 				population_linked_list(line);
-				//se é builtin ou não, passar algo pro bin, se não for
-				//se for a flag de bin vai chamar o builtin se não é exec
 				list_generation_bin(line);
 				exec_list(line);
 				add_history(line->str);
-				//print_array("ctks", line->ctks);
 				free_line(line);
 			}
 		}
