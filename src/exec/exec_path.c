@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 18:27:53 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:24:35 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ static void	dup_fd(t_pipe_list *list)
 			|| !ft_strncmp(next->args[0], "REDA", 4)))
 	{
 		dup2(list->next->fd[0], STDOUT_FILENO);
+		close(list->next->fd[0]);
 	}
 }

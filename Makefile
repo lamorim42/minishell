@@ -91,8 +91,11 @@ git:	fclean
 		@echo $(SEP)
 		git status
 
-test:	obj_dir $(OBJ_TESTS) $(OBJ) $(LIBFT)
-		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ_TESTS) $(OBJ) $(LIBFT) -o tests_minishell -lcriterion
+run:
+	./minishell
+
+val:
+	valgrind --suppressions=readline.supp -s --leak-check=full --track-fds=yes ./minishell
 
 gdb:	obj_dir $(OBJ) $(LIBFT)
 		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o a.out

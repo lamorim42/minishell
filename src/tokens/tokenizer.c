@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/01 19:46:07 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:29:18 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*worddup(char **s)
 		return (NULL);
 	len = 0;
 	str = NULL;
-	if (ft_strchr("|>", **s))
+	if (ft_strchr("|><", **s))
 	{
 		len++;
 		if (ft_strchr(">", **s) && ft_strchr(">", *((*s) + 1)))
@@ -58,7 +58,7 @@ char	*worddup(char **s)
 	}
 	else
 	{
-		while ((*s)[len] && !ft_strchr("|> ", (*s)[len]))
+		while ((*s)[len] && !ft_strchr("|>< ", (*s)[len]))
 			len++;
 	}
 	str = (char *)malloc(len + 1);

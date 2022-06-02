@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sintax_analysis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:36:27 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/01 19:48:36 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:28:15 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ int	sintax_analysis(char **lex)
 			&& (lex[i + 1] == NULL || !ft_strncmp(lex[i + 1], "PIPE", 4)))
 			return (0);
 		if (!ft_strncmp(lex[i], "REDA", 4)
-			&& (lex[i + 1] == NULL || !ft_strncmp(lex[i + 1], "PIPE", 4)))
-			return (0);
+		&& (lex[i + 1] == NULL || !ft_strncmp(lex[i + 1], "PIPE", 4)))
+			return(0);
+		if (!ft_strncmp(lex[i], "REDI", 4)
+		&& (lex[i + 1] == NULL || !ft_strncmp(lex[i + 1], "PIPE", 4)))
+			return(0);
 		i++;
 	}
 	return (1);

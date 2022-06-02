@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:17:11 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/25 10:02:37 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/05/2 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,30 @@ TEST(count_tks, test_count_tks_ls_redafile) {
 	int resultado;
 
 	line = "ls >>file";
+	esperado = 3;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
+TEST(count_tks, test_count_tks_redi) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "cat <fileout";
+	esperado = 3;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
+TEST(count_tks, test_count_tksredi) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "cat <fileout";
 	esperado = 3;
 	resultado = count_tks((char *)line.c_str());
 

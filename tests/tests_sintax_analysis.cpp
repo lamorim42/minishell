@@ -41,3 +41,13 @@ TEST(sintax_analysis, reda_pipe)
 
 	EXPECT_TRUE(sintax_analysis(lex) == 0);
 }
+
+TEST(sintax_analysis, redi_pipe)
+{
+	char **lex = (char **)malloc(sizeof(char **) * 3);
+	lex[0] = "REDI";
+	lex[1] = "PIPE";
+	lex[2] = NULL;
+
+	EXPECT_TRUE(sintax_analysis(lex) == 0);
+}
