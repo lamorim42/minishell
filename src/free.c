@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 19:31:16 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 18:49:52 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 20:19:47 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	free_list(t_pipe_list *list)
 		if (tmp->args[0] && ft_strncmp(tmp->args[0], "PIPE", 4)
 			&& ft_strncmp(tmp->args[0], "REDO", 4)
 			&& ft_strncmp(tmp->args[0], "REDA", 4)
-			&& ft_strncmp(tmp->args[0], "VAR", 4))
+			&& ft_strncmp(tmp->args[0], "VAR", 3)
+			&& ft_strncmp(tmp->args[0], "REDI", 4))
 			free(tmp->bin);
 		free (tmp);
 		tmp = aux;

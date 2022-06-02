@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 18:23:54 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 20:28:29 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,16 @@ void	init_fork(t_line *line, t_pipe_list *list)
 	if (list && (!ft_strncmp(list->args[0], "REDO", 4)
 			|| !ft_strncmp(list->args[0], "REDA", 4)))
 		close(list->fd[0]);
+	else if (!ft_strncmp(list->args[0], "REDI", 4))
+	{
+		printf("oiiii\n");
+		close(STDIN_FILENO);
+		open(STDIN_FILENO);
+	}
 	else if (ft_strncmp(list->args[0], "PIPE", 4)
 		&& ft_strncmp(list->args[0], "REDO", 4)
-		&& ft_strncmp(list->args[0], "REDA", 4))
+		&& ft_strncmp(list->args[0], "REDA", 4)
+		&& ft_strncmp(list->args[0], "REDI", 4))
 	{
 		line->pid = fork();
 		if (line->pid == 0)

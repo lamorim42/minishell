@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 18:53:03 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:41:51 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ static void	building_tokens(t_line *line)
 static void	exec_pipe_line(t_line *line)
 {
 	creat_cmd(line);
+	int i = 0;
+	while (line->cmds[i])
+	{
+		print_array("REDI:", line->cmds[i]);
+		i++;
+	}
 	population_linked_list(line);
 	list_generation_bin(line);
 	exec_list(line);
