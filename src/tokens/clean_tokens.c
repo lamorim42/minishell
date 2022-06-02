@@ -6,20 +6,21 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:55:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/27 19:48:01 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/01 19:51:34 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char *clean_quots(char *tks);
+static char	*clean_quots(char *tks);
 static int	count_quots(char *tks);
-static char *clean_dolar_and_get_var(char *tks);
+static char	*clean_dolar_and_get_var(char *tks);
 
-char **clean_tokens(t_line *line)
+char	**clean_tokens(t_line *line)
 {
-	char **cmds;
-	int i;
+	char	**cmds;
+	int		i;
+
 	i = 0;
 	cmds = NULL;
 	cmds = (char **)malloc(sizeof(char **) * (line->tks_nbr + 1));
@@ -37,16 +38,16 @@ char **clean_tokens(t_line *line)
 	return (cmds);
 }
 
-static char *clean_dolar_and_get_var(char *tks)
+static char	*clean_dolar_and_get_var(char *tks)
 {
-	char *var;
-	char *temp;
+	char	*var;
+	char	*temp;
 
 	var = NULL;
 	if (tks[0] == '$')
 		tks = ft_strtrim(tks, "$");
 	temp = getenv(tks);
-	free(tks);
+	free (tks);
 	if (temp != NULL)
 		var = ft_strdup(temp);
 	else
@@ -54,12 +55,12 @@ static char *clean_dolar_and_get_var(char *tks)
 	return (var);
 }
 
-static char *clean_quots(char *tks)
+static char	*clean_quots(char *tks)
 {
-	char *copy;
-	int i;
-	int j;
-	int quots;
+	char	*copy;
+	int		i;
+	int		j;
+	int		quots;
 
 	quots = 0;
 	i = 0;
@@ -84,12 +85,12 @@ static char *clean_quots(char *tks)
 
 static int	count_quots(char *tks)
 {
-	int quots;
-	int i;
+	int	quots;
+	int	i;
 
 	quots = 0;
 	i = 0;
-	while(tks[i] != '\0')
+	while (tks[i] != '\0')
 	{
 		if (tks[i] == '\"')
 			quots++;

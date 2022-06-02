@@ -37,7 +37,7 @@ void	exec_path(t_line *line, t_pipe_list *list)
 	{
 		dup2(list->next->fd[0], STDOUT_FILENO);
 	}
-	if(ft_strncmp(list->bin, "builtin", 7) == 0)
+	if (ft_strncmp(list->bin, "builtin", 7) == 0)
 	{
 		exec_builtins(list);
 		exit(0);

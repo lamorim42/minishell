@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_itens.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/21 12:17:26 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/24 20:15:11 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/06/01 07:38:27 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/06/01 19:15:36 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_item(t_hash_item *item)
+/* void	pwd_builtin(t_pipe_list *node)
 {
-	free(item->key);
-	free(item->value);
-	free(item);
-}
-
-void free_table(t_hash_table **table)
-{
-	int i;
-	t_hash_item *current;
-	t_hash_item *temp;
-
-	i = 0;
-	while (i < (*table)->size)
-	{
-		current = (*table)->item[i];
-		while (current != NULL)
-		{
-			temp = current->next;
-			free_item(current);
-			current = temp;
-		}
-		i++;
-	}
-	free((*table)->item);
-	free((*table));
-}
+	get_env("PWD");
+} */

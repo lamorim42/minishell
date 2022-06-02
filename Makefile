@@ -16,17 +16,21 @@ SRC		=	main.c \
 			init_fork.c \
 			signals.c \
 			make_list.c \
-			creat_cmd_list.c \
+			creat_cmd_table.c \
 			list_commands.c \
 			init_hash.c \
 			create_node.c \
 			create_table.c \
-			free_itens.c \
+			free_hash_table.c \
 			hash_function.c \
 			insert_node.c \
 			search_item.c \
 			delete_node.c \
 			echo.c \
+			pwd.c \
+			free.c \
+			arr_utils.c \
+			cmd_table_utils.c \
 
 
 LIBFT_PATH = ./Libft
@@ -43,7 +47,7 @@ RM		= rm -rf
 
 INCLUDE	= -I includes -I $(LIBFT_PATH)
 
-VPATH	= ./src/ ./src/tokens/ ./src/exec ./src/hash_table/ ./src/builtins
+VPATH	= ./src/ ./src/tokens/ ./src/exec ./src/hash_table/ ./src/builtins/
 
 #Git config
 SEP		="\n\e[0;36m--------------------------------------------------------\e[0m\n"

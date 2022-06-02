@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   free_hash_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 07:11:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/31 20:42:13 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/05/21 12:17:26 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/06/01 19:34:15 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_builtin(t_pipe_list *node)
+void free_item(t_hash_item *item)
+{
+	free(item->key);
+	free(item->value);
+	free(item);
+}
+
+void free_table(t_hash_table **table)
 {
 	int i;
-	i = 1;
-	while (node->args[i + 1])
+	t_hash_item *current;
+	t_hash_item *temp;
+
+	i = 0;
+	while (i < (*table)->size)
 	{
-		if (node->args[i] == NULL)
-			printf("\n");
-		if (node->args[i])
+		current = (*table)->item[i];
+		while (current != NULL)
 		{
-			printf("%s ", node->args[i]);
+			temp = current->next;
+			free_item(current);
+			current = temp;
 		}
 		i++;
 	}
-	printf("%s", node->args[i]);
-	printf("\n");
+	free((*table)->item);
+	free((*table));
 }
