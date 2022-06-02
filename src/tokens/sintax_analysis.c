@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:36:27 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/27 20:40:17 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/06/02 19:28:15 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	sintax_analysis(char **lex)
 
 	i = 0;
 	if (!ft_strncmp(lex[0], "PIPE", 4))
-		return(0);
-	while(lex[i])
+		return (0);
+	while (lex[i])
 	{
 		if (!ft_strncmp(lex[i], "REDO", 4)
-		&& (lex[i + 1] == NULL || !ft_strncmp(lex[i + 1], "PIPE", 4)))
-			return(0);
+			&& (lex[i + 1] == NULL || !ft_strncmp(lex[i + 1], "PIPE", 4)))
+			return (0);
 		if (!ft_strncmp(lex[i], "REDA", 4)
 		&& (lex[i + 1] == NULL || !ft_strncmp(lex[i + 1], "PIPE", 4)))
 			return(0);

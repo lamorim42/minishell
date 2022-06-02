@@ -6,13 +6,30 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/11 21:36:52by lamorim          ###   ########.fr       */
+/*   Updated: 2022/06/02 19:24:35 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	dup_fd(t_pipe_list *list);
+
 void	exec_path(t_line *line, t_pipe_list *list)
+{
+	dup_fd(list);
+	if (ft_strncmp(list->bin, "builtin", 7) == 0)
+	{
+		exec_builtins(list);
+		exit(0);
+	}
+	else if (!execve(list->bin, list->args, line->envp))
+	{
+		free_line(line);
+		exit(1);
+	}
+}
+
+static void	dup_fd(t_pipe_list *list)
 {
 	t_pipe_list	*next;
 	t_pipe_list	*prev;
@@ -33,17 +50,9 @@ void	exec_path(t_line *line, t_pipe_list *list)
 	}
 	if (next && next->args
 		&& (!ft_strncmp(next->args[0], "REDO", 4)
-		|| !ft_strncmp(next->args[0], "REDA", 4)))
+			|| !ft_strncmp(next->args[0], "REDA", 4)))
 	{
 		dup2(list->next->fd[0], STDOUT_FILENO);
 		close(list->next->fd[0]);
-	}
-	//print_array("cmds", line->ctks)
-
-	if (!execve(list->bin, list->args, line->envp))
-	{
-		free_line(line);
-		close(STDOUT_FILENO);
-		exit(1);
 	}
 }

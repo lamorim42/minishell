@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arrcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 20:44:11 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/04/21 14:33:06 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/06/02 18:56:21 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-int	ft_arrcmp(char **arr1,char **arr2)
+int	ft_arrcmp(char **arr1, char **arr2)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (arr1 == NULL || arr2 == NULL)
 		return (-1);
 	while (arr1[i] && arr2[i])

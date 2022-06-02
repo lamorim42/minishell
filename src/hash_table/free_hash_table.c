@@ -1,24 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_node.c                                      :+:      :+:    :+:   */
+/*   free_hash_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/21 12:09:43 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 18:48:53 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/05/21 12:17:26 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/06/02 18:42:24 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_hash_item	*create_item(char *key, char *value)
+void	free_item(t_hash_item *item)
 {
-	t_hash_item	*item;
+	free (item->key);
+	free (item->value);
+	free (item);
+}
 
-	item = (t_hash_item *)malloc(sizeof(t_hash_item));
-	item->key = ft_strdup(key);
-	item->value = ft_strdup(value);
-	item->next = NULL;
-	return (item);
+void	free_table(t_hash_table **table)
+{
+	int			i;
+	t_hash_item	*current;
+	t_hash_item	*temp;
+
+	i = 0;
+	while (i < (*table)->size)
+	{
+		current = (*table)->item[i];
+		while (current != NULL)
+		{
+			temp = current->next;
+			free_item(current);
+			current = temp;
+		}
+		i++;
+	}
+	free ((*table)->item);
+	free ((*table));
 }

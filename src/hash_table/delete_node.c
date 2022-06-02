@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:19:00 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/24 20:15:46 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:51:14 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	delete_node(t_hash_table **table, t_hash_item *current, char *key);
 void	table_delete(t_hash_table **table, char *key)
 {
 	t_hash_item	*current;
-	int		index;
+	int			index;
 
 	index = hash_function(key);
 	current = (*table)->item[index];
@@ -35,11 +35,11 @@ void	delete_node(t_hash_table **table, t_hash_item *current, char *key)
 {
 	t_hash_item	*temp;
 	t_hash_item	*current_prev;
-	//int		index;
 
 	temp = NULL;
 	current_prev = current;
-	while (current_prev && ft_strncmp(current_prev->key, key, ft_strlen(key) + 1))
+	while (current_prev && ft_strncmp(current_prev->key, key, ft_strlen(key)
+			+ 1))
 	{
 		temp = current_prev;
 		current_prev = current_prev->next;

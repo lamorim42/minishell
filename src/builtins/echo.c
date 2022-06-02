@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/14 21:31:11 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 18:55:47 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/05/27 07:11:02 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/06/02 18:35:48 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(char *a, char *b)
+void	echo_builtin(t_pipe_list *node)
 {
-	int	index;
+	int	i;
 
-	index = 0;
-	while (a[index] == b[index])
+	i = 1;
+	while (node->args[i + 1])
 	{
-		if (a[index] == '\0' || b[index] == '\0')
-			break ;
-		++index;
+		if (node->args[i] == NULL)
+			printf("\n");
+		if (node->args[i])
+		{
+			printf("%s ", node->args[i]);
+		}
+		i++;
 	}
-	if (a[index] == '\0' && b[index] == '\0')
-		return (1);
-	else
-		return (0);
+	printf("%s", node->args[i]);
+	printf("\n");
 }
