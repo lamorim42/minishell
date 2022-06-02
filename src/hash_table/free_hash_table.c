@@ -6,24 +6,24 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:17:26 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/01 19:34:15 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:42:24 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_item(t_hash_item *item)
+void	free_item(t_hash_item *item)
 {
-	free(item->key);
-	free(item->value);
-	free(item);
+	free (item->key);
+	free (item->value);
+	free (item);
 }
 
-void free_table(t_hash_table **table)
+void	free_table(t_hash_table **table)
 {
-	int i;
-	t_hash_item *current;
-	t_hash_item *temp;
+	int			i;
+	t_hash_item	*current;
+	t_hash_item	*temp;
 
 	i = 0;
 	while (i < (*table)->size)
@@ -37,6 +37,6 @@ void free_table(t_hash_table **table)
 		}
 		i++;
 	}
-	free((*table)->item);
-	free((*table));
+	free ((*table)->item);
+	free ((*table));
 }

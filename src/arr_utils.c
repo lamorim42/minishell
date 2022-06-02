@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 21:04:45 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/01 21:04:55 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:52:49 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,27 @@ char	**copy_array(char **tokens, int size)
 	}
 	array_cpy[i] = NULL;
 	return (array_cpy);
+}
+
+int	ft_array_len(char **array)
+{
+	int	len;
+
+	len = 0;
+	while (array[len])
+		len++;
+	return (len);
+}
+
+void	print_array(char *msg, char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		dprintf(2, "%s: %s\n", msg, array[i]);
+		i++;
+	}
+	dprintf(2, "%s\n", array[i]);
 }

@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/01 21:32:05 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:53:03 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static void	exec_pipe_line(t_line *line)
 	creat_cmd(line);
 	population_linked_list(line);
 	list_generation_bin(line);
-	//paramos no refactor de exec_list
 	exec_list(line);
 	add_history(line->str);
 	free_line(line);

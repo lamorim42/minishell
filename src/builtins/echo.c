@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 07:11:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/31 20:42:13 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:35:48 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	echo_builtin(t_pipe_list *node)
 {
-	int i;
+	int	i;
+
 	i = 1;
 	while (node->args[i + 1])
 	{
