@@ -6,81 +6,71 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/31 20:28:11 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:53:03 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	facade(t_line *line);
+static void	facade(t_line *line);
+static void	control_d(char *str);
+static void	building_tokens(t_line *line);
+static void	exec_pipe_line(t_line *line);
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_line line;
+	t_line	line;
 
-	if(argv[0] == NULL && argc > 1)
-		return 1;
+	if (argv[0] == NULL && argc > 1)
+		return (1);
 	init_line(&line);
 	line.envp = envp;
 	facade(&line);
 	return (0);
 }
 
-void	facade(t_line *line)
+static void	facade(t_line *line)
 {
 	while (1)
 	{
 		signals(line);
 		line->str = readline("miau> ");
-		if (line->str == NULL)
-		{
-			write(2, "exit\n", 6);
-			exit(0);
-		}
+		control_d(line->str);
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
-			line->tks_nbr = count_tks(line->str);
-			line->tks = tokenizer(line);
-			line->lex = lexical_analyzer(line);
+			building_tokens(line);
 			if (!sintax_analysis(line->lex))
-			{
-				printf("Syntax ERROR!\n");
-				ft_free_arr(line->tks);
-				ft_free_arr(line->lex);
-				free(line->str);
-			}
+				free_sintax(line);
 			else
-			{
-				creat_cmd_list(line);
-				population_linked_list(line);
-				list_generation_bin(line);
-				exec_list(line);
-				add_history(line->str);
-				free_line(line);
-			}
+				exec_pipe_line(line);
 		}
 		else
-		{
 			free(line->str);
-		}
 	}
 }
 
-void free_line(t_line *line)
+static void	control_d(char *str)
 {
-	int i;
-	i = 0;
-
-	free_list(line->list_cmds);
-	ft_free_arr(line->tks);
-	ft_free_arr(line->lex);
-	ft_free_arr(line->ctks);
-	free(line->str);
-	while (line->cmds && line->cmds[i])
+	if (str == NULL)
 	{
-		ft_free_arr(line->cmds[i]);
-		i++;
+		write(2, "exit\n", 6);
+		exit(0);
 	}
-	free(line->cmds[i]);
-	free(line->cmds);
+}
+
+static void	building_tokens(t_line *line)
+{
+	line->tks_nbr = count_tks(line->str);
+	line->tks = tokenizer(line);
+	line->lex = lexical_analyzer(line);
+}
+
+static void	exec_pipe_line(t_line *line)
+{
+	creat_cmd(line);
+	population_linked_list(line);
+	list_generation_bin(line);
+	exec_list(line);
+	add_history(line->str);
+	free_line(line);
 }
