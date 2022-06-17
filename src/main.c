@@ -6,16 +6,16 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/17 15:18:41 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:44:21 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	facade(t_line *line);
+static void	facade(t_line *line, t_hash_table **table);
 static void	control_d(char *str);
 static void	building_tokens(t_line *line);
-static void	exec_pipe_line(t_line *line);
+static void	exec_pipe_line(t_line *line, t_hash_table **table);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -73,7 +73,7 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 {
 
 	//print_table(&table);
-	creat_cmd(line, &table);
+	creat_cmd(line, table);
 	//int i = 0;
 	/* while (line->cmds[i])
 	{
@@ -82,7 +82,7 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	} */
 	population_linked_list(line);
 	list_generation_bin(line);
-	exec_list(line, &table);
+	exec_list(line, table);
 	add_history(line->str);
 	free_line(line);
 }
