@@ -99,9 +99,9 @@ void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 	if (ft_strncmp(node->args[0], "echo", 4) == 0)
 		echo_builtin(node);
 	/* else if (ft_strncmp(node->args[0], "cd", 2) == 0)
-		cd_builtin(node);
+		cd_builtin(node);*/
 	else if (ft_strncmp(node->args[0], "pwd", 3) == 0)
-		pwd_builtin(node);*/
+		pwd_builtin(table);
 	else if (ft_strncmp(node->args[0], "export", 6) == 0)
 		export_builtin(node, table);
 	else if (ft_strncmp(node->args[0], "unset", 5) == 0)
