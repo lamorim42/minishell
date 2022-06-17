@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/06/01 21:24:49 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:19:46 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void	add_back_list(t_pipe_list **list, t_pipe_list **node)
 
 	temp = *list;
 	if (list == NULL)
-	{
 		*list = *node;
-	}
 	else
 	{
 		while (temp->next != NULL)

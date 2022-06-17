@@ -6,13 +6,14 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/30 19:18:40 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:14:46 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd_builtin(t_pipe_list *node)
+/* void	cd_builtin(t_pipe_list *node)
 {
-
-}
+	printf("oi\n");
+	print_array("oi", node->args);
+} */

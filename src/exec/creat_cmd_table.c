@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/06/01 21:21:11 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/16 11:10:19 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static char	***creat_cmd_table(t_line *line)
 	return (line->cmds);
 }
 
-void	creat_cmd(t_line *line)
+void	creat_cmd(t_line *line, t_hash_table **table)
 {
-	line->ctks = clean_tokens(line);
+	line->ctks = clean_tokens(line, (*table));
 	line->cmds = creat_cmd_table(line);
 }
