@@ -55,7 +55,7 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		//verification_input(temp);
+		verification_input(temp);
 		if (!temp->prev && (!ft_strncmp(temp->args[0], "REDO", 4)
 				|| !ft_strncmp(temp->args[0], "REDA", 4)))
 		{
@@ -78,7 +78,7 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	}
 }
 
-/* void	verification_input(t_pipe_list *temp)
+void	verification_input(t_pipe_list *temp)
 {
 	if (temp->prev && !ft_strncmp(temp->prev->args[0], "REDI", 4))
 	{
@@ -92,7 +92,7 @@ void	exec_list(t_line *line,  t_hash_table **table)
 		dup2(temp->next->fd[0], STDIN_FILENO);
 		close(temp->next->fd[0]);
 	}
-} */
+}
 
 void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 {

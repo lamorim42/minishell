@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/17 15:44:21 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/20 19:48:24 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 static void	facade(t_line *line, t_hash_table **table);
-static void	control_d(char *str);
+static void	control_d(char *str, t_hash_table **table);
 static void	building_tokens(t_line *line);
 static void	exec_pipe_line(t_line *line, t_hash_table **table);
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_line	line;
+	t_line			line;
 	t_hash_table	*table;
 
 	table = NULL;
@@ -39,7 +39,7 @@ static void	facade(t_line *line, t_hash_table **table)
 	{
 		signals(line);
 		line->str = readline("miau> ");
-		control_d(line->str);
+		control_d(line->str, table);
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
 			building_tokens(line);
@@ -53,10 +53,11 @@ static void	facade(t_line *line, t_hash_table **table)
 	}
 }
 
-static void	control_d(char *str)
+static void	control_d(char *str, t_hash_table **table)
 {
 	if (str == NULL)
 	{
+		free_table(table);
 		write(2, "exit\n", 6);
 		exit(0);
 	}
@@ -100,6 +101,7 @@ t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 		var = ft_split(line->envp[i], '=');
 		if (var[0] != NULL && var[1] != NULL)
 			hash_insert(table, var[0], var[1]);
+		ft_free_arr(var);
 		i++;
 	}
 	return (*table);
