@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/01 07:38:27 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/17 16:29:33 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/06/08 18:09:08 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/06/08 18:09:42 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd_builtin(t_hash_table **table)
+/* void	env_builtin(t_pipe_line *node)
 {
-	char	*str_pwd;
 
-	str_pwd = search_item(table, "PWD");
-	printf("%s\n", str_pwd);
-}
+} */

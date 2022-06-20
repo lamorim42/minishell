@@ -6,14 +6,11 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:49:43 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 19:00:04 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/17 13:41:16 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_search(t_hash_table **table, char *key);
-void	print_table(t_hash_table **table);
 
 void	init_hash(void)
 {
@@ -30,7 +27,7 @@ void	init_hash(void)
 	free_table(&table);
 }
 
-void	print_search(t_hash_table **table, char *key)
+char	*print_search(t_hash_table **table, char *key)
 {
 	char	*val;
 
@@ -38,12 +35,11 @@ void	print_search(t_hash_table **table, char *key)
 	if (val == NULL)
 	{
 		printf("Key:%s does not exist\n", key);
-		return ;
+		return NULL;
 	}
 	else
-	{
 		printf("Key:%s, Value:%s\n", key, val);
-	}
+	return (val);
 }
 
 void	print_table(t_hash_table **table)

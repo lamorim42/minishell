@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/01 07:38:27 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/17 16:29:33 by dmonteir         ###   ########.fr       */
+/*   Created: 2022/06/08 18:07:29 by dmonteir          #+#    #+#             */
+/*   Updated: 2022/06/17 15:14:11 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd_builtin(t_hash_table **table)
+void	export_builtin(t_pipe_list *node, t_hash_table **table)
 {
-	char	*str_pwd;
+	char **split_str;
+	char *print_item;
 
-	str_pwd = search_item(table, "PWD");
-	printf("%s\n", str_pwd);
+	split_str = ft_split(node->args[1], '=');
+
+	if (split_str[0] != NULL && split_str[1] != NULL)
+		hash_insert(table, split_str[0], split_str[1]);
+	print_item = print_search(table, "gatinho");
 }
