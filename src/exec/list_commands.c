@@ -83,7 +83,7 @@ void	verification_input(t_pipe_list *temp)
 	{
 		temp->prev->fd[0] = open(temp->prev->args[1], O_RDONLY);
 		dup2(temp->prev->fd[0], STDIN_FILENO);
-		close(temp->next->fd[0]);
+		close(temp->prev->fd[0]);
 	}
 	else if (temp->next && !ft_strncmp(temp->next->args[0], "REDI", 4))
 	{

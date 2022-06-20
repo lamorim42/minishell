@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 20:28:29 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/02 20:34:56 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	init_fork(t_line *line, t_pipe_list *list)
 		close(list->fd[0]);
 	else if (!ft_strncmp(list->args[0], "REDI", 4))
 	{
-		printf("oiiii\n");
 		close(STDIN_FILENO);
-		open(STDIN_FILENO);
 	}
 	else if (ft_strncmp(list->args[0], "PIPE", 4)
 		&& ft_strncmp(list->args[0], "REDO", 4)
