@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/17 16:29:07 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:48:20 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_line {
 	int			sig;
 	t_pipe_list	*list_cmds;
 }				t_line;
+
+void	verification_input(t_pipe_list *temp);
 
 //cmd_table
 void			init_aux(struct s_aux *aux, t_line *line);
