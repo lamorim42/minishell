@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/21 15:48:20 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/06/21 16:01:26 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void			exec_builtins(t_pipe_list *node, t_hash_table **table);
 void			echo_builtin(t_pipe_list *node);
 void			cd_builtin(t_pipe_list *node);
 void			pwd_builtin(t_hash_table **table);
+void			env_builtin(t_pipe_list *node, t_hash_table **table);
 void			export_builtin(t_pipe_list *node, t_hash_table **table);
 void			unset_builtin(t_pipe_list *node, t_hash_table **table);
 void			exit_builtin(t_line *line, t_pipe_list *node, t_hash_table **table);

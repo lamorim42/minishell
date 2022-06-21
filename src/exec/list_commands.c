@@ -89,6 +89,6 @@ void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 		export_builtin(node, table);
 	else if (ft_strncmp(node->args[0], "unset", 5) == 0)
 		unset_builtin(node, table);
-	/*else if (ft_strncmp(node->args[0], "env", 3) == 0)
-		env_builtin(node); */
+	else if (ft_strncmp(node->args[0], "env", 3) == 0)
+		env_builtin(node, table);
 }
