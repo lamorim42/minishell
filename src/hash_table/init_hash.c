@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:49:43 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/17 13:41:16 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/20 20:46:18 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,26 @@ void	print_table(t_hash_table **table)
 	t_hash_item	*current;
 	t_hash_item	*temp;
 	int			i;
+	int			counter;
 
-	printf("\nHash Table\n-------------------\n");
+	current = NULL;
 	i = 0;
+	counter = 0;
 	while (i < (*table)->size)
 	{
 		if ((*table)->item[i])
 		{
-			temp = current->next;
-			printf("Index:%d, Key:%s, Value:%s\n", i, current->key,
-				current->value);
-			current = temp;
+			current = (*table)->item[i];
+			while(current != NULL)
+			{
+				temp = current->next;
+				if (current->key != NULL)
+					printf("%s=%s\n", current->key, current->value);
+				current = temp;
+				counter++;
+			}
+			counter++;
 		}
 		i++;
 	}
-	printf("-------------------\n\n");
 }

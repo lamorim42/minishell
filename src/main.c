@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/20 19:48:24 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/06/20 20:52:43 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 		var = ft_split(line->envp[i], '=');
 		if (var[0] != NULL && var[1] != NULL)
 			hash_insert(table, var[0], var[1]);
+		else if (var[0] != NULL)
+			hash_insert(table, var[0], "");
 		ft_free_arr(var);
 		i++;
 	}
