@@ -6,7 +6,11 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/06/22 15:34:05 by dmonteir         ###   ########.fr       */
+=======
+/*   Updated: 2022/06/21 15:55:08 by lamorim          ###   ########.fr       */
+>>>>>>> 610b58c4d47eb902fa8cd6b35a7cdcb4310efd5f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +24,6 @@ void	init_fork(t_line *line, t_pipe_list *list)
 	if (list && (!ft_strncmp(list->args[0], "REDO", 4)
 			|| !ft_strncmp(list->args[0], "REDA", 4)))
 		close(list->fd[0]);
-	else if (!ft_strncmp(list->args[0], "REDI", 4))
-	{
-		close(STDIN_FILENO);
-		// open(STDIN_FILENO);
-	}
 	else if (ft_strncmp(list->args[0], "PIPE", 4)
 		&& ft_strncmp(list->args[0], "REDO", 4)
 		&& ft_strncmp(list->args[0], "REDA", 4)

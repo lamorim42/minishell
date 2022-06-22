@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-void	verification_input(t_pipe_list *temp);
 
 void	list_generation_bin(t_line *line)
 {
@@ -26,7 +25,8 @@ void	list_generation_bin(t_line *line)
 		else if (temp->args && temp->args[0]
 			&& ft_strncmp(temp->args[0], "PIPE", 4)
 			&& ft_strncmp(temp->args[0], "REDO", 4)
-			&& ft_strncmp(temp->args[0], "REDA", 4))
+			&& ft_strncmp(temp->args[0], "REDA", 4)
+			&& ft_strncmp(temp->args[0], "REDI", 4))
 			temp->bin = path_finder(line, temp->args[0]);
 		temp = temp->next;
 	}
@@ -55,7 +55,6 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		verification_input(temp);
 		if (!temp->prev && (!ft_strncmp(temp->args[0], "REDO", 4)
 				|| !ft_strncmp(temp->args[0], "REDA", 4)))
 		{
@@ -77,22 +76,6 @@ void	exec_list(t_line *line,  t_hash_table **table)
 			exec_builtins(temp, table);
 		init_fork(line, temp);
 		temp = temp->next;
-	}
-}
-
-void	verification_input(t_pipe_list *temp)
-{
-	if (temp->prev && !ft_strncmp(temp->prev->args[0], "REDI", 4))
-	{
-		temp->prev->fd[0] = open(temp->prev->args[1], O_RDONLY);
-		dup2(temp->prev->fd[0], STDIN_FILENO);
-		close(temp->prev->fd[0]);
-	}
-	else if (temp->next && !ft_strncmp(temp->next->args[0], "REDI", 4))
-	{
-		temp->next->fd[0] = open(temp->next->args[1], O_RDONLY);
-		dup2(temp->next->fd[0], STDIN_FILENO);
-		close(temp->next->fd[0]);
 	}
 }
 
