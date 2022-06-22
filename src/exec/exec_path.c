@@ -6,11 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/22 15:32:32 by dmonteir         ###   ########.fr       */
-=======
-/*   Updated: 2022/06/21 15:52:58 by lamorim          ###   ########.fr       */
->>>>>>> 610b58c4d47eb902fa8cd6b35a7cdcb4310efd5f
+/*   Updated: 2022/06/22 15:48:45 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +18,7 @@ void	exec_path(t_line *line, t_pipe_list *list)
 {
 	verification_input(list);
 	dup_fd(list);
-<<<<<<< HEAD
 	if (!execve(list->bin, list->args, line->envp))
-=======
-	if (ft_strncmp(list->bin, "builtin", 7) == 0)
-	{
-		exec_builtins(list, table);
-		//status de saida não está completamente correto
-		exit(0);
-	}
-	else if (!execve(list->bin, list->args, line->envp))
->>>>>>> 610b58c4d47eb902fa8cd6b35a7cdcb4310efd5f
 	{
 		free_line(line);
 		exit(1);

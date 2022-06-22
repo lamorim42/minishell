@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/06/22 15:34:16 by dmonteir         ###   ########.fr       */
-=======
-/*   Updated: 2022/06/21 16:01:26 by lamorim          ###   ########.fr       */
->>>>>>> 610b58c4d47eb902fa8cd6b35a7cdcb4310efd5f
+/*   Updated: 2022/06/22 15:48:36 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
