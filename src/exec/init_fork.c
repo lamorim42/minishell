@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/20 19:25:49 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/06/22 15:34:05 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	open_fd(t_pipe_list *list);
 
-void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
+void	init_fork(t_line *line, t_pipe_list *list)
 {
 	open_fd(list);
 	if (list && (!ft_strncmp(list->args[0], "REDO", 4)
@@ -32,7 +32,7 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 	{
 		line->pid = fork();
 		if (line->pid == 0)
-			exec_path(line, list, table);
+			exec_path(line, list);
 	}
 	if (list->prev && !ft_strncmp(list->prev->args[0], "PIPE", 4))
 	{

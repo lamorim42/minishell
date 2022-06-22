@@ -73,7 +73,9 @@ void	exec_list(t_line *line,  t_hash_table **table)
 		}
 		if (ft_strncmp(temp->args[0], "exit", 4) == 0)
 			exit_builtin(line, temp, table);
-		init_fork(line, temp, table);
+		if (ft_strncmp(temp->bin, "builtin", 7) == 0)
+			exec_builtins(temp, table);
+		init_fork(line, temp);
 		temp = temp->next;
 	}
 }
@@ -98,8 +100,8 @@ void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 {
 	if (ft_strncmp(node->args[0], "echo", 4) == 0)
 		echo_builtin(node);
-	/* else if (ft_strncmp(node->args[0], "cd", 2) == 0)
-		cd_builtin(node);*/
+	else if (ft_strncmp(node->args[0], "cd", 2) == 0)
+		cd_builtin(node, table);
 	else if (ft_strncmp(node->args[0], "pwd", 3) == 0)
 		pwd_builtin(table);
 	else if (ft_strncmp(node->args[0], "export", 6) == 0)
