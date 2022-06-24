@@ -69,9 +69,7 @@ void	exec_list(t_line *line,  t_hash_table **table)
 		}
 		if (ft_strncmp(temp->args[0], "exit", 4) == 0)
 			exit_builtin(line, temp, table);
-		if (ft_strncmp(temp->bin, "builtin", 7) == 0)
-			exec_builtins(temp, table);
-		init_fork(line, temp);
+		init_fork(line, temp, table);
 		temp = temp->next;
 	}
 }

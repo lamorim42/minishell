@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/22 15:48:45 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:53:19 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static void	dup_fd(t_pipe_list *list);
 
-void	exec_path(t_line *line, t_pipe_list *list)
+void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
 	verification_input(list);
 	dup_fd(list);
+	if (ft_strncmp(list->bin, "builtin", 7) == 0)
+			exec_builtins(list, table);
 	if (!execve(list->bin, list->args, line->envp))
 	{
 		free_line(line);

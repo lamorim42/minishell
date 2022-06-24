@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/24 19:15:26 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:49:56 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ char			**clean_tokens(t_line *line, t_hash_table *table);
 void			free_sintax(t_line *line);
 
 //exec
-void			init_fork(t_line *line, t_pipe_list *list);
+void			init_fork(t_line *line, t_pipe_list *list, t_hash_table **table);
 char			*path_finder(t_line *line, char *cmd);
-void			exec_path(t_line *line, t_pipe_list *list);
+void			exec_path(t_line *line, t_pipe_list *list, t_hash_table **table);
 void			population_linked_list(t_line *line);
 void			exec_list(t_line *line, t_hash_table **table);
 void			creat_cmd(t_line *line,  t_hash_table **table);
