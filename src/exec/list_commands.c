@@ -41,10 +41,7 @@ int	is_a_builtin(char **node)
 		|| ft_strncmp(*node, "unset", 5) == 0
 		|| ft_strncmp(*node, "env", 3) == 0
 		|| ft_strncmp(*node, "exit", 4) == 0)
-	{
-		printf("its a builtin\n");
 		return (0);
-	}
 	return (1);
 }
 
@@ -86,7 +83,7 @@ void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 	else if (ft_strncmp(node->args[0], "cd", 2) == 0)
 		cd_builtin(node, table);
 	else if (ft_strncmp(node->args[0], "pwd", 3) == 0)
-		pwd_builtin(table);
+		pwd_builtin(node, table);
 	else if (ft_strncmp(node->args[0], "export", 6) == 0)
 		export_builtin(node, table);
 	else if (ft_strncmp(node->args[0], "unset", 5) == 0)

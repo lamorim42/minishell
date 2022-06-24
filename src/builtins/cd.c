@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/22 20:42:23 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/24 18:55:25 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 		printf("%s: command not found\n", node->args[0]);
 		//exit(127);
 	}
-	if (ft_strncmp(str_pwd, "~", 1) == 0)
-		str_pwd = search_item(table, "HOME");
 	if (chdir(str_pwd) == -1)
 	{
 		printf("bash: cd: %s: No such file or directory\n", node->args[1]);
@@ -43,7 +41,6 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 		}
 		else
 		{
-			update_var_env(table, "OLDPWD", str_pwd);
 			update_var_env(table, "PWD", str_pwd);
 		}
 	}

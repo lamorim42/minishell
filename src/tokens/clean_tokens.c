@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:55:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/16 11:18:03 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:04:15 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*clean_dolar_and_get_var(char *tks, t_hash_table *table)
 	if (tks[0] == '$')
 	{
 		tks = ft_strtrim(tks, "$");
-		temp = print_search(&table, tks);
+		temp = search_item(&table, tks);
 		free (tks);
 		if (temp != NULL)
 			var = ft_strdup(temp);
