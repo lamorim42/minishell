@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 07:11:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/24 20:44:27 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/27 19:33:53 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,19 @@ void	echo_builtin(t_pipe_list *node)
 	}
 	if (node->args[1] == NULL)
 		printf("\n");
-	if (ft_strncmp(node->args[1], "-n", 2) == 0)
+	if (ft_strncmp(node->args[1], "-n", 2) == 0 && ft_strlen(node->args[1]) == 2)
 		i++;
 	while (node->args[i])
 	{
+		if (node->args[i + 1] == NULL)
+		{
+			printf("%s", node->args[i]);
+			break ;
+		}
 		if (node->args[i])
 			printf("%s ", node->args[i]);
 		i++;
 	}
-	if (ft_strncmp(node->args[1], "-n", 2) != 0)
+	if (ft_strlen(node->args[1]) > 2 || ft_strncmp(node->args[1], "-n", 2) != 0)
 		printf("\n");
 }
