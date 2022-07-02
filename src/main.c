@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/20 20:52:43 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/01 19:33:26 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	facade(t_line *line, t_hash_table **table)
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
 			building_tokens(line);
-			if (!sintax_analysis(line->lex))
+			if (!sintax_analysis(line->lex) || (count_quots(line->str) % 2 != 0))
 				free_sintax(line);
 			else
 				exec_pipe_line(line, table);
@@ -72,15 +72,7 @@ static void	building_tokens(t_line *line)
 
 static void	exec_pipe_line(t_line *line, t_hash_table **table)
 {
-
-	//print_table(&table);
 	creat_cmd(line, table);
-	//int i = 0;
-	/* while (line->cmds[i])
-	{
-		print_array("REDI:", line->cmds[i]);
-		i++;
-	} */
 	population_linked_list(line);
 	list_generation_bin(line);
 	exec_list(line, table);
