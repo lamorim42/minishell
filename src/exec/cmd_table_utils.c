@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 21:13:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 19:44:38 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:38:45 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	update_cmd_table(t_line *line, struct s_aux *aux)
 	if (aux->lex[aux->i + 1] == NULL || !ft_strncmp(aux->lex[aux->i], "PIPE", 4)
 		|| !ft_strncmp(aux->lex[aux->i], "REDO", 4)
 		|| !ft_strncmp(aux->lex[aux->i], "REDA", 4)
-		|| !ft_strncmp(aux->lex[aux->i], "REDI", 4))
+		|| !ft_strncmp(aux->lex[aux->i], "REDI", 4)
+		|| !ft_strncmp(aux->lex[aux->i], "HERE", 4))
 	{
 		if (aux->count_words > 0)
 		{
@@ -38,6 +39,8 @@ void	update_cmd_table(t_line *line, struct s_aux *aux)
 			update_red(line, aux, ">>");
 		if (!ft_strncmp(aux->lex[aux->i], "REDI", 4))
 			update_red(line, aux, "<");
+		if (!ft_strncmp(aux->lex[aux->i], "HERE", 4))
+			update_red(line, aux, "<<");
 		aux->count_words = 0;
 	}
 }

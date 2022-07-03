@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/05/27 19:21:26 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/03 14:13:49 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	count_tks(char *line)
 		{
 			counter++;
 			if (ft_strchr(">", *line) && ft_strchr(">", *(line + 1)))
+				line++;
+			if (ft_strchr("<", *line) && ft_strchr("<", *(line + 1)))
 				line++;
 		}
 		if (!flag && ft_strchr("\"\'", *line))

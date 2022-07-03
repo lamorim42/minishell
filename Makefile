@@ -36,6 +36,7 @@ SRC		=	main.c \
 			export.c \
 			unset.c \
 			exit.c \
+			here_doc.c \
 
 
 LIBFT_PATH = ./Libft

@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/03 11:36:28 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:54:42 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	expand_var(t_line *line, t_hash_table *table);
 static char	*return_var_key(char *str);
 static char	*join_str_value(char *key, char *value, char *str);
-static char	*char_cat(char *str, char c);
 
 static void	counter_pipes(int *count_pipes, char **temp_lex)
 {
@@ -145,7 +144,7 @@ static char *join_str_value(char *key, char *value, char *str)
 	return (NULL);
 }
 
-static char	*char_cat(char *str, char c)
+char	*char_cat(char *str, char c)
 {
 	char	*temp;
 	char	*aux;

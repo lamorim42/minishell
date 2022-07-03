@@ -26,7 +26,8 @@ void	list_generation_bin(t_line *line)
 			&& ft_strncmp(temp->args[0], "PIPE", 4)
 			&& ft_strncmp(temp->args[0], "REDO", 4)
 			&& ft_strncmp(temp->args[0], "REDA", 4)
-			&& ft_strncmp(temp->args[0], "REDI", 4))
+			&& ft_strncmp(temp->args[0], "REDI", 4)
+			&& ft_strncmp(temp->args[0], "HERE", 4))
 			temp->bin = path_finder(line, temp->args[0]);
 		temp = temp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 09:33:33 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:33:54 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,12 @@ void			population_linked_list(t_line *line);
 void			exec_list(t_line *line, t_hash_table **table);
 void			creat_cmd(t_line *line,  t_hash_table **table);
 void			list_generation_bin(t_line *line);
+
+//here_doc
+char			*here_doc(t_pipe_list *node);
+char			*char_cat(char *str, char c);
+void			here_doc_verification(t_line *line);
+void			here_doc_buffer(char *buffer, t_pipe_list *list);
 
 //Builtins
 int				is_a_builtin(char **node);

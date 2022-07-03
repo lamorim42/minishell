@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 11:54:13 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:32:31 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
 	verification_input(list);
 	dup_fd(list);
-	print_search(table, "HOME");
 	if (ft_strncmp(list->bin, "builtin", 7) == 0)
 	{
 		exec_builtins(list, table);
@@ -70,6 +69,16 @@ void	verification_input(t_pipe_list *temp)
 	else if (temp->next && !ft_strncmp(temp->next->args[0], "REDI", 4))
 	{
 		temp->next->fd[0] = open(temp->next->args[1], O_RDONLY);
+		dup2(temp->next->fd[0], STDIN_FILENO);
+		close(temp->next->fd[0]);
+	}
+	if (temp->prev && !ft_strncmp(temp->prev->args[0], "HERE", 4))
+	{
+		dup2(temp->prev->fd[0], STDIN_FILENO);
+		close(temp->prev->fd[0]);
+	}
+	else if (temp->next && !ft_strncmp(temp->next->args[0], "HERE", 4))
+	{
 		dup2(temp->next->fd[0], STDIN_FILENO);
 		close(temp->next->fd[0]);
 	}

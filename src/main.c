@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 09:47:41 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:34:02 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,38 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 {
 	creat_cmd(line, table);
 	population_linked_list(line);
+	here_doc_verification(line);
 	list_generation_bin(line);
 	exec_list(line, table);
 	add_history(line->str);
 	free_line(line);
+}
+
+void	here_doc_verification(t_line *line)
+{
+	t_pipe_list *temp;
+	char	*buffer;
+
+	temp = line->list_cmds;
+	buffer = NULL;
+	while(temp)
+	{
+		if (!ft_strncmp(temp->args[0], "HERE", 4))
+		{
+			buffer = here_doc(temp);
+			here_doc_buffer(buffer, temp);
+			free(buffer);
+		}
+		temp = temp->next;
+	}
+}
+
+void	here_doc_buffer(char *buffer, t_pipe_list *list)
+{
+	if (pipe(list->fd) != 0)
+		dprintf(2, "pipe error\n");
+	write(list->fd[1], buffer, ft_strlen(buffer));
+	close(list->fd[1]);
 }
 
 

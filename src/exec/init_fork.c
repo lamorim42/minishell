@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/24 19:49:36 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:28:11 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 	else if (ft_strncmp(list->args[0], "PIPE", 4)
 		&& ft_strncmp(list->args[0], "REDO", 4)
 		&& ft_strncmp(list->args[0], "REDA", 4)
-		&& ft_strncmp(list->args[0], "REDI", 4))
+		&& ft_strncmp(list->args[0], "REDI", 4)
+		&& ft_strncmp(list->args[0], "HERE", 4))
 	{
 		line->pid = fork();
 		if (line->pid == 0)
