@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/01 19:31:23 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 09:33:33 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void			free_item(t_hash_item *item);
 void			free_table(t_hash_table **table);
 void			init_hash(void);
 void			hash_insert(t_hash_table **table, char *key, char *value);
-char			*search_item(t_hash_table **table, char *key);
+char			*search_item(t_hash_table *table, char *key);
 unsigned long	hash_function(char *str);
 void			table_delete(t_hash_table **table, char *key);
 t_hash_table	*population_hash_table(t_line *line, t_hash_table **table);

@@ -6,15 +6,15 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/01 21:52:20 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:36:28 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	expand_var(t_line *line, t_hash_table *table);
-static char *return_var_key(char *str);
-static char *join_str_value(char *key, char *value, char *str);
+static char	*return_var_key(char *str);
+static char	*join_str_value(char *key, char *value, char *str);
 static char	*char_cat(char *str, char c);
 
 static void	counter_pipes(int *count_pipes, char **temp_lex)
@@ -67,12 +67,16 @@ static void	expand_var(t_line *line, t_hash_table *table)
 	i = 0;
 	while(line->ctks[i])
 	{
-		if (ft_strchr(line->ctks[i], '$') != NULL)
+		while (ft_strchr(line->ctks[i], '$') != NULL)
 		{
 			key = return_var_key(line->ctks[i]);
-			value = search_item(&table, key);
+			value = search_item(table, key);
+			printf("value depois da search = %s\n", value);
 			if (value != NULL)
+			{
 				line->ctks[i] = join_str_value(key, value, line->ctks[i]);
+				free (value);
+			}
 			else
 				line->ctks[i] = ft_strdup("");
 			free (key);
@@ -99,12 +103,18 @@ static char *join_str_value(char *key, char *value, char *str)
 		i++;
 	}
 	if ((ft_strlen(key) + 1) == (ft_strlen(str)))
-		return (value);
+	{
+		free(sufix_str);
+		free(str);
+		return (ft_strdup(value));
+	}
 	else if (i == 0)
 	{
 		temp = ft_strdup(&str[(ft_strlen(key) + 1)]);
 		new_str = ft_strjoin(value, temp);
+		free(sufix_str);
 		free(temp);
+		free(str);
 		return (new_str);
 	}
 	else if(i > 0)
@@ -121,12 +131,14 @@ static char *join_str_value(char *key, char *value, char *str)
 			new_str = ft_strjoin(sufix_str, temp);
 			free(sufix_str);
 			free(temp);
+			free(str);
 			return(new_str);
 		}
 		else
 		{
 			new_str = ft_strjoin(sufix_str, value);
 			free(sufix_str);
+			free(str);
 			return(new_str);
 		}
 	}
@@ -142,14 +154,15 @@ static char	*char_cat(char *str, char c)
 	temp[0] = c;
 	temp[1] = '\0';
 	aux = ft_strjoin(str, temp);
+	free(temp);
 	return (aux);
 }
 
 static char *return_var_key(char *str)
 {
-	int	i;
-	int	len;
-	int	cpy;
+	int		i;
+	int		len;
+	int		cpy;
 	char	*key;
 
 	i = 0;
@@ -160,15 +173,21 @@ static char *return_var_key(char *str)
 	{
 		if (str[i] == '$')
 		{
-			cpy = ++i;
+			cpy = i + 1;
 			while (str[i] && str[i] != ' ')
 			{
 				len++;
 				i++;
 			}
+			break ;
 		}
-		i++;
+		else
+			i++;
 	}
-	key = ft_substr(str, (unsigned int)cpy, (size_t)len);
+
+	key = ft_substr(str, (unsigned int)cpy, ((size_t)len - 1));
 	return (key);
 }
+
+//Quando expandimos duas variaveis dentro ou fro de aspas da erro
+//echo "$USER ahudaus $USER"

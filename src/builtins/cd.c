@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/24 18:55:25 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:15:22 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 	}
 	else
 	{
-		str_oldpwd = search_item(table, "PWD");
+		str_oldpwd = search_item((*table), "PWD");
 		if (ft_strncmp(str_pwd, "/home", 5) != 0)
 		{
 			str_oldpwd = ft_strjoin(str_oldpwd, "/");
@@ -49,5 +49,5 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 static void	update_var_env(t_hash_table **table, char *str_key, char *val)
 {
 	table_delete(table, str_key);
-	hash_insert(table,str_key, val);
+	hash_insert(table, str_key, val);
 }

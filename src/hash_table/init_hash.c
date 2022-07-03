@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:49:43 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/20 20:46:18 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 09:34:23 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*print_search(t_hash_table **table, char *key)
 {
 	char	*val;
 
-	val = search_item(table, key);
+	val = search_item((*table), key);
 	if (val == NULL)
 	{
 		printf("Key:%s does not exist\n", key);
