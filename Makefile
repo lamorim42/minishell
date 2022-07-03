@@ -1,6 +1,6 @@
 #Name
 NAME	= minishell
-CC		= clang
+CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra -g3
 
 #Source
@@ -31,6 +31,11 @@ SRC		=	main.c \
 			free.c \
 			arr_utils.c \
 			cmd_table_utils.c \
+			cd.c \
+			env.c \
+			export.c \
+			unset.c \
+			exit.c \
 
 
 LIBFT_PATH = ./Libft

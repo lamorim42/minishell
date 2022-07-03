@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 19:24:35 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/03 11:54:13 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 static void	dup_fd(t_pipe_list *list);
 
-void	exec_path(t_line *line, t_pipe_list *list)
+void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
+	verification_input(list);
 	dup_fd(list);
+	print_search(table, "HOME");
 	if (ft_strncmp(list->bin, "builtin", 7) == 0)
 	{
-		exec_builtins(list);
+		exec_builtins(list, table);
 		exit(0);
 	}
-	else if (!execve(list->bin, list->args, line->envp))
+	if (!execve(list->bin, list->args, line->envp))
 	{
 		free_line(line);
 		exit(1);
@@ -56,3 +58,20 @@ static void	dup_fd(t_pipe_list *list)
 		close(list->next->fd[0]);
 	}
 }
+
+void	verification_input(t_pipe_list *temp)
+{
+	if (temp->prev && !ft_strncmp(temp->prev->args[0], "REDI", 4))
+	{
+		temp->prev->fd[0] = open(temp->prev->args[1], O_RDONLY);
+		dup2(temp->prev->fd[0], STDIN_FILENO);
+		close(temp->prev->fd[0]);
+	}
+	else if (temp->next && !ft_strncmp(temp->next->args[0], "REDI", 4))
+	{
+		temp->next->fd[0] = open(temp->next->args[1], O_RDONLY);
+		dup2(temp->next->fd[0], STDIN_FILENO);
+		close(temp->next->fd[0]);
+	}
+}
+

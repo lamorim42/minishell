@@ -6,24 +6,11 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/06/01 21:24:49 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:56:09 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_list(t_pipe_list *stack)
-{
-	t_pipe_list	*temp;
-
-	temp = stack;
-	while (temp)
-	{
-		print_array("Array linked list", temp->args);
-		temp = temp->next;
-	}
-	printf("----------------------\n");
-}
 
 void	population_linked_list(t_line *line)
 {
@@ -52,9 +39,7 @@ void	add_back_list(t_pipe_list **list, t_pipe_list **node)
 
 	temp = *list;
 	if (list == NULL)
-	{
 		*list = *node;
-	}
 	else
 	{
 		while (temp->next != NULL)

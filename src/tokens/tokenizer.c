@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 19:29:18 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/01 20:05:43 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 char	*worddup(char **s);
 
@@ -56,10 +56,22 @@ char	*worddup(char **s)
 		if (ft_strchr(">", **s) && ft_strchr(">", *((*s) + 1)))
 			len++;
 	}
-	else
+	else if (**s != '\"')
 	{
 		while ((*s)[len] && !ft_strchr("|>< ", (*s)[len]))
 			len++;
+	}
+	else
+	{
+		while ((*s)[len])
+		{
+			len++;
+			if ((*s)[len] == '\"')
+			{
+				len++;
+				break ;
+			}
+		}
 	}
 	str = (char *)malloc(len + 1);
 	if (str == NULL)

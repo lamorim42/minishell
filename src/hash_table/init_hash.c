@@ -6,14 +6,11 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:49:43 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 19:00:04 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/03 09:34:23 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_search(t_hash_table **table, char *key);
-void	print_table(t_hash_table **table);
 
 void	init_hash(void)
 {
@@ -30,20 +27,19 @@ void	init_hash(void)
 	free_table(&table);
 }
 
-void	print_search(t_hash_table **table, char *key)
+char	*print_search(t_hash_table **table, char *key)
 {
 	char	*val;
 
-	val = search_item(table, key);
+	val = search_item((*table), key);
 	if (val == NULL)
 	{
 		printf("Key:%s does not exist\n", key);
-		return ;
+		return NULL;
 	}
 	else
-	{
 		printf("Key:%s, Value:%s\n", key, val);
-	}
+	return (val);
 }
 
 void	print_table(t_hash_table **table)
@@ -51,19 +47,26 @@ void	print_table(t_hash_table **table)
 	t_hash_item	*current;
 	t_hash_item	*temp;
 	int			i;
+	int			counter;
 
-	printf("\nHash Table\n-------------------\n");
+	current = NULL;
 	i = 0;
+	counter = 0;
 	while (i < (*table)->size)
 	{
 		if ((*table)->item[i])
 		{
-			temp = current->next;
-			printf("Index:%d, Key:%s, Value:%s\n", i, current->key,
-				current->value);
-			current = temp;
+			current = (*table)->item[i];
+			while(current != NULL)
+			{
+				temp = current->next;
+				if (current->key != NULL)
+					printf("%s=%s\n", current->key, current->value);
+				current = temp;
+				counter++;
+			}
+			counter++;
 		}
 		i++;
 	}
-	printf("-------------------\n\n");
 }
