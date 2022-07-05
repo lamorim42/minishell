@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 18:28:11 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:56:02 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	open_fd(t_pipe_list *list);
 
 void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
+	//printf("%s\n", list->args[0]);
 	open_fd(list);
 	if (list && (!ft_strncmp(list->args[0], "REDO", 4)
 			|| !ft_strncmp(list->args[0], "REDA", 4)))

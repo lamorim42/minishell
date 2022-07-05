@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:13:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 18:40:30 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:27:47 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,16 @@ char	*here_doc(t_pipe_list *node)
 		content = readline("> ");
 		if (content && ft_strlen(content) == ft_strlen(node->args[1])
 			&& !ft_strncmp(content, node->args[1], ft_strlen(node->args[1])))
-			break ;
+			{
+				free(content);
+				break ;
+			}
+
 		if (temp == NULL)
+		{
 			temp = char_cat(content, '\n');
+			free(content);
+		}
 		else
 		{
 			buffer = ft_strjoin(temp, content);
@@ -40,5 +47,9 @@ char	*here_doc(t_pipe_list *node)
 			free (content);
 		}
 	}
-	return (buffer);
+
+	if (buffer != NULL)
+		return (buffer);
+	else
+		return (temp);
 }

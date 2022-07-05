@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 18:32:31 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/04 20:41:39 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ static void	dup_fd(t_pipe_list *list)
 		dup2(list->prev->fd[0], STDIN_FILENO);
 		close(list->prev->fd[1]);
 		close(list->prev->fd[0]);
+
+		if (next && !ft_strncmp(next->args[0], "HERE", 4))
+		{
+			dup2(next->fd[0], STDIN_FILENO);
+			close(next->fd[0]);
+		}
 	}
 	if (next && next->args
 		&& (!ft_strncmp(next->args[0], "REDO", 4)
@@ -72,15 +78,20 @@ void	verification_input(t_pipe_list *temp)
 		dup2(temp->next->fd[0], STDIN_FILENO);
 		close(temp->next->fd[0]);
 	}
-	if (temp->prev && !ft_strncmp(temp->prev->args[0], "HERE", 4))
+
+	if ((temp->next && temp->next->next && !ft_strncmp(temp->next->next->args[0], "PIPE", 4)) || (temp->prev == NULL && temp->next->next == NULL))
 	{
-		dup2(temp->prev->fd[0], STDIN_FILENO);
-		close(temp->prev->fd[0]);
-	}
-	else if (temp->next && !ft_strncmp(temp->next->args[0], "HERE", 4))
-	{
-		dup2(temp->next->fd[0], STDIN_FILENO);
-		close(temp->next->fd[0]);
+		if (temp->prev && !ft_strncmp(temp->prev->args[0], "HERE", 4))
+		{
+			dup2(temp->prev->fd[0], STDIN_FILENO);
+			close(temp->prev->fd[0]);
+		}
+		else if (temp->next && !ft_strncmp(temp->next->args[0], "HERE", 4))
+		{
+			dup2(temp->next->fd[0], STDIN_FILENO);
+			close(temp->next->fd[0]);
+		}
 	}
 }
 
+//bug do cat << eof | ls onde não ta mandando pro pipe
