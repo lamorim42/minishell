@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/04 19:22:09 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:18:56 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,55 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	population_linked_list(line);
 	here_doc_verification(line);
 	list_generation_bin(line);
+	open_fds(line);
 	exec_list(line, table);
 	add_history(line->str);
 	free_line(line);
+}
+
+void	open_fds(t_line *line)
+{
+	t_pipe_list	*list;
+
+	list = line->list_cmds;
+	while (list)
+	{
+		if (!ft_strncmp(list->args[0], "REDI", 4))
+		{
+			list->fd[0] = open(list->args[1], O_RDONLY);
+			if (list->fd[0] == -1)
+			{
+				perror(list->args[1]);
+				free_line(line);
+			}
+		}
+		else if (!ft_strncmp(list->args[0], "REDO", 4))
+		{
+			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+			if (list->fd[0] == -1)
+			{
+				perror(list->args[1]);
+				free_line(line);
+			}
+		}
+		else if (!ft_strncmp(list->args[0], "REDA", 4))
+		{
+			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT
+							| O_APPEND, 0644);
+			if (list->fd[0] == -1)
+			{
+				perror(list->args[1]);
+				free_line(line);
+			}
+		}
+		else if (!ft_strncmp(list->args[0], "PIPE", 4))
+		{
+			if (pipe(list->fd) != 0)
+				dprintf(2, "pipe error\n");
+		}
+		list = list->next;
+	}
+
 }
 
 void	here_doc_verification(t_line *line)
@@ -92,19 +138,20 @@ void	here_doc_verification(t_line *line)
 	{
 		if (!ft_strncmp(temp->args[0], "HERE", 4))
 		{
-			buffer = here_doc(temp);
-			here_doc_buffer(buffer, temp);
+			buffer = here_doc_buffer(temp);
+			here_doc_write(buffer, temp);
 			free(buffer);
 		}
 		temp = temp->next;
 	}
 }
 
-void	here_doc_buffer(char *buffer, t_pipe_list *list)
+void	here_doc_write(char *buffer, t_pipe_list *list)
 {
 	if (pipe(list->fd) != 0)
 		dprintf(2, "pipe error\n");
-	write(list->fd[1], buffer, ft_strlen(buffer));
+	if (buffer)
+		write(list->fd[1], buffer, ft_strlen(buffer));
 	close(list->fd[1]);
 }
 

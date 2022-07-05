@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 18:33:54 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:20:13 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_line {
 }				t_line;
 
 void	verification_input(t_pipe_list *temp);
+void	close_fds(t_pipe_list *node);
+void	open_fds(t_line *line);
 
 //cmd_table
 void			init_aux(struct s_aux *aux, t_line *line);
@@ -111,10 +113,10 @@ void			creat_cmd(t_line *line,  t_hash_table **table);
 void			list_generation_bin(t_line *line);
 
 //here_doc
-char			*here_doc(t_pipe_list *node);
+char			*here_doc_buffer(t_pipe_list *node);
 char			*char_cat(char *str, char c);
 void			here_doc_verification(t_line *line);
-void			here_doc_buffer(char *buffer, t_pipe_list *list);
+void			here_doc_write(char *buffer, t_pipe_list *list);
 
 //Builtins
 int				is_a_builtin(char **node);
