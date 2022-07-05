@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_cmd_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/05 18:49:54 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/05 19:44:31 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	***creat_cmd_table(t_line *line)
 		return (NULL);
 	while (aux.ctks && aux.lex[aux.i])
 	{
-		if ((ft_strncmp(aux.lex[aux.i], "WORD", 4))
+		if ((!ft_strncmp(aux.lex[aux.i], "WORD", 4))
 			|| (!ft_strncmp(aux.lex[aux.i], "VAR", 3)))
 			aux.count_words++;
 		update_cmd_table(line, &aux);
