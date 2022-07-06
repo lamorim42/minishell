@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 19:37:08 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/06 20:14:23 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void			free_line(t_line *line);
 char			**clean_tokens(t_line *line);
 void			free_sintax(t_line *line);
 int				count_quots(char *tks);
+void			error_msg(char *str, char *msg);
 
 //exec
 void			init_fork(t_line *line, t_pipe_list *list, t_hash_table **table);

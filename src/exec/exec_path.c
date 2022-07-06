@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 19:32:49 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/06 20:14:27 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	find_input(t_pipe_list *node);
 void	find_output(t_pipe_list *node);
-void	error_msg(char *str, char *msg);
 
 void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
