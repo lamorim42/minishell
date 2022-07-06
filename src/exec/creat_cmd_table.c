@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/05 19:44:31 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:32:29 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static char	***creat_cmd_table(t_line *line)
 	init_aux(&aux, line);
 	counter_pipes(&aux.count_pipes, aux.lex);
 	line->cmds = ft_calloc((aux.count_pipes * 2) + 3, (sizeof(char **)));
-	printf("aux.count_pipes = %d\n", aux.count_pipes);
 	if (line->cmds == NULL)
 		return (NULL);
 	while (aux.ctks && aux.lex[aux.i])
@@ -47,7 +46,6 @@ static char	***creat_cmd_table(t_line *line)
 		update_cmd_table(line, &aux);
 		aux.i++;
 	}
-	printf("aux.j = %d\n", aux.j);
 	line->cmds[aux.j] = NULL;
 	return (line->cmds);
 }

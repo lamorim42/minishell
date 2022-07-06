@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/05 16:42:09 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/05 21:04:43 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,23 @@ void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
 	//verification_input(list);
 	//dup_fd(list);
+	printf("oiiii 1\n");
 	find_input(list);
+	printf("oiiii 2\n");
 	find_output(list);
+	printf("oiiii 3\n");
 	close_fds(list);
 	if (ft_strncmp(list->bin, "builtin", 7) == 0)
 	{
 		exec_builtins(list, table);
 		exit(0);
 	}
-	if (!execve(list->bin, list->args, line->envp))
+	printf("oiiii\n");
+	if (execve(list->bin, list->args, line->envp) == -1)
 	{
+		printf("Não foi\n");
 		free_line(line);
-		exit(1);
+		exit(127);
 	}
 }
 
@@ -56,7 +61,8 @@ void	find_input(t_pipe_list *node)
 			input = temp->fd[0];
 		temp = temp->next;
 	}
-	dup2(input, STDIN_FILENO);
+	if (input != 0)
+		dup2(input, STDIN_FILENO);
 }
 
 void	find_output(t_pipe_list *node)
@@ -79,7 +85,8 @@ void	find_output(t_pipe_list *node)
 			output = temp->fd[0];
 		temp = temp->next;
 	}
-	dup2(output, STDOUT_FILENO);
+	if (output != 1)
+		dup2(output, STDOUT_FILENO);
 }
 
 void	close_fds(t_pipe_list *node)
