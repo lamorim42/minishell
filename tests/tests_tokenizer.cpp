@@ -178,3 +178,14 @@ TEST(tokenizer, test_tokenizer_cathere_doc_miau)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
+
+TEST(tokenizer, test_tokenizer_pipePipe_doc_miau)
+{
+	t_line	line;
+	line.str = "cat || miau";
+	char	*esperado[] = {"cat", "|", "|", "miau", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}

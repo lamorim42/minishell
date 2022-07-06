@@ -61,3 +61,15 @@ TEST(sintax_analysis, here_pipe)
 
 	EXPECT_TRUE(sintax_analysis(lex) == 0);
 }
+
+TEST(sintax_analysis, here_pipe_pipe)
+{
+	char **lex = (char **)malloc(sizeof(char **) * 5);
+	lex[0] = "WORD";
+	lex[1] = "PIPE";
+	lex[2] = "PIPE";
+	lex[3] = "WORD";
+	lex[4] = NULL;
+
+	EXPECT_TRUE(sintax_analysis(lex) == 0);
+}
