@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/05 21:02:40 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:27:36 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 		&& ft_strncmp(list->args[0], "REDI", 4)
 		&& ft_strncmp(list->args[0], "HERE", 4))
 	{
-		printf("Estou dentro do if do init_fork\n");
 		line->pid = fork();
 		if (line->pid == 0)
 			exec_path(line, list, table);
@@ -38,8 +37,6 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 		close(list->prev->fd[1]);
 	}
 	waitpid(line->pid, &(line->status_code), 0);
-
-	printf("%d\n", WEXITSTATUS(line->status_code));
 	update_status_code(line, table);
 }
 
