@@ -101,12 +101,28 @@ TEST(lexical_analyzes, var_env_echo_user)
 {
 	t_line	line;
 	line.tks_nbr = 2;
-	line.tks = (char**)malloc(sizeof(char *) * 4);
+	line.tks = (char**)malloc(sizeof(char *) * 3);
 	line.tks[0] = ft_strdup("echo");
 	line.tks[1] = ft_strdup("$USER");
 	line.tks[2] = NULL;
 	char	*tks[] = {"echo", "$USER", NULL};
 	char	*esperado[] = {"WORD", "VAR", NULL};
+	char	**resultado = lexical_analyzer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
+
+TEST(lexical_analyzes, var_env_cat_here)
+{
+	t_line	line;
+	line.tks_nbr = 3;
+	line.tks = (char**)malloc(sizeof(char *) * 4);
+	line.tks[0] = ft_strdup("cat");
+	line.tks[1] = ft_strdup("<<");
+	line.tks[2] = ft_strdup("miau");
+	line.tks[3] = NULL;
+	char	*tks[] = {"cat", "<<", "miau", NULL};
+	char	*esperado[] = {"WORD", "HERE", "WORD", NULL};
 	char	**resultado = lexical_analyzer(&line);
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);

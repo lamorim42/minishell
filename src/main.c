@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 09:47:41 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:28:16 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,88 @@ static void	building_tokens(t_line *line)
 
 static void	exec_pipe_line(t_line *line, t_hash_table **table)
 {
-	creat_cmd(line, table);
-	population_linked_list(line);
+	line->ctks = clean_tokens(line);
+	expand_var(line, (*table));
+	creat_cmd(line);
+	here_doc_verification(line);
 	list_generation_bin(line);
+	open_fds(line);
 	exec_list(line, table);
 	add_history(line->str);
 	free_line(line);
+}
+
+void	open_fds(t_line *line)
+{
+	t_pipe_list	*list;
+
+	list = line->list_cmds;
+	while (list)
+	{
+		if (!ft_strncmp(list->args[0], "REDI", 4))
+		{
+			list->fd[0] = open(list->args[1], O_RDONLY);
+			if (list->fd[0] == -1)
+			{
+				perror(list->args[1]);
+				free_line(line);
+			}
+		}
+		else if (!ft_strncmp(list->args[0], "REDO", 4))
+		{
+			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+			if (list->fd[0] == -1)
+			{
+				perror(list->args[1]);
+				free_line(line);
+			}
+		}
+		else if (!ft_strncmp(list->args[0], "REDA", 4))
+		{
+			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT
+							| O_APPEND, 0644);
+			if (list->fd[0] == -1)
+			{
+				perror(list->args[1]);
+				free_line(line);
+			}
+		}
+		else if (!ft_strncmp(list->args[0], "PIPE", 4))
+		{
+			if (pipe(list->fd) != 0)
+				dprintf(2, "pipe error\n");
+		}
+		list = list->next;
+	}
+
+}
+
+void	here_doc_verification(t_line *line)
+{
+	t_pipe_list *temp;
+	char	*buffer;
+
+	temp = line->list_cmds;
+	buffer = NULL;
+	while(temp)
+	{
+		if (!ft_strncmp(temp->args[0], "HERE", 4))
+		{
+			buffer = here_doc_buffer(temp);
+			here_doc_write(buffer, temp);
+			free(buffer);
+		}
+		temp = temp->next;
+	}
+}
+
+void	here_doc_write(char *buffer, t_pipe_list *list)
+{
+	if (pipe(list->fd) != 0)
+		dprintf(2, "pipe error\n");
+	if (buffer)
+		write(list->fd[1], buffer, ft_strlen(buffer));
+	close(list->fd[1]);
 }
 
 
@@ -98,5 +174,6 @@ t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 		ft_free_arr(var);
 		i++;
 	}
+	hash_insert(table, "?", "0");
 	return (*table);
 }

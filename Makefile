@@ -30,12 +30,12 @@ SRC		=	main.c \
 			pwd.c \
 			free.c \
 			arr_utils.c \
-			cmd_table_utils.c \
 			cd.c \
 			env.c \
 			export.c \
 			unset.c \
 			exit.c \
+			here_doc.c \
 
 
 LIBFT_PATH = ./Libft
@@ -100,7 +100,7 @@ run:
 	./minishell
 
 val:
-	valgrind --suppressions=readline.supp -s --leak-check=full --track-fds=yes ./minishell
+	valgrind --suppressions=readline.supp -s --show-leak-kinds=all --leak-check=full --track-fds=yes ./minishell
 
 gdb:	obj_dir $(OBJ) $(LIBFT)
 		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o a.out

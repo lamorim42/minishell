@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 09:33:33 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:37:08 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,25 @@ typedef struct s_pipe_list {
 	struct s_pipe_list	*prev;
 }	t_pipe_list;
 
-struct s_aux
-{
-	char	**lex;
-	int		count_pipes;
-	int		count_words;
-	int		i;
-	int		j;
-	char	**ctks;
-};
-
 typedef struct s_line {
 	char		*str;
 	char		**ctks;
 	char		**tks;
 	int			fd[2];
 	char		**lex;
-	char		***cmds;
 	int			tks_nbr;
 	char		**envp;
+	int			status_code;
 	int			pid;
 	int			sig;
 	t_pipe_list	*list_cmds;
 }				t_line;
 
 void	verification_input(t_pipe_list *temp);
+void	close_fds(t_pipe_list *node);
+void	open_fds(t_line *line);
 
-//cmd_table
-void			init_aux(struct s_aux *aux, t_line *line);
-void			update_red(t_line *line, struct s_aux *aux, char *red);
-void			update_cmd_table(t_line *line, struct s_aux *aux);
+void	expand_var(t_line *line, t_hash_table *table);
 
 //array
 int				ft_array_len(char **array);
@@ -105,10 +94,15 @@ int				count_quots(char *tks);
 void			init_fork(t_line *line, t_pipe_list *list, t_hash_table **table);
 char			*path_finder(t_line *line, char *cmd);
 void			exec_path(t_line *line, t_pipe_list *list, t_hash_table **table);
-void			population_linked_list(t_line *line);
 void			exec_list(t_line *line, t_hash_table **table);
-void			creat_cmd(t_line *line,  t_hash_table **table);
+void			creat_cmd(t_line *line);
 void			list_generation_bin(t_line *line);
+
+//here_doc
+char			*here_doc_buffer(t_pipe_list *node);
+char			*char_cat(char *str, char c);
+void			here_doc_verification(t_line *line);
+void			here_doc_write(char *buffer, t_pipe_list *list);
 
 //Builtins
 int				is_a_builtin(char **node);
@@ -122,7 +116,7 @@ void			unset_builtin(t_pipe_list *node, t_hash_table **table);
 void			exit_builtin(t_line *line, t_pipe_list *node, t_hash_table **table);
 
 //linked list
-void			add_back_list(t_pipe_list **list, t_pipe_list **node);
+void			add_back_list(t_pipe_list **list, t_pipe_list *node);
 void			print_list(t_pipe_list *stack);
 t_pipe_list		*new_node(char **args);
 void			free_list(t_pipe_list *list);

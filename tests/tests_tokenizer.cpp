@@ -145,3 +145,36 @@ TEST(tokenizer, test_tokenizer_ls_redifile_pipe_cat)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
+
+TEST(tokenizer, test_tokenizer_cat_here_doc_miau)
+{
+	t_line	line;
+	line.str = "cat << miau";
+	char	*esperado[] = {"cat", "<<", "miau", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_cat_here_docmiau)
+{
+	t_line	line;
+	line.str = "cat <<miau";
+	char	*esperado[] = {"cat", "<<", "miau", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_cathere_doc_miau)
+{
+	t_line	line;
+	line.str = "cat<<miau";
+	char	*esperado[] = {"cat", "<<", "miau", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}

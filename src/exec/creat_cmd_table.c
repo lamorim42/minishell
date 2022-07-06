@@ -3,62 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   creat_cmd_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/03 11:36:28 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:30:05 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	expand_var(t_line *line, t_hash_table *table);
 static char	*return_var_key(char *str);
 static char	*join_str_value(char *key, char *value, char *str);
-static char	*char_cat(char *str, char c);
 
-static void	counter_pipes(int *count_pipes, char **temp_lex)
+char	**make_args(t_line *line, int *index);
+int	get_arg_size(t_line *line, int index);
+
+void	creat_cmd(t_line *line)
 {
 	int	i;
 
 	i = 0;
-	while (temp_lex && temp_lex[i])
-	{
-		if (!ft_strncmp(temp_lex[i], "PIPE", 4))
-			(*count_pipes)++;
-		i++;
-	}
+	while (line->tks[i])
+		add_back_list(&(line->list_cmds), new_node(make_args(line, &i)));
 }
 
-static char	***creat_cmd_table(t_line *line)
+char	**make_args(t_line *line, int *index)
 {
-	struct s_aux	aux;
+	char	**arg;
+	int		size;
 
-	init_aux(&aux, line);
-	counter_pipes(&aux.count_pipes, aux.lex);
-	line->cmds = ft_calloc((aux.count_pipes * 2) + 3, (sizeof(char **)));
-	if (line->cmds == NULL)
-		return (NULL);
-	while (aux.ctks && aux.lex[aux.i])
+	size = get_arg_size(line, *index);
+	arg = copy_array(&(line->ctks[*index]), size);
+	if (ft_strncmp(line->lex[*index], "WORD", 4))
 	{
-		if ((!ft_strncmp(aux.lex[aux.i], "WORD", 4))
-			|| (!ft_strncmp(aux.lex[aux.i], "VAR", 3)))
-			aux.count_words++;
-		update_cmd_table(line, &aux);
-		aux.i++;
+		free(arg[0]);
+		arg[0] = ft_strdup(line->lex[*index]);
 	}
-	line->cmds[aux.j] = NULL;
-	return (line->cmds);
+	*index += size;
+	return(arg);
 }
 
-void	creat_cmd(t_line *line, t_hash_table **table)
+int	get_arg_size(t_line *line, int index)
 {
-	line->ctks = clean_tokens(line);
-	expand_var(line, (*table));
-	line->cmds = creat_cmd_table(line);
+	int		size;
+
+	size = 0;
+	if (!ft_strncmp(line->lex[index], "WORD", 4))
+	{
+		while (line->lex[index] && (!ft_strncmp(line->lex[index], "WORD", 4)
+				|| !ft_strncmp(line->lex[index], "VAR", 3)))
+		{
+			index++;
+			size++;
+		}
+	}
+	else
+	{
+		if (!ft_strncmp(line->lex[index], "PIPE", 4))
+			size = 1;
+		else
+			size = 2;
+	}
+	return (size);
 }
 
-static void	expand_var(t_line *line, t_hash_table *table)
+void	expand_var(t_line *line, t_hash_table *table)
 {
 	char	*value;
 	char	*key;
@@ -71,7 +80,6 @@ static void	expand_var(t_line *line, t_hash_table *table)
 		{
 			key = return_var_key(line->ctks[i]);
 			value = search_item(table, key);
-			printf("value depois da search = %s\n", value);
 			if (value != NULL)
 			{
 				line->ctks[i] = join_str_value(key, value, line->ctks[i]);
@@ -145,7 +153,7 @@ static char *join_str_value(char *key, char *value, char *str)
 	return (NULL);
 }
 
-static char	*char_cat(char *str, char c)
+char	*char_cat(char *str, char c)
 {
 	char	*temp;
 	char	*aux;
