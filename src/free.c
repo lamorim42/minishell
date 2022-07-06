@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 19:31:16 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 16:59:02 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/06 19:28:37 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	free_line(t_line *line)
 {
-	// int	i;
-
-	// i = 0;
 	free_list(line->list_cmds);
 	line->list_cmds = NULL;
 	ft_free_arr(line->tks);
@@ -27,16 +24,6 @@ void	free_line(t_line *line)
 	line->ctks = NULL;
 	free(line->str);
 	line->str = NULL;
-	// while (line->cmds && line->cmds[i])
-	// {
-	// 	ft_free_arr(line->cmds[i]);
-	// 	line->cmds[i] = NULL;
-	// 	i++;
-	// }
-	// free(line->cmds[i]);
-	// line->cmds[i] = NULL;
-	// free(line->cmds);
-	// line->cmds = NULL;
 }
 
 void	free_sintax(t_line *line)

@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 16:37:00 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/06 19:28:16 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	line->ctks = clean_tokens(line);
 	expand_var(line, (*table));
 	creat_cmd(line);
-	//population_linked_list(line);
 	here_doc_verification(line);
 	list_generation_bin(line);
 	open_fds(line);

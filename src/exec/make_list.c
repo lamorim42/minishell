@@ -6,32 +6,11 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/06 16:40:52 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/06 19:29:13 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	population_linked_list(t_line *line)
-{
-	t_pipe_list	*temp;
-	int			i;
-
-	temp = NULL;
-	line->list_cmds = NULL;
-	i = 0;
-	while (line->cmds[i])
-	{
-		if (line->list_cmds == NULL)
-			line->list_cmds = new_node(line->cmds[i]);
-		else
-		{
-			temp = new_node(line->cmds[i]);
-			add_back_list(&line->list_cmds, temp);
-		}
-		i++;
-	}
-}
 
 void	add_back_list(t_pipe_list **list, t_pipe_list *node)
 {

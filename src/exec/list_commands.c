@@ -53,21 +53,6 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		// if (!temp->prev && (!ft_strncmp(temp->args[0], "REDO", 4)
-		// 		|| !ft_strncmp(temp->args[0], "REDA", 4)))
-		// {
-		// 	temp->fd[0] = open(temp->args[1], O_WRONLY | O_CREAT
-		// 			| (O_TRUNC * (ft_strncmp(temp->args[0], "REDO", 4) == 0))
-		// 			| (O_APPEND * ft_strncmp(temp->args[0], "REDA", 4) == 0),
-		// 			0644);
-		// 	if (temp->fd[0] == -1)
-		// 	{
-		// 		perror(temp->args[1]);
-		// 		free_line(line);
-		// 		free_table(table);
-		// 	}
-		// 	close(temp->fd[0]);
-		// }
 		if (ft_strncmp(temp->args[0], "exit", 4) == 0)
 			exit_builtin(line, temp, table);
 		init_fork(line, temp, table);

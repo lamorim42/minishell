@@ -30,7 +30,6 @@ SRC		=	main.c \
 			pwd.c \
 			free.c \
 			arr_utils.c \
-			cmd_table_utils.c \
 			cd.c \
 			env.c \
 			export.c \
