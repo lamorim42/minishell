@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 15:27:36 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/06 17:09:57 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 
 static void	update_status_code(t_line *line, t_hash_table **table)
 {
+	char	*status;
+
+	status = ft_itoa(WEXITSTATUS(line->status_code));
 	table_delete(table, "?");
-	hash_insert(table, "?", ft_itoa(WEXITSTATUS(line->status_code)));
+	hash_insert(table, "?", status);
+	free(status);
 }
 
 // static void	open_fd(t_pipe_list *list)

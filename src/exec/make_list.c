@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 19:53:53 by lamorim           #+#    #+#             */
-/*   Updated: 2022/06/28 18:56:09 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:40:52 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,25 @@ void	population_linked_list(t_line *line)
 		else
 		{
 			temp = new_node(line->cmds[i]);
-			add_back_list(&line->list_cmds, &temp);
+			add_back_list(&line->list_cmds, temp);
 		}
 		i++;
 	}
 }
 
-void	add_back_list(t_pipe_list **list, t_pipe_list **node)
+void	add_back_list(t_pipe_list **list, t_pipe_list *node)
 {
 	t_pipe_list	*temp;
 
 	temp = *list;
-	if (list == NULL)
-		*list = *node;
+	if (*list == NULL)
+		*list = node;
 	else
 	{
 		while (temp->next != NULL)
 			temp = temp->next;
-		temp->next = (*node);
-		(*node)->prev = temp;
+		temp->next = node;
+		node->prev = temp;
 	}
 }
 

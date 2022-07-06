@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:54:20 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/05 20:21:10 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:45:34 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_line(t_line *line)
 	line->ctks = NULL;
 	line->sig = 1;
 	line->pid = 0;
+	line->list_cmds = NULL;
 	ft_bzero(line->fd, 2);
 }
 

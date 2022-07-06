@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/05 20:28:25 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:37:00 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ static void	building_tokens(t_line *line)
 
 static void	exec_pipe_line(t_line *line, t_hash_table **table)
 {
-	creat_cmd(line, table);
-	population_linked_list(line);
+	line->ctks = clean_tokens(line);
+	expand_var(line, (*table));
+	creat_cmd(line);
+	//population_linked_list(line);
 	here_doc_verification(line);
 	list_generation_bin(line);
 	open_fds(line);

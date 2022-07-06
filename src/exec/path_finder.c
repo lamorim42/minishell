@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:12:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/02 19:26:52 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/06 17:20:45 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ char	*path_finder(t_line *line, char *cmd)
 	{
 		bin = ft_strjoin(paths[i], cmd_bin);
 		if (!access(bin, F_OK))
-		{
-			free(cmd_bin);
 			break ;
-		}
 		else
 		{
 			free(bin);
@@ -67,6 +64,7 @@ char	*path_finder(t_line *line, char *cmd)
 		}
 		i++;
 	}
+	free(cmd_bin);
 	ft_free_arr(paths);
 	return (bin);
 }

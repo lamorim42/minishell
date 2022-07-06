@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 19:31:16 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/05 20:20:53 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:59:02 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	free_line(t_line *line)
 {
-	int	i;
+	// int	i;
 
-	i = 0;
+	// i = 0;
 	free_list(line->list_cmds);
 	line->list_cmds = NULL;
 	ft_free_arr(line->tks);
@@ -27,16 +27,16 @@ void	free_line(t_line *line)
 	line->ctks = NULL;
 	free(line->str);
 	line->str = NULL;
-	while (line->cmds && line->cmds[i])
-	{
-		ft_free_arr(line->cmds[i]);
-		line->cmds[i] = NULL;
-		i++;
-	}
-	free(line->cmds[i]);
-	line->cmds[i] = NULL;
-	free(line->cmds);
-	line->cmds = NULL;
+	// while (line->cmds && line->cmds[i])
+	// {
+	// 	ft_free_arr(line->cmds[i]);
+	// 	line->cmds[i] = NULL;
+	// 	i++;
+	// }
+	// free(line->cmds[i]);
+	// line->cmds[i] = NULL;
+	// free(line->cmds);
+	// line->cmds = NULL;
 }
 
 void	free_sintax(t_line *line)
@@ -69,6 +69,7 @@ void	free_list(t_pipe_list *list)
 			free(tmp->bin);
 			tmp->bin = NULL;
 		}
+		ft_free_arr(tmp->args);
 		free (tmp);
 		tmp = aux;
 	}

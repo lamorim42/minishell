@@ -101,7 +101,7 @@ run:
 	./minishell
 
 val:
-	valgrind --suppressions=readline.supp -s --leak-check=full --track-fds=yes ./minishell
+	valgrind --suppressions=readline.supp -s --show-leak-kinds=all --leak-check=full --track-fds=yes ./minishell
 
 gdb:	obj_dir $(OBJ) $(LIBFT)
 		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o a.out

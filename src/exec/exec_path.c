@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 15:26:56 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/06 17:23:04 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ void	find_output(t_pipe_list *node)
 		temp = temp->next;
 	}
 	if (output != 1)
+	{
 		dup2(output, STDOUT_FILENO);
+		close(output);
+	}
 }
 
 void	close_fds(t_pipe_list *node)

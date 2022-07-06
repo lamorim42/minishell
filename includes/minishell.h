@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/05 20:21:48 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:37:40 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	verification_input(t_pipe_list *temp);
 void	close_fds(t_pipe_list *node);
 void	open_fds(t_line *line);
 
+void	expand_var(t_line *line, t_hash_table *table);
+
 //cmd_table
 void			init_aux(struct s_aux *aux, t_line *line);
 void			update_red(t_line *line, struct s_aux *aux, char *red);
@@ -110,7 +112,7 @@ char			*path_finder(t_line *line, char *cmd);
 void			exec_path(t_line *line, t_pipe_list *list, t_hash_table **table);
 void			population_linked_list(t_line *line);
 void			exec_list(t_line *line, t_hash_table **table);
-void			creat_cmd(t_line *line,  t_hash_table **table);
+void			creat_cmd(t_line *line);
 void			list_generation_bin(t_line *line);
 
 //here_doc
@@ -131,7 +133,7 @@ void			unset_builtin(t_pipe_list *node, t_hash_table **table);
 void			exit_builtin(t_line *line, t_pipe_list *node, t_hash_table **table);
 
 //linked list
-void			add_back_list(t_pipe_list **list, t_pipe_list **node);
+void			add_back_list(t_pipe_list **list, t_pipe_list *node);
 void			print_list(t_pipe_list *stack);
 t_pipe_list		*new_node(char **args);
 void			free_list(t_pipe_list *list);
