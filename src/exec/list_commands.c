@@ -55,7 +55,11 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	{
 		if (ft_strncmp(temp->args[0], "exit", 4) == 0)
 			exit_builtin(line, temp, table);
-		init_fork(line, temp, table);
+		if (temp->bin && ft_strncmp(temp->bin, "builtin", 7) == 0
+			&& temp->next == NULL)
+			exec_builtins(temp, table);
+		else
+			init_fork(line, temp, table);
 		temp = temp->next;
 	}
 	close_fds(line->list_cmds);
