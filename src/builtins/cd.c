@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 11:15:22 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/07 19:25:18 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,22 @@
 static void	update_var_env(t_hash_table **table, char *str_key, char *val);
 void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 {
-	char	*str_pwd;
 	char	*str_oldpwd;
+	char	buffer[500];
 
-	str_pwd = NULL;
-	str_oldpwd =  NULL;
-	str_pwd = node->args[1];
+	getcwd(buffer, 500);
+	str_oldpwd = ft_strdup(buffer);
 	if (ft_strlen(node->args[0]) > 2)
-	{
-		printf("%s: command not found\n", node->args[0]);
-		//exit(127);
-	}
-	if (chdir(str_pwd) == -1)
-	{
-		printf("bash: cd: %s: No such file or directory\n", node->args[1]);
-	}
+		error_msg(node->args[0], ": command not found\n");
+	if (chdir(node->args[1]) == -1)
+		error_msg(node->args[1], ":No such file or directory\n");
 	else
 	{
-		str_oldpwd = search_item((*table), "PWD");
-		if (ft_strncmp(str_pwd, "/home", 5) != 0)
-		{
-			str_oldpwd = ft_strjoin(str_oldpwd, "/");
-			str_pwd = ft_strjoin(str_oldpwd, str_pwd);
-			update_var_env(table, "PWD", str_pwd);
-		}
-		else
-		{
-			update_var_env(table, "PWD", str_pwd);
-		}
+		getcwd(buffer, 500);
+		update_var_env(table, "PWD", buffer);
+		update_var_env(table, "OLDPWD", str_oldpwd);
 	}
+	free(str_oldpwd);
 }
 
 static void	update_var_env(t_hash_table **table, char *str_key, char *val)

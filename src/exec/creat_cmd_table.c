@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_cmd_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/06 19:30:05 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/08 20:15:11 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	expand_var(t_line *line, t_hash_table *table)
 	i = 0;
 	while(line->ctks[i])
 	{
-		while (ft_strchr(line->ctks[i], '$') != NULL)
+		while (ft_strchr(line->ctks[i], '$') != NULL
+		&& ft_strncmp(line->tks[i], "\'", 1)&& !ft_strncmp(line->ctks[i], "$", 1))
 		{
 			key = return_var_key(line->ctks[i]);
 			value = search_item(table, key);

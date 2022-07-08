@@ -87,3 +87,117 @@ TEST(clean_tokens, no_quots)
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 }
+
+
+TEST(clean_tokens, simple_quots)
+{
+	t_line *line;
+
+	line = (t_line*)malloc(sizeof(t_line));
+	init_line(line);
+	line->tks = (char **)malloc(sizeof(char **) * 2);
+	line->tks[0] = "'ls'";
+	line->tks[1] = NULL;
+
+	char *esperado[] = {"ls", NULL};
+	char **resultado = clean_tokens(line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
+
+TEST(clean_tokens, simple_quots_in_double_quotes)
+{
+	t_line *line;
+
+	line = (t_line*)malloc(sizeof(t_line));
+	init_line(line);
+	line->tks = (char **)malloc(sizeof(char **) * 2);
+	line->tks[0] = "\"'ls'\"";
+	line->tks[1] = NULL;
+
+	char *esperado[] = {"'ls'", NULL};
+	char **resultado = clean_tokens(line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
+
+TEST(clean_tokens, double_quots_in_simple_quotes)
+{
+	t_line *line;
+
+	line = (t_line*)malloc(sizeof(t_line));
+	init_line(line);
+	line->tks = (char **)malloc(sizeof(char **) * 2);
+	line->tks[0] = "'\"ls\"'";
+	line->tks[1] = NULL;
+
+	char *esperado[] = {"\"ls\"", NULL};
+	char **resultado = clean_tokens(line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
+
+TEST(clean_tokens, simple_quotes_in_words)
+{
+	t_line *line;
+
+	line = (t_line*)malloc(sizeof(t_line));
+	init_line(line);
+	line->tks = (char **)malloc(sizeof(char **) * 2);
+	line->tks[0] = "'l's";
+	line->tks[1] = NULL;
+
+	char *esperado[] = {"ls", NULL};
+	char **resultado = clean_tokens(line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
+
+TEST(clean_tokens, simple_quotes_in_words_and_double_quotes)
+{
+	t_line *line;
+
+	line = (t_line*)malloc(sizeof(t_line));
+	init_line(line);
+	line->tks = (char **)malloc(sizeof(char **) * 2);
+	line->tks[0] = "'l'\"s\"";
+	line->tks[1] = NULL;
+
+	char *esperado[] = {"ls", NULL};
+	char **resultado = clean_tokens(line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
+
+
+TEST(clean_tokens, double_quotes_in_words)
+{
+	t_line *line;
+
+	line = (t_line*)malloc(sizeof(t_line));
+	init_line(line);
+	line->tks = (char **)malloc(sizeof(char **) * 2);
+	line->tks[0] = "\"l\"s";
+	line->tks[1] = NULL;
+
+	char *esperado[] = {"ls", NULL};
+	char **resultado = clean_tokens(line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
+
+TEST(clean_tokens, double_quotes_in_words_and_in_double_quots)
+{
+	t_line *line;
+
+	line = (t_line*)malloc(sizeof(t_line));
+	init_line(line);
+	line->tks = (char **)malloc(sizeof(char **) * 2);
+	line->tks[0] = "\"\"l\"s\"";
+	line->tks[1] = NULL;
+
+	char *esperado[] = {"ls", NULL};
+	char **resultado = clean_tokens(line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}
