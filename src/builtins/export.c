@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:07:29 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/24 19:05:45 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/07 19:32:18 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	export_builtin(t_pipe_list *node, t_hash_table **table)
 
 	if (ft_strlen(node->args[0]) > 6)
 	{
-		printf("%s: command not found\n", node->args[0]);
-		exit(127);
+		error_msg(node->args[0], ": commmand not found\n");
 	}
 	split_str = ft_split(node->args[1], '=');
 	if (split_str[0] != NULL && split_str[1] != NULL)

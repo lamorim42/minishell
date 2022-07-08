@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/07 17:05:46 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/07 19:25:18 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 
 static void	update_var_env(t_hash_table **table, char *str_key, char *val)
 {
-	printf("Dentro da update\n");
 	table_delete(table, str_key);
 	hash_insert(table, str_key, val);
 }

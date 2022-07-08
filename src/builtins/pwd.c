@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 07:38:27 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 11:08:44 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/07 19:31:26 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	pwd_builtin(t_pipe_list *node, t_hash_table **table)
 
 	if (ft_strlen(node->args[0]) > 3)
 	{
-		printf("%s: command not found\n", node->args[0]);
-		exit(127);
+		error_msg(node->args[0], ": command not found\n");
 	}
 	str_pwd = search_item(*table, "PWD");
 	printf("%s\n", str_pwd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:13:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/05 18:19:46 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/07 21:28:12 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ char	*here_doc_buffer(t_pipe_list *node)
 	while(1)
 	{
 		content = readline("> ");
+		if (content == NULL)
+		{
+			error_msg(node->args[1], ": Wanted\n");
+			break ;
+		}
 		if (content && ft_strlen(content) == ft_strlen(node->args[1])
 			&& !ft_strncmp(content, node->args[1], ft_strlen(node->args[1])))
 			{
@@ -47,7 +52,6 @@ char	*here_doc_buffer(t_pipe_list *node)
 			free (content);
 		}
 	}
-
 	if (buffer != NULL)
 		return (buffer);
 	else
