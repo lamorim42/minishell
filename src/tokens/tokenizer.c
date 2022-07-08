@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 14:17:29 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/08 20:36:07 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ char	*worddup(char **s)
 	{
 		while ((*s)[len])
 		{
+
 			len++;
-			if ((*s)[len] == '\"')
+			if ((*s)[len] == '\"' && ft_strlen(*s) == (len - 1))
 			{
 				len++;
 				break ;
