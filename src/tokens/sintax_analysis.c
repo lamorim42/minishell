@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:36:27 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 20:06:19 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/09 09:33:26 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	sintax_analysis(char **lex)
 	int	i;
 
 	i = 0;
-	if (!ft_strncmp(lex[0], "PIPE", 4))
+	if (*lex && !ft_strncmp(lex[0], "PIPE", 4))
 		return (0);
 	while (lex[i])
 	{

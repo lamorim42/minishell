@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/07 16:18:13 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/09 09:35:33 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 	}
 	else if (execve(list->bin, list->args, line->envp) == -1)
 	{
+		perror(list->args[0]);
 		free_line(line);
 		free_table(table);
 		exit(127);
@@ -108,8 +109,11 @@ void	close_fds(t_pipe_list *node)
 	t_pipe_list	*temp;
 
 	temp = node;
-	while (temp->prev)
-		temp = temp->prev;
+	if (temp)
+	{
+		while (temp->prev)
+			temp = temp->prev;
+	}
 	while (temp)
 	{
 		if (!ft_strncmp(temp->args[0], "REDO", 4)

@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 20:14:23 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/09 11:49:16 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <stdlib.h>
 
 # define SIZE_TABLE 149
+
+//int	g_status_code = 0;
 
 typedef struct s_hash_item {
 	char				*key;
@@ -62,11 +64,11 @@ typedef struct s_line {
 	t_pipe_list	*list_cmds;
 }				t_line;
 
-void	verification_input(t_pipe_list *temp);
-void	close_fds(t_pipe_list *node);
-void	open_fds(t_line *line);
+void			verification_input(t_pipe_list *temp);
+void			close_fds(t_pipe_list *node);
+void			open_fds(t_line *line);
 
-void	expand_var(t_line *line, t_hash_table *table);
+void			expand_var(t_line *line, t_hash_table *table);
 
 //array
 int				ft_array_len(char **array);
@@ -76,6 +78,8 @@ int				count_tks(char *line);
 
 //signals
 void			signals(t_line *line);
+void			signals_parent(t_line *line);
+void			signals_child(t_line *line);
 
 char			**tokenizer(t_line *line);
 char			**lexical_analyzer(t_line *line);

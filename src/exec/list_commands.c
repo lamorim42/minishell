@@ -78,7 +78,10 @@ void	exec_list(t_line *line,  t_hash_table **table)
 			&& temp->next == NULL)
 			exec_builtins(temp, table);
 		else
+		{
 			init_fork(line, temp, table);
+		}
+
 		temp = temp->next;
 	}
 	close_fds(line->list_cmds);
