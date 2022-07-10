@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/09 10:02:20 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/10 12:38:43 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 	}
 	if (chdir(node->args[1]) == -1)
 	{
-		error_msg(node->args[1], ": No such file or directory");
+		error_msg(node->args[1], ": No such file or directory\n");
 		return ;
 	}
 	else
