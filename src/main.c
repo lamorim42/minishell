@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/07 16:04:15 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/10 10:24:26 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	facade(t_line *line, t_hash_table **table);
 static void	control_d(char *str, t_hash_table **table);
 static void	building_tokens(t_line *line);
 static void	exec_pipe_line(t_line *line, t_hash_table **table);
+static void	alloc_commands(t_line *line);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -77,10 +78,29 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	creat_cmd(line);
 	here_doc_verification(line);
 	list_generation_bin(line);
+	alloc_commands(line);
 	open_fds(line);
 	exec_list(line, table);
 	add_history(line->str);
 	free_line(line);
+}
+
+
+static void	alloc_commands(t_line *line)
+{
+	t_pipe_list *temp;
+
+	temp = line->list_cmds;
+	while (temp)
+	{
+		if (is_command(temp))
+			line->count_cmds++;
+		temp = temp->next;
+	}
+
+	line->pid = ft_calloc((line->count_cmds + 1), sizeof(int));
+	if (!line->pid)
+		return ;
 }
 
 void	open_fds(t_line *line)

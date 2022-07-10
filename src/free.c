@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 19:31:16 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 19:28:37 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/10 10:14:01 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_line(t_line *line)
 	line->tks = NULL;
 	ft_free_arr(line->lex);
 	line->lex = NULL;
+	free(line->pid);
+	line->pid = NULL;
 	ft_free_arr(line->ctks);
 	line->ctks = NULL;
 	free(line->str);
