@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/10 10:24:26 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/10 16:31:39 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	line->ctks = clean_tokens(line);
 	expand_var(line, (*table));
 	creat_cmd(line);
+	signal_here(line);
 	here_doc_verification(line);
 	list_generation_bin(line);
 	alloc_commands(line);
@@ -84,7 +85,6 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	add_history(line->str);
 	free_line(line);
 }
-
 
 static void	alloc_commands(t_line *line)
 {
@@ -176,7 +176,6 @@ void	here_doc_write(char *buffer, t_pipe_list *list)
 	close(list->fd[1]);
 }
 
-
 t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 {
 	int	i;
@@ -199,4 +198,11 @@ t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 	//hash_insert(table, "OLDPWD", pwd);
 	//print_table(table);
 	return (*table);
+}
+
+char	ft_strcmp_len(char *s1, char *s2)
+{
+	if (ft_strlen(s1) == ft_strlen(s2))
+		return (ft_strncmp(s1, s2, __UINT64_MAX__) == 0);
+	return (0);
 }

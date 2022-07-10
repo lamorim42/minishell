@@ -65,20 +65,18 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		if (ft_strncmp(temp->args[0], "exit", 4) == 0)
+		if (ft_strcmp(temp->args[0], "exit"))
 			exit_builtin(line, temp, table);
 		if (temp && !is_command(temp))
 		{
 			temp = temp->next ;
 			continue ;
 		}
-		if (temp->bin && ft_strncmp(temp->bin, "builtin", 7) == 0
+		if (temp->bin && ft_strcmp_len(temp->bin, "builtin")
 			&& temp->next == NULL)
-			exec_builtins(temp, table);
+				exec_builtins(temp, table);
 		else
-		{
 			init_fork(line, temp, table);
-		}
 		temp = temp->next;
 	}
 	while (line->pid && line->pid[i])
@@ -101,18 +99,20 @@ int	is_command(t_pipe_list *node)
 
 void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 {
-	if (ft_strncmp(node->args[0], "echo", 4) == 0)
+	if (ft_strcmp_len(node->args[0], "echo"))
 		echo_builtin(node);
-	else if (ft_strncmp(node->args[0], "cd", 2) == 0)
+	else if (ft_strcmp_len(node->args[0], "cd"))
 		cd_builtin(node, table);
-	else if (ft_strncmp(node->args[0], "pwd", 3) == 0)
+	else if (ft_strcmp_len(node->args[0], "pwd"))
 		pwd_builtin(node, table);
-	else if (ft_strncmp(node->args[0], "export", 6) == 0)
+	else if (ft_strcmp_len(node->args[0], "export"))
 		export_builtin(node, table);
-	else if (ft_strncmp(node->args[0], "unset", 5) == 0)
+	else if (ft_strcmp_len(node->args[0], "unset"))
 		unset_builtin(node, table);
-	else if (ft_strncmp(node->args[0], "env", 3) == 0)
+	else if (ft_strcmp_len(node->args[0], "env"))
 		env_builtin(node, table);
+	else
+		error_msg(node->args[0], ": command not found\n");
 }
 
 

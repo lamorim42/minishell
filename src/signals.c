@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:42:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/10 12:03:25 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/10 18:13:44 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,20 @@ void	signals(t_line *line)
 	line->sig = 0;
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	sig_here(int sig)
+{
+	if (sig == SIGINT)
+		write(2, "\n", 1);
+	rl_on_new_line();
+	close(STDIN_FILENO);
+}
+
+void	signal_here(t_line *line)
+{
+	line->sig = 0;
+	signal(SIGINT, sig_here);
 }
 
 void	signals_child(t_line *line)

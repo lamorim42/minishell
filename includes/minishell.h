@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/10 09:44:32 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/10 16:29:38 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void			close_fds(t_pipe_list *node);
 void			open_fds(t_line *line);
 int				is_command(t_pipe_list *node);
 
-
+char			ft_strcmp_len(char *s1, char *s2);
+void			signal_here(t_line *line);
 
 void			expand_var(t_line *line, t_hash_table *table);
 
