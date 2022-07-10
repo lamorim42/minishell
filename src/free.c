@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 19:31:16 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/10 10:14:01 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/10 11:09:22 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	free_line(t_line *line)
 	line->ctks = NULL;
 	free(line->str);
 	line->str = NULL;
+	line->count_cmds = 0;
 }
 
 void	free_sintax(t_line *line)

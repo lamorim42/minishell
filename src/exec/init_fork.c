@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/10 10:22:43 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/10 11:14:55 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 			signals_child(line);
 			exec_path(line, list, table);
 		}
-		population_arr_pid(line, pid);
+		else
+			population_arr_pid(line, pid);
 	}
 	if (list->prev && !ft_strncmp(list->prev->args[0], "PIPE", 4))
 	{
@@ -46,13 +47,16 @@ static void	population_arr_pid(t_line *line, int pid)
 	int	i;
 
 	i = 0;
-	while(i < line->count_cmds)
+	while (i < line->count_cmds)
 	{
+		if(line->pid[i] != 0)
+		{
+			i++;
+			continue ;
+		}
 		line->pid[i] = pid;
-		printf("%d\n", line->pid[i]);
 		i++;
 	}
+
 	line->pid[i] = '\0';
-
-
 }
