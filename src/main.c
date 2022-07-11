@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/10 16:31:39 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/10 18:15:29 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,6 @@ t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 {
 	int	i;
 	char	**var;
-//	char	*pwd;
 	i = 0;
 	(*table) = create_table(SIZE_TABLE);
 	while(line->envp[i])
@@ -193,10 +192,7 @@ t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 		ft_free_arr(var);
 		i++;
 	}
-	//pwd = search_item(*table, "PWD");
 	hash_insert(table, "?", "0");
-	//hash_insert(table, "OLDPWD", pwd);
-	//print_table(table);
 	return (*table);
 }
 
