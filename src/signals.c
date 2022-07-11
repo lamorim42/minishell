@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:42:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/11 16:59:34 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/11 17:53:20 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,17 @@ void	signals(t_line *line)
 void	sig_here(int sig)
 {
 	if (sig == SIGINT)
-		rl_replace_line("", 1);
+		write(1, "\n", 1);
+	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
-	exit(130);
 }
 
 void	signal_here(t_line *line)
 {
 	line->sig = 0;
 	signal(SIGINT, sig_here);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	signals_child(t_line *line)
