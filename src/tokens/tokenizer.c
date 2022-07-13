@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/09 10:26:35 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/12 20:06:01 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**tokenizer(t_line *line)
 	ptr = line->str;
 	while (*ptr)
 	{
-		if (*ptr && *ptr != ' ')
+		if ((*ptr && *ptr != ' '))
 		{
 			tokens[i] = worddup(&ptr);
 			i++;

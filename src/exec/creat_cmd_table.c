@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/08 20:15:11 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/12 20:55:44 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**make_args(t_line *line, int *index)
 
 	size = get_arg_size(line, *index);
 	arg = copy_array(&(line->ctks[*index]), size);
-	if (ft_strncmp(line->lex[*index], "WORD", 4))
+	if (ft_strncmp(line->lex[*index], "WORD", 4) || !ft_strncmp(line->lex[*index], "VAR", 3))
 	{
 		free(arg[0]);
 		arg[0] = ft_strdup(line->lex[*index]);
@@ -48,7 +48,7 @@ int	get_arg_size(t_line *line, int index)
 	int		size;
 
 	size = 0;
-	if (!ft_strncmp(line->lex[index], "WORD", 4))
+	if (!ft_strncmp(line->lex[index], "WORD", 4) || !ft_strncmp(line->lex[index], "VAR", 3))
 	{
 		while (line->lex[index] && (!ft_strncmp(line->lex[index], "WORD", 4)
 				|| !ft_strncmp(line->lex[index], "VAR", 3)))
@@ -77,13 +77,15 @@ void	expand_var(t_line *line, t_hash_table *table)
 	while(line->ctks[i])
 	{
 		while (ft_strchr(line->ctks[i], '$') != NULL
-		&& ft_strncmp(line->tks[i], "\'", 1)&& !ft_strncmp(line->ctks[i], "$", 1))
+		&& ft_strncmp(line->tks[i], "\'", 1) && !ft_strncmp(line->ctks[i], "$", 1))
 		{
 			key = return_var_key(line->ctks[i]);
 			value = search_item(table, key);
 			if (value != NULL)
 			{
 				line->ctks[i] = join_str_value(key, value, line->ctks[i]);
+				free(line->lex[i]);
+				line->lex[i] = ft_strdup("WORD");
 				free (value);
 			}
 			else

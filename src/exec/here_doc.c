@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:13:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/11 17:10:08 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/12 19:18:27 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*here_doc_buffer(t_pipe_list *node)
 				free(content);
 				break ;
 			}
-
 		if (temp == NULL)
 		{
 			temp = char_cat(content, '\n');

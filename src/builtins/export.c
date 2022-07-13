@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:07:29 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/11 18:35:49 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/12 21:02:05 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,18 @@ void	export_builtin(t_pipe_list *node, t_hash_table **table)
 	}
 	if (ft_isalpha(node->args[1][0]))
 	{
+
 		split_str = ft_split(node->args[1], '=');
-		if (split_str[0] != NULL && split_str[1] != NULL)
+		if (split_str[0] != NULL)
+		{
 			hash_insert(table, split_str[0], split_str[1]);
+			ft_free_arr(split_str);
+		}
+		else
+		{
+			error_msg(split_str[0], ": not a valid identifier\n");
+			ft_free_arr(split_str);
+		}
 	}
 	else
 		error_msg(node->args[1], ": not a valid identifier\n");
