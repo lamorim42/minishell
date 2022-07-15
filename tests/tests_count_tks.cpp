@@ -346,6 +346,18 @@ TEST(count_tks, test_count_tks_here_doc_cat) {
 	ASSERT_EQ(resultado, esperado);
 }
 
+TEST(count_tks, test_count_tks_echo_var_var) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "echo \"$HOME\" \"$USER\"";
+	esperado = 3;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
 int	main(int argc, char **argv)
 {
 	testing::InitGoogleTest(&argc, argv);

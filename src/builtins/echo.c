@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 07:11:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/09 09:58:52 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:09:03 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	echo_builtin(t_pipe_list *node)
 	}
 	if (node->args[1] == NULL)
 		printf("\n");
-	if (node->args[1] != NULL && ft_strncmp(node->args[1], "-n", 2) == 0 && ft_strlen(node->args[1]) == 2)
+	if (node->args[1] != NULL && ft_strcmp_len(node->args[1], "-n"))
 		i++;
 	while (node->args[i])
 	{

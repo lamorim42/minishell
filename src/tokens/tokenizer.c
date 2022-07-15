@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/13 20:43:40 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:30:43 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char	*worddup(char **s)
 		{
 
 			len++;
-			if (((*s)[len] == '\"' || (*s)[len] == '\'') && ft_strlen(*s) == (len - 1) && !ft_strchr("|>< ", (*s)[len]))
+			if (((*s)[len] == '\"' || (*s)[len] == '\'')
+			&& ft_strlen(*s) == (len - 1) && !ft_strchr("|>< ", (*s)[len]))
 			{
 				len++;
 				break ;

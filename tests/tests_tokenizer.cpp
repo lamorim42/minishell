@@ -200,3 +200,14 @@ TEST(tokenizer, test_tokenizer_bin)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
+
+TEST(tokenizer, test_tokenizer_echo_var_var)
+{
+	t_line	line;
+	line.str = "echo \"$HOME\" \"$USER\"";
+	char	*esperado[] = {"echo", "\"$HOME\"", "\"$USER\"", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
