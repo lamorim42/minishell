@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/16 18:10:36 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:07:16 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	expand_var(t_line *line, t_hash_table *table)
 			else
 			{
 				temp = line->ctks[i];
-				line->ctks[i] = ft_strdup("");
+				line->ctks[i] = ft_strdup("VAR");
 				free(temp);
 			}
 			free (key);
@@ -122,7 +122,7 @@ static char *join_str_value(char *key, char *value, char *str)
 	if ((ft_strlen(key) + 1) == (ft_strlen(str)))
 	{
 		free(sufix_str);
-		free(str);
+		//free(str);
 		return (ft_strdup(value));
 	}
 	else if (i == 0)

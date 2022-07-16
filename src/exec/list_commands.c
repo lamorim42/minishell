@@ -65,6 +65,11 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	temp = line->list_cmds;
 	while (temp)
 	{
+		if (ft_strcmp_len(temp->args[0], "VAR"))
+		{
+			free(temp->args[0]);
+			temp->args[0] = ft_strdup("");
+		}
 		if (ft_strcmp(temp->args[0], "exit"))
 			exit_builtin(line, temp, table);
 		if (temp && !is_command(temp))

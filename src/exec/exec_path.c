@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 18:23:10 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:12:25 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@ void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 		free_line(line);
 		exit(127);
 	}
-	/* else if (ft_strncmp(list->bin, "builtin", 7) == 0)
-	{
-		exec_builtins(list, table);
-		free_line(line);
-		free_table(table);
-		exit(0);
-	} */
 	else if (execve(list->bin, list->args, line->envp) == -1)
 	{
 		printf("Dentro do Execve\n");
