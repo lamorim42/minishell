@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/12 20:47:00 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 10:10:56 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ static void	alloc_commands(t_line *line)
 		return ;
 }
 
+int	file_exists (int fd) {
+	struct stat	buffer;
+	return (fstat (fd, &buffer) == 0);
+}
+
 void	open_fds(t_line *line)
 {
 	t_pipe_list	*list;
@@ -111,14 +116,7 @@ void	open_fds(t_line *line)
 	while (list)
 	{
 		if (!ft_strncmp(list->args[0], "REDI", 4))
-		{
 			list->fd[0] = open(list->args[1], O_RDONLY);
-			if (list->fd[0] == -1)
-			{
-				perror(list->args[1]);
-				free_line(line);
-			}
-		}
 		else if (!ft_strncmp(list->args[0], "REDO", 4))
 		{
 			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT | O_TRUNC, 0644);
@@ -145,7 +143,6 @@ void	open_fds(t_line *line)
 		}
 		list = list->next;
 	}
-
 }
 
 void	here_doc_verification(t_line *line)

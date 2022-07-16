@@ -211,3 +211,14 @@ TEST(tokenizer, test_tokenizer_echo_var_var)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
+
+TEST(tokenizer, test_tokenizer_echo_var_var_space)
+{
+	t_line	line;
+	line.str = "echo \"miau \" ok\"\"";
+	char	*esperado[] = {"echo", "\"miau \"", "ok", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}

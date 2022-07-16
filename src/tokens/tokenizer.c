@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/15 13:30:43 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/15 20:24:10 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*worddup(char **s);
+char		*worddup(char **s);
+static int	make_a_word_by_str(char *s, char c);
 
 char	**tokenizer(t_line *line)
 {
@@ -63,17 +64,17 @@ char	*worddup(char **s)
 			len++;
 	else
 	{
-		while ((*s)[len])
-		{
+		len = make_a_word_by_str(*s, **s);
+		//while ((*s)[len])
+		//{
 
-			len++;
-			if (((*s)[len] == '\"' || (*s)[len] == '\'')
-			&& ft_strlen(*s) == (len - 1) && !ft_strchr("|>< ", (*s)[len]))
-			{
-				len++;
-				break ;
-			}
-		}
+			// len++;
+			// if (((*s)[len] == '\"' || (*s)[len] == '\'' ||  (*s)[len] == ' ') && ft_strlen(*s) == (len - 1))
+			// {
+			// 	len++;
+			// 	break ;
+			// }
+		//}
 	}
 	str = (char *)malloc(len + 1);
 	if (str == NULL)
@@ -81,4 +82,27 @@ char	*worddup(char **s)
 	ft_strlcpy(str, *s, len + 1);
 	*s += len;
 	return (str);
+}
+
+static int	make_a_word_by_str(char *s, char c)
+{
+	int	len;
+
+	len = 0;
+	while (s[len] && s[len] == c)
+	{
+		len++;
+	}
+
+	while (s[len] && s[len] != c)
+	{
+		len++;
+	}
+
+	while (s[len] && s[len] == c)
+	{
+		len++;
+	}
+
+	return len;
 }

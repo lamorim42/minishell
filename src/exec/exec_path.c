@@ -6,20 +6,29 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/13 20:13:36 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 10:19:27 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	find_input(t_pipe_list *node);
+int		find_input(t_pipe_list *node);
 void	find_output(t_pipe_list *node);
 
 void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
-	find_input(list);
+	int	input;
+
+	input = find_input(list);
 	find_output(list);
 	close_fds(list);
+	if (input < 0)
+	{
+
+		free_table(table);
+		free_line(line);
+		exit(1);
+	}
 	if (!list->bin)
 	{
 		error_msg(list->args[0], ": command not found\n");
@@ -52,7 +61,7 @@ void	error_msg(char *str, char *msg)
 	free(buffer);
 }
 
-void	find_input(t_pipe_list *node)
+int	find_input(t_pipe_list *node)
 {
 	t_pipe_list	*temp;
 	int			input;
@@ -61,8 +70,15 @@ void	find_input(t_pipe_list *node)
 	temp = node->prev;
 	if (temp && (!ft_strncmp(temp->args[0], "PIPE", 4)
 		|| !ft_strncmp(temp->args[0], "REDI", 4)
-		|| !ft_strncmp(temp->args[0], "HERE", 4)))
+		|| !ft_strncmp(temp->args[0], "HERE", 4))
+		&& file_exists(temp->fd[0]))
 		dup2(temp->fd[0], STDIN_FILENO);
+
+	if (temp && !file_exists(temp->fd[0]))
+	{
+		error_msg(temp->args[1], ": No such file or directory\n");
+		return (-1);
+	}
 	temp = node->next;
 	while (temp)
 	{
@@ -71,10 +87,16 @@ void	find_input(t_pipe_list *node)
 		if (!ft_strncmp(temp->args[0], "REDI", 4)
 		|| !ft_strncmp(temp->args[0], "HERE", 4))
 			input = temp->fd[0];
+		if (!file_exists(temp->fd[0]))
+		{
+			error_msg(temp->args[1], ": No such file or directory\n");
+			return (-1);
+		}
 		temp = temp->next;
 	}
 	if (input != 0)
 		dup2(input, STDIN_FILENO);
+	return (input);
 }
 
 void	find_output(t_pipe_list *node)
@@ -116,9 +138,10 @@ void	close_fds(t_pipe_list *node)
 	}
 	while (temp)
 	{
-		if (!ft_strncmp(temp->args[0], "REDO", 4)
+		if ((!ft_strncmp(temp->args[0], "REDO", 4)
 		|| !ft_strncmp(temp->args[0], "REDA", 4)
 		|| !ft_strncmp(temp->args[0], "REDI", 4))
+		&& file_exists(temp->fd[0]))
 			close(temp->fd[0]);
 		else if (!ft_strncmp(temp->args[0], "PIPE", 4)
 			|| !ft_strncmp(temp->args[0], "HERE", 4))

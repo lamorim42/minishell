@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/12 20:01:58 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 09:08:35 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <stdlib.h>
 
@@ -85,7 +86,7 @@ int				count_tks(char *line);
 void			signals(t_line *line);
 void			signals_parent(t_line *line);
 void			signals_child(t_line *line);
-
+int				file_exists (int fd);
 char			**tokenizer(t_line *line);
 char			**lexical_analyzer(t_line *line);
 int				sintax_analysis(char **lex);

@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/13 20:54:42 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 10:30:30 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	expand_var(t_line *line, t_hash_table *table)
 	char	*value;
 	char	*key;
 	int		i;
+	char	*temp;
 
+	temp = NULL;
 	i = 0;
 	while(line->ctks[i])
 	{
@@ -83,7 +85,9 @@ void	expand_var(t_line *line, t_hash_table *table)
 			value = search_item(table, key);
 			if (value != NULL)
 			{
+				temp = line->ctks[i];
 				line->ctks[i] = join_str_value(key, value, line->ctks[i]);
+				free(temp);
 				free(line->lex[i]);
 				line->lex[i] = ft_strdup("WORD");
 				free (value);

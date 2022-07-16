@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:07:29 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/14 21:05:28 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 08:09:09 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,37 @@ static int	is_args_ok(char *arg)
 
 void	insert_var_in_hash(char *arg, t_hash_table **table)
 {
-	char **split_str;
+	char	**split_str;
+	int		len;
+	int		i;
+	char	*temp;
 
+	i = 1;
+	temp = NULL;
 	split_str = NULL;
 	split_str = ft_split(arg, '=');
+	len = ft_array_len(split_str);
+	if (len > 2)
+	{
+		while(split_str[i])
+		{
+			if (i % 2 != 0)
+			{
+				temp = ft_strjoin(split_str[i], "=");
+				free(split_str[1]);
+				split_str[1] = ft_strdup(temp);
+				free(temp);
+			}
+			else
+			{
+				temp = ft_strjoin(split_str[1], split_str[i]);
+				free(split_str[1]);
+				split_str[1] = ft_strdup(temp);
+				free(temp);
+			}
+			i++;
+		}
+	}
 	if (split_str[1])
 		hash_insert(table, split_str[0], split_str[1]);
 	ft_free_arr(split_str);
