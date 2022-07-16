@@ -6,20 +6,21 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 17:15:56 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:23:10 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		find_input(t_pipe_list *node);
-void	find_output(t_pipe_list *node);
+
 
 void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
 	int	input;
 
+	printf("Entrei no exec_path\n");
 	input = find_input(list);
+
 	find_output(list);
 	close_fds(list);
 	if (input < 0)
@@ -123,7 +124,11 @@ void	find_output(t_pipe_list *node)
 		}
 		if (!ft_strncmp(temp->args[0], "REDO", 4)
 		|| !ft_strncmp(temp->args[0], "REDA", 4))
+		{
+			printf("Entrei aqui no REDO do output\n");
 			output = temp->fd[0];
+		}
+		printf("%d\n", output);
 		temp = temp->next;
 	}
 	if (output != 1)

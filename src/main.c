@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 17:27:17 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:30:09 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ static void	facade(t_line *line, t_hash_table **table)
 		fd[0] = dup(STDIN_FILENO);
 		fd[1] = dup(STDOUT_FILENO);
 		signals(line);
-
 		line->str = readline("miau> ");
-		//printf("%p\n", &line->str);
 		control_d(line->str, table);
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
@@ -59,8 +57,8 @@ static void	facade(t_line *line, t_hash_table **table)
 		}
 		else
 			free(line->str);
-		dup2(STDIN_FILENO, fd[0]);
-		dup2(STDOUT_FILENO, fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
 	}
 }
 
@@ -130,6 +128,7 @@ void	open_fds(t_line *line)
 		else if (!ft_strncmp(list->args[0], "REDO", 4))
 		{
 			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+			printf("dentro do REDO\n");
 			if (list->fd[0] == -1)
 			{
 				perror(list->args[1]);
@@ -140,6 +139,7 @@ void	open_fds(t_line *line)
 		{
 			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT
 							| O_APPEND, 0644);
+
 			if (list->fd[0] == -1)
 			{
 				perror(list->args[1]);

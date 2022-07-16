@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/16 11:53:16 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:10:36 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,9 @@ void	expand_var(t_line *line, t_hash_table *table)
 			else
 			{
 				temp = line->ctks[i];
-				line->ctks[i] = ft_strdup("VAR");
+				line->ctks[i] = ft_strdup("");
 				free(temp);
 			}
-
 			free (key);
 		}
 		i++;

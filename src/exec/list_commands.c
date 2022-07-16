@@ -65,11 +65,6 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		if (ft_strcmp_len(temp->args[0], "VAR"))
-		{
-			free(temp->args[0]);
-			temp->args[0] = ft_strdup("");
-		}
 		if (ft_strcmp(temp->args[0], "exit"))
 			exit_builtin(line, temp, table);
 		if (temp && !is_command(temp))
@@ -77,8 +72,7 @@ void	exec_list(t_line *line,  t_hash_table **table)
 			temp = temp->next ;
 			continue ;
 		}
-		if (temp->bin && ft_strcmp_len(temp->bin, "builtin")
-			&& temp->next == NULL)
+		if (temp->bin && ft_strcmp_len(temp->bin, "builtin"))
 				exec_builtins(temp, table);
 		else
 			init_fork(line, temp, table);
@@ -104,6 +98,8 @@ int	is_command(t_pipe_list *node)
 
 void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 {
+	find_input(node);
+	find_output(node);
 	if (ft_strcmp_len(node->args[0], "echo"))
 		echo_builtin(node);
 	else if (ft_strcmp_len(node->args[0], "cd"))

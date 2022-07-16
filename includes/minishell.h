@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 09:08:35 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:23:29 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void			exec_path(t_line *line, t_pipe_list *list, t_hash_table **table);
 void			exec_list(t_line *line, t_hash_table **table);
 void			creat_cmd(t_line *line);
 void			list_generation_bin(t_line *line);
+int				find_input(t_pipe_list *node);
+void			find_output(t_pipe_list *node);
 
 //here_doc
 char			*here_doc_buffer(t_pipe_list *node);
