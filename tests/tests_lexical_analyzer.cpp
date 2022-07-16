@@ -97,7 +97,7 @@ TEST(lexical_analyzes, ls_to_word_REDI_word)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 }
 
-TEST(lexical_analyzes, var_env_echo_user)
+/* TEST(lexical_analyzes, var_env_echo_user)
 {
 	t_line	line;
 	line.tks_nbr = 2;
@@ -110,7 +110,7 @@ TEST(lexical_analyzes, var_env_echo_user)
 	char	**resultado = lexical_analyzer(&line);
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
-}
+} */
 
 TEST(lexical_analyzes, var_env_cat_here)
 {

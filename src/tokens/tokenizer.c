@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/15 20:24:10 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 10:38:00 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,6 @@ char	*worddup(char **s)
 	else
 	{
 		len = make_a_word_by_str(*s, **s);
-		//while ((*s)[len])
-		//{
-
-			// len++;
-			// if (((*s)[len] == '\"' || (*s)[len] == '\'' ||  (*s)[len] == ' ') && ft_strlen(*s) == (len - 1))
-			// {
-			// 	len++;
-			// 	break ;
-			// }
-		//}
 	}
 	str = (char *)malloc(len + 1);
 	if (str == NULL)

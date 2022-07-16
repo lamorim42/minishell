@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 10:10:56 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 17:27:17 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,18 @@ int	main(int argc, char **argv, char **envp)
 
 static void	facade(t_line *line, t_hash_table **table)
 {
+	int fd[2];
+
 	while (1)
 	{
+		if (pipe(fd) == -1)
+			return ;
+		fd[0] = dup(STDIN_FILENO);
+		fd[1] = dup(STDOUT_FILENO);
 		signals(line);
+
 		line->str = readline("miau> ");
+		//printf("%p\n", &line->str);
 		control_d(line->str, table);
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
@@ -51,6 +59,8 @@ static void	facade(t_line *line, t_hash_table **table)
 		}
 		else
 			free(line->str);
+		dup2(STDIN_FILENO, fd[0]);
+		dup2(STDOUT_FILENO, fd[1]);
 	}
 }
 

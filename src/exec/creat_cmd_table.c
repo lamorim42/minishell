@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/16 10:30:30 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 11:53:16 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**make_args(t_line *line, int *index)
 
 	size = get_arg_size(line, *index);
 	arg = copy_array(&(line->ctks[*index]), size);
-	if (ft_strncmp(line->lex[*index], "WORD", 4) || !ft_strncmp(line->lex[*index], "VAR", 3))
+	if (ft_strncmp(line->lex[*index], "WORD", 4) && ft_strncmp(line->lex[*index], "VAR", 3))
 	{
 		free(arg[0]);
 		arg[0] = ft_strdup(line->lex[*index]);
@@ -88,12 +88,15 @@ void	expand_var(t_line *line, t_hash_table *table)
 				temp = line->ctks[i];
 				line->ctks[i] = join_str_value(key, value, line->ctks[i]);
 				free(temp);
-				free(line->lex[i]);
-				line->lex[i] = ft_strdup("WORD");
 				free (value);
 			}
 			else
-				line->ctks[i] = ft_strdup("");
+			{
+				temp = line->ctks[i];
+				line->ctks[i] = ft_strdup("VAR");
+				free(temp);
+			}
+
 			free (key);
 		}
 		i++;
