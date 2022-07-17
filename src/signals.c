@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:42:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/11 16:59:34 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/17 18:06:47 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ static void	sig_handler(int sig)
 		rl_redisplay();
 	}
 }
-
-//dar o status_code no final do filho
 
 static void	sig_parent(int sig)
 {
@@ -58,19 +56,24 @@ void	signals(t_line *line)
 	signal(SIGQUIT, SIG_IGN);
 }
 
+void	signal_ignore(t_line *line)
+{
+	line->sig = 0;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 void	sig_here(int sig)
 {
 	if (sig == SIGINT)
-		rl_replace_line("", 1);
-	rl_on_new_line();
-	rl_redisplay();
-	exit(130);
+		exit(130);
 }
 
 void	signal_here(t_line *line)
 {
 	line->sig = 0;
 	signal(SIGINT, sig_here);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	signals_child(t_line *line)

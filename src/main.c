@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 17:34:24 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 18:03:08 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,19 @@ static void	building_tokens(t_line *line)
 
 static void	exec_pipe_line(t_line *line, t_hash_table **table)
 {
+	int	pid;
 	line->ctks = clean_tokens(line);
 	expand_var(line, (*table));
 	creat_cmd(line);
-	signal_here(line);
-	here_doc_verification(line);
+	pid = fork();
+	signal_ignore(line);
+	if (pid == 0)
+	{
+		signal_here(line);
+		here_doc_verification(line);
+		exit(0);
+	}
+	waitpid(pid, &(line->status_code), 0);
 	list_generation_bin(line);
 	alloc_commands(line);
 	open_fds(line);
