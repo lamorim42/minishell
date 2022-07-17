@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 18:23:29 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:08:52 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # include <stdlib.h>
 
 # define SIZE_TABLE 149
-
-//int	g_status_code = 0;
 
 typedef struct s_hash_item {
 	char				*key;
@@ -53,6 +51,7 @@ typedef struct s_pipe_list {
 
 typedef struct s_line {
 	char		*str;
+	int			std_fd[2];
 	char		**ctks;
 	char		**tks;
 	int			fd[2];

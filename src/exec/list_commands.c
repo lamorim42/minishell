@@ -77,8 +77,9 @@ void	exec_list(t_line *line,  t_hash_table **table)
 			temp = temp->next ;
 			continue ;
 		}
-		if (temp->bin && ft_strcmp_len(temp->bin, "builtin"))
-				exec_builtins(temp, table);
+		if (temp->bin && ft_strcmp_len(temp->bin, "builtin")
+				&& temp->next == NULL)
+			exec_builtins(temp, table);
 		else
 			init_fork(line, temp, table);
 		temp = temp->next;
@@ -88,6 +89,7 @@ void	exec_list(t_line *line,  t_hash_table **table)
 		waitpid(line->pid[i], &(line->status_code), 0);
 		i++;
 	}
+	wait4(line->pid[i], &(line->status_code), 0, NULL);
 	update_status_code(line, table);
 	close_fds(temp);
 }
@@ -103,8 +105,6 @@ int	is_command(t_pipe_list *node)
 
 void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 {
-	find_input(node);
-	find_output(node);
 	if (ft_strcmp_len(node->args[0], "echo"))
 		echo_builtin(node);
 	else if (ft_strcmp_len(node->args[0], "cd"))

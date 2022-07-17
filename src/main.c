@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 18:30:09 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:34:24 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	control_d(char *str, t_hash_table **table);
 static void	building_tokens(t_line *line);
 static void	exec_pipe_line(t_line *line, t_hash_table **table);
 static void	alloc_commands(t_line *line);
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -36,14 +38,14 @@ int	main(int argc, char **argv, char **envp)
 
 static void	facade(t_line *line, t_hash_table **table)
 {
-	int fd[2];
+
 
 	while (1)
 	{
-		if (pipe(fd) == -1)
-			return ;
-		fd[0] = dup(STDIN_FILENO);
-		fd[1] = dup(STDOUT_FILENO);
+		/* if (pipe(line->std_fd) == -1)
+			return ; */
+		line->std_fd[0] = dup(STDIN_FILENO);
+		line->std_fd[1] = dup(STDOUT_FILENO);
 		signals(line);
 		line->str = readline("miau> ");
 		control_d(line->str, table);
@@ -57,8 +59,8 @@ static void	facade(t_line *line, t_hash_table **table)
 		}
 		else
 			free(line->str);
-		dup2(fd[0], STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
+		dup2(line->std_fd[0], STDIN_FILENO);
+		dup2(line->std_fd[1], STDOUT_FILENO);
 	}
 }
 
@@ -128,7 +130,6 @@ void	open_fds(t_line *line)
 		else if (!ft_strncmp(list->args[0], "REDO", 4))
 		{
 			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT | O_TRUNC, 0644);
-			printf("dentro do REDO\n");
 			if (list->fd[0] == -1)
 			{
 				perror(list->args[1]);
@@ -149,7 +150,7 @@ void	open_fds(t_line *line)
 		else if (!ft_strncmp(list->args[0], "PIPE", 4))
 		{
 			if (pipe(list->fd) != 0)
-				dprintf(2, "pipe error\n");
+				error_msg("pipe", " error\n");
 		}
 		list = list->next;
 	}
@@ -177,7 +178,7 @@ void	here_doc_verification(t_line *line)
 void	here_doc_write(char *buffer, t_pipe_list *list)
 {
 	if (pipe(list->fd) != 0)
-		dprintf(2, "pipe error\n");
+		error_msg("pipe", " error\n");
 	if (buffer)
 		write(list->fd[1], buffer, ft_strlen(buffer));
 	close(list->fd[1]);
@@ -185,8 +186,9 @@ void	here_doc_write(char *buffer, t_pipe_list *list)
 
 t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 {
-	int	i;
+	int		i;
 	char	**var;
+
 	i = 0;
 	(*table) = create_table(SIZE_TABLE);
 	while(line->envp[i])

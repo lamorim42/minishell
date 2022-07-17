@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 19:12:25 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:13:28 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
 	int	input;
 
-	printf("Entrei no exec_path\n");
 	input = find_input(list);
 
 	find_output(list);
@@ -37,15 +36,20 @@ void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 			free_line(line);
 			exit (0);
 		}
-		printf("Dentro do if do bin : %s\n", list->args[0]);
 		error_msg(list->args[0], ": command not found\n");
 		free_table(table);
 		free_line(line);
 		exit(127);
 	}
+	else if(ft_strcmp_len(list->bin, "builtin"))
+	{
+		exec_builtins(list, table);
+		free_table(table);
+		free_line(line);
+		exit(0);
+	}
 	else if (execve(list->bin, list->args, line->envp) == -1)
 	{
-		printf("Dentro do Execve\n");
 		perror(list->args[0]);
 		free_line(line);
 		free_table(table);
@@ -71,15 +75,16 @@ int	find_input(t_pipe_list *node)
 	temp = node->prev;
 	if (temp && (!ft_strncmp(temp->args[0], "PIPE", 4)
 		|| !ft_strncmp(temp->args[0], "REDI", 4)
-		|| !ft_strncmp(temp->args[0], "HERE", 4))
-		&& file_exists(temp->fd[0]))
+		|| !ft_strncmp(temp->args[0], "HERE", 4)))
+	{
 		dup2(temp->fd[0], STDIN_FILENO);
+	}
 
-	if (temp && !file_exists(temp->fd[0]))
+/* 	if (temp && !file_exists(temp->fd[0]))
 	{
 		error_msg(temp->args[1], ": No such file or directory\n");
 		return (-1);
-	}
+	} */
 	temp = node->next;
 	while (temp)
 	{
@@ -118,10 +123,8 @@ void	find_output(t_pipe_list *node)
 		if (!ft_strncmp(temp->args[0], "REDO", 4)
 		|| !ft_strncmp(temp->args[0], "REDA", 4))
 		{
-			printf("Entrei aqui no REDO do output\n");
 			output = temp->fd[0];
 		}
-		printf("%d\n", output);
 		temp = temp->next;
 	}
 	if (output != 1)
