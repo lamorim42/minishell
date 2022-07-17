@@ -6,13 +6,14 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/08 20:36:07 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 10:38:00 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*worddup(char **s);
+char		*worddup(char **s);
+static int	make_a_word_by_str(char *s, char c);
 
 char	**tokenizer(t_line *line)
 {
@@ -58,23 +59,12 @@ char	*worddup(char **s)
 		if (ft_strchr("<", **s) && ft_strchr("<", *((*s) + 1)))
 			len++;
 	}
-	else if (**s != '\"')
-	{
+	else if (**s != '\"' && **s != '\'')
 		while ((*s)[len] && !ft_strchr("|>< ", (*s)[len]))
 			len++;
-	}
 	else
 	{
-		while ((*s)[len])
-		{
-
-			len++;
-			if ((*s)[len] == '\"' && ft_strlen(*s) == (len - 1))
-			{
-				len++;
-				break ;
-			}
-		}
+		len = make_a_word_by_str(*s, **s);
 	}
 	str = (char *)malloc(len + 1);
 	if (str == NULL)
@@ -82,4 +72,27 @@ char	*worddup(char **s)
 	ft_strlcpy(str, *s, len + 1);
 	*s += len;
 	return (str);
+}
+
+static int	make_a_word_by_str(char *s, char c)
+{
+	int	len;
+
+	len = 0;
+	while (s[len] && s[len] == c)
+	{
+		len++;
+	}
+
+	while (s[len] && s[len] != c)
+	{
+		len++;
+	}
+
+	while (s[len] && s[len] == c)
+	{
+		len++;
+	}
+
+	return len;
 }

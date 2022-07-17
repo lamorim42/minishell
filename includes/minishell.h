@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 20:14:23 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:08:52 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include <fcntl.h>
 # include <stdlib.h>
 
@@ -50,6 +51,7 @@ typedef struct s_pipe_list {
 
 typedef struct s_line {
 	char		*str;
+	int			std_fd[2];
 	char		**ctks;
 	char		**tks;
 	int			fd[2];
@@ -57,16 +59,21 @@ typedef struct s_line {
 	int			tks_nbr;
 	char		**envp;
 	int			status_code;
-	int			pid;
+	int			count_cmds;
+	int			*pid;
 	int			sig;
 	t_pipe_list	*list_cmds;
 }				t_line;
 
-void	verification_input(t_pipe_list *temp);
-void	close_fds(t_pipe_list *node);
-void	open_fds(t_line *line);
+void			verification_input(t_pipe_list *temp);
+void			close_fds(t_pipe_list *node);
+void			open_fds(t_line *line);
+int				is_command(t_pipe_list *node);
 
-void	expand_var(t_line *line, t_hash_table *table);
+char			ft_strcmp_len(char *s1, char *s2);
+void			signal_here(t_line *line);
+
+void			expand_var(t_line *line, t_hash_table *table);
 
 //array
 int				ft_array_len(char **array);
@@ -76,7 +83,9 @@ int				count_tks(char *line);
 
 //signals
 void			signals(t_line *line);
-
+void			signals_parent(t_line *line);
+void			signals_child(t_line *line);
+int				file_exists (int fd);
 char			**tokenizer(t_line *line);
 char			**lexical_analyzer(t_line *line);
 int				sintax_analysis(char **lex);
@@ -98,6 +107,8 @@ void			exec_path(t_line *line, t_pipe_list *list, t_hash_table **table);
 void			exec_list(t_line *line, t_hash_table **table);
 void			creat_cmd(t_line *line);
 void			list_generation_bin(t_line *line);
+int				find_input(t_pipe_list *node);
+void			find_output(t_pipe_list *node);
 
 //here_doc
 char			*here_doc_buffer(t_pipe_list *node);

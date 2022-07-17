@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 static int	is_path(char *str);
-static int	is_command(t_pipe_list *node);
+static void	update_status_code(t_line *line, t_hash_table **table);
 
 void	list_generation_bin(t_line *line)
 {
@@ -25,11 +25,7 @@ void	list_generation_bin(t_line *line)
 		if (is_a_builtin(&temp->args[0]) == 0)
 			temp->bin = ft_strdup("builtin");
 		else if (temp->args && temp->args[0]
-		&& ft_strncmp(temp->args[0], "PIPE", 4)
-		&& ft_strncmp(temp->args[0], "REDO", 4)
-		&& ft_strncmp(temp->args[0], "REDA", 4)
-		&& ft_strncmp(temp->args[0], "REDI", 4)
-		&& ft_strncmp(temp->args[0], "HERE", 4))
+		&& is_command(temp))
 		{
 			if (is_path(temp->args[0]))
 				temp->bin = ft_strdup(temp->args[0]);
@@ -62,29 +58,43 @@ int	is_a_builtin(char **node)
 
 void	exec_list(t_line *line,  t_hash_table **table)
 {
+	int	i;
 	t_pipe_list	*temp;
 
+	i = 0;
 	temp = line->list_cmds;
 	while (temp)
 	{
-		if (ft_strncmp(temp->args[0], "exit", 4) == 0)
+		if (ft_strcmp_len(temp->args[0], "VAR"))
+		{
+			free(temp->args[0]);
+			temp->args[0] = ft_strdup("");
+		}
+		if (ft_strcmp(temp->args[0], "exit"))
 			exit_builtin(line, temp, table);
 		if (temp && !is_command(temp))
 		{
 			temp = temp->next ;
 			continue ;
 		}
-		if (temp->bin && ft_strncmp(temp->bin, "builtin", 7) == 0
-			&& temp->next == NULL)
+		if (temp->bin && ft_strcmp_len(temp->bin, "builtin")
+				&& temp->next == NULL)
 			exec_builtins(temp, table);
 		else
 			init_fork(line, temp, table);
 		temp = temp->next;
 	}
-	close_fds(line->list_cmds);
+	while (line->pid && line->pid[i])
+	{
+		waitpid(line->pid[i], &(line->status_code), 0);
+		i++;
+	}
+	wait4(line->pid[i], &(line->status_code), 0, NULL);
+	update_status_code(line, table);
+	close_fds(temp);
 }
 
-static int	is_command(t_pipe_list *node)
+int	is_command(t_pipe_list *node)
 {
 	return (ft_strncmp(node->args[0], "PIPE", 4)
 		&& ft_strncmp(node->args[0], "REDO", 4)
@@ -95,18 +105,34 @@ static int	is_command(t_pipe_list *node)
 
 void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 {
-	if (ft_strncmp(node->args[0], "echo", 4) == 0)
+	if (ft_strcmp_len(node->args[0], "echo"))
 		echo_builtin(node);
-	else if (ft_strncmp(node->args[0], "cd", 2) == 0)
+	else if (ft_strcmp_len(node->args[0], "cd"))
 		cd_builtin(node, table);
-	else if (ft_strncmp(node->args[0], "pwd", 3) == 0)
+	else if (ft_strcmp_len(node->args[0], "pwd"))
 		pwd_builtin(node, table);
-	else if (ft_strncmp(node->args[0], "export", 6) == 0)
+	else if (ft_strcmp_len(node->args[0], "export"))
 		export_builtin(node, table);
-	else if (ft_strncmp(node->args[0], "unset", 5) == 0)
+	else if (ft_strcmp_len(node->args[0], "unset"))
 		unset_builtin(node, table);
-	else if (ft_strncmp(node->args[0], "env", 3) == 0)
+	else if (ft_strcmp_len(node->args[0], "env"))
 		env_builtin(node, table);
+	else
+		error_msg(node->args[0], ": command not found\n");
+}
+
+
+static void	update_status_code(t_line *line, t_hash_table **table)
+{
+	char	*status;
+
+	if (WIFEXITED(line->status_code))
+		status = ft_itoa(WEXITSTATUS(line->status_code));
+	else
+		status = ft_itoa(WTERMSIG(line->status_code) + 128);
+	table_delete(table, "?");
+	hash_insert(table, "?", status);
+	free(status);
 }
 
 //Vamos chamar a path_fider se a str não tiver ./ ou ../ (no caso se ela não for um path absoluto)

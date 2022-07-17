@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:43:06 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 10:46:53 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:39:07 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ char	*search_item(t_hash_table *table, char *key)
 	current = table->item[index];
 	while (current != NULL)
 	{
-		if (current->key && ft_strncmp(current->key, key,
-				ft_strlen(key) + 1) == 0)
+		if (current->key && !ft_strncmp(current->key, key, ft_strlen(key) + 1))
 		{
 			return (ft_strdup(current->value));
 		}

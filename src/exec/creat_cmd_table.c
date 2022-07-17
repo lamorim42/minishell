@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/08 20:15:11 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:07:16 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**make_args(t_line *line, int *index)
 
 	size = get_arg_size(line, *index);
 	arg = copy_array(&(line->ctks[*index]), size);
-	if (ft_strncmp(line->lex[*index], "WORD", 4))
+	if (ft_strncmp(line->lex[*index], "WORD", 4) && ft_strncmp(line->lex[*index], "VAR", 3))
 	{
 		free(arg[0]);
 		arg[0] = ft_strdup(line->lex[*index]);
@@ -48,7 +48,7 @@ int	get_arg_size(t_line *line, int index)
 	int		size;
 
 	size = 0;
-	if (!ft_strncmp(line->lex[index], "WORD", 4))
+	if (!ft_strncmp(line->lex[index], "WORD", 4) || !ft_strncmp(line->lex[index], "VAR", 3))
 	{
 		while (line->lex[index] && (!ft_strncmp(line->lex[index], "WORD", 4)
 				|| !ft_strncmp(line->lex[index], "VAR", 3)))
@@ -72,22 +72,30 @@ void	expand_var(t_line *line, t_hash_table *table)
 	char	*value;
 	char	*key;
 	int		i;
+	char	*temp;
 
+	temp = NULL;
 	i = 0;
 	while(line->ctks[i])
 	{
 		while (ft_strchr(line->ctks[i], '$') != NULL
-		&& ft_strncmp(line->tks[i], "\'", 1)&& !ft_strncmp(line->ctks[i], "$", 1))
+		&& ft_strncmp(line->tks[i], "\'", 1) && !ft_strncmp(line->ctks[i], "$", 1))
 		{
 			key = return_var_key(line->ctks[i]);
 			value = search_item(table, key);
 			if (value != NULL)
 			{
+				temp = line->ctks[i];
 				line->ctks[i] = join_str_value(key, value, line->ctks[i]);
+				free(temp);
 				free (value);
 			}
 			else
-				line->ctks[i] = ft_strdup("");
+			{
+				temp = line->ctks[i];
+				line->ctks[i] = ft_strdup("VAR");
+				free(temp);
+			}
 			free (key);
 		}
 		i++;
@@ -114,7 +122,7 @@ static char *join_str_value(char *key, char *value, char *str)
 	if ((ft_strlen(key) + 1) == (ft_strlen(str)))
 	{
 		free(sufix_str);
-		free(str);
+		//free(str);
 		return (ft_strdup(value));
 	}
 	else if (i == 0)

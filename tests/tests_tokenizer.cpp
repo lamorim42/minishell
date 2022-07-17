@@ -189,3 +189,36 @@ TEST(tokenizer, test_tokenizer_pipePipe_doc_miau)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
+
+TEST(tokenizer, test_tokenizer_bin)
+{
+	t_line	line;
+	line.str = "'/bin/ls obj'";
+	char	*esperado[] = {"'/bin/ls obj'", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_echo_var_var)
+{
+	t_line	line;
+	line.str = "echo \"$HOME\" \"$USER\"";
+	char	*esperado[] = {"echo", "\"$HOME\"", "\"$USER\"", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}
+
+TEST(tokenizer, test_tokenizer_echo_var_var_space)
+{
+	t_line	line;
+	line.str = "echo \"miau \" ok\"\"";
+	char	*esperado[] = {"echo", "\"miau \"", "ok", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+	ft_free_arr(resultado);
+}

@@ -1,7 +1,7 @@
 #Name
 NAME	= minishell
 CC		= gcc
-CFLAGS	= -Wall -Werror -Wextra -g3
+CFLAGS	= -Wall -Werror -Wextra -g
 
 #Source
 SRC		=	main.c \

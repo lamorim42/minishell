@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 07:11:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/07 19:31:08 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:16:04 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 void	echo_builtin(t_pipe_list *node)
 {
 	int	i;
-
 	i = 1;
+
 	if (ft_strlen(node->args[0]) > 4)
+	{
 		error_msg(node->args[0], ": command not found\n");
+		return ;
+	}
 	if (node->args[1] == NULL)
 		printf("\n");
-	if (ft_strncmp(node->args[1], "-n", 2) == 0 && ft_strlen(node->args[1]) == 2)
+	if (node->args[1] != NULL && ft_strcmp_len(node->args[1], "-n"))
 		i++;
 	while (node->args[i])
 	{
@@ -34,6 +37,6 @@ void	echo_builtin(t_pipe_list *node)
 			printf("%s ", node->args[i]);
 		i++;
 	}
-	if (ft_strlen(node->args[1]) > 2 || ft_strncmp(node->args[1], "-n", 2) != 0)
+	if ((node->args[1] != NULL) && (ft_strlen(node->args[1]) > 2 || ft_strncmp(node->args[1], "-n", 2) != 0))
 		printf("\n");
 }
