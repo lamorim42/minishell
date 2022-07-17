@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 17:13:28 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 20:18:50 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 	}
 	if (!list->bin)
 	{
-		if (ft_strcmp_len(list->args[0], ""))
-		{
-			free_table(table);
-			free_line(line);
-			exit (0);
-		}
+		// if (ft_strcmp_len(list->args[0], ""))
+		// {
+		// 	free_table(table);
+		// 	free_line(line);
+		// 	exit (0);
+		// }
 		error_msg(list->args[0], ": command not found\n");
 		free_table(table);
 		free_line(line);

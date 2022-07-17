@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 18:03:08 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 19:55:50 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	{
 		signal_here(line);
 		here_doc_verification(line);
+		free_line(line);
+		free_table(table);
 		exit(0);
 	}
 	waitpid(pid, &(line->status_code), 0);
@@ -133,9 +135,10 @@ void	open_fds(t_line *line)
 	list = line->list_cmds;
 	while (list)
 	{
-		if (!ft_strncmp(list->args[0], "REDI", 4))
+		if (list->args[0][0] != '\0' && ft_strcmp_len(list->args[0], "REDI"))
 			list->fd[0] = open(list->args[1], O_RDONLY);
-		else if (!ft_strncmp(list->args[0], "REDO", 4))
+		else if (list->args[0][0] != '\0'
+		&& !ft_strncmp(list->args[0], "REDO", 4))
 		{
 			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (list->fd[0] == -1)
@@ -144,7 +147,8 @@ void	open_fds(t_line *line)
 				free_line(line);
 			}
 		}
-		else if (!ft_strncmp(list->args[0], "REDA", 4))
+		else if (list->args[0][0] != '\0'
+		&& !ft_strncmp(list->args[0], "REDA", 4))
 		{
 			list->fd[0] = open(list->args[1], O_RDWR | O_CREAT
 							| O_APPEND, 0644);
@@ -155,7 +159,8 @@ void	open_fds(t_line *line)
 				free_line(line);
 			}
 		}
-		else if (!ft_strncmp(list->args[0], "PIPE", 4))
+		else if (list->args[0][0] != '\0'
+		&& !ft_strncmp(list->args[0], "PIPE", 4))
 		{
 			if (pipe(list->fd) != 0)
 				error_msg("pipe", " error\n");
@@ -173,7 +178,7 @@ void	here_doc_verification(t_line *line)
 	buffer = NULL;
 	while(temp)
 	{
-		if (!ft_strncmp(temp->args[0], "HERE", 4))
+		if (temp->args[0][0] != '\0' && ft_strcmp_len(temp->args[0], "HERE"))
 		{
 			buffer = here_doc_buffer(temp);
 			here_doc_write(buffer, temp);

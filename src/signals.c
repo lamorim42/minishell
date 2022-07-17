@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:42:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 18:06:47 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 19:38:39 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	signal_ignore(t_line *line)
 
 void	sig_here(int sig)
 {
+	printf("\n");
 	if (sig == SIGINT)
 		exit(130);
 }
@@ -73,7 +74,7 @@ void	signal_here(t_line *line)
 {
 	line->sig = 0;
 	signal(SIGINT, sig_here);
-	signal(SIGQUIT, SIG_IGN);
+	//signal(SIGQUIT, SIG_IGN);
 }
 
 void	signals_child(t_line *line)
