@@ -6,54 +6,63 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 20:18:50 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/17 20:35:30 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
 void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
 	int	input;
+	char	*path;
 
 	input = find_input(list);
-
+	path = search_item(*table, "PATH");
 	find_output(list);
 	close_fds(list);
-	if (input < 0)
+	if (path != NULL)
 	{
-		free_table(table);
-		free_line(line);
-		exit(1);
+		free(path);
+		if (input < 0)
+		{
+			free_table(table);
+			free_line(line);
+			exit(1);
+		}
+		if (!list->bin)
+		{
+			// if (ft_strcmp_len(list->args[0], ""))
+			// {
+			// 	free_table(table);
+			// 	free_line(line);
+			// 	exit (0);
+			// }
+			error_msg(list->args[0], ": command not found\n");
+			free_table(table);
+			free_line(line);
+			exit(127);
+		}
+		else if(ft_strcmp_len(list->bin, "builtin"))
+		{
+			exec_builtins(list, table);
+			free_table(table);
+			free_line(line);
+			exit(0);
+		}
+		else if (execve(list->bin, list->args, line->envp) == -1)
+		{
+			perror(list->args[0]);
+			free_line(line);
+			free_table(table);
+			exit(127);
+		}
 	}
-	if (!list->bin)
+	else
 	{
-		// if (ft_strcmp_len(list->args[0], ""))
-		// {
-		// 	free_table(table);
-		// 	free_line(line);
-		// 	exit (0);
-		// }
-		error_msg(list->args[0], ": command not found\n");
-		free_table(table);
 		free_line(line);
-		exit(127);
-	}
-	else if(ft_strcmp_len(list->bin, "builtin"))
-	{
-		exec_builtins(list, table);
 		free_table(table);
-		free_line(line);
 		exit(0);
-	}
-	else if (execve(list->bin, list->args, line->envp) == -1)
-	{
-		perror(list->args[0]);
-		free_line(line);
-		free_table(table);
-		exit(127);
 	}
 }
 
