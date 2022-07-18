@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 19:31:16 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 16:54:10 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/18 13:36:05 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	error_msg(char *str, char *msg)
+{
+	char	*buffer;
+
+	buffer = ft_strjoin(str, msg);
+	ft_putstr_fd(buffer, 2);
+	free(buffer);
+}
+
+void	free_exit(t_line *line, t_hash_table *table, int status)
+{
+	free_table(&table);
+	free_line(line);
+	exit(status);
+}
 
 void	free_line(t_line *line)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 18:03:35 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:56:54 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ void			close_fds(t_pipe_list *node);
 void			open_fds(t_line *line);
 int				is_command(t_pipe_list *node);
 
+int				is_redirect_output(t_pipe_list *node);
+int				is_redirect_input(t_pipe_list *node);
+
 char			ft_strcmp_len(char *s1, char *s2);
 void			signal_here(t_line *line);
 
@@ -100,6 +103,7 @@ char			**clean_tokens(t_line *line);
 void			free_sintax(t_line *line);
 int				count_quots(char *tks);
 void			error_msg(char *str, char *msg);
+void			free_exit(t_line *line, t_hash_table *table, int status);
 
 //exec
 void			init_fork(t_line *line, t_pipe_list *list, t_hash_table **table);

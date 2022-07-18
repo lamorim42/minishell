@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 19:55:50 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 14:57:03 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	control_d(char *str, t_hash_table **table);
 static void	building_tokens(t_line *line);
 static void	exec_pipe_line(t_line *line, t_hash_table **table);
 static void	alloc_commands(t_line *line);
-
-
 
 int	main(int argc, char **argv, char **envp)
 {

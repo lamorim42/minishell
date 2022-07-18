@@ -6,166 +6,62 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:04:40 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 20:35:30 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 14:57:27 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	is_path_ok(t_hash_table **table);
+static int	make_redirections(t_pipe_list *node);
+
 void	exec_path(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
 	int	input;
-	char	*path;
 
-	input = find_input(list);
-	path = search_item(*table, "PATH");
-	find_output(list);
-	close_fds(list);
-	if (path != NULL)
+	if (is_path_ok(table))
 	{
-		free(path);
+		input = make_redirections(list);
 		if (input < 0)
-		{
-			free_table(table);
-			free_line(line);
-			exit(1);
-		}
+			free_exit(line, *table, 1);
 		if (!list->bin)
 		{
-			// if (ft_strcmp_len(list->args[0], ""))
-			// {
-			// 	free_table(table);
-			// 	free_line(line);
-			// 	exit (0);
-			// }
 			error_msg(list->args[0], ": command not found\n");
-			free_table(table);
-			free_line(line);
-			exit(127);
+			free_exit(line, *table, 127);
 		}
-		else if(ft_strcmp_len(list->bin, "builtin"))
+		else if (ft_strcmp_len(list->bin, "builtin"))
 		{
 			exec_builtins(list, table);
-			free_table(table);
-			free_line(line);
-			exit(0);
+			free_exit(line, *table, 0);
 		}
 		else if (execve(list->bin, list->args, line->envp) == -1)
 		{
 			perror(list->args[0]);
-			free_line(line);
-			free_table(table);
-			exit(127);
+			free_exit(line, *table, 127);
 		}
 	}
-	else
-	{
-		free_line(line);
-		free_table(table);
-		exit(0);
-	}
+	free_exit(line, *table, 0);
 }
 
-void	error_msg(char *str, char *msg)
+static int	is_path_ok(t_hash_table **table)
 {
-	char	*buffer;
+	char	*path;
+	int		vrf;
 
-	buffer = ft_strjoin(str, msg);
-	ft_putstr_fd(buffer, 2);
-	free(buffer);
+	vrf = 1;
+	path = search_item(*table, "PATH");
+	if (path == NULL)
+		vrf = 0;
+	free(path);
+	return (vrf);
 }
 
-int	find_input(t_pipe_list *node)
+static int	make_redirections(t_pipe_list *node)
 {
-	t_pipe_list	*temp;
-	int			input;
+	int	input;
 
-	input = 0;
-	temp = node->prev;
-	if (temp && (!ft_strncmp(temp->args[0], "PIPE", 4)
-		|| !ft_strncmp(temp->args[0], "REDI", 4)
-		|| !ft_strncmp(temp->args[0], "HERE", 4)))
-	{
-		dup2(temp->fd[0], STDIN_FILENO);
-	}
-
-/* 	if (temp && !file_exists(temp->fd[0]))
-	{
-		error_msg(temp->args[1], ": No such file or directory\n");
-		return (-1);
-	} */
-	temp = node->next;
-	while (temp)
-	{
-		if (!ft_strncmp(temp->args[0], "PIPE", 4))
-			break ;
-		if (!ft_strncmp(temp->args[0], "REDI", 4)
-		|| !ft_strncmp(temp->args[0], "HERE", 4))
-			input = temp->fd[0];
-		if (!file_exists(temp->fd[0]))
-		{
-			error_msg(temp->args[1], ": No such file or directory\n");
-			return (-1);
-		}
-		temp = temp->next;
-	}
-	if (input != 0)
-		dup2(input, STDIN_FILENO);
+	input = find_input(node);
+	find_output(node);
+	close_fds(node);
 	return (input);
-}
-
-void	find_output(t_pipe_list *node)
-{
-	t_pipe_list	*temp;
-	int			output;
-
-	output = 1;
-	temp = node->next;
-	while (temp)
-	{
-		if (!ft_strncmp(temp->args[0], "PIPE", 4))
-		{
-			if (output == 1)
-				output = temp->fd[1];
-			break ;
-		}
-		if (!ft_strncmp(temp->args[0], "REDO", 4)
-		|| !ft_strncmp(temp->args[0], "REDA", 4))
-		{
-			output = temp->fd[0];
-		}
-		temp = temp->next;
-	}
-	if (output != 1)
-	{
-		dup2(output, STDOUT_FILENO);
-		close(output);
-	}
-}
-
-void	close_fds(t_pipe_list *node)
-{
-	t_pipe_list	*temp;
-
-	temp = node;
-	if (temp)
-	{
-		while (temp->prev)
-			temp = temp->prev;
-	}
-	while (temp)
-	{
-		if ((!ft_strncmp(temp->args[0], "REDO", 4)
-		|| !ft_strncmp(temp->args[0], "REDA", 4)
-		|| !ft_strncmp(temp->args[0], "REDI", 4))
-		&& file_exists(temp->fd[0]))
-			close(temp->fd[0]);
-		else if (!ft_strncmp(temp->args[0], "PIPE", 4)
-			|| !ft_strncmp(temp->args[0], "HERE", 4))
-		{
-			close(temp->fd[0]);
-			close(temp->fd[1]);
-		}
-		temp = temp->next;
-	}
 }
