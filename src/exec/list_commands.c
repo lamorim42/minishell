@@ -45,13 +45,13 @@ static int	is_path(char *str)
 
 int	is_a_builtin(char **node)
 {
-	if (ft_strncmp(*node, "echo", 4) == 0
+	if (node[0][0] != '\0' && (ft_strncmp(*node, "echo", 4) == 0
 		|| ft_strncmp(*node, "cd", 2) == 0
 		|| ft_strncmp(*node, "pwd", 3) == 0
 		|| ft_strncmp(*node, "export", 6) == 0
 		|| ft_strncmp(*node, "unset", 5) == 0
 		|| ft_strncmp(*node, "env", 3) == 0
-		|| ft_strncmp(*node, "exit", 4) == 0)
+		|| ft_strncmp(*node, "exit", 4) == 0))
 		return (0);
 	return (1);
 }
@@ -65,11 +65,6 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		if (ft_strcmp_len(temp->args[0], "VAR"))
-		{
-			free(temp->args[0]);
-			temp->args[0] = ft_strdup("");
-		}
 		if (ft_strcmp(temp->args[0], "exit"))
 			exit_builtin(line, temp, table);
 		if (temp && !is_command(temp))

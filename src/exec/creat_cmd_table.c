@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_cmd_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/16 19:07:16 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 20:23:10 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_arg_size(t_line *line, int index);
 
 void	creat_cmd(t_line *line)
 {
-	int	i;
+	int			i;
 
 	i = 0;
 	while (line->tks[i])
@@ -93,7 +93,7 @@ void	expand_var(t_line *line, t_hash_table *table)
 			else
 			{
 				temp = line->ctks[i];
-				line->ctks[i] = ft_strdup("VAR");
+				line->ctks[i] = ft_strdup("");
 				free(temp);
 			}
 			free (key);

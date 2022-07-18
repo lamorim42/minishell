@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:13:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/12 19:18:27 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:38:51 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*here_doc_buffer(t_pipe_list *node)
 	buffer = NULL;
 	while(1)
 	{
-		write(1, "> ", 2);
 		content = readline("> ");
 		if (content == NULL)
 		{
