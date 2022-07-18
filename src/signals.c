@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:42:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 19:38:39 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 16:35:59 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,12 @@ void	sig_here(int sig)
 {
 	printf("\n");
 	if (sig == SIGINT)
+	{
+		close_std_fd(g_minishell.line);
+		free_line(g_minishell.line);
+		free_table(&(g_minishell.table));
 		exit(130);
+	}
 }
 
 void	signal_here(t_line *line)

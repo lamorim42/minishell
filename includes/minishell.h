@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/18 14:56:54 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 16:38:03 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,26 @@ typedef struct s_line {
 	t_pipe_list	*list_cmds;
 }				t_line;
 
+struct s_minishell
+{
+	t_line			*line;
+	t_hash_table	*table;
+};
+
+struct s_minishell	g_minishell;
+
 void			verification_input(t_pipe_list *temp);
 void			close_fds(t_pipe_list *node);
 void			open_fds(t_line *line);
 int				is_command(t_pipe_list *node);
+void			close_std_fd(t_line *line);
+
 
 int				is_redirect_output(t_pipe_list *node);
 int				is_redirect_input(t_pipe_list *node);
 
 char			ft_strcmp_len(char *s1, char *s2);
+char			*char_cat(char *str, char c);
 void			signal_here(t_line *line);
 
 void			expand_var(t_line *line, t_hash_table *table);
@@ -110,16 +121,17 @@ void			init_fork(t_line *line, t_pipe_list *list, t_hash_table **table);
 char			*path_finder(t_line *line, char *cmd);
 void			exec_path(t_line *line, t_pipe_list *list, t_hash_table **table);
 void			exec_list(t_line *line, t_hash_table **table);
-void			creat_cmd(t_line *line);
+void			creat_list_cmd(t_line *line);
 void			list_generation_bin(t_line *line);
 int				find_input(t_pipe_list *node);
 void			find_output(t_pipe_list *node);
 
 //here_doc
 char			*here_doc_buffer(t_pipe_list *node);
-char			*char_cat(char *str, char c);
 void			here_doc_verification(t_line *line);
 void			here_doc_write(char *buffer, t_pipe_list *list);
+void			creat_here_doc(t_pipe_list *list);
+void			close_here_doc(t_pipe_list *list);
 
 //Builtins
 int				is_a_builtin(char **node);

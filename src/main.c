@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/18 14:57:03 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 16:30:36 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,23 @@ int	main(int argc, char **argv, char **envp)
 	t_hash_table	*table;
 
 	table = NULL;
-
 	if (argv[0] == NULL && argc > 1)
 		return (1);
 	init_line(&line);
 	line.envp = envp;
 	population_hash_table(&line, &table);
+	g_minishell.line = &line;
+	g_minishell.table = table;
 	facade(&line, &table);
 	return (0);
 }
 
 static void	facade(t_line *line, t_hash_table **table)
 {
-
-
+	line->std_fd[0] = dup(STDIN_FILENO);
+	line->std_fd[1] = dup(STDOUT_FILENO);
 	while (1)
 	{
-		/* if (pipe(line->std_fd) == -1)
-			return ; */
-		line->std_fd[0] = dup(STDIN_FILENO);
-		line->std_fd[1] = dup(STDOUT_FILENO);
 		signals(line);
 		line->str = readline("miau> ");
 		control_d(line->str, table);
@@ -60,6 +57,7 @@ static void	facade(t_line *line, t_hash_table **table)
 		dup2(line->std_fd[0], STDIN_FILENO);
 		dup2(line->std_fd[1], STDOUT_FILENO);
 	}
+	close_std_fd(line);
 }
 
 static void	control_d(char *str, t_hash_table **table)
@@ -84,18 +82,21 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	int	pid;
 	line->ctks = clean_tokens(line);
 	expand_var(line, (*table));
-	creat_cmd(line);
+	creat_list_cmd(line);
+	creat_here_doc(line->list_cmds);
 	pid = fork();
 	signal_ignore(line);
 	if (pid == 0)
 	{
 		signal_here(line);
 		here_doc_verification(line);
+		close_std_fd(line);
 		free_line(line);
 		free_table(table);
 		exit(0);
 	}
 	waitpid(pid, &(line->status_code), 0);
+	close_here_doc(line->list_cmds);
 	list_generation_bin(line);
 	alloc_commands(line);
 	open_fds(line);
@@ -167,34 +168,6 @@ void	open_fds(t_line *line)
 	}
 }
 
-void	here_doc_verification(t_line *line)
-{
-	t_pipe_list *temp;
-	char	*buffer;
-
-	temp = line->list_cmds;
-	buffer = NULL;
-	while(temp)
-	{
-		if (temp->args[0][0] != '\0' && ft_strcmp_len(temp->args[0], "HERE"))
-		{
-			buffer = here_doc_buffer(temp);
-			here_doc_write(buffer, temp);
-			free(buffer);
-		}
-		temp = temp->next;
-	}
-}
-
-void	here_doc_write(char *buffer, t_pipe_list *list)
-{
-	if (pipe(list->fd) != 0)
-		error_msg("pipe", " error\n");
-	if (buffer)
-		write(list->fd[1], buffer, ft_strlen(buffer));
-	close(list->fd[1]);
-}
-
 t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
 {
 	int		i;
@@ -221,4 +194,10 @@ char	ft_strcmp_len(char *s1, char *s2)
 	if (ft_strlen(s1) == ft_strlen(s2))
 		return (ft_strncmp(s1, s2, __UINT64_MAX__) == 0);
 	return (0);
+}
+
+void	close_std_fd(t_line *line)
+{
+	close(line->std_fd[0]);
+	close(line->std_fd[1]);
 }
