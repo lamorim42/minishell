@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/18 16:30:36 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 22:31:56 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	control_d(char *str, t_hash_table **table);
 static void	building_tokens(t_line *line);
 static void	exec_pipe_line(t_line *line, t_hash_table **table);
 static void	alloc_commands(t_line *line);
+
+int	is_a_comment(char *str);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -44,6 +46,11 @@ static void	facade(t_line *line, t_hash_table **table)
 		signals(line);
 		line->str = readline("miau> ");
 		control_d(line->str, table);
+		if (is_a_comment(line->str))
+		{
+			free(line->str);
+			continue ;
+		}
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
 			building_tokens(line);
@@ -66,6 +73,7 @@ static void	control_d(char *str, t_hash_table **table)
 	{
 		free_table(table);
 		write(2, "exit\n", 6);
+		close_std_fd(g_minishell.line);
 		exit(0);
 	}
 }
@@ -200,4 +208,16 @@ void	close_std_fd(t_line *line)
 {
 	close(line->std_fd[0]);
 	close(line->std_fd[1]);
+}
+
+int	is_a_comment(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (str[i] == '#')
+		return 1;
+	return 0;
 }
