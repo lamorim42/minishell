@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/18 22:31:56 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/19 15:46:45 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,26 +176,6 @@ void	open_fds(t_line *line)
 	}
 }
 
-t_hash_table	*population_hash_table(t_line *line, t_hash_table **table)
-{
-	int		i;
-	char	**var;
-
-	i = 0;
-	(*table) = create_table(SIZE_TABLE);
-	while(line->envp[i])
-	{
-		var = ft_split(line->envp[i], '=');
-		if (var[0] != NULL && var[1] != NULL)
-			hash_insert(table, var[0], var[1]);
-		else if (var[0] != NULL)
-			hash_insert(table, var[0], "");
-		ft_free_arr(var);
-		i++;
-	}
-	hash_insert(table, "?", "0");
-	return (*table);
-}
 
 char	ft_strcmp_len(char *s1, char *s2)
 {
