@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/18 16:08:07 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 20:31:43 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 		if (pid == 0)
 		{
 			close_std_fd(line);
-			signals_child(line);
 			exec_path(line, list, table);
 		}
 		else

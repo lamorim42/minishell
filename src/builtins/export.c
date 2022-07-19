@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:07:29 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 08:09:09 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/18 21:32:13 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ void	export_builtin(t_pipe_list *node, t_hash_table **table)
 	int	i;
 
 	i = 1;
-	if (ft_strlen(node->args[0]) > 6)
-	{
-		error_msg(node->args[0], ": commmand not found\n");
-		return ;
-	}
-
 	while (node->args[i])
 	{
 		if (is_args_ok(node->args[i]) == 1 && ft_strchr(node->args[i], '='))
@@ -34,7 +28,10 @@ void	export_builtin(t_pipe_list *node, t_hash_table **table)
 			insert_var_in_hash(node->args[i], table);
 		}
 		else if (is_args_ok(node->args[i]) == 0)
+		{
+			g_minishell.line->status_code = 1;
 			error_msg(node->args[i], ": not a valid identifier\n");
+		}
 		i++;
 	}
 }

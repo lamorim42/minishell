@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/18 16:38:03 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 21:42:27 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int				count_tks(char *line);
 void			signals(t_line *line);
 void			signals_parent(t_line *line);
 void			signal_ignore(t_line *line);
-void			signals_child(t_line *line);
+//void			signals_child(t_line *line);
 int				file_exists (int fd);
 char			**tokenizer(t_line *line);
 char			**lexical_analyzer(t_line *line);
@@ -138,11 +138,11 @@ int				is_a_builtin(char **node);
 void			exec_builtins(t_pipe_list *node, t_hash_table **table);
 void			echo_builtin(t_pipe_list *node);
 void			cd_builtin(t_pipe_list *node, t_hash_table **table);
-void			pwd_builtin(t_pipe_list *node, t_hash_table **table);
+void			pwd_builtin(t_hash_table **table);
 void			env_builtin(t_pipe_list *node, t_hash_table **table);
 void			export_builtin(t_pipe_list *node, t_hash_table **table);
 void			unset_builtin(t_pipe_list *node, t_hash_table **table);
-void			exit_builtin(t_line *line, t_pipe_list *node, t_hash_table **table);
+void			exit_builtin(t_pipe_list *node, t_hash_table **table);
 
 //linked list
 void			add_back_list(t_pipe_list **list, t_pipe_list *node);

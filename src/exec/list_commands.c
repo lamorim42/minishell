@@ -14,6 +14,7 @@
 
 static int	is_path(char *str);
 static void	update_status_code(t_line *line, t_hash_table **table);
+//static void	update_status_code_builtin(t_line *line, t_hash_table **table);
 
 void	list_generation_bin(t_line *line)
 {
@@ -65,8 +66,6 @@ void	exec_list(t_line *line,  t_hash_table **table)
 	temp = line->list_cmds;
 	while (temp)
 	{
-		if (ft_strcmp(temp->args[0], "exit"))
-			exit_builtin(line, temp, table);
 		if (temp && !is_command(temp))
 		{
 			temp = temp->next ;
@@ -74,14 +73,16 @@ void	exec_list(t_line *line,  t_hash_table **table)
 		}
 		if (temp->bin && ft_strcmp_len(temp->bin, "builtin")
 				&& temp->next == NULL)
+		{
 			exec_builtins(temp, table);
+		}
 		else
 			init_fork(line, temp, table);
 		temp = temp->next;
 	}
 	while (line->pid && line->pid[i])
 	{
-		waitpid(line->pid[i], &(line->status_code), 0);
+		waitpid(line->pid[i], &(line->status_code), WUNTRACED);
 		i++;
 	}
 	wait4(line->pid[i], &(line->status_code), 0, NULL);
@@ -105,15 +106,20 @@ void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 	else if (ft_strcmp_len(node->args[0], "cd"))
 		cd_builtin(node, table);
 	else if (ft_strcmp_len(node->args[0], "pwd"))
-		pwd_builtin(node, table);
+		pwd_builtin(table);
 	else if (ft_strcmp_len(node->args[0], "export"))
 		export_builtin(node, table);
 	else if (ft_strcmp_len(node->args[0], "unset"))
 		unset_builtin(node, table);
 	else if (ft_strcmp_len(node->args[0], "env"))
 		env_builtin(node, table);
+	else if (ft_strcmp_len(node->args[0], "exit"))
+		exit_builtin(node, table);
 	else
+	{
+		g_minishell.line->status_code = 127;
 		error_msg(node->args[0], ": command not found\n");
+	}
 }
 
 
@@ -123,12 +129,13 @@ static void	update_status_code(t_line *line, t_hash_table **table)
 
 	if (WIFEXITED(line->status_code))
 		status = ft_itoa(WEXITSTATUS(line->status_code));
-	else
+	else if (line->status_code == 1)
+		status = ft_itoa(line->status_code);
+	else if (WIFSIGNALED(line->status_code))
 		status = ft_itoa(WTERMSIG(line->status_code) + 128);
+	else
+		status = ft_itoa(line->status_code);
 	table_delete(table, "?");
 	hash_insert(table, "?", status);
 	free(status);
 }
-
-//Vamos chamar a path_fider se a str não tiver ./ ou ../ (no caso se ela não for um path absoluto)
-// Verificação com Access pra ver se ela é executavel, se for manda pro execve

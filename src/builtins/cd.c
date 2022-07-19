@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 19:40:08 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 20:56:35 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 
 	getcwd(buffer, 500);
 	str_oldpwd = ft_strdup(buffer);
-	if (ft_strlen(node->args[0]) > 2)
-	{
-		error_msg(node->args[0], ": command not found\n");
-		return ;
-	}
 	if (node->args[1] == NULL)
 	{
 		home = search_item(*table, "HOME");
@@ -36,7 +31,9 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 	}
 	else if (chdir(node->args[1]) == -1)
 	{
-		error_msg(node->args[1], ": No such file or directory\n");
+		g_minishell.line->status_code = 1;
+		perror(node->args[1]);
+		free(str_oldpwd);
 		return ;
 	}
 	else

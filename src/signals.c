@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:42:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/18 16:35:59 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/18 20:40:06 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	sig_handler(int sig)
 {
-	if (sig == 2)
+	if (sig == SIGINT)
 	{
 		write(2, "\n", 1);
 		rl_on_new_line();
@@ -25,27 +25,32 @@ static void	sig_handler(int sig)
 
 static void	sig_parent(int sig)
 {
-	if (sig == 2)
+	if (sig == SIGINT)
 	{
+		g_minishell.line->status_code = 130;
 		write(2, "\n", 1);
 		rl_on_new_line();
 	}
 }
 
-static void	sig_child(int sig)
-{
-	if (sig == 2)
-		exit(130);
-	else if (sig == 3)
-	{
-		write(2, "Quit\n", 5);
-		exit(131);
-	}
-}
+// static void	sig_child(int sig)
+// {
+// 	if (sig == SIGQUIT)
+// 	{
+// 		printf("Entrei poh!");
+// 		write(2, "Quit\n", 5);
+// 		exit(131);
+// 	}
+// 	else if (sig == SIGINT)
+// 	{
+// 		printf("Entrei poh!");
+// 		exit(130);
+// 	}
+// }
 
 void	sig_write(int sig)
 {
-	if (sig == 3)
+	if (sig == SIGQUIT)
 		write(2, "Quit\n", 5);
 }
 
@@ -79,14 +84,6 @@ void	signal_here(t_line *line)
 {
 	line->sig = 0;
 	signal(SIGINT, sig_here);
-	//signal(SIGQUIT, SIG_IGN);
-}
-
-void	signals_child(t_line *line)
-{
-	line->sig = 0;
-	signal(SIGINT, sig_child);
-	signal(SIGQUIT, sig_child);
 }
 
 void	signals_parent(t_line *line)
