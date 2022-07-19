@@ -101,6 +101,7 @@ int	is_command(t_pipe_list *node)
 
 void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 {
+	close_std_fd(g_minishell.line);
 	if (ft_strcmp_len(node->args[0], "echo"))
 		echo_builtin(node);
 	else if (ft_strcmp_len(node->args[0], "cd"))
