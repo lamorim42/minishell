@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:08:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/18 21:44:51 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/19 17:17:56 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	unset_builtin(t_pipe_list *node, t_hash_table **table)
 {
-	char *value;
+	char	*value;
 
 	if (node->args[1] != NULL && ft_isalpha(node->args[1][0]))
 	{
