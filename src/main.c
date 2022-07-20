@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 21:56:14 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/20 18:34:26 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,19 @@ int	main(int argc, char **argv, char **envp)
 
 static void	facade(t_line *line, t_hash_table **table)
 {
-	line->std_fd[0] = dup(STDIN_FILENO);
-	line->std_fd[1] = dup(STDOUT_FILENO);
-	while (1)
+	line->std_fd[IN] = dup(STDIN_FILENO);
+	line->std_fd[OUT] = dup(STDOUT_FILENO);
+	while (TRUE)
 	{
 		signals(line);
 		line->str = readline("miau> ");
 		control_d(line->str, table);
+		if (!verify_quots(line->str))
+		{
+			free(line->str);
+			printf("Syntax ERROR!\n");
+			continue ;
+		}
 		if (is_a_comment(line->str))
 		{
 			free(line->str);
@@ -61,8 +67,8 @@ static void	facade(t_line *line, t_hash_table **table)
 		}
 		else
 			free(line->str);
-		dup2(line->std_fd[0], STDIN_FILENO);
-		dup2(line->std_fd[1], STDOUT_FILENO);
+		dup2(line->std_fd[IN], STDIN_FILENO);
+		dup2(line->std_fd[OUT], STDOUT_FILENO);
 	}
 	close_std_fd(line);
 }
@@ -89,6 +95,8 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 {
 	int	pid;
 	line->ctks = clean_tokens(line);
+	print_array("tks", line->tks);
+	print_array("ctks", line->ctks);
 	expand_var(line, (*table));
 	creat_list_cmd(line);
 	creat_here_doc(line->list_cmds);
@@ -181,13 +189,13 @@ char	ft_strcmp_len(char *s1, char *s2)
 {
 	if (ft_strlen(s1) == ft_strlen(s2))
 		return (ft_strncmp(s1, s2, __UINT64_MAX__) == 0);
-	return (0);
+	return (FALSE);
 }
 
 void	close_std_fd(t_line *line)
 {
-	close(line->std_fd[0]);
-	close(line->std_fd[1]);
+	close(line->std_fd[IN]);
+	close(line->std_fd[OUT]);
 }
 
 int	is_a_comment(char *str)
@@ -198,6 +206,6 @@ int	is_a_comment(char *str)
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] == '#')
-		return 1;
-	return 0;
+		return (TRUE);
+	return (FALSE);
 }

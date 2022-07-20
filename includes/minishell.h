@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 21:52:52 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/20 19:11:38 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 # include <stdlib.h>
 
 # define SIZE_TABLE 149
+
+// Boolean
+# define TRUE 1
+# define FALSE 0
+
+// I/O options
+# define IN 0
+# define OUT 1
 
 typedef struct s_hash_item {
 	char				*key;
@@ -78,6 +86,7 @@ void			close_fds(t_pipe_list *node);
 void			open_fds(t_line *line);
 int				is_command(t_pipe_list *node);
 void			close_std_fd(t_line *line);
+int				verify_quots(char *str);
 
 
 int				is_redirect_output(t_pipe_list *node);

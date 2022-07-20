@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 21:52:25 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/20 16:16:36 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ static int	make_quots_len(char *str)
 	len = 1;
 	while (str[len] && str[len] != quot)
 		len++;
-	len++;
+	if (str[len] != '\0')
+		len++;
 	return (len);
 }
 

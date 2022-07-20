@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/18 15:37:38 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/20 18:29:08 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*return_var_key(char *str);
 static char	*join_str_value(char *key, char *value, char *str);
 
 char	**make_args(t_line *line, int *index);
-int	get_arg_size(t_line *line, int index);
+int		get_arg_size(t_line *line, int index);
 
 void	creat_list_cmd(t_line *line)
 {

@@ -144,3 +144,20 @@ TEST(lexical_analyzes, var_env_cat_pipe_pipe_here)
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 }
+
+TEST(lexical_analyzes, var_env_cat_var_pipe_here)
+{
+	t_line	line;
+	line.tks_nbr = 4;
+	line.tks = (char**)malloc(sizeof(char *) * 5);
+	line.tks[0] = ft_strdup("cat");
+	line.tks[1] = ft_strdup("\"oi $USER\"");
+	line.tks[2] = ft_strdup("|");
+	line.tks[3] = ft_strdup("miau");
+	line.tks[4] = NULL;
+	char	*tks[] = {"cat", "\"oi $USER\"", "|", "miau", NULL};
+	char	*esperado[] = {"WORD", "VAR", "PIPE", "WORD", NULL};
+	char	**resultado = lexical_analyzer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}

@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:55:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 19:58:09 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:20:31 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,7 @@ static char	*clean_quots(char *tks)
 		}
 		copy[j] = '\0';
 	}
-
-	if (count_quots(copy) != 2 && (ft_strchr(copy, '\"') || ft_strchr(copy, '\'')))
-		return (clean_quots(copy));
-	else
-		return (copy);
+	return (copy);
 }
 
 

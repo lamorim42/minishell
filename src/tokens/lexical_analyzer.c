@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical_analyzer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 14:57:15 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/13 19:58:55 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:01:03 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**lexical_analyzer(t_line *line)
 			lex[i] = ft_strdup("REDO");
 		else if (!ft_strncmp(line->tks[i], "<", 1))
 			lex[i] = ft_strdup("REDI");
-		else if (!ft_strncmp(line->tks[i], "$", 1))
+		else if (ft_strchr(line->tks[i], '$'))
 			lex[i] = ft_strdup("VAR");
 		else
 			lex[i] = ft_strdup("WORD");
