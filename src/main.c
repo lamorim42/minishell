@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 15:46:45 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/19 21:56:14 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	facade(t_line *line, t_hash_table **table)
 		if (line->str != NULL && ft_strlen(line->str) > 0)
 		{
 			building_tokens(line);
-			if (!sintax_analysis(line->lex) || (count_quots(line->str) % 2 != 0))
+			if (!sintax_analysis(line->lex))
 				free_sintax(line);
 			else
 				exec_pipe_line(line, table);

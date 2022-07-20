@@ -76,7 +76,7 @@ TEST(count_tks, test_count_tks_with_quots)
 	int resultado;
 
 	line = "\"l\"s | cat -e";
-	esperado = 4;
+	esperado = 5;
 	resultado = count_tks((char *)line.c_str());
 
 	ASSERT_EQ(resultado, esperado);
@@ -115,7 +115,7 @@ TEST(count_tks, test_count_tks_with_quots_end_of_word)
 	int resultado;
 
 	line = "l\"s\" -a";
-	esperado = 2;
+	esperado = 3;
 	resultado = count_tks((char *)line.c_str());
 
 	ASSERT_EQ(resultado, esperado);
@@ -189,7 +189,7 @@ TEST(count_tks, test_cat_pipe_cat_with_quots)
 	int esperado;
 	int resultado;
 	line = "ca\"t\"|\" cat\"|";
-	esperado = 4;
+	esperado = 5;
 
 	// act
 	resultado = count_tks((char *)line.c_str());
@@ -353,6 +353,18 @@ TEST(count_tks, test_count_tks_echo_var_var) {
 
 	line = "echo \"$HOME\" \"$USER\"";
 	esperado = 3;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
+TEST(count_tks, test_count_tks_quots_quots_single_quots) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "echo \"\"$HOME\"\" \'\'$USER\'\'";
+	esperado = 7;
 	resultado = count_tks((char *)line.c_str());
 
 	ASSERT_EQ(resultado, esperado);
