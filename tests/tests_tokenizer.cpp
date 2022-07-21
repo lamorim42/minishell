@@ -216,7 +216,7 @@ TEST(tokenizer, test_tokenizer_echo_var_var_space)
 {
 	t_line	line;
 	line.str = "echo \"miau \" ok\"\"";
-	char	*esperado[] = {"echo", "\"miau \"", "ok", "\"\"", NULL};
+	char	*esperado[] = {"echo", "\"miau \"", "ok\"\"", NULL};
 	char	**resultado = tokenizer(&line);
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
@@ -227,7 +227,7 @@ TEST(tokenizer, test_tokenizer_quots_quots)
 {
 	t_line	line;
 	line.str = "echo \"\"miau \"\" ok\"\"";
-	char	*esperado[] = {"echo", "\"\"","miau", "\"\"", "ok", "\"\"", NULL};
+	char	*esperado[] = {"echo", "\"\"miau", "\"\"", "ok\"\"", NULL};
 	char	**resultado = tokenizer(&line);
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);

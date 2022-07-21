@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/20 21:14:18 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:47:24 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 {
 	int	pid;
 	expand_var(line, (*table));
-	printf("Depois da expand\n");
 	line->ctks = clean_tokens(line);
 	creat_list_cmd(line);
 	creat_here_doc(line->list_cmds);

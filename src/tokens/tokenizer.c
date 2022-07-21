@@ -6,16 +6,16 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/20 16:16:36 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/21 15:42:58 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static char	*worddup(char **s);
-static int	make_red_len(char *str);
-static int	make_quots_len(char *str);
-static int	make_word_len(char *str);
+static void	make_red_len(char *str, int *len);
+static void	make_quots_len(char *str, int *len);
+static void	make_word_len(char *str, int *len);
 
 char	**tokenizer(t_line *line)
 {
@@ -47,18 +47,18 @@ char	**tokenizer(t_line *line)
 static char	*worddup(char **s)
 {
 	char	*str;
-	size_t	len;
+	int	len;
 
 	if (*s == NULL)
 		return (NULL);
 	len = 0;
 	str = NULL;
 	if (ft_strchr("|><", **s))
-		len = make_red_len(*s);
+		make_red_len(*s, &len);
 	else if (ft_strchr("\"\'",  **s))
-		len = make_quots_len(*s);
+		make_quots_len(*s, &len);
 	else if (!ft_strchr("|><\"\' ", **s))
-		len = make_word_len(*s);
+		make_word_len(*s, &len);
 	str = (char *)malloc(len + 1);
 	if (str == NULL)
 		return (NULL);
@@ -67,41 +67,47 @@ static char	*worddup(char **s)
 	return (str);
 }
 
-static int	make_red_len(char *str)
+static void	make_red_len(char *str, int *len)
 {
 	char	red;
-	int		len;
 
 	red = *str;
-	len = 1;
-	if (red == '>' && str[len] == '>')
-		len++;
-	if (red == '<' && str[len] == '<')
-		len++;
-	return (len);
+	if (*len == 0)
+		*len = 1;
+	if (red == '>' && str[*len] == '>')
+		(*len)++;
+	if (red == '<' && str[*len] == '<')
+		(*len)++;
 }
 
-static int	make_quots_len(char *str)
+static void	make_quots_len(char *str, int *len)
 {
 	char	quot;
-	int		len;
 
 	quot = *str;
-	len = 1;
-	while (str[len] && str[len] != quot)
-		len++;
-	if (str[len] != '\0')
-		len++;
-	return (len);
+	if (*len == 0)
+		*len = 1;
+	while (str[*len] && str[*len] != quot)
+		(*len)++;
+	if (str[*len] == quot)
+		(*len)++;
+	while (str[*len] && !ft_strchr("|>< ", str[*len]))
+	{
+		if (ft_strchr("\"\'", str[*len]))
+			return (make_quots_len(str, len));
+		(*len)++;
+	}
 }
 
-static int	make_word_len(char *str)
+static void	make_word_len(char *str, int *len)
 {
-	int	len;
-
-	len = 1;
-	while (str[len] && !ft_strchr("|><\"\' ", str[len]))
-		len++;
-	return (len);
+	if (*len == 0)
+		*len = 1;
+	while (str[*len] && !ft_strchr("|>< ", str[*len]))
+	{
+		if (ft_strchr("\"\'", str[*len]))
+			return (make_quots_len(str, len));
+		(*len)++;
+	}
 }
 

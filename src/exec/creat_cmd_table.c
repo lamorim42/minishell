@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_cmd_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/20 21:29:48 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:52:08 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	expand_var(t_line *line, t_hash_table *table)
 	i = 0;
 	while (line->lex[i])
 	{
-		if (ft_strcmp_len(line->lex[i], "VAR"))
+		if (ft_strcmp_len(line->lex[i], "VAR") && line->tks[i][0] != '\'')
 			while(ft_strchr(line->tks[i], '$'))
 				change_value(line, table, i);
 		i++;
