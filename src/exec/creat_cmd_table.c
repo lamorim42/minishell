@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_cmd_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/20 18:29:08 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/20 21:29:48 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static char	*return_var_key(char *str);
 static char	*join_str_value(char *key, char *value, char *str);
-
+static char	*take_prefix_var(char *str, unsigned int *i);
+static void	change_value(t_line *line, t_hash_table *table, unsigned int i);
+static char	*sufix_var(char *str, unsigned int *i);
 char	**make_args(t_line *line, int *index);
 int		get_arg_size(t_line *line, int index);
 
@@ -34,7 +36,8 @@ char	**make_args(t_line *line, int *index)
 
 	size = get_arg_size(line, *index);
 	arg = copy_array(&(line->ctks[*index]), size);
-	if (ft_strncmp(line->lex[*index], "WORD", 4) && ft_strncmp(line->lex[*index], "VAR", 3))
+	if (ft_strncmp(line->lex[*index], "WORD", 4)
+			&& ft_strncmp(line->lex[*index], "VAR", 3))
 	{
 		free(arg[0]);
 		arg[0] = ft_strdup(line->lex[*index]);
@@ -48,7 +51,8 @@ int	get_arg_size(t_line *line, int index)
 	int		size;
 
 	size = 0;
-	if (!ft_strncmp(line->lex[index], "WORD", 4) || !ft_strncmp(line->lex[index], "VAR", 3))
+	if (!ft_strncmp(line->lex[index], "WORD", 4)
+			|| !ft_strncmp(line->lex[index], "VAR", 3))
 	{
 		while (line->lex[index] && (!ft_strncmp(line->lex[index], "WORD", 4)
 				|| !ft_strncmp(line->lex[index], "VAR", 3)))
@@ -69,98 +73,108 @@ int	get_arg_size(t_line *line, int index)
 
 void	expand_var(t_line *line, t_hash_table *table)
 {
-	char	*value;
-	char	*key;
-	int		i;
-	char	*temp;
 
-	temp = NULL;
+	int		i;
+
 	i = 0;
-	while(line->ctks[i])
+	while (line->lex[i])
 	{
-		while (ft_strchr(line->ctks[i], '$') != NULL
-		&& ft_strncmp(line->tks[i], "\'", 1) && !ft_strncmp(line->ctks[i], "$", 1))
-		{
-			key = return_var_key(line->ctks[i]);
-			value = search_item(table, key);
-			if (value != NULL)
-			{
-				temp = line->ctks[i];
-				line->ctks[i] = join_str_value(key, value, line->ctks[i]);
-				free(temp);
-				free (value);
-			}
-			else
-			{
-				temp = line->ctks[i];
-				line->ctks[i] = ft_strdup("");
-				free(temp);
-			}
-			free (key);
-		}
+		if (ft_strcmp_len(line->lex[i], "VAR"))
+			while(ft_strchr(line->tks[i], '$'))
+				change_value(line, table, i);
 		i++;
 	}
+}
+
+static void	change_value(t_line *line, t_hash_table *table, unsigned int i)
+{
+	char	*value;
+	char	*key;
+	char	*temp;
+
+	key = return_var_key(line->tks[i]);
+	value = search_item(table, key);
+	if (value != NULL)
+	{
+		temp = line->tks[i];
+		line->tks[i] = join_str_value(key, value, line->tks[i]);
+		free(temp);
+		free (value);
+	}
+	else
+	{
+		temp = line->tks[i];
+		line->tks[i] = ft_strdup("");
+		free(temp);
+	}
+	free (key);
 }
 
 static char *join_str_value(char *key, char *value, char *str)
 {
 	unsigned int	i;
-	unsigned int	j;
-	char	*sufix_str;
-	char	*new_str;
-	char	*temp;
+	char			*concat_str;
+	char			*new_str;
+	char			*temp;
 
 	i = 0;
-	sufix_str = ft_strdup("");
-	while (str[i] && str[i] != '$')
-	{
-		temp = sufix_str;
-		sufix_str = char_cat(sufix_str, str[i]);
-		free(temp);
-		i++;
-	}
+	concat_str = NULL;
+	temp = NULL;
+	new_str = NULL;
 	if ((ft_strlen(key) + 1) == (ft_strlen(str)))
-	{
-		free(sufix_str);
-		//free(str);
 		return (ft_strdup(value));
-	}
-	else if (i == 0)
+	new_str = take_prefix_var(str, &i);
+	if (new_str != NULL)
 	{
-		temp = ft_strdup(&str[(ft_strlen(key) + 1)]);
-		new_str = ft_strjoin(value, temp);
-		free(sufix_str);
+		temp = new_str;
+		new_str = ft_strjoin(new_str, value);
 		free(temp);
-		free(str);
-		return (new_str);
+		temp = NULL;
 	}
-	else if(i > 0)
+	else
+		new_str = ft_strdup(value);
+	i += (ft_strlen(key) + 1);
+	if(str[i])
+		concat_str = sufix_var(str, &i);
+	if (concat_str != NULL)
 	{
-		j = 0;
-		if (str[i + (ft_strlen(key) + 1)] != '\0')
-		{
-			new_str = ft_strjoin(sufix_str, value);
-			while(str[i + (ft_strlen(key) + 1 + j)])
-				j++;
-			free(sufix_str);
-			sufix_str = new_str;
-			temp = ft_substr(str, i + (unsigned int)ft_strlen(key) + 1, (size_t)j);
-			new_str = ft_strjoin(sufix_str, temp);
-			free(sufix_str);
-			free(temp);
-			free(str);
-			return(new_str);
-		}
-		else
-		{
-			new_str = ft_strjoin(sufix_str, value);
-			free(sufix_str);
-			free(str);
-			return(new_str);
-		}
+		temp = new_str;
+		new_str = ft_strjoin(new_str, concat_str);
+		free(temp);
+		free(concat_str);
 	}
+	return (new_str);
+}
+
+static char	*take_prefix_var(char *str, unsigned int *i)
+{
+	char	*sufix;
+
+	sufix = NULL;
+	while (str[*i] && str[*i] != '$')
+	{
+		(*i)++;
+	}
+
+	if (*i > 0)
+		sufix = ft_substr(str, 0, *i);
+	return sufix;
+}
+
+static char	*sufix_var(char *str, unsigned int *i)
+{
+	char	*temp;
+	int		len;
+
+	temp = &str[*i];
+	len = ft_strlen(temp);
+
+
+	if (len > 0)
+		return ft_substr(str, *i, len);
 	return (NULL);
 }
+
 
 char	*char_cat(char *str, char c)
 {
@@ -175,7 +189,7 @@ char	*char_cat(char *str, char c)
 	return (aux);
 }
 
-static char *return_var_key(char *str)
+static char	*return_var_key(char *str)
 {
 	int		i;
 	int		len;
@@ -191,20 +205,18 @@ static char *return_var_key(char *str)
 		if (str[i] == '$')
 		{
 			cpy = i + 1;
-			while (str[i] && str[i] != ' ')
+			while (str[i] && !ft_strchr("\"\',:./[]{}=-+*!?@# ", str[i]))
 			{
 				len++;
 				i++;
 			}
+			len--;
 			break ;
 		}
 		else
 			i++;
 	}
 
-	key = ft_substr(str, (unsigned int)cpy, ((size_t)len - 1));
+	key = ft_substr(str, (unsigned int)cpy, ((size_t)len));
 	return (key);
 }
-
-//Quando expandimos duas variaveis dentro ou fro de aspas da erro
-//echo "$USER ahudaus $USER"
