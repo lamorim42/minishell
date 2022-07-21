@@ -233,3 +233,24 @@ TEST(tokenizer, test_tokenizer_quots_quots)
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
 	ft_free_arr(resultado);
 }
+
+// TEST(count_tks, test_count_tks_single_quots_quots_single_quots) {
+// 	std::string	line;
+// 	int esperado;
+// 	int resultado;
+
+// 	line = "echo \'oi \'$USER\', \"bem vindo\"\'";
+// 	esperado = 4;
+// 	resultado = count_tks((char *)line.c_str());
+
+// 	ASSERT_EQ(resultado, esperado);
+// }
+TEST(tokenizer, test_count_tks_single_quots_single_quots)
+{
+	t_line	line;
+	line.str = "echo \'oi \'$USER\', \"bem vindo\"\'";
+	char	*esperado[] = {"echo", "\'oi \'", "$USER", "\', \"bem vindo\"\'", NULL};
+	char	**resultado = tokenizer(&line);
+
+	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);
+}

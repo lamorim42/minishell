@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 15:42:58 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/21 17:27:40 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ static void	make_red_len(char *str, int *len)
 	char	red;
 
 	red = *str;
-	if (*len == 0)
-		*len = 1;
+	(*len)++;
 	if (red == '>' && str[*len] == '>')
 		(*len)++;
 	if (red == '<' && str[*len] == '<')
@@ -85,27 +84,29 @@ static void	make_quots_len(char *str, int *len)
 	char	quot;
 
 	quot = *str;
-	if (*len == 0)
-		*len = 1;
+	(*len)++;
 	while (str[*len] && str[*len] != quot)
 		(*len)++;
 	if (str[*len] == quot)
 		(*len)++;
+	if (quot == '\'')
+		return ;
 	while (str[*len] && !ft_strchr("|>< ", str[*len]))
 	{
-		if (ft_strchr("\"\'", str[*len]))
+		if (str[*len] == '\"')
+		{
 			return (make_quots_len(str, len));
+		}
 		(*len)++;
 	}
 }
 
 static void	make_word_len(char *str, int *len)
 {
-	if (*len == 0)
-		*len = 1;
-	while (str[*len] && !ft_strchr("|>< ", str[*len]))
+	(*len)++;
+	while (str[*len] && !ft_strchr("|><\' ", str[*len]))
 	{
-		if (ft_strchr("\"\'", str[*len]))
+		if (str[*len] == '\"')
 			return (make_quots_len(str, len));
 		(*len)++;
 	}
