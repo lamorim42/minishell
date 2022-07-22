@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_cmd_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 20:10:01 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/21 15:52:08 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/21 20:14:19 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ static char	*return_var_key(char *str)
 		if (str[i] == '$')
 		{
 			cpy = i + 1;
-			while (str[i] && !ft_strchr("\"\',:./[]{}=-+*!?@# ", str[i]))
+			while (str[i] && !ft_strchr("\"\',:./[]{}=-+*!@# ", str[i]))
 			{
 				len++;
 				i++;

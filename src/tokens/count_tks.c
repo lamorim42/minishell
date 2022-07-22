@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 17:17:48 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/21 19:10:33 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ static void	count_inside_quot_as_one_word(char **line, int *count)
 	while (*(*line + 1) && **line != quot)
 		(*line)++;
 	(*line)++;
-	if (quot == '\'')
-		return ;
 	while (**line && !ft_strchr("|>< ", **line))
 	{
 		if (ft_strchr("\"\'", **line))
@@ -81,9 +79,9 @@ static void	count_inside_quot_as_one_word(char **line, int *count)
 static void	count_word(char **line, int *count)
 {
 	(*count)++;
-	while (**line && !ft_strchr("|><\' ", **line))
+	while (**line && !ft_strchr("|>< ", **line))
 	{
-		if (**line == '\"')
+		if (ft_strchr("\"\'", **line))
 		{
 			(*count)--;
 			return count_inside_quot_as_one_word(line, count);

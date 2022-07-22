@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 17:27:40 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/21 20:01:19 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*worddup(char **s)
 		make_red_len(*s, &len);
 	else if (ft_strchr("\"\'",  **s))
 		make_quots_len(*s, &len);
-	else if (!ft_strchr("|><\"\' ", **s))
+	else if (!ft_strchr("|>< ", **s))
 		make_word_len(*s, &len);
 	str = (char *)malloc(len + 1);
 	if (str == NULL)
@@ -71,7 +71,7 @@ static void	make_red_len(char *str, int *len)
 {
 	char	red;
 
-	red = *str;
+	red = str[*len];
 	(*len)++;
 	if (red == '>' && str[*len] == '>')
 		(*len)++;
@@ -83,32 +83,26 @@ static void	make_quots_len(char *str, int *len)
 {
 	char	quot;
 
-	quot = *str;
+	quot = str[*len];
 	(*len)++;
 	while (str[*len] && str[*len] != quot)
 		(*len)++;
 	if (str[*len] == quot)
 		(*len)++;
-	if (quot == '\'')
-		return ;
 	while (str[*len] && !ft_strchr("|>< ", str[*len]))
 	{
-		if (str[*len] == '\"')
-		{
+		if (ft_strchr("\"\'", str[*len]))
 			return (make_quots_len(str, len));
-		}
 		(*len)++;
 	}
 }
 
 static void	make_word_len(char *str, int *len)
 {
-	(*len)++;
-	while (str[*len] && !ft_strchr("|><\' ", str[*len]))
+	while (str[*len] && !ft_strchr("|>< ", str[*len]))
 	{
-		if (str[*len] == '\"')
+		if (ft_strchr("\"\'", str[*len]))
 			return (make_quots_len(str, len));
 		(*len)++;
 	}
 }
-

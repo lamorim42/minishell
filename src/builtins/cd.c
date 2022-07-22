@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 17:55:38 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/21 20:43:48 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ static void	cd_expand(t_hash_table **table, char *old_pwd, char *expand)
 	char	*aux;
 
 	aux = search_item(*table, expand);
-	chdir(aux);
+	if (chdir(aux) == -1)
+	{
+		g_minishell.line->status_code = 1;
+		perror(aux);
+		free(aux);
+		return ;
+	}
 	update_var_env(table, "PWD", aux);
 	update_var_env(table, "OLDPWD", old_pwd);
 	free(aux);

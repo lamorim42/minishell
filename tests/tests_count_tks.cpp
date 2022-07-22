@@ -363,7 +363,7 @@ TEST(count_tks, test_count_tks_quots_quots_single_quots) {
 	int resultado;
 
 	line = "echo \"\"$HOME\"\" \'\'$USER\'\'";
-	esperado = 5;
+	esperado = 3;
 	resultado = count_tks((char *)line.c_str());
 
 	ASSERT_EQ(resultado, esperado);
@@ -375,7 +375,19 @@ TEST(count_tks, test_count_tks_single_quots_quots_single_quots) {
 	int resultado;
 
 	line = "echo \'oi \'$USER\', \"bem vindo\"\'";
-	esperado = 4;
+	esperado = 2;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
+TEST(count_tks, test_count_echo_ls_la) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "echo $USER | l\'s\' -l\"a\"";
+	esperado = 5;
 	resultado = count_tks((char *)line.c_str());
 
 	ASSERT_EQ(resultado, esperado);
