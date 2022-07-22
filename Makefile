@@ -43,7 +43,10 @@ SRC		=	main.c \
 			exec_list.c \
 			expand_var.c \
 			expand_var_utils.c \
-
+			fd_handler_utils.c \
+			facade.c \
+			tokenizer_utils.c \
+			signals_utils.c \
 
 LIBFT_PATH = ./Libft
 LIBFT = $(LIBFT_PATH)/libft.a

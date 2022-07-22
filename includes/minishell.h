@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/22 18:15:11 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/22 19:30:39 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ struct s_minishell
 
 struct s_minishell	g_minishell;
 
+//main_loop
+void			facade(t_line *line, t_hash_table **table);
+void			building_tokens(t_line *line);
+
 void			verification_input(t_pipe_list *temp);
 void			close_fds(t_pipe_list *node);
 void			open_fds(t_line *line);
@@ -92,7 +96,8 @@ int				is_args_ok(char *arg);
 char			*return_var_key(char *str);
 void			key_len(char *str, int *i, int *len);
 void			insert_var_in_hash(char *arg, t_hash_table **table);
-void			insert_simple_var_in_hash(t_hash_table **table, char **split_str);
+void			insert_simple_var_in_hash(t_hash_table **table,
+					char **split_str);
 void			building_var(char **split, char *str, char *s);
 
 char			*take_prefix_var(char *str, unsigned int *i);
@@ -118,8 +123,11 @@ void			update_var_env(t_hash_table **table, char *str_key, char *val);
 void			signals(t_line *line);
 void			signals_parent(t_line *line);
 void			signal_ignore(t_line *line);
-//void			signals_child(t_line *line);
-int				file_exists (int fd);
+void			signal_here(t_line *line);
+void			sig_here(int sig);
+void			sig_handler(int sig);
+
+int				file_exists(int fd);
 char			**tokenizer(t_line *line);
 char			**lexical_analyzer(t_line *line);
 int				sintax_analysis(char **lex);
@@ -136,9 +144,11 @@ void			error_msg(char *str, char *msg);
 void			free_exit(t_line *line, t_hash_table *table, int status);
 
 //exec
-void			init_fork(t_line *line, t_pipe_list *list, t_hash_table **table);
+void			init_fork(t_line *line, t_pipe_list *list,
+					t_hash_table **table);
 char			*path_finder(t_line *line, char *cmd);
-void			exec_path(t_line *line, t_pipe_list *list, t_hash_table **table);
+void			exec_path(t_line *line, t_pipe_list *list,
+					t_hash_table **table);
 void			exec_list(t_line *line, t_hash_table **table);
 void			creat_list_cmd(t_line *line);
 void			list_generation_bin(t_line *line);
