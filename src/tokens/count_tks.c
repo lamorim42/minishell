@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 19:10:33 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:46:55 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ static void	count_special_chr(char **line, int *count)
 	(*count)++;
 	(*line)++;
 	if (ft_strchr("\"\'", **line))
-	{
-		return count_inside_quot_as_one_word(line, count);
-	}
+		return (count_inside_quot_as_one_word(line, count));
 	if (red == '>' && ft_strchr(">", **line))
 		(*line)++;
 	if (red == '<' && ft_strchr("<", **line))
@@ -70,7 +68,7 @@ static void	count_inside_quot_as_one_word(char **line, int *count)
 		if (ft_strchr("\"\'", **line))
 		{
 			(*count)--;
-			return count_inside_quot_as_one_word(line, count);
+			return (count_inside_quot_as_one_word(line, count));
 		}
 		(*line)++;
 	}
@@ -84,7 +82,7 @@ static void	count_word(char **line, int *count)
 		if (ft_strchr("\"\'", **line))
 		{
 			(*count)--;
-			return count_inside_quot_as_one_word(line, count);
+			return (count_inside_quot_as_one_word(line, count));
 		}
 		(*line)++;
 	}

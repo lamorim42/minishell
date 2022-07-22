@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:36:27 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/20 18:50:32 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/22 13:48:16 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	sintax_analysis(char **lex)
 			return (FALSE);
 		if (!ft_strncmp(lex[i], "REDA", 4)
 			&& (lex[i + 1] == NULL || ft_strncmp(lex[i + 1], "WORD", 4)))
-			return(FALSE);
+			return (FALSE);
 		if (!ft_strncmp(lex[i], "REDI", 4)
 			&& (lex[i + 1] == NULL || ft_strncmp(lex[i + 1], "WORD", 4)))
-			return(FALSE);
+			return (FALSE);
 		if (!ft_strncmp(lex[i], "HERE", 4)
 			&& (lex[i + 1] == NULL || ft_strncmp(lex[i + 1], "WORD", 4)))
-			return(FALSE);
+			return (FALSE);
 		i++;
 	}
 	return (TRUE);

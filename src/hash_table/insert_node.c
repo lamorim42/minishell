@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insert_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:19:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 21:38:20 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:44:44 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	hash_insert(t_hash_table **table, char *key, char *value)
 	index = hash_function(key);
 	item = create_item(key, value);
 	crt = (*table)->item[index];
-
 	if (crt == NULL)
 	{
 		(*table)->item[index] = item;

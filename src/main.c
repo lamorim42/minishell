@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:12:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 15:47:24 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/22 17:34:58 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ static void	alloc_commands(t_line *line)
 	t_pipe_list *temp;
 
 	temp = line->list_cmds;
+	line->pid_index = 0;
 	while (temp)
 	{
 		if (is_command(temp))

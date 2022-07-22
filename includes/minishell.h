@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 21:37:10 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/22 18:15:11 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_line {
 	int			status_code;
 	int			count_cmds;
 	int			*pid;
+	int			pid_index;
 	int			sig;
 	t_pipe_list	*list_cmds;
 }				t_line;
@@ -87,7 +88,15 @@ void			open_fds(t_line *line);
 int				is_command(t_pipe_list *node);
 void			close_std_fd(t_line *line);
 int				verify_quots(char *str);
+int				is_args_ok(char *arg);
+char			*return_var_key(char *str);
+void			key_len(char *str, int *i, int *len);
+void			insert_var_in_hash(char *arg, t_hash_table **table);
+void			insert_simple_var_in_hash(t_hash_table **table, char **split_str);
+void			building_var(char **split, char *str, char *s);
 
+char			*take_prefix_var(char *str, unsigned int *i);
+char			*sufix_var(char *str, unsigned int *i);
 
 int				is_redirect_output(t_pipe_list *node);
 int				is_redirect_input(t_pipe_list *node);

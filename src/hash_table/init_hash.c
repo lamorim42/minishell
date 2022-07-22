@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:49:43 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 15:55:33 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/22 13:52:08 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*print_search(t_hash_table **table, char *key)
 	if (val == NULL)
 	{
 		printf("Key:%s does not exist\n", key);
-		return NULL;
+		return (NULL);
 	}
 	else
 		printf("Key:%s, Value:%s\n", key, val);
@@ -57,7 +57,7 @@ void	print_table(t_hash_table **table)
 		if ((*table)->item[i])
 		{
 			current = (*table)->item[i];
-			while(current != NULL)
+			while (current != NULL)
 			{
 				temp = current->next;
 				if (current->key != NULL)

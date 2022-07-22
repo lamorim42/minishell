@@ -17,7 +17,7 @@ SRC		=	main.c \
 			signals.c \
 			make_list.c \
 			creat_cmd_table.c \
-			list_commands.c \
+			list_generation_bin.c \
 			init_hash.c \
 			create_node.c \
 			create_table.c \
@@ -36,7 +36,13 @@ SRC		=	main.c \
 			unset.c \
 			exit.c \
 			here_doc.c \
+			here_doc_utils.c \
 			fd_handler.c \
+			builtins_utils.c \
+			exec_utils.c \
+			exec_list.c \
+			expand_var.c \
+			expand_var_utils.c \
 
 
 LIBFT_PATH = ./Libft
