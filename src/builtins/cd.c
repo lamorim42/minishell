@@ -3,53 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/17 19:40:08 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/21 21:36:53 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update_var_env(t_hash_table **table, char *str_key, char *val);
+static void	cd_expand(t_hash_table **table, char *old_pwd, char *expand);
+
 void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 {
-	char	*str_oldpwd;
+	char	*old_pwd;
 	char	buffer[500];
-	char	*home;
 
 	getcwd(buffer, 500);
-	str_oldpwd = ft_strdup(buffer);
-	if (ft_strlen(node->args[0]) > 2)
-	{
-		error_msg(node->args[0], ": command not found\n");
-		return ;
-	}
-	if (node->args[1] == NULL)
-	{
-		home = search_item(*table, "HOME");
-		chdir(home);
-		update_var_env(table, "PWD", home);
-		update_var_env(table, "OLDPWD", str_oldpwd);
-		free(home);
-	}
+	old_pwd = ft_strdup(buffer);
+	if (node->args[1] == NULL || ft_strcmp_len(node->args[1], "~"))
+		cd_expand(table, old_pwd, "HOME");
+	else if (ft_strcmp_len(node->args[1], "-"))
+		cd_expand(table, old_pwd, "OLDPWD");
 	else if (chdir(node->args[1]) == -1)
 	{
-		error_msg(node->args[1], ": No such file or directory\n");
-		return ;
+		g_minishell.line->status_code = 1;
+		perror(node->args[1]);
 	}
 	else
 	{
 		getcwd(buffer, 500);
 		update_var_env(table, "PWD", buffer);
-		update_var_env(table, "OLDPWD", str_oldpwd);
+		update_var_env(table, "OLDPWD", old_pwd);
 	}
-	free(str_oldpwd);
+	free(old_pwd);
 }
 
-static void	update_var_env(t_hash_table **table, char *str_key, char *val)
+void	update_var_env(t_hash_table **table, char *str_key, char *val)
 {
 	table_delete(table, str_key);
 	hash_insert(table, str_key, val);
+}
+
+static void	cd_expand(t_hash_table **table, char *old_pwd, char *expand)
+{
+	char	*aux;
+
+	aux = search_item(*table, expand);
+	if (chdir(aux) == -1)
+	{
+		g_minishell.line->status_code = 1;
+		perror(aux);
+		free(aux);
+		return ;
+	}
+	update_var_env(table, "PWD", aux);
+	update_var_env(table, "OLDPWD", old_pwd);
+	free(aux);
 }

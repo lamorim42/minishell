@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:55:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 19:18:46 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:44:05 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static char	*clean_quots(char *tks);
+static char	*clean_in_middle(char *tks);
 
 char	**clean_tokens(t_line *line)
 {
@@ -37,37 +38,15 @@ char	**clean_tokens(t_line *line)
 static char	*clean_quots(char *tks)
 {
 	char	*copy;
-	int		i;
-	int		j;
-	int		quots;
 
-	quots = 0;
-	i = 0;
-	j = 0;
 	if (tks[0] == '\"' && tks[ft_strlen(tks) - 1] == '\"')
 		copy = ft_strtrim(tks, "\"");
 	else if (tks[0] == '\'' && tks[ft_strlen(tks) - 1] == '\'')
 		copy = ft_strtrim(tks, "\'");
 	else
-	{
-		quots = count_quots(tks);
-		copy = (char *)malloc(sizeof(char *) * (ft_strlen(tks) - quots + 1));
-		while (tks[i] != '\0')
-		{
-			if (tks[i] != '\"' && tks[i] != '\'')
-				copy[j++] = tks[i++];
-			else
-				i++;
-		}
-		copy[j] = '\0';
-	}
-
-	if (count_quots(copy) != 2 && (ft_strchr(copy, '\"') || ft_strchr(copy, '\'')))
-		return (clean_quots(copy));
-	else
-		return (copy);
+		copy = clean_in_middle(tks);
+	return (copy);
 }
-
 
 int	count_quots(char *tks)
 {
@@ -83,4 +62,26 @@ int	count_quots(char *tks)
 		i++;
 	}
 	return (quots);
+}
+
+static char	*clean_in_middle(char *tks)
+{
+	int		quots;
+	char	*copy;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	quots = count_quots(tks);
+	copy = (char *)malloc(sizeof(char *) * (ft_strlen(tks) - quots + 1));
+	while (tks[i] != '\0')
+	{
+		if (tks[i] != '\"' && tks[i] != '\'')
+			copy[j++] = tks[i++];
+		else
+			i++;
+	}
+	copy[j] = '\0';
+	return (copy);
 }

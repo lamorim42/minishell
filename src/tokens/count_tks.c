@@ -3,62 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   count_tks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/03 14:13:49 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:46:55 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //# include "minishell.h"
 #include "../../Libft/libft.h"
 
-static void	update_counter_flag(int *counter, int *flag);
-static void	count_inside_quot_as_one_word(char **line);
+static void	count_special_chr(char **line, int *count);
+static void	count_inside_quot_as_one_word(char **line, int *count);
+static void	count_word(char **line, int *count);
 
 int	count_tks(char *line)
 {
 	int		counter;
-	int		flag;
 
-	flag = 0;
 	counter = 0;
 	while (*line)
 	{
 		if (ft_strchr("|><", *line))
-		{
-			counter++;
-			if (ft_strchr(">", *line) && ft_strchr(">", *(line + 1)))
-				line++;
-			if (ft_strchr("<", *line) && ft_strchr("<", *(line + 1)))
-				line++;
-		}
-		if (!flag && ft_strchr("\"\'", *line))
-		{
-			count_inside_quot_as_one_word(&line);
-			update_counter_flag(&counter, &flag);
-		}
-		else if (!flag && !ft_strchr("|>< ", *line))
-			update_counter_flag(&counter, &flag);
-		else if (flag && ft_strchr("|>< ", *line))
-			flag = 0;
-		line++;
+			count_special_chr(&line, &counter);
+		else if (ft_strchr("\"\'", *line))
+			count_inside_quot_as_one_word(&line, &counter);
+		else if (!ft_strchr("|><\"\' ", *line))
+			count_word(&line, &counter);
+		else if (ft_strchr(" ", *line))
+			line++;
 	}
 	return (counter);
 }
 
-static void	update_counter_flag(int *counter, int *flag)
+static void	count_special_chr(char **line, int *count)
 {
-	(*counter)++;
-	*flag = 1;
+	char	red;
+
+	red = **line;
+	(*count)++;
+	(*line)++;
+	if (ft_strchr("\"\'", **line))
+		return (count_inside_quot_as_one_word(line, count));
+	if (red == '>' && ft_strchr(">", **line))
+		(*line)++;
+	if (red == '<' && ft_strchr("<", **line))
+		(*line)++;
+	if (**line)
+		(*line)++;
 }
 
-static void	count_inside_quot_as_one_word(char **line)
+static void	count_inside_quot_as_one_word(char **line, int *count)
 {
 	char	quot;
 
+	(*count)++;
 	quot = **line;
 	(*line)++;
 	while (*(*line + 1) && **line != quot)
 		(*line)++;
+	(*line)++;
+	while (**line && !ft_strchr("|>< ", **line))
+	{
+		if (ft_strchr("\"\'", **line))
+		{
+			(*count)--;
+			return (count_inside_quot_as_one_word(line, count));
+		}
+		(*line)++;
+	}
+}
+
+static void	count_word(char **line, int *count)
+{
+	(*count)++;
+	while (**line && !ft_strchr("|>< ", **line))
+	{
+		if (ft_strchr("\"\'", **line))
+		{
+			(*count)--;
+			return (count_inside_quot_as_one_word(line, count));
+		}
+		(*line)++;
+	}
 }

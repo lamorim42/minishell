@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insert_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:19:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/06/16 10:36:49 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/22 13:44:44 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	hash_insert(t_hash_table **table, char *key, char *value)
 	}
 	else
 	{
-		if (*(crt->key) && (ft_strncmp(crt->key, key, ft_strlen(key) + 1) == 0))
+		if (crt->key && (ft_strcmp_len(crt->key, key)))
 		{
 			free (crt->value);
 			crt->value = ft_strdup(value);

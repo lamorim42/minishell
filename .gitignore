@@ -6,3 +6,5 @@ tests/cmake_install.cmake
 tests/CMakeCache.txt
 tests/Makefile
 fileout
+file
+minishell_tester/

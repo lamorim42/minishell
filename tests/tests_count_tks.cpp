@@ -121,34 +121,34 @@ TEST(count_tks, test_count_tks_with_quots_end_of_word)
 	ASSERT_EQ(resultado, esperado);
 }
 
-TEST(count_tks, test_count_tks_with_quots_incomplite)
-{
-	std::string	line;
-	int esperado;
-	int resultado;
+// TEST(count_tks, test_count_tks_with_quots_incomplite)
+// {
+// 	std::string	line;
+// 	int esperado;
+// 	int resultado;
 
-	line = "l\"s -a";
-	esperado = 2;
-	resultado = count_tks((char *)line.c_str());
+// 	line = "l\"s -a";
+// 	esperado = 2;
+// 	resultado = count_tks((char *)line.c_str());
 
-	ASSERT_EQ(resultado, esperado);
-}
+// 	ASSERT_EQ(resultado, esperado);
+// }
 
-TEST(count_tks, test_count_tks_with_quots_incomplite_first)
-{
-	// Assinement
-	std::string	line;
-	int esperado;
-	int resultado;
-	line = "\"ls -a";
-	esperado = 1;
+// TEST(count_tks, test_count_tks_with_quots_incomplite_first)
+// {
+// 	// Assinement
+// 	std::string	line;
+// 	int esperado;
+// 	int resultado;
+// 	line = "\"ls -a";
+// 	esperado = 1;
 
-	// act
-	resultado = count_tks((char *)line.c_str());
+// 	// act
+// 	resultado = count_tks((char *)line.c_str());
 
-	//assert
-	ASSERT_EQ(resultado, esperado);
-}
+// 	//assert
+// 	ASSERT_EQ(resultado, esperado);
+// }
 
 TEST(count_tks, test_count_tks_with_quots_echo)
 {
@@ -188,8 +188,8 @@ TEST(count_tks, test_cat_pipe_cat_with_quots)
 	std::string	line;
 	int esperado;
 	int resultado;
-	line = "ca\"t\"|\" cat\"|";
-	esperado = 4;
+	line = "ca\"t\"|\" cat\"<out";
+	esperado = 5;
 
 	// act
 	resultado = count_tks((char *)line.c_str());
@@ -233,7 +233,6 @@ TEST(count_tks, test_count_tks_with_squots_and_quots)
 	line = "echo \"abba \'ebba\' obba\"";
 	esperado = 2;
 	resultado = count_tks((char *)line.c_str());
-	//dprintf(2, "resultado = %d\n", resultado);
 
 	ASSERT_EQ(resultado, esperado);
 }
@@ -353,6 +352,42 @@ TEST(count_tks, test_count_tks_echo_var_var) {
 
 	line = "echo \"$HOME\" \"$USER\"";
 	esperado = 3;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
+TEST(count_tks, test_count_tks_quots_quots_single_quots) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "echo \"\"$HOME\"\" \'\'$USER\'\'";
+	esperado = 3;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
+TEST(count_tks, test_count_tks_single_quots_quots_single_quots) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "echo \'oi \'$USER\', \"bem vindo\"\'";
+	esperado = 2;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
+TEST(count_tks, test_count_echo_ls_la) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "echo $USER | l\'s\' -l\"a\"";
+	esperado = 5;
 	resultado = count_tks((char *)line.c_str());
 
 	ASSERT_EQ(resultado, esperado);

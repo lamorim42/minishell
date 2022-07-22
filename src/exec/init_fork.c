@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:25:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/16 08:45:32 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/22 18:35:58 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ static void	population_arr_pid(t_line *line, int pid);
 
 void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 {
-	int pid;
+	int	pid;
 
 	pid = 0;
-
 	if (list && (!ft_strncmp(list->args[0], "REDO", 4)
 			|| !ft_strncmp(list->args[0], "REDA", 4)))
 		close(list->fd[0]);
@@ -29,7 +28,7 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 		pid = fork();
 		if (pid == 0)
 		{
-			signals_child(line);
+			close_std_fd(line);
 			exec_path(line, list, table);
 		}
 		else
@@ -44,19 +43,6 @@ void	init_fork(t_line *line, t_pipe_list *list, t_hash_table **table)
 
 static void	population_arr_pid(t_line *line, int pid)
 {
-	int	i;
-
-	i = 0;
-	while (i < line->count_cmds)
-	{
-		if(line->pid[i] != 0)
-		{
-			i++;
-			continue ;
-		}
-		line->pid[i] = pid;
-		i++;
-	}
-
-	line->pid[i] = '\0';
+	line->pid[line->pid_index] = pid;
+	line->pid_index++;
 }

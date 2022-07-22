@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:08:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/13 19:50:28 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:17:56 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 void	unset_builtin(t_pipe_list *node, t_hash_table **table)
 {
-	char *value;
+	char	*value;
 
-	if (ft_strlen(node->args[0]) > 5)
-	{
-		error_msg(node->args[0], "command not found\n");
-		return ;
-	}
-	if (ft_isalpha(node->args[1][0]))
+	if (node->args[1] != NULL && ft_isalpha(node->args[1][0]))
 	{
 		value = search_item(*table, node->args[1]);
 		if (value != NULL)
@@ -35,6 +30,9 @@ void	unset_builtin(t_pipe_list *node, t_hash_table **table)
 			return ;
 		}
 	}
-	else
+	else if (node->args[1])
+	{
+		g_minishell.line->status_code = 1;
 		error_msg(node->args[1], ": not a valid identifier\n");
+	}
 }
