@@ -6,7 +6,7 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 20:03:45 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:37:10 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int				ft_array_len(char **array);
 char			**copy_array(char **tokens, int size);
 
 int				count_tks(char *line);
+void			update_var_env(t_hash_table **table, char *str_key, char *val);
 
 //signals
 void			signals(t_line *line);

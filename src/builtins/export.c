@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:07:29 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 15:52:37 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/21 21:43:55 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	is_args_ok(char *arg);
 static void	building_var(char **split, char *str, char *s);
 static void	insert_var_in_hash(char *arg, t_hash_table **table);
 static void	print_export(t_hash_table **table);
+static void	insert_simple_var_in_hash(t_hash_table **table, char **split_str);
 
 struct s_export
 {
@@ -74,8 +75,25 @@ static void	insert_var_in_hash(char *arg, t_hash_table **table)
 		}
 	}
 	if (split_str[1])
-		hash_insert(table, split_str[0], split_str[1]);
+		insert_simple_var_in_hash(table, split_str);
+
 	ft_free_arr(split_str);
+}
+
+static void	insert_simple_var_in_hash(t_hash_table **table, char **split_str)
+{
+	char	*temp;
+	temp = search_item(*table, split_str[0]);
+	if (temp == NULL)
+	{
+		hash_insert(table, split_str[0], split_str[1]);
+		free(temp);
+	}
+	else
+	{
+		update_var_env(table, split_str[0], split_str[1]);
+		free(temp);
+	}
 }
 
 static void	building_var(char **split, char *str, char *s)

@@ -6,13 +6,12 @@
 /*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 20:43:48 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:36:53 by dmonteir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update_var_env(t_hash_table **table, char *str_key, char *val);
 static void	cd_expand(t_hash_table **table, char *old_pwd, char *expand);
 
 void	cd_builtin(t_pipe_list *node, t_hash_table **table)
@@ -40,7 +39,7 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 	free(old_pwd);
 }
 
-static void	update_var_env(t_hash_table **table, char *str_key, char *val)
+void	update_var_env(t_hash_table **table, char *str_key, char *val)
 {
 	table_delete(table, str_key);
 	hash_insert(table, str_key, val);
