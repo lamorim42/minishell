@@ -14,7 +14,7 @@
 
 static int	is_path(char *str);
 
-void	list_generation_bin(t_line *line)
+void	list_generation_bin(t_line *line, t_hash_table **table)
 {
 	t_pipe_list	*temp;
 
@@ -29,7 +29,7 @@ void	list_generation_bin(t_line *line)
 			if (is_path(temp->args[0]))
 				temp->bin = ft_strdup(temp->args[0]);
 			else
-				temp->bin = path_finder(line, temp->args[0]);
+				temp->bin = path_finder(temp->args[0], table);
 		}
 		temp = temp->next;
 	}

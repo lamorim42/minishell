@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   facade.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:48:58 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/22 19:17:38 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/23 17:08:49 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	exec_pipe_line(t_line *line, t_hash_table **table)
 	}
 	waitpid(pid, &(line->status_code), 0);
 	close_here_doc(line->list_cmds);
-	list_generation_bin(line);
+	list_generation_bin(line, table);
 	alloc_commands(line);
 	open_fds(line);
 	exec_list(line, table);
