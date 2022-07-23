@@ -249,7 +249,7 @@ TEST(tokenizer, test_count_tks_single_quots_single_quots)
 {
 	t_line	line;
 	line.str = "echo \'oi \'$USER\', \"bem vindo\"\'";
-	char	*esperado[] = {"echo", "\'oi \'$USER\', \"bem vindo\"\'", NULL};
+	char	*esperado[] = {"echo", "\'oi \'", "$USER", "\', \"bem vindo\"\'", NULL};
 	char	**resultado = tokenizer(&line);
 
 	EXPECT_TRUE(ft_arrcmp(esperado, resultado) == 0);

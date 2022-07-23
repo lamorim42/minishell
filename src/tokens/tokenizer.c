@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 18:35:38 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/23 10:05:40 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 13:45:04 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	make_quots_len(char *str, int *len)
 		(*len)++;
 	if (str[*len] == quot)
 		(*len)++;
-	while (str[*len] && !ft_strchr("|>< ", str[*len]))
+	while (str[*len] && !ft_strchr("|><$ ", str[*len]))
 	{
 		if (ft_strchr("\"\'", str[*len]))
 			return (make_quots_len(str, len));
@@ -99,10 +99,15 @@ static void	make_quots_len(char *str, int *len)
 
 static void	make_word_len(char *str, int *len)
 {
+	char	var;
+
+	var = str[*len];
 	while (str[*len] && !ft_strchr("|>< ", str[*len]))
 	{
-		if (ft_strchr("\"\'", str[*len]))
+		if (ft_strchr("\"\'", str[*len]) && var != '$')
 			return (make_quots_len(str, len));
+		else if (ft_strchr("\"\'", str[*len]) && var == '$')
+			return ;
 		(*len)++;
 	}
 }
