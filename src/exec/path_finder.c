@@ -6,52 +6,45 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:12:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/06 17:20:45 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 17:19:52 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*get_path(t_line *line)
+static char	*get_path(t_hash_table **table)
 {
 	int		i;
 	char	*path;
 
 	i = 0;
 	path = NULL;
-	while (line->envp[i])
-	{
-		if (!ft_strncmp(line->envp[i], "PATH=", 5))
-		{
-			path = ft_strdup(line->envp[i] + 5);
-			break ;
-		}
-		i++;
-	}
+	path = search_item(*table, "PATH");
 	return (path);
 }
 
-static char	**split_path(t_line *line)
+static char	**split_path(t_hash_table **table)
 {
 	char	*path_cmd;
 	char	**path;
 
-	path_cmd = get_path(line);
-	path = ft_split(path_cmd, ':');
+	path = NULL;
+	path_cmd = get_path(table);
+	if (path_cmd != NULL)
+		path = ft_split(path_cmd, ':');
 	free (path_cmd);
 	return (path);
 }
 
-char	*path_finder(t_line *line, char *cmd)
+static char	*access_path(char *cmd, char **paths)
 {
-	char	**paths;
-	char	*bin;
 	char	*cmd_bin;
 	int		i;
+	char	*bin;
 
-	paths = split_path(line);
-	cmd_bin = ft_strjoin("/", cmd);
 	i = 0;
+	bin = NULL;
+	cmd_bin = ft_strjoin("/", cmd);
 	while (paths[i])
 	{
 		bin = ft_strjoin(paths[i], cmd_bin);
@@ -66,5 +59,17 @@ char	*path_finder(t_line *line, char *cmd)
 	}
 	free(cmd_bin);
 	ft_free_arr(paths);
+	return (bin);
+}
+
+char	*path_finder(char *cmd, t_hash_table **table)
+{
+	char	**paths;
+	char	*bin;
+
+	bin = NULL;
+	paths = split_path(table);
+	if (paths != NULL)
+		bin = access_path(cmd, paths);
 	return (bin);
 }

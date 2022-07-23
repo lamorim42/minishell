@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:08:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/23 15:23:48 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 16:15:00 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,27 @@ extern struct s_minishell	g_minishell;
 void	unset_builtin(t_pipe_list *node, t_hash_table **table)
 {
 	char	*value;
+	int		i;
 
-	if (node->args[1] != NULL && ft_isalpha(node->args[1][0]))
+	i = 1;
+	while (node->args[i])
 	{
-		value = search_item(*table, node->args[1]);
-		if (value != NULL)
+		if (ft_isalpha(node->args[i][0]))
 		{
-			table_delete(table, node->args[1]);
-			free(value);
+			value = search_item(*table, node->args[i]);
+			if (value != NULL)
+			{
+				table_delete(table, node->args[i]);
+				free(value);
+			}
+			else
+				free(value);
 		}
-		else
+		else if (node->args[i])
 		{
-			free(value);
-			return ;
+			g_minishell.line->status_code = 1;
+			error_msg(node->args[i], ": not a valid identifier\n");
 		}
-	}
-	else if (node->args[1])
-	{
-		g_minishell.line->status_code = 1;
-		error_msg(node->args[1], ": not a valid identifier\n");
+		i++;
 	}
 }
