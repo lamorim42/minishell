@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:46:38 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/22 18:37:16 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 09:39:21 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	change_value(t_line *line, t_hash_table *table, unsigned int i);
 static char	*join_str_value(char *key, char *value, char *str);
-static void	join_helper(char *new, char *helper);
+static char	*join_helper(char *new, char *helper);
 
 void	expand_var(t_line *line, t_hash_table *table)
 {
@@ -67,7 +67,7 @@ static char	*join_str_value(char *key, char *value, char *str)
 		return (ft_strdup(value));
 	new_str = take_prefix_var(str, &i);
 	if (new_str != NULL)
-		join_helper(new_str, value);
+		new_str = join_helper(new_str, value);
 	else
 		new_str = ft_strdup(value);
 	i += (ft_strlen(key) + 1);
@@ -75,13 +75,13 @@ static char	*join_str_value(char *key, char *value, char *str)
 		concat_str = sufix_var(str, &i);
 	if (concat_str != NULL)
 	{
-		join_helper(new_str, concat_str);
+		new_str = join_helper(new_str, concat_str);
 		free(concat_str);
 	}
 	return (new_str);
 }
 
-static void	join_helper(char *new, char *helper)
+static char	*join_helper(char *new, char *helper)
 {
 	char	*temp;
 
@@ -89,4 +89,5 @@ static void	join_helper(char *new, char *helper)
 	new = ft_strjoin(new, helper);
 	free(temp);
 	temp = NULL;
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:13:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/22 17:51:01 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 10:42:33 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,16 @@ static void	generation_content(t_pipe_list *node, struct s_hd *hd)
 			free(hd->content);
 			break ;
 		}
-		if (hd->temp == NULL)
+		if (!hd->temp)
 		{
 			hd->temp = char_cat(hd->content, '\n');
 			free(hd->content);
 		}
 		else
+		{
 			hd->buffer = put_nl_in_buf(hd->temp, hd->content);
+			hd->temp = hd->buffer;
+		}
 	}
 }
 
@@ -99,6 +102,5 @@ static char	*put_nl_in_buf(char *temp, char *content)
 	buffer = char_cat(buffer, '\n');
 	free(temp);
 	free (content);
-	temp = buffer;
 	return (buffer);
 }
