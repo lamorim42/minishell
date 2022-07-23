@@ -6,11 +6,13 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:08:17 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 17:17:56 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 15:23:48 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern struct s_minishell	g_minishell;
 
 void	unset_builtin(t_pipe_list *node, t_hash_table **table)
 {

@@ -6,11 +6,13 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:09:53 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 18:14:06 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 15:23:28 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern struct s_minishell	g_minishell;
 
 int	is_char_number(char *str, int *status_code)
 {

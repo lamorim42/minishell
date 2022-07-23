@@ -1,6 +1,6 @@
 #Name
 NAME	= minishell
-CC		= gcc
+CC		= clang
 CFLAGS	= -Wall -Werror -Wextra -g
 
 #Source
@@ -78,7 +78,7 @@ $(NAME):	$(OBJ) $(LIBFT)
 			$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
 
 obj_dir:
-			mkdir -p $(OBJ_DIR)
+			@mkdir -p $(OBJ_DIR)
 
 $(LIBFT):
 			make -C $(LIBFT_PATH)

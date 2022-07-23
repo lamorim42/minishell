@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/21 21:36:53 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/23 15:23:11 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern struct s_minishell	g_minishell;
 
 static void	cd_expand(t_hash_table **table, char *old_pwd, char *expand);
 

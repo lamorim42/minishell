@@ -6,11 +6,13 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 13:58:12 by lamorim           #+#    #+#             */
-/*   Updated: 2022/07/22 18:14:04 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 15:23:01 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern struct s_minishell	g_minishell;
 
 void	exec_builtins(t_pipe_list *node, t_hash_table **table)
 {

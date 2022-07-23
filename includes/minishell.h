@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 11:19:31 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/23 13:45:55 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 15:21:49 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ struct s_minishell
 	t_line			*line;
 	t_hash_table	*table;
 };
-
-struct s_minishell	g_minishell;
 
 //main_loop
 void			facade(t_line *line, t_hash_table **table);

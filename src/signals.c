@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 20:42:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/22 19:13:45 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/23 15:22:52 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern struct s_minishell	g_minishell;
 
 static void	sig_parent(int sig)
 {
