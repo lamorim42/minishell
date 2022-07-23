@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/23 16:35:45 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 18:21:48 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 	old_pwd = ft_strdup(buffer);
 	if (node->args[1] == NULL || ft_strcmp_len(node->args[1], "~"))
 		cd_expand(table, old_pwd, "HOME");
-	else if (ft_strcmp_len(node->args[1], "-"))
-		cd_expand(table, old_pwd, "OLDPWD");
 	else if (chdir(node->args[1]) == -1)
 	{
 		g_minishell.line->status_code = 1;
@@ -43,8 +41,13 @@ void	cd_builtin(t_pipe_list *node, t_hash_table **table)
 
 void	update_var_env(t_hash_table **table, char *str_key, char *val)
 {
-	table_delete(table, str_key);
+	char	*valid;
+
+	valid = search_item(*table, str_key);
+	if (valid != NULL)
+		table_delete(table, str_key);
 	hash_insert(table, str_key, val);
+	free(valid);
 }
 
 static void	cd_expand(t_hash_table **table, char *old_pwd, char *expand)
