@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:13:22 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/22 17:51:01 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 10:55:13 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ struct s_hd
 	char	*buffer;
 };
 
+static void	putting_nl(struct s_hd *hd);
 static char	*put_nl_in_buf(char *temp, char *content);
 static void	generation_content(t_pipe_list *node, struct s_hd *hd);
 
@@ -52,40 +53,21 @@ static void	generation_content(t_pipe_list *node, struct s_hd *hd)
 			free(hd->content);
 			break ;
 		}
-		if (hd->temp == NULL)
-		{
-			hd->temp = char_cat(hd->content, '\n');
-			free(hd->content);
-		}
-		else
-			hd->buffer = put_nl_in_buf(hd->temp, hd->content);
+		putting_nl(hd);
 	}
 }
 
-void	creat_here_doc(t_pipe_list *list)
+static void	putting_nl(struct s_hd *hd)
 {
-	t_pipe_list	*node;
-
-	node = list;
-	while (node)
+	if (!hd->temp)
 	{
-		if (ft_strcmp_len(node->args[0], "HERE"))
-			if (pipe(node->fd) != 0)
-				perror("pipe()");
-		node = node->next;
+		hd->temp = char_cat(hd->content, '\n');
+		free(hd->content);
 	}
-}
-
-void	close_here_doc(t_pipe_list *list)
-{
-	t_pipe_list	*node;
-
-	node = list;
-	while (node)
+	else
 	{
-		if (ft_strcmp_len(node->args[0], "HERE"))
-			close(node->fd[1]);
-		node = node->next;
+		hd->buffer = put_nl_in_buf(hd->temp, hd->content);
+		hd->temp = hd->buffer;
 	}
 }
 
@@ -99,6 +81,5 @@ static char	*put_nl_in_buf(char *temp, char *content)
 	buffer = char_cat(buffer, '\n');
 	free(temp);
 	free (content);
-	temp = buffer;
 	return (buffer);
 }

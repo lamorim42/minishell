@@ -393,6 +393,30 @@ TEST(count_tks, test_count_echo_ls_la) {
 	ASSERT_EQ(resultado, esperado);
 }
 
+TEST(count_tks, test_count_here_doc_eof) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "<<o";
+	esperado = 2;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
+TEST(count_tks, test_count_here_doc_quots_eof) {
+	std::string	line;
+	int esperado;
+	int resultado;
+
+	line = "<<\"o\"";
+	esperado = 2;
+	resultado = count_tks((char *)line.c_str());
+
+	ASSERT_EQ(resultado, esperado);
+}
+
 int	main(int argc, char **argv)
 {
 	testing::InitGoogleTest(&argc, argv);

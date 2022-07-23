@@ -6,12 +6,13 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/22 13:46:55 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 10:02:23 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //# include "minishell.h"
 #include "../../Libft/libft.h"
+#include <stdio.h>
 
 static void	count_special_chr(char **line, int *count);
 static void	count_inside_quot_as_one_word(char **line, int *count);
@@ -47,9 +48,7 @@ static void	count_special_chr(char **line, int *count)
 		return (count_inside_quot_as_one_word(line, count));
 	if (red == '>' && ft_strchr(">", **line))
 		(*line)++;
-	if (red == '<' && ft_strchr("<", **line))
-		(*line)++;
-	if (**line)
+	else if (red == '<' && ft_strchr("<", **line))
 		(*line)++;
 }
 
