@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 07:11:02 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/19 17:59:43 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 14:51:33 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	echo_builtin(t_pipe_list *node)
 		i++;
 	while (node->args[i])
 	{
-		if (node->args[i + 1] == NULL)
+		if (node->args[i][0] != '\0' && node->args[i + 1] == NULL)
 		{
 			printf("%s", node->args[i]);
 			break ;
 		}
-		if (node->args[i])
+		if (node->args[i] && node->args[i][0] != '\0')
 			printf("%s ", node->args[i]);
 		i++;
 	}

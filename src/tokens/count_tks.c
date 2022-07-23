@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 20:37:57 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/23 10:02:23 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 13:36:49 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ static void	count_special_chr(char **line, int *count)
 	red = **line;
 	(*count)++;
 	(*line)++;
-	if (ft_strchr("\"\'", **line))
+	if (**line != '\0' && ft_strchr("\"\'", **line))
 		return (count_inside_quot_as_one_word(line, count));
-	if (red == '>' && ft_strchr(">", **line))
+	if (red == '>' && **line == '>')
 		(*line)++;
-	else if (red == '<' && ft_strchr("<", **line))
+	else if (red == '<' && **line == '<')
 		(*line)++;
 }
 
@@ -62,7 +62,7 @@ static void	count_inside_quot_as_one_word(char **line, int *count)
 	while (*(*line + 1) && **line != quot)
 		(*line)++;
 	(*line)++;
-	while (**line && !ft_strchr("|>< ", **line))
+	while (**line && !ft_strchr("|><$ ", **line))
 	{
 		if (ft_strchr("\"\'", **line))
 		{
@@ -75,14 +75,19 @@ static void	count_inside_quot_as_one_word(char **line, int *count)
 
 static void	count_word(char **line, int *count)
 {
+	char	var;
+
+	var = **line;
 	(*count)++;
 	while (**line && !ft_strchr("|>< ", **line))
 	{
-		if (ft_strchr("\"\'", **line))
+		if (ft_strchr("\"\'", **line) && var != '$')
 		{
 			(*count)--;
 			return (count_inside_quot_as_one_word(line, count));
 		}
+		else if (ft_strchr("\"\'", **line) && var == '$')
+			return ;
 		(*line)++;
 	}
 }

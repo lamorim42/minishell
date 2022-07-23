@@ -18,7 +18,7 @@ SRC		=	main.c \
 			make_list.c \
 			creat_cmd_table.c \
 			list_generation_bin.c \
-			init_hash.c \
+			print_table.c \
 			create_node.c \
 			create_table.c \
 			free_hash_table.c \
