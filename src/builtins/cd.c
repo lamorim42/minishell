@@ -6,7 +6,7 @@
 /*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 19:17:50 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/23 15:23:11 by lamorim          ###   ########.fr       */
+/*   Updated: 2022/07/23 16:35:45 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,19 @@ static void	cd_expand(t_hash_table **table, char *old_pwd, char *expand)
 	char	*aux;
 
 	aux = search_item(*table, expand);
-	if (chdir(aux) == -1)
+	if (aux != NULL)
 	{
-		g_minishell.line->status_code = 1;
-		perror(aux);
-		free(aux);
-		return ;
+		if (chdir(aux) == -1)
+		{
+			g_minishell.line->status_code = 1;
+			perror(aux);
+			free(aux);
+			return ;
+		}
+		update_var_env(table, "PWD", aux);
+		update_var_env(table, "OLDPWD", old_pwd);
 	}
-	update_var_env(table, "PWD", aux);
-	update_var_env(table, "OLDPWD", old_pwd);
+	else if (aux == NULL && ft_strcmp_len(expand, "HOME"))
+		error_msg("cd: ", "HOME not set\n");
 	free(aux);
 }
