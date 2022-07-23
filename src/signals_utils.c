@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonteir <dmonteir@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lamorim <lamorim@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:11:00 by dmonteir          #+#    #+#             */
-/*   Updated: 2022/07/22 19:28:20 by dmonteir         ###   ########.fr       */
+/*   Updated: 2022/07/23 15:22:37 by lamorim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+extern struct s_minishell	g_minishell;
 
 void	signal_here(t_line *line)
 {
