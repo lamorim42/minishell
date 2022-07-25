@@ -4,7 +4,7 @@ _Esse é o minishell feito por pessoas que amam gatos_
 
 **Miau Team**: Daniela | dmonteir e Luís | lamorim
 
-## Ídicie
+## Índice
 
 1. [Entendendo projeto](#entendendo-projeto)
 2. [Algumas funções autorizadas](#algumas-funções-autorizadas)
