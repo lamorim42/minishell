@@ -8,6 +8,7 @@ _Esse é o minishell feito por pessoas que amam gatos_
 
 1. [Entendendo projeto](#entendendo-projeto)
 2. [Algumas funções autorizadas](#algumas-funções-autorizadas)
+3. [Clone e execute o prejeto](#clone-e-execute-o-prejeto)
 
 ## Entendendo Projeto
 
@@ -54,6 +55,9 @@ Nessa sessão vamos analizar a estrutúra do diretório [`src/`](./src/)
 - [`exec/`](./src/exec/): onde estão as funções de execução da *pipe line*.
 
 ### Organizando o fluxo de informação
+
+Estamos tratando a informação passada pelo usuário seguindo a arquiterura do *pipe-and-filter*, primeiro avaliamos se o *input* é uma *string* ou se é algum sinal, caso seja uma *string* continuamos o fluxo de informação, caso não, tratamos o sinal.
+
 ## Algumas funções autorizadas
 
 | Função | resumo | argumentos | retorno |
@@ -97,3 +101,24 @@ Nessa sessão vamos analizar a estrutúra do diretório [`src/`](./src/)
 | [tgetstr](https://linux.die.net/man/3/tgetstr) |Obter um valor de capacidade de tipo String|char *tgetstr (char *name, char **area**);|Success: Ele retorna um ponteiro para uma string que é o valor da capacidade ou um ponteiro nulo se a capacidade não estiver presente na descrição do terminal.|
 | [tgoto](https://linux.die.net/man/3/tgoto) |Trata o caso de especial de cursor|char *tgoto (char *cstring, int hpos, int vpos)|Success: retorna 1, 0 se não houver tal entrada e -1 se o banco de dados terminfo não puder ser encontrado.|
 | [tputs](https://linux.die.net/man/3/tputs) |recupera recursos pelo nome termcap ou terminfo.|int tputs(const char *str, int affcnt, int (*putc)(int));|Success: retorna 1, 0 se não houver tal entrada e -1 se o banco de dados terminfo não puder ser encontrado.|
+
+## Clone e execute o prejeto
+
+1. Clone ester repositório:
+```
+git clone https://github.com/lamorim42/minishell.git miaushell
+```
+
+2. Make para compilar o projeto:
+```
+make
+```
+
+3. Rode o 'miaushell':
+```
+./minishell
+```
+
+### Exemplo
+
+![exemplo de miaushell sendo utilizado](./assets/miaushell.gif)
