@@ -1,26 +1,60 @@
+# MiauShell :smile_cat:
 
-# Onde estamos
+_Esse é o minishell feito por pessoas que amam gatos_
 
-Estamos fazendo apenas a tokenização, após esse momento analizamos se no token
-tem ou não o par de aspas. Se tiver vamos para função que explode as aspas, se
-não tiver vamos para função que abre o here_doc.
+**Miau Team**: Daniela | dmonteir e Luís | lamorim
 
-- **exemplo:**
+## Ídicie
 
-"ls -a -> abre here_doc -> recebe restante do comando até as aspas ->
-substitui o token ("ls -a) por ("ls -a o_que_vem_do_here_doc") e provalvemente
-vai dar ruim.
+1. [Entendendo projeto](#entendendo-projeto)
+2. [Algumas funções autorizadas](#algumas-funções-autorizadas)
 
-- *tests to do*
+## Entendendo Projeto
 
-- [ ] ls | grep 'Libft'
-- [ ] lakdjsf > fileout
+No projeto minishell temos que replicar um bash com algumas funcionalidades builtins.
 
-# Não esquecer que quando arrays de strings começarem com aspas que não são fechadasm, as words são contadas como uma!!
+> :goat: **Bash**: _"é um interpretador de comandos, um entre os diversos tradutores entre o usuário e o sistema operacional conhecidos como shell. Acrônimo para "Bourne-Again SHell", o Bash é uma evolução retro-compatível muito mais interativa do Bourne Shell (sh). "_ Fonte: [Wikipedia](https://pt.wikipedia.org/wiki/Bash)
 
-Lembrar de que quando tiver DOIS PIPES um atras do outro seve-se retornar 0 na sintax_analysis.c
+> :shell: **Shell**: _"Em computação, um shell (em português, casca ou concha) é uma interface de usuário para acessar os serviços de um sistema operacional. Em geral, shells dos sistemas operacionais usam uma interface de linha de comando (CLI) ou uma interface gráfica de usuário (GUI), dependendo da função e operação particular de um computador."_ Fonte: [Wikipedia](https://pt.wikipedia.org/wiki/Shell_(computa%C3%A7%C3%A3o))
 
-# Funções autorizadas
+### Funções CORE do projeto
+
+- `readline()`
+- `execve()`
+- `fork()`
+- `pipe()`
+- `dup()` e `dup2()`
+- `signal()`
+
+### Estratégias utilizadas
+
+Nesse projeto tomamos algumas decisões de organização e métodos para o desenvolvimento do pojeto.
+
+Utilizamos como refêrencia de organização do projeto a arquitetura [pipe-and-filter](https://syedhasan010.medium.com/pipe-and-filter-architecture-bd7babdb908)
+
+Também utilizamos o design patthern [facade](https://refactoring.guru/design-patterns/facade) como inspiração para desenvolver a função core da nossa aplicação.
+
+Além disso, utilizamos o [TDD](https://dev.to/womakerscode/o-que-e-tdd-4b5f#:~:text=TDD%20significa%20Desenvolvimento%20Orientado%20por,do%20XP%20(Extreme%20Programming).) como método de desenvolvimento da parte de tokenização do nosso projeto.
+
+## Estrutura do projeto
+
+Para organizar o fluxo de informação e as tratátivas que fizemos durante a execução do projeto exploramos mais de uma estrutura de dados e modularizamos nossa aplicação em staps muito bem definidos associados a estrutura de pastas que utilizamos.
+
+### Estruturas de dados utilizadas no projeto
+
+As principais estrutura de dados que utilizamos foram **Array**, **double Linked-list** e **Hash-table** (onde utilizamos uma _linked-list_ para lidar com os conflitos de _key_)
+
+### Estrutura de pastas
+
+Nessa sessão vamos analizar a estrutúra do diretório [`src/`](./src/)
+
+- [`hash_table/`](./src/hash_table/): onde estão os arquivos responsáveis por implementar a *hash_table*;
+- [`builtins/`](./src/builtins/): onde estão os arquivos de implementação das *builtins* do minishell
+- [`tokens/`](./src/tokens/): onde estão as funções que fazem o fluxo de tratativa do *input* do usuário;
+- [`exec/`](./src/exec/): onde estão as funções de execução da *pipe line*.
+
+### Organizando o fluxo de informação
+## Algumas funções autorizadas
 
 | Função | resumo | argumentos | retorno |
 | :----: | :----- |  :------:  | :----:  |
