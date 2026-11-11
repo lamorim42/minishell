@@ -8,3 +8,6 @@ tests/Makefile
 fileout
 file
 minishell_tester/
+# Reversa
+.reversa/config.user.toml
+reversa-sdd/

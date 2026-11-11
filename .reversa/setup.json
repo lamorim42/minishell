@@ -1,0 +1,24 @@
+{
+  "schema-version": 1,
+  "reversa-version": "1.3.6",
+  "installed-at": "2026-11-11T22:39:40.287Z",
+  "project-name": "minishell",
+  "prefix-format": "sequencial",
+  "language": "pt-BR",
+  "watch": {
+    "archive-after": 3,
+    "block-on-red": false
+  },
+  "paths": {
+    "sdd-dir": "_reversa_sdd",
+    "forward-dir": "_reversa_forward",
+    "config-dir": ".reversa"
+  },
+  "principles": {
+    "enabled": true,
+    "auto-load-into-plan": true
+  },
+  "telemetry": {
+    "enabled": false
+  }
+}

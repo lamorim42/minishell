@@ -1,0 +1,116 @@
+# Reversa — Configuração do Projeto
+# Este arquivo é gerenciado pelo instalador. Para customizações, edite config.user.toml
+
+[project]
+name = "minishell"
+version = "1.0.0"
+
+[user]
+name = "Luis"
+chat_language = "pt-br"
+doc_language = "Português"
+
+[output]
+folder = "reversa-sdd"
+
+[agents]
+installed = [
+  "impeccable",
+  "reversa",
+  "reversa-add",
+  "reversa-agents-help",
+  "reversa-arbiter",
+  "reversa-archaeologist",
+  "reversa-architect",
+  "reversa-arquitetura-3d",
+  "reversa-audit",
+  "reversa-autonomous",
+  "reversa-brainstorm",
+  "reversa-challenger",
+  "reversa-clarify",
+  "reversa-code-express",
+  "reversa-coding",
+  "reversa-curator",
+  "reversa-data-master",
+  "reversa-debugger",
+  "reversa-debugger-debate",
+  "reversa-debugger-fix",
+  "reversa-debugger-graph",
+  "reversa-decouple",
+  "reversa-depth-inspection",
+  "reversa-design-system",
+  "reversa-designer",
+  "reversa-detective",
+  "reversa-docs",
+  "reversa-docs-analyst",
+  "reversa-docs-mapper",
+  "reversa-docs-publisher",
+  "reversa-docs-storyteller",
+  "reversa-drafter",
+  "reversa-especialista-d3",
+  "reversa-explorer",
+  "reversa-extract-soul",
+  "reversa-forward",
+  "reversa-forward-autonomous",
+  "reversa-framer",
+  "reversa-highcharts-visualizer",
+  "reversa-ideator",
+  "reversa-image-prompt-json",
+  "reversa-inspector",
+  "reversa-migrate",
+  "reversa-modularize",
+  "reversa-n8n",
+  "reversa-new",
+  "reversa-optimize",
+  "reversa-paradigm-advisor",
+  "reversa-plan",
+  "reversa-pre-spec",
+  "reversa-pricing",
+  "reversa-pricing-advisor",
+  "reversa-pricing-estimate",
+  "reversa-pricing-product",
+  "reversa-pricing-profile",
+  "reversa-pricing-research",
+  "reversa-pricing-size",
+  "reversa-principles",
+  "reversa-prune",
+  "reversa-quality",
+  "reversa-reconstructor",
+  "reversa-refactor",
+  "reversa-requirements",
+  "reversa-researcher",
+  "reversa-restructure",
+  "reversa-resume",
+  "reversa-reviewer",
+  "reversa-scout",
+  "reversa-screen-translator",
+  "reversa-selo-generativo",
+  "reversa-simplify",
+  "reversa-spec-sdd",
+  "reversa-standardize",
+  "reversa-strategist",
+  "reversa-sync",
+  "reversa-to-do",
+  "reversa-visor",
+  "reversa-writer"
+]
+
+[engines]
+installed = [
+  "claude-code"
+]
+
+[analysis]
+answer_mode = "file"
+doc_level = "completo"
+
+# Organização das specs geradas pelos agentes.
+# Esta seção é preenchida pelo Reversa após o Scout sugerir uma estrutura
+# e o usuário confirmar a escolha no menu (logo após a pergunta de doc_level).
+# Para reapresentar o menu, remova a seção [specs] inteira e rode o Reversa de novo.
+[specs]
+layout = ""              # constante "feature-folder" após a primeira execução
+granularity = ""         # module | use-case | endpoint | hybrid | feature | custom
+custom_folders = []      # preenchido apenas quando granularity == "custom"
+scout_suggestion = ""    # registro da sugestão original do Scout, imutável após a 1a execução
+decided_at = ""          # timestamp ISO 8601 da escolha do usuário
