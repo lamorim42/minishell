@@ -1,0 +1,476 @@
+/*
+ * Reversa Documentation - Estilo Unificado
+ *
+ * Chassis visual compartilhado entre o /reversa-documentation
+ * e os HTMLs auxiliares dos demais agentes do core.
+ *
+ * Quatro variantes ativadas via atributo data-style no <body>:
+ *   - sober:       cores neutras, alta legibilidade textual
+ *   - premium:     dark mode cinematográfico, dourado, espaçamento generoso
+ *   - dense:       paleta saturada, grid de cards, alta densidade
+ *   - exploratory: pastéis luminosos sobre fundo escuro, foco em 3D
+ *
+ * Tudo em variáveis CSS para permitir override por agente sem reescrever.
+ */
+
+/* ============================================================
+   1. Reset minimalista
+   ============================================================ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+body {
+    font-family: var(--reversa-font-body);
+    font-size: var(--reversa-font-size-base);
+    line-height: var(--reversa-line-height-base);
+    color: var(--reversa-fg);
+    background: var(--reversa-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    display: grid;
+    grid-template-columns: 1fr min(280px, 25vw);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header   header"
+        "main     sidebar"
+        "footer   footer";
+    gap: 0;
+}
+
+img, svg, canvas {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: var(--reversa-accent);
+    text-decoration: none;
+}
+a:hover, a:focus {
+    text-decoration: underline;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: var(--reversa-surface);
+    border: 1px solid var(--reversa-border);
+    border-radius: var(--reversa-radius);
+    padding: var(--reversa-space-sm) var(--reversa-space-md);
+    cursor: pointer;
+    transition: background 120ms ease, border-color 120ms ease;
+}
+button:hover, button:focus {
+    background: var(--reversa-surface-hover);
+    outline: 2px solid transparent;
+}
+button:focus-visible {
+    outline-color: var(--reversa-accent);
+    outline-offset: 2px;
+}
+
+input[type="range"], input[type="text"], select {
+    font: inherit;
+    color: inherit;
+    background: var(--reversa-surface);
+    border: 1px solid var(--reversa-border);
+    border-radius: var(--reversa-radius);
+    padding: var(--reversa-space-xs) var(--reversa-space-sm);
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--reversa-space-xs);
+    margin-bottom: var(--reversa-space-md);
+    font-size: var(--reversa-font-size-sm);
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--reversa-font-heading);
+    line-height: 1.2;
+    margin: 0 0 var(--reversa-space-md);
+}
+h1 { font-size: var(--reversa-font-size-h1); }
+h2 { font-size: var(--reversa-font-size-h2); }
+h3 { font-size: var(--reversa-font-size-h3); }
+
+code, pre {
+    font-family: var(--reversa-font-mono);
+    font-size: 0.9em;
+    background: var(--reversa-code-bg);
+    color: var(--reversa-code-fg);
+    border-radius: var(--reversa-radius-sm);
+}
+code { padding: 0.1em 0.4em; }
+pre  { padding: var(--reversa-space-md); overflow-x: auto; }
+
+/* ============================================================
+   2. Layout geral
+   ============================================================ */
+
+.reversa-doc-header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    gap: var(--reversa-space-lg);
+    padding: var(--reversa-space-md) var(--reversa-space-xl);
+    background: var(--reversa-header-bg);
+    border-bottom: 1px solid var(--reversa-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.reversa-doc-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--reversa-space-sm);
+    color: var(--reversa-fg);
+    font-weight: 600;
+    font-family: var(--reversa-font-heading);
+}
+.reversa-doc-logo:hover { text-decoration: none; }
+
+.reversa-doc-logo .seal {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--reversa-surface);
+}
+
+.reversa-doc-nav {
+    display: flex;
+    gap: var(--reversa-space-md);
+    flex: 1;
+}
+
+.reversa-doc-nav a {
+    color: var(--reversa-fg-muted);
+    padding: var(--reversa-space-xs) var(--reversa-space-sm);
+    border-radius: var(--reversa-radius-sm);
+    font-size: var(--reversa-font-size-sm);
+}
+.reversa-doc-nav a:hover,
+.reversa-doc-nav a.is-active {
+    color: var(--reversa-fg);
+    background: var(--reversa-surface);
+    text-decoration: none;
+}
+
+.reversa-doc-toolbar {
+    display: flex;
+    gap: var(--reversa-space-sm);
+}
+
+.reversa-doc-main {
+    grid-area: main;
+    padding: var(--reversa-space-xl);
+    max-width: 1200px;
+    width: 100%;
+    justify-self: start;
+}
+
+.reversa-doc-payload {
+    display: flex;
+    flex-direction: column;
+    gap: var(--reversa-space-lg);
+}
+
+.reversa-doc-title {
+    margin-bottom: var(--reversa-space-lg);
+}
+
+.reversa-doc-sidebar {
+    grid-area: sidebar;
+    padding: var(--reversa-space-lg);
+    background: var(--reversa-sidebar-bg);
+    border-left: 1px solid var(--reversa-border);
+    overflow-y: auto;
+    max-height: calc(100vh - var(--reversa-header-height));
+    position: sticky;
+    top: var(--reversa-header-height);
+}
+
+.reversa-doc-sidebar:empty {
+    display: none;
+}
+.reversa-doc-sidebar:empty + .reversa-doc-main {
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+
+.reversa-doc-footer {
+    grid-area: footer;
+    padding: var(--reversa-space-md) var(--reversa-space-xl);
+    border-top: 1px solid var(--reversa-border);
+    background: var(--reversa-header-bg);
+    color: var(--reversa-fg-muted);
+    font-size: var(--reversa-font-size-sm);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--reversa-space-sm);
+}
+
+.reversa-doc-footer-sep { opacity: 0.4; }
+
+/* Responsividade básica: sidebar vira drawer abaixo de 900px */
+@media (max-width: 900px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "main"
+            "sidebar"
+            "footer";
+    }
+    .reversa-doc-sidebar {
+        position: static;
+        max-height: none;
+        border-left: none;
+        border-top: 1px solid var(--reversa-border);
+    }
+}
+
+/* ============================================================
+   3. Componentes utilitários
+   ============================================================ */
+
+.reversa-card {
+    background: var(--reversa-surface);
+    border: 1px solid var(--reversa-border);
+    border-radius: var(--reversa-radius);
+    padding: var(--reversa-space-lg);
+}
+
+.reversa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--reversa-space-md);
+}
+
+.reversa-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--reversa-space-xs);
+    padding: 2px var(--reversa-space-sm);
+    border-radius: 999px;
+    font-size: var(--reversa-font-size-xs);
+    font-weight: 500;
+    background: var(--reversa-surface);
+    border: 1px solid var(--reversa-border);
+}
+.reversa-pill.is-critical { background: #ff5a4f1f; border-color: #ff5a4f; color: #ff5a4f; }
+.reversa-pill.is-high     { background: #ffa5001f; border-color: #ffa500; color: #ffa500; }
+.reversa-pill.is-medium   { background: #ffc8571f; border-color: #d3a032; color: #d3a032; }
+.reversa-pill.is-low      { background: #6cc46c1f; border-color: #6cc46c; color: #6cc46c; }
+.reversa-pill.is-info     { background: #4a9eff1f; border-color: #4a9eff; color: #4a9eff; }
+
+.reversa-toast {
+    position: fixed;
+    bottom: var(--reversa-space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--reversa-space-sm) var(--reversa-space-lg);
+    background: var(--reversa-surface);
+    border: 1px solid var(--reversa-border);
+    border-radius: var(--reversa-radius);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+/* ============================================================
+   4. Variante: sober
+   ============================================================ */
+
+:root,
+body[data-style="sober"] {
+    --reversa-bg:           #f5f3ee;
+    --reversa-fg:           #1e2937;
+    --reversa-fg-muted:     #4d5a6b;
+    --reversa-accent:       #3d4a5c;
+    --reversa-surface:      #ffffff;
+    --reversa-surface-hover: #eceae4;
+    --reversa-sidebar-bg:   #efece6;
+    --reversa-header-bg:    #efece6;
+    --reversa-border:       #d6d2c8;
+    --reversa-code-bg:      #ece9e1;
+    --reversa-code-fg:      #2b3a4a;
+
+    --reversa-font-body:    "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --reversa-font-heading: "Inter", system-ui, -apple-system, sans-serif;
+    --reversa-font-mono:    "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+
+    --reversa-font-size-xs: 12px;
+    --reversa-font-size-sm: 13px;
+    --reversa-font-size-base: 15px;
+    --reversa-font-size-h1: 28px;
+    --reversa-font-size-h2: 22px;
+    --reversa-font-size-h3: 18px;
+    --reversa-line-height-base: 1.55;
+
+    --reversa-space-xs: 4px;
+    --reversa-space-sm: 8px;
+    --reversa-space-md: 16px;
+    --reversa-space-lg: 24px;
+    --reversa-space-xl: 40px;
+
+    --reversa-radius-sm: 4px;
+    --reversa-radius: 8px;
+
+    --reversa-header-height: 64px;
+}
+
+/* ============================================================
+   5. Variante: premium (dark cinematográfico)
+   ============================================================ */
+
+body[data-style="premium"] {
+    --reversa-bg:           #0a0a14;
+    --reversa-fg:           #eaeaea;
+    --reversa-fg-muted:     #9b9ba3;
+    --reversa-accent:       #d4af37;
+    --reversa-surface:      #14141e;
+    --reversa-surface-hover: #1f1f2c;
+    --reversa-sidebar-bg:   #0f0f18;
+    --reversa-header-bg:    #0f0f18;
+    --reversa-border:       #2a2a38;
+    --reversa-code-bg:      #1a1a26;
+    --reversa-code-fg:      #f4d03f;
+
+    --reversa-font-body:    "Lora", Georgia, "Times New Roman", serif;
+    --reversa-font-heading: "Inter", system-ui, sans-serif;
+    --reversa-font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+    --reversa-space-xs: 6px;
+    --reversa-space-sm: 12px;
+    --reversa-space-md: 20px;
+    --reversa-space-lg: 32px;
+    --reversa-space-xl: 56px;
+
+    --reversa-font-size-h1: 36px;
+    --reversa-font-size-h2: 26px;
+}
+
+body[data-style="premium"] .reversa-doc-title {
+    letter-spacing: 0.01em;
+}
+
+body[data-style="premium"] .reversa-card {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* ============================================================
+   6. Variante: dense (grid de cards, saturado)
+   ============================================================ */
+
+body[data-style="dense"] {
+    --reversa-bg:           #f8f9fa;
+    --reversa-fg:           #1a1a2e;
+    --reversa-fg-muted:     #5e6470;
+    --reversa-accent:       #5b3fce;
+    --reversa-surface:      #ffffff;
+    --reversa-surface-hover: #eef0f4;
+    --reversa-sidebar-bg:   #f1f3f6;
+    --reversa-header-bg:    #ffffff;
+    --reversa-border:       #d8dde4;
+    --reversa-code-bg:      #eef0f4;
+    --reversa-code-fg:      #5b3fce;
+
+    --reversa-font-size-base: 14px;
+    --reversa-font-size-sm: 12px;
+    --reversa-line-height-base: 1.5;
+
+    --reversa-space-xs: 3px;
+    --reversa-space-sm: 6px;
+    --reversa-space-md: 12px;
+    --reversa-space-lg: 18px;
+    --reversa-space-xl: 28px;
+
+    --reversa-radius: 6px;
+}
+
+body[data-style="dense"] .reversa-doc-payload {
+    gap: var(--reversa-space-md);
+}
+
+body[data-style="dense"] .reversa-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/* ============================================================
+   7. Variante: exploratory (3D-friendly)
+   ============================================================ */
+
+body[data-style="exploratory"] {
+    --reversa-bg:           #0d0d1a;
+    --reversa-fg:           #eaeaea;
+    --reversa-fg-muted:     #a0a0b8;
+    --reversa-accent:       #a0e7e5;
+    --reversa-surface:      #16162a;
+    --reversa-surface-hover: #1f1f38;
+    --reversa-sidebar-bg:   rgba(15, 15, 30, 0.85);
+    --reversa-header-bg:    rgba(15, 15, 30, 0.85);
+    --reversa-border:       #2c2c44;
+    --reversa-code-bg:      #1a1a2e;
+    --reversa-code-fg:      #ffb3ba;
+
+    --reversa-font-body:    "Inter", system-ui, sans-serif;
+    --reversa-font-heading: "Inter", system-ui, sans-serif;
+
+    --reversa-space-xl: 48px;
+    --reversa-font-size-h1: 32px;
+}
+
+body[data-style="exploratory"] .reversa-doc-main {
+    background: radial-gradient(ellipse at 30% 20%,
+        rgba(160, 231, 229, 0.08) 0%,
+        transparent 60%);
+}
+
+body[data-style="exploratory"] .reversa-doc-sidebar {
+    backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   8. Acessibilidade
+   ============================================================ */
+
+*:focus-visible {
+    outline: 2px solid var(--reversa-accent);
+    outline-offset: 2px;
+    border-radius: var(--reversa-radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

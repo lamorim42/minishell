@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encerrar Shell | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/encerrar-shell/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-encerrar-shell">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Encerrar Shell</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Implementa o builtin <code>exit [n]</code>: libera a linha e a tabela e termina o processo do shell com o código pedido. O encerramento por Ctrl-D (EOF no prompt) está em <code>iniciar-sessao-e-ler-comando</code> (RN-02).</p><p><span class="badge bug">BUG-02</span><span class="badge bug">BUG-21</span><span class="badge ok">confiança 100%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad (readline substituto lendo stdin); cada caso foi precedido por um comando com status 2. O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Implementa o builtin <code>exit [n]</code>: libera a linha e a tabela e termina o processo do shell com o código pedido. O encerramento por Ctrl-D (EOF no prompt) está em <code>iniciar-sessao-e-ler-comando</code> (RN-02) 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Terminar o shell com o código numérico informado 🟢</li><li>Validar o argumento numérico 🟢</li><li>Rejeitar mais de um argumento sem encerrar 🟢</li><li>Liberar a memória antes de sair 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<ul><li>XT-01: <code>exit</code> sem argumento → código <strong>0</strong> 🟢 (observado). ⚠️ O bash usa o último <code>$?</code> (aqui seria 2)</li><li>XT-02: <code>exit n</code> → código <code>n &amp; 0xFF</code> (via <code>ft_atoi</code> e <code>exit</code>): <code>exit 7</code> → 7; <code>exit -1</code> → 255; <code>exit 256</code> → 0; <code>exit +5</code> → 5 🟢 (observado), igual ao bash</li><li>XT-03: um sinal <code>+</code> ou <code>-</code> inicial é aceito 🟢</li><li>XT-04: argumento não numérico → <code>&lt;arg&gt; is not a number!</code> em <strong>stdout</strong> e código <strong>2</strong>: <code>exit abc</code>, <code>exit 5a</code> 🟢 (observado). ⚠️ O bash escreve <code>exit: abc: numeric argument required</code> em stderr (o código 2 coincide)</li><li>XT-05: <code>exit -</code> → a mensagem <code>- is not a number!</code> aparece, mas o código é <strong>0</strong> 🟢 (observado). ⚠️ O bash dá 2</li><li>XT-06: <code>exit &quot;&quot;</code> → código 0, sem mensagem 🟢 (observado). ⚠️ O bash dá 2 com mensagem</li><li>XT-07: valores fora do intervalo de <code>int</code> passam pelo <code>ft_atoi</code> sem verificação de estouro: <code>exit 9999999999</code> → 255 🟢 (observado; coincide com o bash por acaso)</li><li>XT-08: dois ou mais argumentos com o primeiro numérico → <code>exit: too many arguments</code> em stderr, <code>$?=1</code> e o shell <strong>continua</strong>: <code>exit 1 2</code> 🟢 (observado), igual ao bash</li><li>BUG-21 (novo): se o primeiro argumento é <strong>exatamente o número 2</strong>, o laço confunde o valor com o código de erro e encerra: <code>exit 2 3</code> → sai com 2 em vez de <code>too many arguments</code> 🟢 (observado). Causa: <code>is_char_number(...) == 2</code> é usado como teste de "não é número" (<code>src/builtins/exit.c:51</code>)</li><li>XT-09: primeiro argumento não numérico com outros depois → mensagem e saída com 2: <code>exit abc 3</code> 🟢 (observado), igual ao bash</li><li>XT-10: o builtin não escreve <code>exit</code> ao sair 🟢 (observado). ⚠️ O bash interativo escreve <code>exit</code> em stderr</li><li>XT-11: <code>exit</code> só encerra o shell quando é o último nó da linha; <code>exit 3 | echo x</code> roda em filho e o shell continua, mas <code>ls | exit 3</code> encerra (BUG-02, ver <code>executar-pipeline</code>) 🟢 (observado)</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: XT-01, XT-04 a XT-06, XT-10 e BUG-21)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td><code>exit</code> termina o shell</td><td>Must</td><td>O processo termina; o código é 0 (as-is)</td></tr><tr><td>RF-02</td><td><code>exit n</code> termina com <code>n &amp; 0xFF</code></td><td>Must</td><td><code>exit 256</code> → 0; <code>exit -1</code> → 255</td></tr><tr><td>RF-03</td><td>Argumento não numérico → mensagem e código 2</td><td>Must</td><td><code>exit abc</code> → <code>abc is not a number!</code>, código 2</td></tr><tr><td>RF-04</td><td>Mais de um argumento → <code>too many arguments</code>, <code>$?=1</code>, sem encerrar</td><td>Must</td><td><code>exit 1 2</code>; <code>echo $?</code> → <code>1</code></td></tr><tr><td>RF-05</td><td>Liberar linha e tabela antes de sair</td><td>Should</td><td>Valgrind sem vazamento ao sair por <code>exit</code></td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Memória</td><td><code>free_line</code> e <code>free_table</code> antes do <code>exit</code></td><td><code>src/builtins/exit.c:56-58</code></td><td>🟢</td></tr><tr><td>Robustez</td><td><code>ft_atoi</code> sem verificação de estouro</td><td><code>src/builtins/exit.c:36</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: exit
+
+  Cenário: Código explícito
+    Quando o usuário digita &quot;exit 7&quot;
+    Então o shell termina com código 7
+
+  Cenário: Código módulo 256
+    Quando o usuário digita &quot;exit 256&quot;
+    Então o shell termina com código 0
+
+  Cenário: Argumento não numérico
+    Quando o usuário digita &quot;exit abc&quot;
+    Então &quot;abc is not a number!&quot; é escrito em stdout
+    E o shell termina com código 2
+
+  Cenário: Argumentos demais
+    Quando o usuário digita &quot;exit 1 2&quot;
+    Então &quot;exit: too many arguments&quot; é escrito em stderr
+    E o shell continua
+    E $? é 1
+
+  @divergente
+  Cenário: exit sem argumento ignora o último status (XT-01)
+    Dado que o último comando terminou com status 2
+    Quando o usuário digita &quot;exit&quot;
+    Então o shell termina com código 0
+
+  @divergente
+  Cenário: Primeiro argumento igual a 2 (BUG-21)
+    Quando o usuário digita &quot;exit 2 3&quot;
+    Então o shell termina com código 2
+
+  @divergente
+  Cenário: Sinal sozinho (XT-05)
+    Quando o usuário digita &quot;exit -&quot;
+    Então &quot;- is not a number!&quot; é escrito em stdout
+    E o shell termina com código 0</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01 a RF-04</td><td>Must</td><td><code>exit</code> é obrigatório no subject</td></tr><tr><td>RF-05</td><td>Should</td><td>Limpeza; exigida pela avaliação (sem vazamentos)</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/builtins/exit.c</code></td><td><code>exit_builtin</code>, <code>is_char_number</code></td><td>🟢</td></tr><tr><td><code>src/free.c</code></td><td><code>free_line</code>, <code>error_msg</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/free_hash_table.c</code></td><td><code>free_table</code></td><td>🟢</td></tr><tr><td><code>src/main.c</code></td><td><code>control_d</code> (encerramento por EOF, ver <code>iniciar-sessao-e-ler-comando</code>)</td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>exit_builtin</code></td><td><code>(t_pipe_list *node, t_hash_table **table)</code></td><td><code>void</code>; não retorna, exceto em <code>too many arguments</code></td><td>🟢</td></tr><tr><td><code>is_char_number</code></td><td><code>(char *str, int *status_code)</code></td><td><code>int</code> = <code>*status_code</code></td><td>Grava 2 se não for número; senão <code>ft_atoi(str)</code> 🟢</td></tr></tbody></table></div>
+<h3>Fluxo Principal</h3>
+<p><code>src/builtins/exit.c:40-59</code> 🟢:</p>
+<pre class="code" data-lang="text"><code>status = 0
+i = 1
+enquanto args[i]:
+   se i &gt; 1:
+      &quot;exit: too many arguments&quot; em stderr
+      g_minishell.line-&gt;status_code = 1
+      retorna                                  # o shell continua
+   se is_char_number(args[1], &amp;status) == 2: pare
+   i++
+free_line(g_minishell.line); free_table(table)
+exit(status)                                   # o kernel aplica &amp; 0xFF</code></pre>
+<h4><code>is_char_number</code> (<code>src/builtins/exit.c:17-37</code>)</h4>
+<pre class="code" data-lang="text"><code>i = 0
+enquanto str[i]:
+   se i == 0 e str[0] em &quot;+-&quot;: i++
+   se str[i] não é dígito:                     # inclui &#x27;\0&#x27; depois de um sinal sozinho
+      printf(&quot;%s is not a number!\n&quot;, str); status = 2; pare
+   i++
+se str[i] == &#x27;\0&#x27;: status = ft_atoi(str)       # também roda depois do &quot;pare&quot; se o erro foi no fim
+retorna status</code></pre>
+<p>Consequências do algoritmo 🟢:</p>
+<ul><li><strong>BUG-21:</strong> o retorno é o próprio código; um número válido igual a 2 é confundido com o erro e faz o laço parar antes de contar os argumentos</li><li><strong>XT-05:</strong> em <code>exit -</code>, o erro é detectado em <code>str[1] == &#x27;\0&#x27;</code>; o <code>pare</code> deixa <code>i = 1</code>, então <code>str[i] == &#x27;\0&#x27;</code> é verdadeiro e <code>status = ft_atoi(&quot;-&quot;) = 0</code></li><li><strong>XT-06:</strong> em <code>exit &quot;&quot;</code>, o laço não roda e <code>status = ft_atoi(&quot;&quot;) = 0</code></li></ul>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>Em filho</strong> (<code>exit 3 | echo x</code>, <code>exit 3 &gt; f</code>): <code>exit</code> termina só o filho; o pai segue (BUG-10 não se aplica, porque o filho sai pelo próprio <code>exit</code>) 🟢</li><li><strong>Último nó de pipeline</strong> (<code>ls | exit 3</code>): roda no pai e encerra o shell (BUG-02) 🟢</li><li>**<code>too many arguments</code>:** grava <code>status_code = 1</code> e retorna; <code>update_status_code</code> publica <code>$?=1</code> 🟢</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>executar-comando-simples / executar-pipeline:</strong> decidem se o builtin roda no shell ou num filho</li><li><strong>gerenciar-variaveis-de-ambiente:</strong> <code>free_table</code></li><li><strong>Libft:</strong> <code>ft_isdigit</code>, <code>ft_atoi</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Mensagem de erro numérico em stdout (<code>printf</code>) e a de argumentos em stderr (<code>error_msg</code>)</td><td><code>src/builtins/exit.c:28,47</code></td><td>🟢</td></tr><tr><td>O código de erro (2) e o valor convertido compartilham a mesma variável</td><td><code>src/builtins/exit.c:29,36,51</code></td><td>🟢</td></tr><tr><td><code>exit</code> sem argumento usa 0, não <code>$?</code></td><td><code>src/builtins/exit.c:44</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p>Nenhum além de <code>status_code</code> local 🟢.</p>
+<h3>Observabilidade</h3>
+<p><code>&lt;arg&gt; is not a number!</code> (stdout) e <code>exit: too many arguments</code> (stderr) 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 BUG-21: <code>exit 2 &lt;qualquer coisa&gt;</code> encerra</li><li>🟢 XT-05/XT-06: <code>exit -</code> e <code>exit &quot;&quot;</code> saem com 0</li><li>🟢 XT-01: <code>exit</code> sem argumento ignora <code>$?</code></li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: mensagens no formato do bash (<code>exit: &lt;arg&gt;: numeric argument required</code>, em stderr) e <code>exit</code> escrito ao sair</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>executar-comando-simples</code> com o despacho de builtins e builtin no pai quando é o último nó</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; <code>free_line</code> e <code>free_table</code> disponíveis</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 sobre XT-01, XT-04 a XT-06, XT-10 e BUG-21 → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Implementar a validação numérica separando "é número" do valor convertido<ul><li>Origem no legado: <code>src/builtins/exit.c:17-37</code></li><li>Critério de pronto: <code>+5</code>, <code>-1</code>, <code>256</code> válidos; <code>abc</code>, <code>5a</code>, <code>-</code>, <code>&quot;&quot;</code> inválidos</li><li>Confiança: 🟢</li><li>Nota: no as-is, <code>-</code> e <code>&quot;&quot;</code> saem com 0 (XT-05, XT-06); a correção depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Implementar <code>exit_builtin</code>: sem argumento → 0 (as-is); 1 argumento numérico → <code>n &amp; 0xFF</code>; não numérico → mensagem e 2; 2+ argumentos com o primeiro numérico → <code>too many arguments</code>, <code>$?=1</code>, sem sair<ul><li>Origem no legado: <code>src/builtins/exit.c:40-59</code></li><li>Critério de pronto: cenários de <code>requirements.md</code>; <code>exit 2 3</code> → <code>too many arguments</code> (corrigido) ou saída com 2 (as-is, BUG-21)</li><li>Confiança: 🟢</li><li>Nota: depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Liberar <code>line</code> e <code>table</code> antes do <code>exit</code><ul><li>Origem no legado: <code>src/builtins/exit.c:56-58</code></li><li>Critério de pronto: Valgrind sem "definitely lost" ao sair por <code>exit 5</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Matriz de códigos: <code>exit</code>, <code>exit 7</code>, <code>exit -1</code>, <code>exit 256</code>, <code>exit +5</code>, <code>exit abc</code>, <code>exit 5a</code>, <code>exit -</code>, <code>exit &quot;&quot;</code>, <code>exit 2 3</code>, <code>exit 1 2</code>, <code>exit abc 3</code>, <code>exit 9999999999</code>, comparando com a tabela de <code>requirements.md</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, <code>exit 3 | echo x</code> não encerra; <code>ls | exit 3</code> encerra (as-is)</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 → T-03</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: <code>exit</code> sem argumento com o último <code>$?</code>; mensagens em stderr no formato do bash; <code>exit</code> escrito ao sair; BUG-21</li></ul></div></details>
+</section><nav class="feature-pager"><a href="imprimir-texto-echo.html">← Imprimir Texto (echo)</a><a href="tratar-sinais.html">Tratar Sinais →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-encerrar-shell">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/encerrar-shell/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

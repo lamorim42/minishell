@@ -1,0 +1,288 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reversa-pricing-product-v1.0",
+  "title": "Reversa Pricing Product",
+  "description": "Ponto de equilíbrio por modelo de venda de produto (licença perpétua, aluguel, assinatura, loja de apps) gerado pelo agente reversa-pricing-product.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "formula_version",
+    "created_at",
+    "advisor_ref",
+    "profile_ref",
+    "research_ref",
+    "currency",
+    "inputs",
+    "models",
+    "summary_pt_br",
+    "guidance_pt_br"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "formula_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Versão de references/breakeven-formula.md aplicada."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp ISO 8601 UTC da criação ou da última regeneração."
+    },
+    "advisor_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Caminho do advisor.json consumido."
+    },
+    "profile_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Caminho do profile.json consumido."
+    },
+    "research_ref": {
+      "type": ["string", "null"],
+      "description": "Caminho do research/comparables.json quando a escada de preços foi pesquisada; null quando digitada."
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "Código ISO 4217, copiado de profile.currency."
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "monthly_recurring_cost",
+        "monthly_target_income",
+        "development_cost_to_recover",
+        "recovery_horizon_months",
+        "tax_factor",
+        "custo_mensal_total",
+        "custo_horizonte",
+        "price_ladders"
+      ],
+      "properties": {
+        "monthly_recurring_cost": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Custo mensal para manter o software rodando, na moeda do profile."
+        },
+        "monthly_target_income": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Renda mensal desejada com o produto."
+        },
+        "development_cost_to_recover": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Investimento no desenvolvimento a recuperar. 0 quando não considerado."
+        },
+        "recovery_horizon_months": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60,
+          "description": "Meses para recuperar o investimento e avaliar a venda única."
+        },
+        "tax_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Reserva aproximada de imposto, copiada de profile.tax_factor."
+        },
+        "custo_mensal_total": {
+          "type": "number",
+          "minimum": 0,
+          "description": "monthly_recurring_cost + development_cost_to_recover / recovery_horizon_months, sem arredondar. Usado nos modelos recorrentes."
+        },
+        "custo_horizonte": {
+          "type": "number",
+          "minimum": 0,
+          "description": "monthly_recurring_cost * recovery_horizon_months + development_cost_to_recover, sem arredondar. Usado na venda única."
+        },
+        "price_ladders": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "description": "Uma escada de preços por unidade presente entre os modelos calculados. mensal = preço por mês (assinatura, aluguel mensal, loja com assinatura); anual = preço por ano (aluguel anual); licenca = preço por licença (licença perpétua, loja com venda única).",
+          "properties": {
+            "mensal": { "$ref": "#/$defs/price_ladder" },
+            "anual": { "$ref": "#/$defs/price_ladder" },
+            "licenca": { "$ref": "#/$defs/price_ladder" }
+          }
+        }
+      }
+    },
+    "models": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "model",
+          "recurrence",
+          "period_months",
+          "channel",
+          "store",
+          "commission_percent",
+          "commission_source",
+          "ladder_unit",
+          "rows",
+          "reading_pt_br"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": ["licenca_perpetua", "aluguel", "assinatura", "loja_de_apps"]
+          },
+          "ladder_unit": {
+            "type": "string",
+            "enum": ["mensal", "anual", "licenca"],
+            "description": "Chave de inputs.price_ladders usada por este modelo: mensal (period_months = 1), anual (period_months = 12) ou licenca (venda única)."
+          },
+          "recurrence": {
+            "type": "string",
+            "enum": ["recurring", "one_time"]
+          },
+          "period_months": {
+            "type": ["integer", "null"],
+            "enum": [1, 12, null],
+            "description": "1 = mensal, 12 = anual; null em venda única."
+          },
+          "channel": {
+            "type": "string",
+            "enum": ["direto", "loja"]
+          },
+          "store": {
+            "type": ["string", "null"],
+            "description": "Chave da loja (google_play, app_store, microsoft_store, steam, outra) quando channel = loja; null no canal direto."
+          },
+          "commission_percent": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Comissão da loja em percentual. 0 no canal direto."
+          },
+          "commission_source": {
+            "type": ["string", "null"],
+            "description": "Fonte da comissão: linha de store-commissions.md com data, caminho do research ou 'informado pelo usuario'. null no canal direto."
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "preco",
+                "preco_mensal_equivalente",
+                "liquido",
+                "pagantes_para_cobrir_custo",
+                "pagantes_para_meta",
+                "unidades_para_cobrir_custo",
+                "unidades_para_meta",
+                "unidades_por_mes_para_meta",
+                "available",
+                "reason"
+              ],
+              "properties": {
+                "preco": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "description": "Preço da escada, por período (recorrente) ou por licença (venda única)."
+                },
+                "preco_mensal_equivalente": {
+                  "type": ["number", "null"],
+                  "minimum": 0,
+                  "description": "preco / period_months nos modelos recorrentes; null em venda única."
+                },
+                "liquido": {
+                  "type": "number",
+                  "description": "Líquido por pagante/mês (recorrente) ou por licença (venda única), após comissão e reserva de imposto, 2 casas."
+                },
+                "pagantes_para_cobrir_custo": {
+                  "type": ["integer", "null"],
+                  "minimum": 0,
+                  "description": "Recorrente: pagantes ativos por mês para cobrir o custo mensal total. null em venda única."
+                },
+                "pagantes_para_meta": {
+                  "type": ["integer", "null"],
+                  "minimum": 0,
+                  "description": "Recorrente: pagantes ativos por mês para cobrir custo mais meta. null em venda única."
+                },
+                "unidades_para_cobrir_custo": {
+                  "type": ["integer", "null"],
+                  "minimum": 0,
+                  "description": "Venda única: licenças no horizonte para cobrir o custo. null em recorrente."
+                },
+                "unidades_para_meta": {
+                  "type": ["integer", "null"],
+                  "minimum": 0,
+                  "description": "Venda única: licenças no horizonte para cobrir custo mais meta. null em recorrente."
+                },
+                "unidades_por_mes_para_meta": {
+                  "type": ["integer", "null"],
+                  "minimum": 0,
+                  "description": "Venda única: unidades_para_meta / recovery_horizon_months, arredondado para cima. null em recorrente."
+                },
+                "available": {
+                  "type": "boolean",
+                  "description": "false quando o líquido não cobre comissão e imposto."
+                },
+                "reason": {
+                  "type": ["string", "null"],
+                  "description": "Motivo quando available = false; null caso contrário."
+                }
+              }
+            }
+          },
+          "reading_pt_br": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Leitura em uma frase do modelo, em linguagem leiga."
+          }
+        }
+      }
+    },
+    "summary_pt_br": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Resumo por modelo: menor exigência (preço mais alto) e maior exigência (preço mais baixo)."
+    },
+    "guidance_pt_br": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Orientação de escolha e limites da calculadora."
+    }
+  },
+  "$defs": {
+    "price_ladder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["precos", "origem"],
+      "properties": {
+        "precos": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "description": "Preços em ordem crescente, na unidade da chave."
+        },
+        "origem": {
+          "type": "string",
+          "enum": ["digitado", "pesquisado"],
+          "description": "digitado = usuário listou os preços; pesquisado = montada a partir de research/comparables.json."
+        }
+      }
+    }
+  }
+}

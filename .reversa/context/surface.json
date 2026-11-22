@@ -1,0 +1,51 @@
+{
+  "generated_at": "2026-11-11T19:50:00Z",
+  "project_root": "/home/luis/projetos/minishell",
+  "languages": [
+    { "name": "C", "extensions": [".c", ".h"], "file_count": 91 },
+    { "name": "C++", "extensions": [".cpp"], "file_count": 5 },
+    { "name": "CMake", "extensions": ["CMakeLists.txt"], "file_count": 1 },
+    { "name": "Make", "extensions": ["Makefile"], "file_count": 2 }
+  ],
+  "primary_language": "C",
+  "frameworks": [
+    { "name": "GNU Readline", "version": "unpinned", "source": "Makefile (-lreadline)" },
+    { "name": "Libft (internal)", "version": "internal", "source": "Libft/Makefile" },
+    { "name": "GoogleTest", "version": "unpinned", "source": "tests/CMakeLists.txt" }
+  ],
+  "package_manager": "none (make)",
+  "entry_points": [
+    { "path": "src/main.c", "type": "app_entry" },
+    { "path": "src/facade.c", "type": "pipeline_core" },
+    { "path": "Makefile", "type": "build" },
+    { "path": "tests/CMakeLists.txt", "type": "test_build" }
+  ],
+  "config_files": ["Makefile", "Libft/Makefile", "tests/CMakeLists.txt", ".gitignore", ".vscode/settings.json"],
+  "ci_cd": [],
+  "database_hints": [],
+  "external_integrations": [],
+  "test_framework": "GoogleTest",
+  "test_file_count": 5,
+  "test_case_count": 84,
+  "tested_modules": ["tokens"],
+  "modules": ["core", "tokens", "exec", "redirections", "builtins", "hash_table", "signals", "libft"],
+  "module_paths": {
+    "core": ["src/main.c", "src/facade.c", "src/init.c", "src/free.c", "src/arr_utils.c"],
+    "tokens": ["src/tokens/"],
+    "exec": ["src/exec/"],
+    "redirections": ["src/fd_handler.c", "src/fd_handler_utils.c"],
+    "builtins": ["src/builtins/"],
+    "hash_table": ["src/hash_table/"],
+    "signals": ["src/signals.c", "src/signals_utils.c"],
+    "libft": ["Libft/"]
+  },
+  "total_files": 108,
+  "organization_suggestion": {
+    "granularity": "module",
+    "rationale": "O src/ é organizado em pastas por responsabilidade (tokens/, exec/, builtins/, hash_table/), e o README descreve essas pastas como as etapas da arquitetura pipe-and-filter.",
+    "signals": [
+      { "type": "top_level_domain_folders", "evidence": ["src/tokens/", "src/exec/", "src/builtins/", "src/hash_table/"] }
+    ],
+    "features": []
+  }
+}

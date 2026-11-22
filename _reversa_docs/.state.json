@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-22T14:15:03+00:00",
+  "completedAgents": [
+    "mapper",
+    "analyst",
+    "storyteller",
+    "publisher"
+  ],
+  "pendingAgents": [],
+  "pages": {
+    "arquitetura.html": {
+      "status": "created",
+      "agent": "reversa-docs-mapper",
+      "hash": "sha256:3da0cde32e843fe0b7eac43a39b38bd855943856b709d763ebbe4ebb2bae02d7"
+    },
+    "modulos.html": {
+      "status": "created",
+      "agent": "reversa-docs-mapper",
+      "hash": "sha256:7e75db473f08a1c2ac2bf7c00d32562605de235d294a086be4bd858fe9e28a1b"
+    },
+    "metricas.html": {
+      "status": "created",
+      "agent": "reversa-docs-analyst",
+      "hash": "sha256:aa00e16bf168875fd4eb768244b6bbbb19e1f2cb2cfffec6ea50b7e728184b97"
+    },
+    "glossario.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:ef9c8bfb16cacecc36b01554d2d8a219e9ffb9c0e7b2f72eef6194817c7858ca"
+    },
+    "features/iniciar-sessao-e-ler-comando.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:067843fd77c1e17090948515e2a2c1cdb8d4f40a2d3455ef619be1a8a49b9aa4"
+    },
+    "features/analisar-linha-de-comando.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:6581119f58b4c9d444d9bd448086da0abab86e0e0e30b76a58f35436161b7e18"
+    },
+    "features/expandir-variaveis.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:bdf93c9b2f4f6f58bd227451766d35840c3cfb444cd9c16d00a25cd90e5843df"
+    },
+    "features/executar-comando-simples.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:2c7327386943337bbffb70ec1d1f2eee23054775f23a41804354228780db0b61"
+    },
+    "features/executar-pipeline.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:bcdcc6a57d4262b16109168f0a55e217c0405825a44962a49651de365ef459ad"
+    },
+    "features/redirecionar-entrada-e-saida.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:146bd246cb0c0fc681cfa143acf8eaeaeec1631b54b09db57d5fcc5ac8121407"
+    },
+    "features/ler-heredoc.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:f374d445402b2bb9b58c9565d45484541fb46c2a8c153d5be5653db133961187"
+    },
+    "features/gerenciar-variaveis-de-ambiente.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:ba3e4c752bc48e53c946c82a5d41b3c2f33183541c2cf2e9b796d4582e3d3f1a"
+    },
+    "features/navegar-diretorios.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:2589c1e2653d76bf8be1063cf94879c553e31d819bddfa80df32afb866288fb1"
+    },
+    "features/imprimir-texto-echo.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:0bb4a8fc73b3f0e415f0fce0b4ba99e8f4bbd9afdffbb165276a656d8c6957ca"
+    },
+    "features/encerrar-shell.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:92b2f576007dfad38fb57afffbb797669c267e77dcf87aafcb9ac068012287bb"
+    },
+    "features/tratar-sinais.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:30d919faaa85df419a4d7677e0178ddfa88a68faa987b49e1dcfbf109217fd9d"
+    },
+    "deck.html": {
+      "status": "created",
+      "agent": "reversa-docs-storyteller",
+      "hash": "sha256:e6999d7e4cb05aeff203666e462e7f1f5b4c14e93c940fb5a0da92ec394beed8"
+    },
+    "index.html": {
+      "status": "created",
+      "agent": "reversa-docs-publisher",
+      "hash": "sha256:c713a62c7782313b3f29bfb095cf98ab7fd09b8aa68732828135bf04f06abfce"
+    }
+  },
+  "pagesGenerated": [
+    "index.html",
+    "arquitetura.html",
+    "modulos.html",
+    "metricas.html",
+    "glossario.html",
+    "features/iniciar-sessao-e-ler-comando.html",
+    "features/analisar-linha-de-comando.html",
+    "features/expandir-variaveis.html",
+    "features/executar-comando-simples.html",
+    "features/executar-pipeline.html",
+    "features/redirecionar-entrada-e-saida.html",
+    "features/ler-heredoc.html",
+    "features/gerenciar-variaveis-de-ambiente.html",
+    "features/navegar-diretorios.html",
+    "features/imprimir-texto-echo.html",
+    "features/encerrar-shell.html",
+    "features/tratar-sinais.html",
+    "deck.html"
+  ],
+  "pagesOmitted": [
+    {
+      "page": "topologia.html",
+      "reason": "topology not detected: reversa-sdd/architecture.md não declara variantes legado/moderno"
+    },
+    {
+      "page": "timeline.html",
+      "reason": "chronicle.md not found (.reversa/chronicle.md ausente; rode /reversa-chronicler)"
+    }
+  ],
+  "cdnFallbackUsed": true,
+  "cdnFallbackDetails": [
+    {
+      "lib": "highcharts",
+      "primary": "code.highcharts.com",
+      "used": "cdn.jsdelivr.net"
+    },
+    {
+      "lib": "highcharts_accessibility",
+      "primary": "code.highcharts.com",
+      "used": "cdn.jsdelivr.net"
+    },
+    {
+      "lib": "highcharts_exporting",
+      "primary": "code.highcharts.com",
+      "used": "cdn.jsdelivr.net"
+    },
+    {
+      "lib": "highcharts_treemap",
+      "primary": "code.highcharts.com",
+      "used": "cdn.jsdelivr.net"
+    },
+    {
+      "lib": "highcharts_sankey",
+      "primary": "code.highcharts.com",
+      "used": "cdn.jsdelivr.net"
+    }
+  ],
+  "vendorMissing": [],
+  "lastCheckpoint": "2026-11-22T14:15:03+00:00",
+  "pipelineDurationMs": 32,
+  "auxiliaryHtmls": [],
+  "auxiliaryHtmlsDiscovered": 0,
+  "auxiliaryDiscoveryAborted": false,
+  "brokenLinks": [],
+  "smokeTestFailed": false,
+  "smokeTestErrors": [],
+  "smokeTestMethod": "http.server local + GET de cada página e script + Chromium headless capturando o console (sem erros de JS; só avisos de desempenho do WebGL por software)"
+}

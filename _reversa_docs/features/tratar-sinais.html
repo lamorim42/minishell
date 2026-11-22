@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tratar Sinais | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/tratar-sinais/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-tratar-sinais">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Tratar Sinais</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Define como o shell reage a Ctrl-C (SIGINT) e Ctrl-\ (SIGQUIT) em cada fase: prompt, leitura de heredoc e execução de comandos. O comportamento troca conforme a fase, instalando handlers diferentes com <code>signal()</code>.</p><p><span class="badge bug">BUG-15</span><span class="badge ok">confiança 95%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad e conduzido por um pseudo-terminal (<code>pty</code>), enviando <code>\x03</code> (Ctrl-C) e <code>\x1c</code> (Ctrl-\). O <code>readline</code> substituto não redesenha o prompt, então a parte visual do prompt é 🟢 só pelo código. O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Define como o shell reage a Ctrl-C (SIGINT) e Ctrl-\ (SIGQUIT) em cada fase: prompt, leitura de heredoc e execução de comandos. O comportamento troca conforme a fase, instalando handlers diferentes com <code>signal()</code> 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>No prompt: Ctrl-C mostra um prompt novo e limpo; Ctrl-\ é ignorado 🟢</li><li>Durante o fork do heredoc: o shell ignora os dois sinais 🟢</li><li>No filho do heredoc: Ctrl-C encerra a leitura com 130 🟢</li><li>Durante a execução: o shell repassa o efeito aos filhos e mostra uma nova linha (Ctrl-C) ou <code>Quit</code> (Ctrl-\) 🟢</li><li>Registrar o status 130/131 dos filhos mortos por sinal 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<h4>Prompt (<code>signals</code>)</h4>
+<ul><li>SG-01: Ctrl-C → <code>\n</code> em stderr, linha atual apagada (<code>rl_replace_line(&quot;&quot;, 0)</code>) e prompt redesenhado 🟢 (pelo código)</li><li>SG-02: Ctrl-C no prompt **não altera <code>$?</code>**: depois de <code>ls /nope</code>, Ctrl-C e <code>echo $?</code> → <code>2</code> 🟢 (observado). ⚠️ O bash grava 130</li><li>SG-03: Ctrl-\ no prompt é ignorado 🟢 (observado), igual ao bash</li><li>RN-02: Ctrl-D é EOF, não sinal (ver <code>iniciar-sessao-e-ler-comando</code>) 🟢</li></ul>
+<h4>Heredoc (<code>signal_ignore</code> + <code>signal_here</code>)</h4>
+<ul><li>SG-04: entre o fork do heredoc e o próximo comando, o shell ignora SIGINT e SIGQUIT 🟢</li><li>SG-05: no filho do heredoc, Ctrl-C → <code>\n</code>, libera a memória e sai com 130; Ctrl-\ é ignorado 🟢</li><li>BUG-15: o shell não confere esse status, executa o comando com stdin vazio e <code>$?</code> não vira 130 (ver <code>ler-heredoc</code>) 🟢 (observado)</li></ul>
+<h4>Execução (<code>signals_parent</code>, instalado antes de cada <code>fork</code> de comando)</h4>
+<ul><li>SG-06: Ctrl-C durante um comando externo → o filho morre (ação padrão), o shell escreve <code>\n</code> em stderr e <code>$?=130</code>: <code>sleep 5</code> + Ctrl-C → <code>130</code>; <code>cat | cat</code> + Ctrl-C → <code>130</code> 🟢 (observado), igual ao bash</li><li>SG-07: Ctrl-\ durante um comando externo → o filho morre com SIGQUIT, o shell escreve <code>Quit\n</code> em stderr e <code>$?=131</code> 🟢 (observado). ⚠️ O bash escreve <code>Quit (core dumped)</code></li><li>SG-08: os filhos que fazem <code>execve</code> voltam ao comportamento padrão dos sinais, porque handlers instalados não sobrevivem ao <code>execve</code> 🟢</li><li>SG-09: um builtin executado em filho herda <code>sig_parent</code>/<code>sig_write</code> e não morre com Ctrl-C 🟡</li><li>SG-10: <code>$?</code> vem de <code>waitpid</code>: <code>WIFSIGNALED</code> → <code>128 + sinal</code> (<code>update_status_code</code>) 🟢</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: SG-02 e BUG-15)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Ctrl-C no prompt mostra um prompt novo sem encerrar o shell</td><td>Must</td><td>Ctrl-C → novo <code>miau&gt; </code></td></tr><tr><td>RF-02</td><td>Ctrl-\ no prompt não faz nada</td><td>Must</td><td>Ctrl-\ → nenhuma saída</td></tr><tr><td>RF-03</td><td>Ctrl-C durante um comando o interrompe e <code>$?=130</code></td><td>Must</td><td><code>sleep 5</code> + Ctrl-C; <code>echo $?</code> → <code>130</code></td></tr><tr><td>RF-04</td><td>Ctrl-\ durante um comando o interrompe, mostra <code>Quit</code> e <code>$?=131</code></td><td>Must</td><td><code>sleep 5</code> + Ctrl-\ → <code>Quit</code>; <code>echo $?</code> → <code>131</code></td></tr><tr><td>RF-05</td><td>Ctrl-C no heredoc encerra a leitura</td><td>Must</td><td>Ver <code>ler-heredoc</code> RF-07</td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Segurança de sinais</td><td>Handlers chamam funções que não são <em>async-signal-safe</em> (<code>printf</code>, <code>rl_*</code>, <code>free</code>)</td><td><code>src/signals_utils.c:23-55</code>, <code>src/signals.c:17-24</code></td><td>🟢</td></tr><tr><td>Estado global</td><td>Os handlers acessam a linha e a tabela pela global única <code>g_minishell</code> (ADR-007)</td><td><code>src/signals.c:21</code>, <code>src/signals_utils.c:28-30</code></td><td>🟢</td></tr><tr><td>Portabilidade</td><td>Usa <code>signal()</code> (semântica BSD com <code>SA_RESTART</code> na glibc), não <code>sigaction</code></td><td><code>src/signals*.c</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Sinais
+
+  Cenário: Ctrl-C no prompt
+    Dado o prompt com &quot;abc&quot; digitado
+    Quando o usuário envia Ctrl-C
+    Então uma nova linha é escrita
+    E o prompt aparece vazio
+
+  Cenário: Ctrl-\ no prompt
+    Quando o usuário envia Ctrl-\
+    Então nada acontece
+
+  Cenário: Interromper um comando
+    Dado que &quot;sleep 5&quot; está executando
+    Quando o usuário envia Ctrl-C
+    Então o comando termina
+    E $? é 130
+
+  Cenário: Quit em um comando
+    Dado que &quot;sleep 5&quot; está executando
+    Quando o usuário envia Ctrl-\
+    Então &quot;Quit&quot; é escrito em stderr
+    E $? é 131
+
+  @divergente
+  Cenário: Ctrl-C no prompt não altera $? (SG-02)
+    Dado que o último status é 2
+    Quando o usuário envia Ctrl-C no prompt
+    E depois digita &quot;echo $?&quot;
+    Então a saída é &quot;2&quot;</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01 a RF-05</td><td>Must</td><td>Ctrl-C, Ctrl-D e Ctrl-\ são obrigatórios no subject</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/signals_utils.c</code></td><td><code>signals</code>, <code>sig_handler</code>, <code>signal_here</code>, <code>sig_here</code></td><td>🟢</td></tr><tr><td><code>src/signals.c</code></td><td><code>signal_ignore</code>, <code>signals_parent</code>, <code>sig_parent</code>, <code>sig_write</code></td><td>🟢</td></tr><tr><td><code>src/main.c</code></td><td>chamada de <code>signals</code> a cada iteração</td><td>🟢</td></tr><tr><td><code>src/facade.c</code></td><td><code>signal_ignore</code> / <code>signal_here</code> em volta do fork do heredoc</td><td>🟢</td></tr><tr><td><code>src/exec/init_fork.c</code></td><td><code>signals_parent</code> antes de cada fork</td><td>🟢</td></tr><tr><td><code>src/exec/exec_list.c</code></td><td><code>update_status_code</code> (128 + sinal)</td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Onde é instalado</th><th>SIGINT</th><th>SIGQUIT</th></tr></thead><tbody><tr><td><code>signals(line)</code></td><td>início de cada iteração de <code>main_loop</code> (<code>src/main.c:44</code>)</td><td><code>sig_handler</code></td><td><code>SIG_IGN</code></td></tr><tr><td><code>signal_ignore(line)</code></td><td>pai e filho, logo depois do fork do heredoc (<code>src/facade.c:41</code>)</td><td><code>SIG_IGN</code></td><td><code>SIG_IGN</code></td></tr><tr><td><code>signal_here(line)</code></td><td>filho do heredoc (<code>src/facade.c:44</code>)</td><td><code>sig_here</code></td><td>(herdado: <code>SIG_IGN</code>)</td></tr><tr><td><code>signals_parent(line)</code></td><td>pai, antes de cada fork de comando (<code>src/exec/init_fork.c:15</code>)</td><td><code>sig_parent</code></td><td><code>sig_write</code></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Handler</th><th>Ação</th><th>Arquivo</th></tr></thead><tbody><tr><td><code>sig_handler</code></td><td><code>write(2, &quot;\n&quot;)</code>, <code>rl_on_new_line</code>, <code>rl_replace_line(&quot;&quot;, 0)</code>, <code>rl_redisplay</code></td><td><code>src/signals_utils.c:45-55</code> 🟢</td></tr><tr><td><code>sig_here</code></td><td><code>printf(&quot;\n&quot;)</code>; em SIGINT: <code>close_std_fd</code>, <code>free_line</code>, <code>free_table</code>, <code>exit(130)</code></td><td><code>src/signals_utils.c:23-33</code> 🟢</td></tr><tr><td><code>sig_parent</code></td><td>em SIGINT: <code>status_code = 130</code>, <code>write(2, &quot;\n&quot;)</code>, <code>rl_on_new_line</code></td><td><code>src/signals.c:17-25</code> 🟢</td></tr><tr><td><code>sig_write</code></td><td>em SIGQUIT: <code>write(2, &quot;Quit\n&quot;)</code></td><td><code>src/signals.c:27-31</code> 🟢</td></tr></tbody></table></div>
+<p>Todas as funções também zeram <code>line-&gt;sig</code>, campo que não é lido em nenhum lugar 🟡.</p>
+<h3>Fluxo Principal (máquina de estados)</h3>
+<pre class="code" data-lang="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Prompt
+    Prompt --&gt; HeredocFork: linha válida (facade)
+    HeredocFork --&gt; HeredocChild: fork (filho)
+    HeredocChild --&gt; HeredocFork: exit 0 / 130
+    HeredocFork --&gt; Exec: init_fork (signals_parent)
+    HeredocFork --&gt; Prompt: só builtin no pai
+    Exec --&gt; Prompt: fim da linha (main_loop → signals)</code></pre>
+<ol><li><strong>Prompt:</strong> <code>readline</code> bloqueado; Ctrl-C → <code>sig_handler</code> limpa a linha e redesenha; <code>$?</code> não muda (nenhum <code>status_code</code> é gravado) 🟢</li><li><strong>HeredocFork:</strong> o pai ignora tudo enquanto espera o filho do heredoc e até o primeiro <code>init_fork</code> 🟢</li><li><strong>Exec:</strong> <code>signals_parent</code> é reinstalado a cada fork. O terminal envia o sinal ao grupo de processos inteiro (shell + filhos):<ul><li>os filhos com <code>execve</code> usam a ação padrão e morrem</li><li>o shell roda <code>sig_parent</code>/<code>sig_write</code>, e <code>waitpid</code> (com <code>SA_RESTART</code>) continua esperando</li><li><code>update_status_code</code> grava <code>128 + sinal</code> 🟢 (observado: 130 e 131)</li></ul></li><li>De volta a <code>main_loop</code>, <code>signals</code> reinstala o tratamento do prompt 🟢</li></ol>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>Builtin no pai</strong> (sem fork de comando): continua com <code>SIG_IGN</code> herdado de <code>signal_ignore</code> durante a execução do builtin; Ctrl-C nesse intervalo é ignorado 🟢</li><li><strong>Builtin em filho:</strong> herda <code>sig_parent</code>; Ctrl-C não o mata, só grava 130 numa cópia da linha e escreve <code>\n</code> 🟡</li><li>**Ctrl-\ com <code>sleep</code>:<em>* o kernel gera *core dump</em> conforme o <code>ulimit</code>; o shell só escreve <code>Quit</code> 🟢</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>GNU Readline:</strong> <code>rl_on_new_line</code>, <code>rl_replace_line</code>, <code>rl_redisplay</code></li><li>**Global <code>g_minishell</code>** (ADR-007): acesso à linha e à tabela dentro dos handlers</li><li><strong>ler-heredoc, executar-comando-simples:</strong> pontos de troca de handler</li><li><strong>POSIX:</strong> <code>signal</code>, <code>exit</code>, <code>write</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Troca de handlers por fase em vez de um handler único com estado</td><td><code>src/signals*.c</code></td><td>🟢</td></tr><tr><td>Global única para os handlers (exigência da 42: no máximo uma global) (ADR-007)</td><td><code>src/main.c:15</code></td><td>🟢</td></tr><tr><td><code>signal()</code> em vez de <code>sigaction()</code></td><td><code>src/signals*.c</code></td><td>🟢</td></tr><tr><td><code>$?=130</code> do prompt <strong>não</strong> implementado (o handler do prompt não grava <code>status_code</code>)</td><td><code>src/signals_utils.c:45-55</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p><code>g_minishell.line-&gt;status_code</code> (gravado por <code>sig_parent</code>, mas sobrescrito por <code>waitpid</code>) 🟢.</p>
+<h3>Observabilidade</h3>
+<p><code>\n</code> e <code>Quit\n</code> em stderr 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 SG-02: Ctrl-C no prompt não grava <code>$?=130</code></li><li>🟢 BUG-15: Ctrl-C no heredoc não cancela a linha</li><li>🟢 Handlers com funções não <em>async-signal-safe</em> (<code>printf</code> em <code>sig_here</code>, <code>rl_*</code>, <code>free</code>); risco de <em>deadlock</em> raro</li><li>🟡 <code>sig_parent</code> grava 130 em <code>status_code</code>, mas o valor é sempre sobrescrito pelo <code>waitpid</code> seguinte; só tem efeito se nenhum filho for esperado</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: alinhar com o bash (<code>$?=130</code> no prompt, <code>Quit (core dumped)</code>, cancelamento do heredoc)</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; GNU Readline com <code>rl_on_new_line</code>, <code>rl_replace_line</code>, <code>rl_redisplay</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Global única <code>g_minishell</code> com ponteiros para a linha e a tabela (unit <code>iniciar-sessao-e-ler-comando</code>)</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 sobre SG-02 e BUG-15 → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Implementar <code>signals</code> / <code>sig_handler</code> (prompt: Ctrl-C limpa e redesenha; Ctrl-\ ignorado) e chamá-lo a cada iteração do laço<ul><li>Origem no legado: <code>src/signals_utils.c:35-55</code>, <code>src/main.c:44</code></li><li>Critério de pronto: cenários "Ctrl-C no prompt" e "Ctrl-\ no prompt"</li><li>Confiança: 🟢</li><li>Nota: gravar <code>$?=130</code> no handler (via a global) alinha com o bash; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Implementar <code>signal_ignore</code> em volta do fork do heredoc e <code>signal_here</code> / <code>sig_here</code> no filho<ul><li>Origem no legado: <code>src/signals.c:33-38</code>, <code>src/signals_utils.c:17-33</code>, <code>src/facade.c:40-45</code></li><li>Critério de pronto: Ctrl-C no heredoc encerra o filho com 130 (ver <code>ler-heredoc</code> T-06)</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Implementar <code>signals_parent</code> / <code>sig_parent</code> / <code>sig_write</code> antes de cada fork de comando<ul><li>Origem no legado: <code>src/signals.c:17-45</code>, <code>src/exec/init_fork.c:15</code></li><li>Critério de pronto: cenários "Interromper um comando" e "Quit em um comando"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Restaurar o comportamento padrão dos sinais nos filhos antes do <code>execve</code> (hoje implícito) e decidir o comportamento dos builtins em filho<ul><li>Origem no legado: <code>src/exec/init_fork.c:17-21</code> (SG-08, SG-09)</li><li>Critério de pronto: <code>echo a | cat</code> + Ctrl-C mata os dois processos</li><li>Confiança: 🟡</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Trocar as chamadas não <em>async-signal-safe</em> dos handlers (<code>printf</code>, <code>free</code>) por <code>write</code> e por um sinalizador lido fora do handler<ul><li>Origem no legado: <code>src/signals_utils.c:23-33</code></li><li>Critério de pronto: nenhum <code>printf</code>/<code>malloc</code>/<code>free</code> dentro de handler</li><li>Confiança: 🟢</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Testes por pseudo-terminal: <code>sleep 5</code> + <code>\x03</code> → <code>$?=130</code>; <code>sleep 5</code> + <code>\x1c</code> → <code>Quit</code> e <code>$?=131</code>; <code>cat | cat</code> + <code>\x03</code> → <code>130</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Ctrl-C no prompt com texto digitado → linha descartada (verificar com o readline real, não com um substituto)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Cenário <code>@divergente</code> SG-02</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 (prompt)</li><li>T-03 (execução)</li><li>T-02 (heredoc, junto com <code>ler-heredoc</code>)</li><li>T-04 → T-05 (endurecimento)</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: <code>$?=130</code> depois de Ctrl-C no prompt (SG-02), cancelamento do heredoc (BUG-15), texto <code>Quit (core dumped)</code></li></ul></div></details>
+</section><nav class="feature-pager"><a href="encerrar-shell.html">← Encerrar Shell</a><span></span></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-tratar-sinais">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/tratar-sinais/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

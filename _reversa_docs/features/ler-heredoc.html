@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ler Heredoc | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/ler-heredoc/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-ler-heredoc">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Ler Heredoc</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Implementa <code>&lt;&lt; DELIM</code>: lê linhas do usuário com o prompt <code>&gt; </code> até uma linha igual ao delimitador e entrega o conteúdo como stdin do comando. A leitura de <strong>todos</strong> os heredocs da linha acontece em um processo filho, antes de qualquer comando ser executado.</p><p><span class="badge bug">BUG-13</span><span class="badge bug">BUG-15</span><span class="badge ok">confiança 99%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad e conduzido por um pseudo-terminal (<code>pty</code>), com um <code>readline</code> substituto. O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Implementa <code>&lt;&lt; DELIM</code>: lê linhas do usuário com o prompt <code>&gt; </code> até uma linha igual ao delimitador e entrega o conteúdo como stdin do comando. A leitura de <strong>todos</strong> os heredocs da linha acontece em um processo filho, antes de qualquer comando ser executado 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Criar um <code>pipe()</code> para cada nó <code>HERE</code> 🟢</li><li>Ler o conteúdo de cada heredoc, na ordem da linha, em um processo filho 🟢</li><li>Escrever o conteúdo no pipe e fechar as pontas 🟢</li><li>Tratar EOF e Ctrl-C durante a leitura 🟢</li><li>Entregar a ponta de leitura como stdin do comando (via <code>redirecionar-entrada-e-saida</code>) 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<ul><li>HD-01: o prompt de continuação é <code>&gt; </code> 🟢</li><li>HD-02: a leitura termina na linha <strong>exatamente igual</strong> ao delimitador (mesmo tamanho e mesmo conteúdo) 🟢 (observado)</li><li>RE-10: o delimitador é o alvo já <strong>sem aspas</strong>: <code>&lt;&lt; &quot;F I&quot;</code> termina na linha <code>F I</code> 🟢 (observado)</li><li>RN-27 / RE-10: o conteúdo <strong>nunca</strong> é expandido, com ou sem aspas no delimitador: <code>a $HOME</code> sai literal 🟢 (observado). ⚠️ O bash expande quando o delimitador não tem aspas</li><li>HD-03: as aspas do conteúdo são preservadas: <code>&#x27;q&#x27; &quot;x&quot;</code> → <code>&#x27;q&#x27; &quot;x&quot;</code> 🟢 (observado), igual ao bash</li><li>HD-04: cada linha recebe <code>\n</code> no fim; o conteúdo vazio (delimitador na primeira linha) gera stdin vazio 🟢</li><li>HD-05: vários heredocs na mesma linha são lidos <strong>em sequência</strong>; o último antes do próximo <code>|</code> vence como stdin: <code>cat &lt;&lt; A &lt;&lt; B</code> lê os dois e imprime só o de <code>B</code> 🟢 (observado), igual ao bash</li><li>HD-06: <code>&lt;&lt; X</code> sem comando lê o conteúdo e o descarta, <code>$?=0</code> 🟢 (observado)</li><li>HD-07: combina com pipe e com redirecionamento de saída: <code>cat &lt;&lt; FIM | wc -l</code> → <code>2</code>; <code>cat &lt;&lt; FIM &gt; o_hd</code> grava o conteúdo 🟢 (observado)</li><li>HD-08: EOF (Ctrl-D) durante a leitura → <code>&lt;DELIM&gt;: Wanted</code> em stderr; o que já foi lido é <strong>mantido</strong> e o comando executa 🟢 (observado). ⚠️ O bash escreve <code>warning: here-document delimited by end-of-file (wanted &#x27;DELIM&#x27;)</code></li><li>RE-08 / BUG-15: Ctrl-C durante a leitura encerra o filho do heredoc com 130, mas o shell <strong>continua</strong> e executa o comando com stdin vazio; <code>$?</code> termina com o status do comando (<code>0</code> para <code>cat</code>) 🟢 (observado). ⚠️ O bash cancela a linha inteira e grava <code>$?=130</code></li><li>RE-09: o conteúdo fica num <code>pipe()</code> lido só depois; conteúdo maior que a capacidade do pipe (~64 KiB no Linux) trava o shell: heredoc de 100.000 bytes → processo morto pelo <code>timeout</code> depois de 5 s 🟢 (observado na revisão de 2026-11-22)</li><li>O delimitador não pode ser <code>$VAR</code> (a gramática rejeita, BUG-13) 🟢 (observado)</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: RN-27 (expansão), BUG-15 (Ctrl-C) e RE-09 (limite do pipe))</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Ler linhas com <code>&gt; </code> até a linha igual ao delimitador</td><td>Must</td><td><code>cat &lt;&lt; FIM</code> + <code>a</code> + <code>FIM</code> → <code>a</code></td></tr><tr><td>RF-02</td><td>Usar o delimitador sem aspas</td><td>Must</td><td><code>cat &lt;&lt; &quot;F I&quot;</code> termina em <code>F I</code></td></tr><tr><td>RF-03</td><td>Não expandir variáveis no conteúdo (as-is)</td><td>Should</td><td><code>$HOME</code> sai literal</td></tr><tr><td>RF-04</td><td>Ler todos os heredocs da linha antes de executar</td><td>Must</td><td><code>cat &lt;&lt; A &lt;&lt; B</code> pede os dois conteúdos antes de imprimir</td></tr><tr><td>RF-05</td><td>Usar o último heredoc de cada comando como stdin</td><td>Must</td><td><code>cat &lt;&lt; A &lt;&lt; B</code> imprime o conteúdo de <code>B</code></td></tr><tr><td>RF-06</td><td>Em EOF, avisar <code>&lt;DELIM&gt;: Wanted</code> e usar o conteúdo lido</td><td>Should</td><td>Ctrl-D depois de <code>linha</code> → mensagem e <code>linha</code></td></tr><tr><td>RF-07</td><td>Em Ctrl-C, encerrar a leitura</td><td>Must</td><td>Ctrl-C volta ao prompt (as-is: o comando ainda roda)</td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Isolamento</td><td>A leitura roda em um filho; o pai ignora SIGINT/SIGQUIT enquanto espera</td><td><code>src/facade.c:40-51</code>, <code>src/signals.c:33-38</code></td><td>🟢</td></tr><tr><td>Capacidade</td><td>Conteúdo limitado pela capacidade do pipe, porque o filho escreve tudo antes de alguém ler</td><td><code>src/exec/here_doc_utils.c:34-40</code></td><td>🟢 (observado na revisão de 2026-11-22)</td></tr><tr><td>Memória</td><td>Cada linha é concatenada com <code>ft_strjoin</code> (custo quadrático no tamanho)</td><td><code>src/exec/here_doc.c:68-80</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Heredoc
+
+  Cenário: Conteúdo literal
+    Quando o usuário digita &quot;cat &lt;&lt; FIM&quot;
+    E digita &quot;a $HOME&quot; e &quot;FIM&quot;
+    Então a saída é &quot;a $HOME&quot;
+
+  Cenário: Delimitador com aspas
+    Quando o usuário digita &#x27;cat &lt;&lt; &quot;F I&quot;&#x27;
+    E digita &quot;z&quot; e &quot;F I&quot;
+    Então a saída é &quot;z&quot;
+
+  Cenário: Dois heredocs
+    Quando o usuário digita &quot;cat &lt;&lt; A &lt;&lt; B&quot;
+    E digita &quot;um&quot;, &quot;A&quot;, &quot;dois&quot;, &quot;B&quot;
+    Então a saída é &quot;dois&quot;
+
+  Cenário: Heredoc com pipe
+    Quando o usuário digita &quot;cat &lt;&lt; FIM | wc -l&quot;
+    E digita &quot;a&quot;, &quot;b&quot;, &quot;FIM&quot;
+    Então a saída é &quot;2&quot;
+
+  Cenário: EOF antes do delimitador
+    Quando o usuário digita &quot;cat &lt;&lt; FIM&quot;
+    E digita &quot;linha&quot; e envia Ctrl-D
+    Então &quot;FIM: Wanted&quot; é escrito em stderr
+    E a saída é &quot;linha&quot;
+
+  @divergente
+  Cenário: Ctrl-C não cancela o comando (BUG-15)
+    Quando o usuário digita &quot;cat &lt;&lt; FIM&quot;
+    E digita &quot;linha&quot; e envia Ctrl-C
+    Então o cat executa com entrada vazia
+    E $? é 0
+
+  @divergente
+  Cenário: Sem expansão mesmo sem aspas (RN-27)
+    Dado HOME=/home/u
+    Quando o usuário digita &quot;cat &lt;&lt; FIM&quot;, &quot;$HOME&quot;, &quot;FIM&quot;
+    Então a saída é &quot;$HOME&quot;</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01, RF-02, RF-04, RF-05, RF-07</td><td>Must</td><td>Heredoc é obrigatório no subject</td></tr><tr><td>RF-03, RF-06</td><td>Should</td><td>Divergentes do bash; mantidos por fidelidade ao as-is</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/exec/here_doc.c</code></td><td><code>here_doc_buffer</code>, <code>generation_content</code>, <code>putting_nl</code>, <code>put_nl_in_buf</code></td><td>🟢</td></tr><tr><td><code>src/exec/here_doc_utils.c</code></td><td><code>creat_here_doc</code>, <code>here_doc_verification</code>, <code>here_doc_write</code>, <code>close_here_doc</code></td><td>🟢</td></tr><tr><td><code>src/facade.c</code></td><td><code>exec_pipe_line</code> (fork do heredoc, linhas 39-52)</td><td>🟢</td></tr><tr><td><code>src/signals_utils.c</code></td><td><code>signal_here</code>, <code>sig_here</code></td><td>🟢</td></tr><tr><td><code>src/signals.c</code></td><td><code>signal_ignore</code></td><td>🟢</td></tr><tr><td><code>src/exec/creat_cmd_table.c</code></td><td><code>char_cat</code></td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>creat_here_doc</code></td><td><code>(t_pipe_list *list)</code></td><td><code>void</code></td><td><code>pipe(node-&gt;fd)</code> em cada nó <code>HERE</code>; em erro <code>perror(&quot;pipe()&quot;)</code> 🟢</td></tr><tr><td><code>here_doc_verification</code></td><td><code>(t_line *line)</code></td><td><code>void</code></td><td>No filho: para cada <code>HERE</code>, lê e escreve 🟢</td></tr><tr><td><code>here_doc_buffer</code></td><td><code>(t_pipe_list *node)</code></td><td><code>char *</code> ou <code>NULL</code></td><td>Conteúdo com <code>\n</code> no fim de cada linha 🟢</td></tr><tr><td><code>generation_content</code> (static)</td><td><code>(t_pipe_list *node, struct s_hd *hd)</code></td><td><code>void</code></td><td>Laço <code>readline(&quot;&gt; &quot;)</code> 🟢</td></tr><tr><td><code>putting_nl</code> / <code>put_nl_in_buf</code> (static)</td><td><code>(struct s_hd *)</code> / <code>(char *temp, char *content)</code></td><td><code>void</code> / <code>char *</code></td><td>Acrescenta a linha e <code>\n</code> 🟢</td></tr><tr><td><code>here_doc_write</code></td><td><code>(char *buffer, t_pipe_list *node)</code></td><td><code>void</code></td><td><code>write(fd[1])</code> e fecha as duas pontas (no filho) 🟢</td></tr><tr><td><code>close_here_doc</code></td><td><code>(t_pipe_list *list)</code></td><td><code>void</code></td><td>No pai: fecha <code>fd[1]</code> de cada <code>HERE</code> 🟢</td></tr><tr><td><code>signal_here</code> / <code>sig_here</code></td><td><code>(t_line *)</code> / <code>(int)</code></td><td><code>void</code></td><td>SIGINT no filho → <code>\n</code>, libera tudo e <code>exit(130)</code> 🟢</td></tr></tbody></table></div>
+<p>Nó <code>HERE</code>: <code>args = {&quot;HERE&quot;, delimitador_sem_aspas}</code>; <code>fd[0]</code> (leitura, usada pelo comando) e <code>fd[1]</code> (escrita, usada pelo filho) 🟢.</p>
+<h3>Fluxo Principal</h3>
+<p>Dentro de <code>exec_pipe_line</code> (<code>src/facade.c:38-52</code>) 🟢:</p>
+<ol><li><code>creat_list_cmd</code> já montou a lista; o delimitador veio de <code>ctks</code> (sem aspas)</li><li><code>creat_here_doc(list)</code>: um pipe por <code>HERE</code></li><li><code>pid = fork()</code> (sempre, mesmo sem heredoc na linha)</li><li><code>signal_ignore(line)</code> no pai <strong>e</strong> no filho: SIGINT e SIGQUIT ignorados</li><li><strong>Filho:</strong><ol><li><code>signal_here</code>: SIGINT → <code>sig_here</code></li><li><code>here_doc_verification</code>: para cada nó <code>HERE</code>, na ordem: ``<code> buffer = NULL repita: linha = readline(&quot;&gt; &quot;) se NULL: &quot;&lt;delim&gt;: Wanted&quot; em stderr; pare se strlen(linha) == strlen(delim) e linha == delim: pare buffer += linha + &quot;\n&quot; write(fd[1], buffer); close(fd[0]); close(fd[1]) </code><code></code></li><li><code>close_std_fd</code>, <code>free_line</code>, <code>free_table</code>, <code>exit(0)</code></li></ol></li><li><strong>Pai:</strong> <code>waitpid(pid, &amp;status_code, 0)</code> (o status não é examinado), <code>close_here_doc</code> fecha <code>fd[1]</code> de cada <code>HERE</code></li><li>A execução segue (<code>list_generation_bin</code>, <code>open_fds</code>, <code>exec_list</code>); o comando recebe <code>fd[0]</code> como stdin por <code>find_input</code> (<code>is_redirect_input</code> inclui <code>HERE</code>) 🟢</li></ol>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>EOF:</strong> sai do laço daquele heredoc com o conteúdo parcial e passa para o próximo 🟢 (observado)</li><li><strong>Ctrl-C:</strong> <code>sig_here</code> faz <code>printf(&quot;\n&quot;)</code>, fecha <code>std_fd</code>, libera a linha e a tabela e sai com 130. As pontas de escrita restantes fecham com o processo; o pai não olha o status e executa o comando com stdin vazio (BUG-15) 🟢 (observado)</li><li><strong>Linha sem heredoc:</strong> o fork acontece do mesmo jeito; o filho não faz nada e sai com 0 🟢</li><li><strong>Conteúdo grande:</strong> <code>write</code> bloqueia quando o pipe enche, porque ninguém lê até o filho terminar; o pai espera o filho → trava (RE-09) 🟢 (observado na revisão de 2026-11-22)</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>GNU Readline:</strong> <code>readline(&quot;&gt; &quot;)</code></li><li><strong>executar-comando-simples:</strong> nós <code>HERE</code> na lista (<code>get_arg_size</code> = 2)</li><li><strong>redirecionar-entrada-e-saida:</strong> <code>find_input</code> liga <code>fd[0]</code>; <code>close_fds</code> fecha as pontas no filho do comando</li><li><strong>tratar-sinais:</strong> <code>signal_ignore</code>, <code>signal_here</code>, <code>sig_here</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Heredoc lido em processo filho separado, antes dos comandos (ADR-006)</td><td><code>src/facade.c:40-50</code></td><td>🟢</td></tr><tr><td>Conteúdo transportado por <code>pipe()</code>, não por arquivo temporário</td><td><code>src/exec/here_doc_utils.c:42-54</code></td><td>🟢</td></tr><tr><td>O fork do heredoc é incondicional</td><td><code>src/facade.c:40</code></td><td>🟢</td></tr><tr><td>O status do filho do heredoc é ignorado</td><td><code>src/facade.c:51</code></td><td>🟢</td></tr><tr><td>Comparação do delimitador por tamanho + <code>ft_strncmp</code>, para evitar o problema de prefixo</td><td><code>src/exec/here_doc.c:46-48</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p><code>struct s_hd { content, temp, buffer }</code> local à leitura. <code>temp</code> guarda o conteúdo depois da 1ª linha; <code>buffer</code>, a partir da 2ª. <code>here_doc_buffer</code> devolve <code>buffer</code> ou, se só houve uma linha, <code>temp</code> 🟢.</p>
+<h3>Observabilidade</h3>
+<p>Prompt <code>&gt; </code>, mensagem <code>&lt;delim&gt;: Wanted</code> em stderr e <code>\n</code> no Ctrl-C 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 BUG-15: Ctrl-C não cancela a linha; <code>$?</code> não vira 130</li><li>🟢 RN-27: sem expansão</li><li>🟢 RE-09: conteúdo maior que o pipe trava o shell (observado na revisão de 2026-11-22)</li><li>🟡 O fork incondicional custa um processo por linha executada</li><li>🟢 <code>status_code</code> é sobrescrito pelo <code>waitpid</code> do heredoc antes da execução. É isso que zera <code>$?</code> para um builtin final sem filhos (<code>ls /nope</code> seguido de <code>pwd</code> → <code>$?=0</code>) 🟢 (observado). Remover o fork incondicional exige zerar <code>status_code</code> explicitamente</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: arquivo temporário (como o bash) resolve RE-09; tratar o status do filho resolve BUG-15</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Units <code>executar-comando-simples</code> e <code>redirecionar-entrada-e-saida</code> implementadas</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>tratar-sinais</code> com <code>signal_ignore</code> e <code>sig_here</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; GNU Readline disponível</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 sobre expansão no conteúdo, Ctrl-C e o limite do pipe → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Implementar <code>creat_here_doc</code> (um <code>pipe()</code> por nó <code>HERE</code>)<ul><li>Origem no legado: <code>src/exec/here_doc_utils.c:42-54</code></li><li>Critério de pronto: cada nó <code>HERE</code> tem <code>fd[0]</code> e <code>fd[1]</code> válidos</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Implementar a leitura (<code>here_doc_buffer</code>, <code>generation_content</code>, <code>putting_nl</code>) com o prompt <code>&gt; </code> e a comparação exata do delimitador<ul><li>Origem no legado: <code>src/exec/here_doc.c:27-80</code></li><li>Critério de pronto: cenários "Conteúdo literal" e "Delimitador com aspas"; <code>FIMX</code> não encerra o heredoc <code>FIM</code></li><li>Confiança: 🟢</li><li>Nota: expandir <code>$</code> quando o delimitador não tem aspas alinha com o bash; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Tratar EOF com <code>&lt;DELIM&gt;: Wanted</code> e manter o conteúdo parcial<ul><li>Origem no legado: <code>src/exec/here_doc.c:40-44</code></li><li>Critério de pronto: cenário "EOF antes do delimitador"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Implementar <code>here_doc_verification</code> e <code>here_doc_write</code> no filho, na ordem da linha<ul><li>Origem no legado: <code>src/exec/here_doc_utils.c:15-40</code></li><li>Critério de pronto: cenário "Dois heredocs"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Integrar o fork do heredoc na <code>facade</code> (<code>signal_ignore</code> no pai, <code>signal_here</code> no filho, <code>waitpid</code>, <code>close_here_doc</code>)<ul><li>Origem no legado: <code>src/facade.c:38-52</code></li><li>Critério de pronto: cenário "Heredoc com pipe"; nenhum fd de escrita do heredoc aberto no pai depois do <code>waitpid</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-06, Tratar Ctrl-C: cancelar a linha inteira quando o filho sair com 130 e gravar <code>$?=130</code><ul><li>Origem no legado: <code>src/facade.c:51</code> (status ignorado, BUG-15), <code>src/signals_utils.c:23-33</code></li><li>Critério de pronto (corrigido): Ctrl-C no heredoc volta ao prompt sem executar o comando. Critério de pronto (as-is): o comando executa com stdin vazio</li><li>Confiança: 🟢</li><li>Nota: depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-07, Evitar o travamento com conteúdo grande (arquivo temporário, ou leitura do pipe em paralelo)<ul><li>Origem no legado: <code>src/exec/here_doc_utils.c:34-40</code> (RE-09)</li><li>Critério de pronto: heredoc de 200 KiB chega inteiro ao <code>wc -c</code></li><li>Confiança: 🟢</li><li>Nota: ✅ P-7 (respondida em 2026-11-22): numa reimplementação, este caso deve ser <strong>corrigido</strong>; o critério de pronto desta tarefa é a correção, e o as-is fica documentado em <code>requirements.md</code></li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Testes por pseudo-terminal (<code>pty</code>): os cenários de <code>requirements.md</code>, enviando linhas, <code>\x04</code> (Ctrl-D) e <code>\x03</code> (Ctrl-C)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Cenários <code>@divergente</code> (BUG-15, RN-27) (L-07 = as-is: estes cenários são o comportamento esperado)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Conteúdo com aspas e <code>$</code> preservado literalmente</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, Heredoc de 100 KiB (RE-09): no as-is trava (observado na revisão)</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 → T-03 → T-04 (leitura isolada, testável sem fork)</li><li>T-05 (integração)</li><li>T-06 → T-07 só em uma reimplementação corretiva (L-07 = as-is)</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: expansão no conteúdo (RN-27), cancelamento por Ctrl-C (BUG-15), limite do pipe (RE-09)</li></ul></div></details>
+</section><nav class="feature-pager"><a href="redirecionar-entrada-e-saida.html">← Redirecionar Entrada e Saída</a><a href="gerenciar-variaveis-de-ambiente.html">Gerenciar Variáveis de Ambiente →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-ler-heredoc">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/ler-heredoc/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

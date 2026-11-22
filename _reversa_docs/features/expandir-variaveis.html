@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expandir Variáveis | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/expandir-variaveis/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-expandir-variaveis">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Expandir Variáveis</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Substitui as referências <code>$NOME</code> e <code>$?</code> dentro dos tokens pelos valores da tabela de ambiente, depois de a gramática ser validada e antes da remoção de aspas. O resultado alimenta <code>clean_tokens</code> (unit <code>analisar-linha-de-comando</code>) e, a partir dele, os argumentos dos comandos.</p><p><span class="badge bug">BUG-05</span><span class="badge bug">BUG-13</span><span class="badge bug">BUG-17</span><span class="badge ok">confiança 98%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos marcados "(observado)" foram executados contra o código legado compilado na scratchpad, com um driver que chama <code>building_tokens</code> → <code>expand_var</code> → <code>clean_tokens</code>. O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Substitui as referências <code>$NOME</code> e <code>$?</code> dentro dos tokens pelos valores da tabela de ambiente, depois de a gramática ser validada e antes da remoção de aspas. O resultado alimenta <code>clean_tokens</code> (unit <code>analisar-linha-de-comando</code>) e, a partir dele, os argumentos dos comandos 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Selecionar os tokens que podem ser expandidos (categoria <code>VAR</code> e que não começam com <code>&#x27;</code>) 🟢</li><li>Extrair o nome da variável de cada <code>$</code> 🟢</li><li>Buscar o valor na tabela hash, inclusive a chave especial <code>?</code> 🟢</li><li>Reescrever o token no lugar (<code>tks[i]</code>), repetindo até não restar <code>$</code> 🟢</li><li>Garantir a ordem <strong>expandir → remover aspas</strong> 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<h4>Seleção do token</h4>
+<ul><li>RX-01: só são expandidos tokens com lexema exatamente <code>VAR</code> (contêm <code>$</code> e têm mais de 1 caractere) 🟢</li><li>RN-20: um token que <strong>começa</strong> com <code>&#x27;</code> não é expandido: <code>&#x27;$HOME&#x27;</code> → <code>$HOME</code> 🟢 (observado)</li><li>RN-20 (parcial): aspas simples que <strong>não</strong> estão no início do token não protegem: <code>a&#x27;$HOME&#x27;</code> → <code>a/home/u</code> 🟢 (observado). ⚠️ O bash dá <code>a$HOME</code></li><li>Aspas simples dentro de aspas duplas são literais e o conteúdo é expandido: <code>&quot;&#x27;$HOME&#x27;&quot;</code> → <code>&#x27;/home/u&#x27;</code> 🟢 (observado), igual ao bash</li><li><code>$</code> sozinho é <code>WORD</code> e fica literal: <code>echo $</code> → <code>$</code> 🟢 (observado)</li><li>Alvos de redirecionamento e delimitadores de heredoc nunca chegam aqui, porque a gramática rejeita <code>VAR</code> depois de operador (BUG-13): <code>cat &lt;&lt; $EOF</code> → <code>Syntax ERROR!</code> 🟢 (observado)</li></ul>
+<h4>Nome da variável</h4>
+<ul><li>RN-24: o nome começa logo depois do <code>$</code> e vai até o primeiro caractere do conjunto <code>&quot; &#x27; , : . / [ ] { } = - + * ! @ #</code> ou espaço, ou até o fim do token 🟢</li><li><code>$</code> <strong>não</strong> é delimitador: em <code>$HOME$USER</code> o nome é <code>HOME$USER</code>, que não existe, e o token vira vazio (BUG-05) 🟢 (observado). ⚠️ O bash concatena os dois valores</li><li><code>_</code>, letras, dígitos e <code>?</code> fazem parte do nome: <code>$X_Y</code> procura <code>X_Y</code>; <code>$?abc</code> procura <code>?abc</code> e o token vira vazio 🟢 (observado). ⚠️ No bash, <code>$?abc</code> → <code>&lt;status&gt;abc</code></li><li><code>${NOME}</code> não é suportado: <code>{</code> é delimitador, o nome fica vazio e o token vira vazio 🟢 (observado). ⚠️ O bash suporta</li><li>Parâmetros posicionais e especiais (<code>$1</code>, <code>$$</code>, <code>$!</code>) não existem; viram vazio ou seguem as regras acima 🟢 (observado para <code>$1</code>)</li></ul>
+<h4>Substituição</h4>
+<ul><li>RN-21: <code>$NOME</code> existente → o trecho <code>$NOME</code> é trocado pelo valor e o prefixo e o sufixo do token são preservados: <code>pre$HOME/pos</code> → <code>pre/home/u/pos</code> 🟢 (observado)</li><li>Vários <code>$</code> separados por delimitadores no mesmo token são expandidos um por um, da esquerda para a direita: <code>&quot;$HOME $USER&quot;</code> → <code>/home/u luis</code>; <code>$HOME.$USER</code> → <code>/home/u.luis</code> 🟢 (observado)</li><li>RN-22: <code>$?</code> → valor da chave <code>?</code> da tabela, gravada por <code>exec_list</code> ao fim de cada execução (<code>&quot;?&quot;=0</code> no início da sessão) 🟢</li><li>RN-23 / RX-02: variável <strong>inexistente</strong> → o <strong>token inteiro</strong> vira <code>&quot;&quot;</code>, com prefixo, sufixo e outras variáveis: <code>abc$NOPE</code> → <code>&quot;&quot;</code>; <code>&quot;a $NOPE b&quot;</code> → <code>&quot;&quot;</code> (BUG-05) 🟢 (observado). ⚠️ O bash remove só o <code>$NOPE</code></li><li>Variável existente com valor vazio (<code>Z=</code>) → o trecho vira <code>&quot;&quot;</code> e o resto é preservado 🟢 (observado)</li><li>O token vazio <strong>continua</strong> na lista de argumentos como <code>&quot;&quot;</code>; o <code>echo</code> ignora argumentos vazios, mas um comando externo os recebe: <code>ls $NOPE</code> → <code>ls: cannot access &#x27;&#x27;: No such file or directory</code>, <code>$?=2</code> 🟢 (observado na revisão de 2026-11-22). ⚠️ O bash descarta a palavra</li><li>RX-06: se o valor contém <code>$</code>, ele é expandido de novo: <code>D=&#x27;x$USER&#x27;</code> → <code>xluis</code> 🟢 (observado). ⚠️ O bash não reexpande valores</li><li>RX-06 (falha): um valor que se refere a si mesmo (<code>A=&#x27;$A&#x27;</code>, <code>B=&#x27;-$B&#x27;</code>) causa <strong>loop infinito</strong>; o shell trava 🟢 (observado: processo morto pelo <code>timeout</code> depois de 3 s)</li><li>RN-25 / RX-07: não há divisão de palavras: <code>V=&#x27;a b&#x27;</code> → <code>echo $V</code> passa <strong>um</strong> argumento <code>a b</code> 🟢 (observado). ⚠️ O bash passaria dois</li></ul>
+<h4>Interação com as aspas</h4>
+<ul><li>RN-26: a remoção de aspas roda <strong>depois</strong> da expansão, então as aspas vindas do valor também são removidas: <code>Q=&#x27;&quot;q&quot;&#x27;</code> → <code>echo $Q</code> → <code>q</code> 🟢 (observado). ⚠️ O bash imprime <code>&quot;q&quot;</code></li><li><code>&quot;$X&quot;q</code> → um token, <code>helloq</code> 🟢 (observado), igual ao bash</li><li><code>$X&quot;q&quot;</code> e <code>$X&#x27;q&#x27;</code> → dois tokens, <code>hello</code> e <code>q</code> (BUG-17, corte na tokenização) 🟢 (observado). ⚠️ O bash dá <code>helloq</code></li><li>RN-27: o heredoc não expande variáveis (detalhado em <code>ler-heredoc</code>) 🟢</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: não está decidido se as ⚠️ DIVERGÊNCIAS acima devem ser preservadas ou corrigidas)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Expandir <code>$NOME</code> em tokens <code>VAR</code> que não começam com <code>&#x27;</code></td><td>Must</td><td><code>echo $HOME</code> imprime o diretório do usuário</td></tr><tr><td>RF-02</td><td>Não expandir tokens que começam com <code>&#x27;</code></td><td>Must</td><td><code>echo &#x27;$HOME&#x27;</code> imprime <code>$HOME</code></td></tr><tr><td>RF-03</td><td>Expandir <code>$?</code> com o status da última execução</td><td>Must</td><td><code>false; echo $?</code> → <code>1</code> (em linhas separadas)</td></tr><tr><td>RF-04</td><td>Preservar prefixo e sufixo do token quando a variável existe</td><td>Must</td><td><code>echo pre$HOME/pos</code> → <code>pre/home/u/pos</code></td></tr><tr><td>RF-05</td><td>Expandir todas as referências separadas por delimitador no mesmo token</td><td>Must</td><td><code>echo &quot;$HOME $USER&quot;</code> mostra os dois valores</td></tr><tr><td>RF-06</td><td>Trocar o token inteiro por <code>&quot;&quot;</code> quando uma variável não existe (as-is, BUG-05)</td><td>Should</td><td><code>echo abc$NOPE</code> imprime linha vazia</td></tr><tr><td>RF-07</td><td>Executar a expansão antes da remoção de aspas</td><td>Must</td><td><code>echo &quot;$HOME&quot;</code> → sem aspas e expandido</td></tr><tr><td>RF-08</td><td>Não dividir palavras depois da expansão</td><td>Should</td><td><code>V=&#x27;a b&#x27;</code>; <code>echo $V</code> passa 1 argumento</td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Disponibilidade</td><td>Não há limite de reexpansão; valor auto-referente trava o shell</td><td><code>src/exec/expand_var.c:27-28</code></td><td>🟢 (observado)</td></tr><tr><td>Desempenho</td><td>Cada <code>$</code> faz uma busca na tabela hash (149 buckets) e reconstrói o token com <code>ft_strjoin</code></td><td><code>src/exec/expand_var.c:39-46</code>, <code>src/hash_table/search_item.c:15-31</code></td><td>🟢</td></tr><tr><td>Memória</td><td>O valor devolvido por <code>search_item</code> é uma cópia (<code>ft_strdup</code>) e é liberado depois da junção</td><td><code>src/hash_table/search_item.c:26</code>, <code>src/exec/expand_var.c:46</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Expansão de variáveis
+
+  Cenário: Variável simples
+    Dado HOME=/home/u no ambiente
+    Quando o usuário digita &quot;echo $HOME&quot;
+    Então a saída é &quot;/home/u&quot;
+
+  Cenário: Variável entre aspas duplas com várias referências
+    Dado HOME=/home/u e USER=luis
+    Quando o usuário digita &#x27;echo &quot;$HOME $USER&quot;&#x27;
+    Então a saída é &quot;/home/u luis&quot;
+
+  Cenário: Aspas simples impedem a expansão
+    Quando o usuário digita &quot;echo &#x27;$HOME&#x27;&quot;
+    Então a saída é &quot;$HOME&quot;
+
+  Cenário: Status da última execução
+    Dado que o último comando terminou com status 127
+    Quando o usuário digita &quot;echo $?&quot;
+    Então a saída é &quot;127&quot;
+
+  Cenário: Prefixo e sufixo preservados
+    Dado HOME=/home/u
+    Quando o usuário digita &quot;echo pre$HOME/pos&quot;
+    Então a saída é &quot;pre/home/u/pos&quot;
+
+  Cenário: Cifrão isolado é literal
+    Quando o usuário digita &quot;echo $&quot;
+    Então a saída é &quot;$&quot;
+
+  @divergente
+  Cenário: Variável inexistente apaga o token inteiro (BUG-05)
+    Quando o usuário digita &#x27;echo &quot;a $NOPE b&quot;&#x27;
+    Então a saída é uma linha vazia
+
+  @divergente
+  Cenário: Duas variáveis coladas (BUG-05)
+    Dado HOME=/home/u e USER=luis
+    Quando o usuário digita &quot;echo $HOME$USER&quot;
+    Então a saída é uma linha vazia
+
+  @divergente
+  Cenário: Aspas simples no meio do token não protegem
+    Dado HOME=/home/u
+    Quando o usuário digita &quot;echo a&#x27;$HOME&#x27;&quot;
+    Então a saída é &quot;a/home/u&quot;
+
+  @divergente
+  Cenário: Aspas vindas do valor são removidas
+    Dado Q=&#x27;&quot;q&quot;&#x27; no ambiente
+    Quando o usuário digita &quot;echo $Q&quot;
+    Então a saída é &quot;q&quot;
+
+  @divergente @trava
+  Cenário: Valor auto-referente
+    Dado A=&#x27;$A&#x27; no ambiente
+    Quando o usuário digita &quot;echo $A&quot;
+    Então o shell entra em loop infinito</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01, RF-02, RF-03, RF-07</td><td>Must</td><td>Exigidos pelo subject; <code>$?</code> é o único canal de status para o usuário</td></tr><tr><td>RF-04, RF-05</td><td>Must</td><td>Usados em praticamente todo comando com variável (<code>cd $HOME/x</code>, <code>export A=$B</code>)</td></tr><tr><td>RF-06, RF-08</td><td>Should</td><td>Comportamento herdado e divergente; mantido por fidelidade ao as-is (L-07 = documentar o comportamento atual)</td></tr></tbody></table></div>
+<blockquote>Prioridade inferida pela posição no pipeline (<code>exec_pipe_line</code>) e pelo uso nos builtins.</blockquote>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/exec/expand_var.c</code></td><td><code>expand_var</code>, <code>change_value</code>, <code>join_str_value</code>, <code>join_helper</code></td><td>🟢</td></tr><tr><td><code>src/exec/expand_var_utils.c</code></td><td><code>return_var_key</code>, <code>key_len</code></td><td>🟢</td></tr><tr><td><code>src/exec/exec_utils.c</code></td><td><code>take_prefix_var</code>, <code>sufix_var</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/search_item.c</code></td><td><code>search_item</code></td><td>🟢</td></tr><tr><td><code>src/exec/exec_list.c</code></td><td>atualização de <code>?</code> (linhas 66-67)</td><td>🟢</td></tr><tr><td><code>src/tokens/tokenizer_utils.c</code></td><td><code>ft_strcmp_len</code> (teste do lexema <code>VAR</code>)</td><td>🟢</td></tr><tr><td><code>src/facade.c</code></td><td><code>exec_pipe_line</code> (ordem <code>expand_var</code> → <code>clean_tokens</code>)</td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>expand_var</code></td><td><code>(t_line *line, t_hash_table *table)</code></td><td><code>void</code></td><td>Reescreve <code>line-&gt;tks[i]</code> no lugar; não altera <code>lex</code> nem <code>tks_nbr</code> 🟢</td></tr><tr><td><code>change_value</code> (static)</td><td><code>(t_line *line, t_hash_table *table, unsigned int i)</code></td><td><code>void</code></td><td>Expande <strong>o primeiro</strong> <code>$</code> de <code>tks[i]</code> 🟢</td></tr><tr><td><code>join_str_value</code> (static)</td><td><code>(char *key, char *value, char *str)</code></td><td><code>char *</code> novo</td><td>Monta <code>prefixo + valor + sufixo</code> 🟢</td></tr><tr><td><code>join_helper</code> (static)</td><td><code>(char *new, char *helper)</code></td><td><code>char *</code> novo</td><td><code>ft_strjoin</code> que libera o primeiro argumento 🟢</td></tr><tr><td><code>return_var_key</code></td><td><code>(char *str)</code></td><td><code>char *</code> novo</td><td>Nome depois do primeiro <code>$</code> 🟢</td></tr><tr><td><code>key_len</code></td><td><code>(char *str, int *i, int *len)</code></td><td><code>void</code></td><td>Avança até um delimitador; conta o próprio <code>$</code> (compensado com <code>len--</code>) 🟢</td></tr><tr><td><code>take_prefix_var</code></td><td><code>(char *str, unsigned int *i)</code></td><td><code>char *</code> novo ou <code>NULL</code></td><td>Trecho antes do primeiro <code>$</code>; deixa <code>*i</code> na posição do <code>$</code> 🟢</td></tr><tr><td><code>sufix_var</code></td><td><code>(char *str, unsigned int *i)</code></td><td><code>char *</code> novo ou <code>NULL</code></td><td>Trecho a partir de <code>*i</code> até o fim 🟢</td></tr><tr><td><code>search_item</code></td><td><code>(t_hash_table *table, char *key)</code></td><td><code>char *</code> (cópia) ou <code>NULL</code></td><td>Comparação exata da chave 🟢</td></tr></tbody></table></div>
+<p><strong>Entrada:</strong> <code>line-&gt;tks</code> (texto cru, com aspas), <code>line-&gt;lex</code> (categorias calculadas <strong>antes</strong> da expansão) e a tabela de ambiente 🟢. <strong>Saída:</strong> <code>line-&gt;tks</code> com as referências substituídas. As aspas continuam no texto e são removidas depois por <code>clean_tokens</code> 🟢.</p>
+<h3>Fluxo Principal</h3>
+<ol><li><code>exec_pipe_line</code> chama <code>expand_var(line, *table)</code> logo depois de a gramática ser aceita (<code>src/facade.c:36</code>) 🟢</li><li>Para cada índice <code>i</code> até <code>lex[i] == NULL</code> (<code>src/exec/expand_var.c:24-30</code>) 🟢:<ul><li>se <code>ft_strcmp_len(lex[i], &quot;VAR&quot;)</code> <strong>e</strong> <code>tks[i][0] != &#x27;\&#x27;&#x27;</code>:<ul><li>enquanto <code>tks[i]</code> contém <code>$</code>: <code>change_value(line, table, i)</code></li></ul></li></ul></li><li><code>change_value</code> (<code>src/exec/expand_var.c:33-55</code>) 🟢:<ol><li><code>key = return_var_key(tks[i])</code></li><li><code>value = search_item(table, key)</code></li><li><code>value != NULL</code> → <code>tks[i] = join_str_value(key, value, tks[i])</code>; libera o antigo e <code>value</code></li><li><code>value == NULL</code> → <code>tks[i] = &quot;&quot;</code> (token inteiro descartado); como <code>&quot;&quot;</code> não tem <code>$</code>, o laço do passo 2 termina</li><li>libera <code>key</code></li></ol></li><li>Depois de todos os tokens, <code>exec_pipe_line</code> chama <code>clean_tokens</code> (<code>src/facade.c:37</code>) 🟢</li></ol>
+<h4>Algoritmo <code>return_var_key</code></h4>
+<pre class="code" data-lang="text"><code>i = 0
+enquanto str[i]:
+  se str[i] == &#x27;$&#x27;:
+     inicio = i + 1
+     len = 0
+     enquanto str[i] e str[i] não está em &quot;\&quot;&#x27;,:./[]{}=-+*!@# &quot;:   # o &#x27;$&#x27; entra na contagem
+        len++; i++
+     len--                                                        # descarta o &#x27;$&#x27;
+     pare
+  i++
+retorna substr(str, inicio, len)</code></pre>
+<p>Consequência: um segundo <code>$</code> não interrompe o nome (<code>HOME$USER</code>) 🟢.</p>
+<h4>Algoritmo <code>join_str_value</code></h4>
+<pre class="code" data-lang="text"><code>se strlen(key) + 1 == strlen(str):      # o token é exatamente &quot;$KEY&quot;
+   retorna strdup(value)
+i = 0
+prefixo = take_prefix_var(str, &amp;i)      # str[0..i), i fica no &#x27;$&#x27;
+novo = prefixo ? prefixo + value : strdup(value)
+i += strlen(key) + 1                    # pula &quot;$KEY&quot;
+se str[i]: novo = novo + sufix_var(str, &amp;i)
+retorna novo</code></pre>
+<p>O atalho do início compara só tamanhos. Ele é correto porque o corte de tokens garante que um token com prefixo é sempre mais longo que <code>$KEY</code> 🟡.</p>
+<h4>Atualização de <code>$?</code> (produtor, fora desta unit)</h4>
+<p><code>update_status_code</code> grava a chave <code>?</code> depois de cada execução (<code>src/exec/exec_list.c:54-69</code>) 🟢:</p>
+<div class="table-wrap"><table><thead><tr><th>Condição de <code>status_code</code></th><th>Valor gravado</th></tr></thead><tbody><tr><td><code>WIFEXITED</code></td><td><code>WEXITSTATUS</code></td></tr><tr><td><code>== 1</code></td><td><code>1</code></td></tr><tr><td><code>WIFSIGNALED</code></td><td><code>WTERMSIG + 128</code></td></tr><tr><td>outro</td><td>o próprio valor</td></tr></tbody></table></div>
+<p>A expansão só lê a chave; ela é tratada como qualquer outra variável 🟢.</p>
+<h3>Fluxos Alternativos</h3>
+<ul><li>**Token que começa com <code>&#x27;</code>:** ignorado inteiro, mesmo que tenha <code>&quot;$X&quot;</code> depois: <code>&#x27;a&#x27;&quot;$HOME&quot;</code> → <code>a$HOME</code> 🟢 (observado). ⚠️ O bash dá <code>a/home/u</code></li><li><strong>Variável inexistente:</strong> token inteiro vira <code>&quot;&quot;</code> (RX-02) 🟢 (observado)</li><li><strong>Valor vazio:</strong> <code>join_str_value</code> produz prefixo + sufixo; o token pode ficar <code>&quot;&quot;</code> 🟢 (observado)</li><li>**Valor com <code>$</code>:** o <code>while</code> do passo 2 volta a expandir o resultado. Se o valor sempre recria um <code>$</code>, o laço não termina (RX-06) 🟢 (observado)</li><li><strong>Nome vazio</strong> (<code>&quot;$&quot;</code>, <code>${X}</code>, <code>$/</code>): <code>key = &quot;&quot;</code>, <code>search_item</code> não acha nada e o token vira <code>&quot;&quot;</code> 🟢 (observado)</li><li>**<code>$</code> sozinho:** lexema <code>WORD</code>, nunca chega a <code>change_value</code> 🟢</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>hash_table:</strong> <code>search_item</code> (leitura), mantida pela unit <code>gerenciar-variaveis-de-ambiente</code></li><li><strong>analisar-linha-de-comando:</strong> fornece <code>tks</code> e <code>lex</code>; consome o resultado em <code>clean_tokens</code></li><li><strong>executar-comando-simples / executar-pipeline:</strong> <code>exec_list</code> produz o valor de <code>?</code></li><li><strong>Libft:</strong> <code>ft_strchr</code>, <code>ft_substr</code>, <code>ft_strjoin</code>, <code>ft_strdup</code>, <code>ft_strlen</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>A expansão age sobre o texto do token, não sobre uma árvore de palavras; o contexto de aspas é aproximado pelo primeiro caractere</td><td><code>src/exec/expand_var.c:26</code></td><td>🟢</td></tr><tr><td>O lexema é calculado antes da expansão e não é recalculado</td><td><code>src/facade.c:22-36</code></td><td>🟢</td></tr><tr><td><code>$?</code> é guardado na própria tabela de ambiente, como uma variável comum de nome <code>?</code></td><td><code>src/hash_table/create_table.c:55</code>, <code>src/exec/exec_list.c:66-67</code></td><td>🟢</td></tr><tr><td>O valor é expandido de novo enquanto houver <code>$</code>, sem limite</td><td><code>src/exec/expand_var.c:27</code></td><td>🟢</td></tr><tr><td>Variável inexistente descarta o token inteiro, em vez de só o trecho</td><td><code>src/exec/expand_var.c:48-53</code></td><td>🟢</td></tr><tr><td>Os casos de aspas misturadas foram corrigidos um a um (commits <code>fix: single_quouts expand</code>, <code>fix: echo &#x27;oi&#x27;$USER&#x27;oi&#x27;</code>)</td><td>histórico Git</td><td>🟡</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p>Sem estado próprio. Lê a tabela (sessão) e reescreve <code>line-&gt;tks</code> (linha). Cada iteração de <code>change_value</code> aloca um novo <code>tks[i]</code> e libera o anterior 🟢.</p>
+<h3>Observabilidade</h3>
+<p>Nenhuma mensagem nem log. Um nome inválido ou inexistente produz um token vazio em silêncio 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 Loop infinito com valor auto-referente (<code>A=&#x27;$A&#x27;</code>, <code>B=&#x27;-$B&#x27;</code>). Um valor assim só entra pela herança do ambiente, porque o próprio <code>export</code> expande o <code>$</code> antes de gravar</li><li>🟢 <code>$</code> não delimita o nome, então <code>$A$B</code> falha</li><li>🟢 <code>$?abc</code> procura a chave <code>?abc</code>; no bash, <code>$?</code> tem sempre um caractere</li><li>🟢 Tokens vazios chegam como argumento <code>&quot;&quot;</code> aos comandos externos (<code>ls $NOPE</code> → <code>ls: cannot access &#x27;&#x27;</code>) (observado na revisão de 2026-11-22); se o vazio é o <strong>primeiro</strong> argumento, a linha é ignorada (BUG-20)</li><li>🟡 Nenhum <code>malloc</code> (<code>ft_substr</code>, <code>ft_strjoin</code>, <code>ft_strdup</code>) tem o retorno testado</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: preservar ou corrigir BUG-05, RX-06, a reexpansão de valores e a remoção das aspas vindas dos valores</li><li>✅ L-01 (respondida em 2026-11-22): o alvo é o <strong>mínimo exigido pelo subject</strong> da 42; <em>word splitting</em>, <code>${}</code>, <code>$$</code> e a proteção por aspas simples em qualquer posição ficam <strong>fora do escopo</strong> 🟢</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>analisar-linha-de-comando</code> implementada (fornece <code>tks</code> e <code>lex</code>; consome o resultado em <code>clean_tokens</code>)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Tabela de ambiente com <code>search_item</code> que devolve uma <strong>cópia</strong> do valor (unit <code>gerenciar-variaveis-de-ambiente</code>)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Chave <code>?</code> inserida com <code>0</code> no início da sessão (unit <code>iniciar-sessao-e-ler-comando</code>)</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 tomada: reproduzir as ⚠️ DIVERGÊNCIAS (as-is) ou corrigi-las. As tarefas abaixo descrevem o as-is e indicam onde a correção entraria → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Implementar <code>return_var_key</code> / <code>key_len</code> com o conjunto de delimitadores <code>&quot; &#x27; , : . / [ ] { } = - + * ! @ #</code> e espaço, sem tratar <code>$</code> como delimitador<ul><li>Origem no legado: <code>src/exec/expand_var_utils.c:15-49</code></li><li>Critério de pronto: <code>return_var_key(&quot;pre$HOME/pos&quot;)</code> → <code>HOME</code>; <code>&quot;$HOME$USER&quot;</code> → <code>HOME$USER</code>; <code>&quot;$?abc&quot;</code> → <code>?abc</code>; <code>&quot;\&quot;$\&quot;&quot;</code> → <code>&quot;&quot;</code></li><li>Confiança: 🟢</li><li>Nota: incluir <code>$</code> entre os delimitadores (e limitar <code>$?</code> a um caractere) corrige BUG-05 parcial e <code>$?abc</code>; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Implementar <code>take_prefix_var</code> e <code>sufix_var</code><ul><li>Origem no legado: <code>src/exec/exec_utils.c:24-48</code></li><li>Critério de pronto: <code>take_prefix_var(&quot;ab$X&quot;, &amp;i)</code> → <code>ab</code> com <code>i == 2</code>; sem prefixo → <code>NULL</code> com <code>i == 0</code>; <code>sufix_var</code> sem resto → <code>NULL</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Implementar <code>join_str_value</code> / <code>join_helper</code> montando <code>prefixo + valor + sufixo</code>, com o atalho para o token igual a <code>$KEY</code><ul><li>Origem no legado: <code>src/exec/expand_var.c:57-93</code></li><li>Critério de pronto: <code>pre$HOME/pos</code> → <code>pre/home/u/pos</code>; <code>$HOME</code> → <code>/home/u</code>; <code>&quot;$HOME $USER&quot;</code> → <code>&quot;/home/u $USER&quot;</code> depois da primeira chamada</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Implementar <code>change_value</code>: buscar a chave; se existir, juntar; se não existir, trocar o <strong>token inteiro</strong> por <code>&quot;&quot;</code> (BUG-05, as-is)<ul><li>Origem no legado: <code>src/exec/expand_var.c:33-55</code></li><li>Critério de pronto: cenário "Variável inexistente apaga o token inteiro"; <code>Z=</code> → <code>echo a$Z</code> imprime <code>a</code>; Valgrind sem vazamento de <code>key</code>, <code>value</code> ou do token antigo</li><li>Confiança: 🟢</li><li>Nota: substituir só o trecho <code>$NOME</code> por <code>&quot;&quot;</code> alinha com o bash; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Implementar <code>expand_var</code>: percorrer <code>lex</code>, expandir só <code>VAR</code> cujo <code>tks[i][0] != &#x27;\&#x27;&#x27;</code>, repetindo enquanto houver <code>$</code><ul><li>Origem no legado: <code>src/exec/expand_var.c:19-31</code></li><li>Critério de pronto: cenários "Variável simples", "Aspas simples impedem a expansão", "Cifrão isolado é literal"; <code>a&#x27;$HOME&#x27;</code> → <code>a/home/u</code> (as-is); <code>&#x27;a&#x27;&quot;$HOME&quot;</code> → <code>a$HOME</code> (as-is)</li><li>Confiança: 🟢</li><li>Nota: um modelo de aspas por caractere (estado dentro/fora de <code>&#x27;</code> e <code>&quot;</code>) corrigiria as duas divergências; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-06, Proteger o laço de reexpansão contra valores auto-referentes<ul><li>Origem no legado: <code>src/exec/expand_var.c:27-28</code> (RX-06)</li><li>Critério de pronto: com <code>A=&#x27;$A&#x27;</code> herdado, <code>echo $A</code> termina (imprime <code>$A</code> como o bash, ou outro resultado definido), sem travar</li><li>Confiança: 🟢 (falha observada)</li><li>Nota: ✅ P-7 (respondida em 2026-11-22): numa reimplementação, este caso deve ser <strong>corrigido</strong>; o critério de pronto desta tarefa é a correção, e o as-is fica documentado em <code>requirements.md</code></li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-07, Integrar na <code>facade</code>: <code>expand_var</code> depois de <code>sintax_analysis</code> e antes de <code>clean_tokens</code><ul><li>Origem no legado: <code>src/facade.c:36-37</code></li><li>Critério de pronto: <code>echo &quot;$HOME&quot;</code> → <code>/home/u</code> sem aspas; <code>Q=&#x27;&quot;q&quot;&#x27;</code> → <code>echo $Q</code> → <code>q</code> (RN-26, as-is)</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-08, Garantir que <code>$?</code> reflete <code>update_status_code</code> da execução anterior<ul><li>Origem no legado: <code>src/exec/exec_list.c:54-69</code></li><li>Critério de pronto: <code>ls /nao-existe</code> seguido de <code>echo $?</code> → <code>2</code>; comando inexistente seguido de <code>echo $?</code> → <code>127</code>; processo morto por SIGINT → <code>130</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Teste unitário de <code>return_var_key</code> para cada delimitador do conjunto e para <code>$</code>, <code>?</code>, <code>_</code>, dígitos e <code>{</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Teste unitário de <code>expand_var</code> com a tabela preenchida: os 28 casos executados pelo Redator (ver <code>requirements.md</code>), com o resultado de <code>ctks</code> como oráculo</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Teste de integração: <code>echo &quot;$HOME $USER&quot;</code>, <code>echo pre$HOME/pos</code>, <code>echo &#x27;$HOME&#x27;</code>, <code>echo $</code>, <code>export A=$HOME</code> seguido de <code>env | grep ^A=</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, Cenários <code>@divergente</code> de <code>requirements.md</code> (<code>&quot;a $NOPE b&quot;</code>, <code>$HOME$USER</code>, <code>a&#x27;$HOME&#x27;</code>, <code>$Q</code>), que fixam o as-is (L-07 = documentar o comportamento atual)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-05, Teste com <code>timeout</code>: <code>A=&#x27;$A&#x27; ./minishell</code> e <code>echo $A</code> deve terminar em menos de 1 s (valida T-06)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-06, Valgrind: nenhuma perda de memória em 100 linhas com 3 variáveis cada, existentes e inexistentes</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-07, Sem <em>word splitting</em>: <code>V=&#x27;a b&#x27;</code> → um comando externo de teste (<code>printf &#x27;&lt;%s&gt;\n&#x27; $V</code>) recebe um argumento só (RN-25, as-is)</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 → T-03 (funções puras, testáveis isoladamente com TT-01)</li><li>T-04 → T-05 (dependem da tabela hash)</li><li>T-06 logo em seguida, antes de qualquer teste com ambiente herdado arbitrário</li><li>T-07 → T-08 (integração com a <code>facade</code> e com <code>exec_list</code>)</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: preservar ou corrigir BUG-05 (token inteiro apagado; <code>$A$B</code>), a reexpansão de valores, a remoção das aspas vindas do valor (RN-26), a proteção por aspas simples só no início do token e <code>$?abc</code></li><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). P-7 respondida: o travamento deve ser corrigido numa reimplementação (T-06)</li><li>✅ L-01 (respondida em 2026-11-22): o alvo é o <strong>mínimo exigido pelo subject</strong> da 42; <em>word splitting</em>, <code>${NOME}</code>, <code>$$</code> e expansão no heredoc ficam fora do escopo</li></ul></div></details>
+</section><nav class="feature-pager"><a href="analisar-linha-de-comando.html">← Analisar Linha de Comando</a><a href="executar-comando-simples.html">Executar Comando Simples →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-expandir-variaveis">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/expandir-variaveis/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

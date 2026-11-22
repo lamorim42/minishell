@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionar Entrada e Saída | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/redirecionar-entrada-e-saida/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-redirecionar-entrada-e-saida">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Redirecionar Entrada e Saída</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Abre os arquivos de <code>&lt;</code>, <code>&gt;</code> e <code>&gt;&gt;</code> e liga os descritores ao stdin e ao stdout de cada comando, com prioridade sobre os pipes. Os arquivos são abertos no shell antes de qualquer execução, e os <code>dup2</code> são feitos dentro de cada filho. O heredoc (<code>&lt;&lt;</code>) entra pelo mesmo mecanismo de entrada, e a leitura do conteúdo fica em <code>ler-heredoc</code>.</p><p><span class="badge bug">BUG-01</span><span class="badge bug">BUG-08</span><span class="badge bug">BUG-09</span><span class="badge bug">BUG-13</span><span class="badge ok">confiança 98%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad (readline substituto lendo stdin, stdout com buffer de linha). O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Abre os arquivos de <code>&lt;</code>, <code>&gt;</code> e <code>&gt;&gt;</code> e liga os descritores ao stdin e ao stdout de cada comando, com prioridade sobre os pipes. Os arquivos são abertos no shell antes de qualquer execução, e os <code>dup2</code> são feitos dentro de cada filho. O heredoc (<code>&lt;&lt;</code>) entra pelo mesmo mecanismo de entrada, e a leitura do conteúdo fica em <code>ler-heredoc</code> 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Abrir, no shell e antes dos forks, todos os arquivos de redirecionamento da linha 🟢</li><li>Escolher, para cada comando, a entrada e a saída efetivas 🟢</li><li>Fazer <code>dup2</code> dos descritores escolhidos no filho e fechar o resto 🟢</li><li>Informar erros de abertura 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<h4>Abertura (no shell, antes da execução)</h4>
+<ul><li>RD-01: <code>&lt; alvo</code> → <code>open(alvo, O_RDONLY)</code> 🟢</li><li>RD-02: <code>&gt; alvo</code> → <code>open(alvo, O_RDWR | O_CREAT | O_TRUNC, 0644)</code> 🟢</li><li>RD-03: <code>&gt;&gt; alvo</code> → <code>open(alvo, O_RDWR | O_CREAT | O_APPEND, 0644)</code>: <code>echo a &gt; f1</code>, <code>echo b &gt;&gt; f1</code> → <code>a</code>, <code>b</code> 🟢 (observado)</li><li>RR-01: <strong>todos</strong> os arquivos de saída da linha são criados ou truncados antes da execução, inclusive os que não serão usados: <code>echo c &gt; f2 &gt; f3</code> → <code>f2</code> vazio, <code>f3</code> com <code>c</code> 🟢 (observado), igual ao bash</li><li>O alvo é sempre um <code>WORD</code> literal (sem <code>$</code>), por causa da gramática (BUG-13) 🟢</li><li>RR-06 / BUG-01: erro ao abrir arquivo de <strong>saída</strong> → <code>perror(alvo)</code> e o shell <strong>cai</strong>: <code>echo x &gt; o3 &gt; /nonexistent/x</code> → <code>/nonexistent/x: No such file or directory</code> seguido de <em>segfault</em> (código 139) 🟢 (observado)</li></ul>
+<h4>Escolha da entrada (por comando)</h4>
+<ul><li>RD-04: se o nó <strong>imediatamente anterior</strong> ao comando é <code>PIPE</code>, <code>REDI</code> ou <code>HERE</code>, o stdin vem dele 🟢</li><li>RD-05: depois, os nós <strong>seguintes</strong> até o próximo <code>PIPE</code> são percorridos; o último <code>REDI</code>/<code>HERE</code> vence: <code>cat &lt; in1</code> → conteúdo de <code>in1</code> 🟢 (observado)</li><li>RN-43: redirecionamento de entrada vence o pipe: <code>echo z | cat &lt; in1</code> → <code>conteudo</code> 🟢 (observado), igual ao bash</li><li>RR-03: <code>&lt; in1 cat</code> funciona porque o <code>&lt;</code> está <strong>imediatamente</strong> antes do comando 🟢 (observado)</li><li>BUG-09 / RR-05: <code>&lt; inexistente cmd</code> não dá erro; o comando roda com o stdin original e <code>$?=0</code> 🟢 (observado). ⚠️ O bash informa o erro e não executa</li><li><code>cmd &lt; inexistente</code> → <code>inexistente: No such file or directory</code> em stderr, o comando não executa, <code>$?=1</code> 🟢 (observado)</li><li>RR-04: <code>ls | &gt; o1 wc -l</code>: o nó anterior a <code>wc</code> é <code>REDO</code>, que não é <code>PIPE</code> nem entrada, então <code>wc</code> <strong>não</strong> lê o pipe e fica com o stdin original (o terminal, numa sessão interativa: espera digitação até Ctrl-D); a saída vai para o terminal e <code>o1</code> fica vazio, mas é criado 🟢 (código: <code>src/fd_handler.c:9-12</code>; observado com stdin já em EOF: <code>wc</code> imprime <code>0</code>). [Revisão: corrigida a afirmação anterior de que <code>wc</code> lia <code>o1</code>.] ⚠️ No bash, <code>wc</code> lê o pipe e escreve em <code>o1</code></li></ul>
+<h4>Escolha da saída (por comando)</h4>
+<ul><li>RD-06: os nós <strong>seguintes</strong> até o próximo <code>PIPE</code> são percorridos; o último <code>REDO</code>/<code>REDA</code> vence 🟢</li><li>RN-43: redirecionamento de saída vence o pipe: <code>echo a &gt; f5 | cat</code> → <code>cat</code> não recebe nada 🟢 (observado), igual ao bash</li><li>BUG-08 / RR-02: redirecionamento de saída <strong>antes</strong> do comando é ignorado: <code>&gt; f4 echo d</code> → <code>d</code> no terminal, <code>f4</code> vazio (mas criado) 🟢 (observado). ⚠️ No bash, <code>d</code> vai para <code>f4</code></li><li><code>cat &lt; in1 &gt; o2</code> → <code>o2</code> com o conteúdo de <code>in1</code> 🟢 (observado)</li></ul>
+<h4>Outros</h4>
+<ul><li>Não há suporte a <code>2&gt;</code>, <code>&amp;&gt;</code>, <code>&lt;&gt;</code>, <code>&gt;|</code> nem a descritores numerados 🟢</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: BUG-01 (crash), BUG-08, BUG-09 e RR-04)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Abrir <code>&lt;</code>, <code>&gt;</code> e <code>&gt;&gt;</code> com os modos de RD-01 a RD-03</td><td>Must</td><td><code>echo a &gt; f; echo b &gt;&gt; f; cat f</code> → <code>a</code> <code>b</code> (linhas separadas)</td></tr><tr><td>RF-02</td><td>Criar ou truncar todos os arquivos de saída antes da execução</td><td>Must</td><td><code>echo c &gt; f2 &gt; f3</code> → <code>f2</code> vazio</td></tr><tr><td>RF-03</td><td>Usar o último redirecionamento de cada direção</td><td>Must</td><td><code>echo c &gt; f2 &gt; f3</code> → <code>f3</code> = <code>c</code></td></tr><tr><td>RF-04</td><td>Dar prioridade ao redirecionamento sobre o pipe</td><td>Must</td><td><code>echo z \| cat &lt; in1</code> → conteúdo de <code>in1</code></td></tr><tr><td>RF-05</td><td>Informar arquivo de entrada inexistente e não executar o comando</td><td>Must</td><td><code>cat &lt; nope</code> → mensagem, <code>$?=1</code></td></tr><tr><td>RF-06</td><td>Informar erro de abertura de arquivo de saída</td><td>Must</td><td><code>echo x &gt; /nonexistent/x</code> → <code>perror</code> (as-is: o shell cai)</td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Disponibilidade</td><td>Erro em arquivo de saída derruba o shell (<em>use-after-free</em> e <em>double free</em>)</td><td><code>src/fd_handler_utils.c:39-43</code></td><td>🟢 (observado)</td></tr><tr><td>Recursos</td><td>Os fds de <code>REDI</code> não são fechados no pai depois da linha e são herdados pelos filhos seguintes: depois de 3 <code>cat &lt; in1</code>, <code>ls /proc/self/fd</code> mostra 3 fds extras</td><td><code>src/fd_handler.c:60-83</code>, <code>src/exec/exec_list.c:27</code></td><td>🟢 (observado na revisão de 2026-11-22)</td></tr><tr><td>Segurança</td><td>Arquivos criados com modo <code>0644</code> (sujeito ao <code>umask</code>)</td><td><code>src/fd_handler_utils.c:33-37</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Redirecionamentos
+
+  Cenário: Truncar e acrescentar
+    Quando o usuário digita &quot;echo a &gt; f1&quot;
+    E depois digita &quot;echo b &gt;&gt; f1&quot;
+    Então o arquivo &quot;f1&quot; contém &quot;a&quot; e &quot;b&quot;
+
+  Cenário: Último redirecionamento vence
+    Quando o usuário digita &quot;echo c &gt; f2 &gt; f3&quot;
+    Então &quot;f2&quot; existe e está vazio
+    E &quot;f3&quot; contém &quot;c&quot;
+
+  Cenário: Entrada de arquivo
+    Dado o arquivo &quot;in1&quot; com &quot;conteudo&quot;
+    Quando o usuário digita &quot;cat &lt; in1&quot;
+    Então a saída é &quot;conteudo&quot;
+
+  Cenário: Redirecionamento vence o pipe
+    Quando o usuário digita &quot;echo z | cat &lt; in1&quot;
+    Então a saída é &quot;conteudo&quot;
+
+  Cenário: Arquivo de entrada inexistente depois do comando
+    Quando o usuário digita &quot;cat &lt; nope&quot;
+    Então &quot;nope: No such file or directory&quot; é escrito em stderr
+    E $? é 1
+
+  @divergente
+  Cenário: Saída antes do comando é ignorada (BUG-08)
+    Quando o usuário digita &quot;&gt; f4 echo d&quot;
+    Então &quot;d&quot; aparece no terminal
+    E &quot;f4&quot; fica vazio
+
+  @divergente
+  Cenário: Entrada inexistente antes do comando (BUG-09)
+    Quando o usuário digita &quot;&lt; nope cat&quot;
+    Então nenhuma mensagem é exibida
+
+  @divergente @crash
+  Cenário: Falha ao abrir arquivo de saída (BUG-01)
+    Quando o usuário digita &quot;echo x &gt; /nonexistent/x&quot;
+    Então &quot;/nonexistent/x: No such file or directory&quot; é escrito em stderr
+    E o shell termina com falha de segmentação</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01 a RF-05</td><td>Must</td><td>Redirecionamentos são parte obrigatória do subject</td></tr><tr><td>RF-06</td><td>Must</td><td>A mensagem é necessária; o crash não deve ser reproduzido sem decisão</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/fd_handler_utils.c</code></td><td><code>open_fds</code>, <code>check_valid_fd</code>, <code>close_std_fd</code></td><td>🟢</td></tr><tr><td><code>src/fd_handler.c</code></td><td><code>find_input</code>, <code>find_output</code>, <code>close_fds</code>, <code>is_redirect_output</code>, <code>is_redirect_input</code></td><td>🟢</td></tr><tr><td><code>src/exec/exec_path.c</code></td><td><code>make_redirections</code></td><td>🟢</td></tr><tr><td><code>src/exec/init_fork.c</code></td><td>fechamento de <code>REDO</code>/<code>REDA</code> no pai</td><td>🟢</td></tr><tr><td><code>src/main.c</code></td><td><code>file_exists</code></td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>open_fds</code></td><td><code>(t_line *line)</code></td><td><code>void</code></td><td>No pai, depois do heredoc e antes de <code>exec_list</code> (<code>src/facade.c:55</code>) 🟢</td></tr><tr><td><code>check_valid_fd</code> (static)</td><td><code>(t_line *line, t_pipe_list *list, char *flag)</code></td><td><code>void</code></td><td><code>&quot;TRUNC&quot;</code> ou <code>&quot;APPEND&quot;</code>; em erro <code>perror</code> + <code>free_line(line)</code> 🟢</td></tr><tr><td><code>find_input</code></td><td><code>(t_pipe_list *node)</code></td><td><code>int</code>: último fd de entrada, 0 ou -1</td><td>Em erro escreve <code>&lt;alvo&gt;: No such file or directory</code> 🟢</td></tr><tr><td><code>find_output</code></td><td><code>(t_pipe_list *node)</code></td><td><code>void</code></td><td><code>dup2</code> e <code>close</code> do fd escolhido 🟢</td></tr><tr><td><code>close_fds</code></td><td><code>(t_pipe_list *node)</code></td><td><code>void</code></td><td>Volta ao início e fecha os fds de todos os operadores 🟢</td></tr><tr><td><code>is_redirect_output</code> / <code>is_redirect_input</code></td><td><code>(t_pipe_list *node)</code></td><td>bool</td><td><code>REDO</code>/<code>REDA</code> e <code>REDI</code>/<code>HERE</code> 🟢</td></tr><tr><td><code>file_exists</code></td><td><code>(int fd)</code></td><td>bool</td><td><code>fstat(fd) == 0</code> (<code>src/main.c:76-81</code>) 🟢</td></tr></tbody></table></div>
+<p>Nó de redirecionamento: <code>args = {&quot;REDO&quot;|&quot;REDA&quot;|&quot;REDI&quot;|&quot;HERE&quot;, alvo}</code> e <code>fd[0]</code> = descritor aberto (no <code>HERE</code>, <code>fd</code> = pipe do conteúdo) 🟢.</p>
+<h3>Fluxo Principal</h3>
+<ol><li><strong>Abertura</strong> (<code>open_fds</code>, pai, <code>src/fd_handler_utils.c:15-44</code>): ``<code> para cada nó: REDI → fd[0] = open(alvo, O_RDONLY)              # -1 se não existir, sem mensagem aqui REDO → fd[0] = open(alvo, O_RDWR|O_CREAT|O_TRUNC, 0644) REDA → fd[0] = open(alvo, O_RDWR|O_CREAT|O_APPEND, 0644) se -1: perror(alvo); free_line(line)          # o laço continua sobre nós liberados (BUG-01) PIPE → pipe(fd) </code><code></code></li><li><strong>No pai, por nó</strong> (<code>init_fork</code>, <code>src/exec/init_fork.c:22-24</code>): ao passar por um nó <code>REDO</code>/<code>REDA</code>, fecha <code>fd[0]</code> 🟢. Os <code>REDI</code> não são fechados no pai 🟢 (observado na revisão de 2026-11-22)</li><li><strong>No filho do comando</strong> (<code>make_redirections</code>, <code>src/exec/exec_path.c:41-49</code>):<ol><li><code>find_input</code> (<code>src/fd_handler.c:15-42</code>): ``<code> se prev é PIPE, REDI ou HERE: dup2(prev-&gt;fd[0], 0) input = 0 para cada nó seguinte até PIPE: se REDI/HERE: input = nó-&gt;fd[0] se !file_exists(nó-&gt;fd[0]): &quot;&lt;nó-&gt;args[1]&gt;: No such file or directory&quot;; retorna -1 se input &gt; 0: dup2(input, 0) retorna input </code><code></code></li><li><code>find_output</code> (<code>src/fd_handler.c:44-70</code>): ``<code> output = 1 para cada nó seguinte: se PIPE: se output == 1: output = pipe-&gt;fd[1]; pare se REDO/REDA: output = nó-&gt;fd[0] se output != 1: dup2(output, 1); close(output) </code><code></code></li><li><code>close_fds</code>: fecha todos os fds de operadores da lista</li><li><code>exec_path</code>: se <code>input &lt; 0</code> → <code>free_exit(1)</code></li></ol></li><li><strong>Fim da linha:</strong> <code>main_loop</code> restaura stdin/stdout com <code>dup2(std_fd)</code> (unit <code>iniciar-sessao-e-ler-comando</code>) 🟢</li></ol>
+<h4>Por que <code>&gt; f4 echo d</code> ignora o arquivo</h4>
+<p>A lista é <code>[REDO f4] [echo d]</code>. <code>find_output</code> só olha para <strong>frente</strong> a partir do comando, e o <code>REDO</code> está atrás. <code>find_input</code> olha para trás, mas só procura entrada 🟢.</p>
+<h4>Por que <code>ls | &gt; o1 wc -l</code> não lê o pipe</h4>
+<p>A lista é <code>[ls] [PIPE] [REDO o1] [wc -l]</code>. Para <code>wc</code>, o <code>prev</code> é <code>REDO</code>, que não satisfaz <code>prev é PIPE || is_redirect_input(prev)</code>; nenhum <code>dup2</code> de entrada é feito e o laço para frente não encontra <code>REDI</code>/<code>HERE</code>. O stdin continua o original (o terminal) 🟢. <code>find_output</code> olha só para frente e não acha <code>REDO</code>, então a saída também é a original 🟢. O <code>REDO o1</code> fica atrás de <code>wc</code> e só tem o efeito de criar/truncar <code>o1</code> em <code>open_fds</code> 🟢. [Revisão 2026-11-22: corrigida a versão anterior, que dizia que <code>wc</code> lia <code>o1</code>.]</p>
+<h4>Verificação <code>file_exists</code> em nós de comando (RR-07)</h4>
+<p>Dentro do laço de <code>find_input</code>, <code>file_exists(temp-&gt;fd[0])</code> também é chamado em <strong>nós de comando</strong> seguintes (<code>cat &lt; f -e</code> → nó <code>-e</code>). Nesses nós, <code>fd[0]</code> é o pedaço baixo do ponteiro <code>bin</code> (union), e o resultado depende do valor do ponteiro 🟡.</p>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>Entrada inexistente depois do comando:</strong> <code>find_input</code> acha <code>fd[0] = -1</code> → mensagem → <code>free_exit(1)</code> 🟢 (observado)</li><li><strong>Entrada inexistente antes do comando:</strong> <code>prev</code> é <code>REDI</code> com <code>fd[0] = -1</code>; <code>dup2(-1, 0)</code> falha em silêncio e o laço para frente não encontra nada; o comando roda 🟢 (observado)</li><li><strong>Saída impossível:</strong> <code>free_line</code> dentro de <code>open_fds</code> libera a lista que o laço ainda percorre; o retorno a <code>exec_pipe_line</code> usa a linha liberada → <em>segfault</em> ou <em>abort</em> 🟢 (observado: código 139)</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>executar-comando-simples:</strong> lista de nós; <code>exec_path</code> chama <code>make_redirections</code></li><li><strong>executar-pipeline:</strong> compartilha <code>find_input</code>/<code>find_output</code> (ramo <code>PIPE</code>)</li><li><strong>ler-heredoc:</strong> fornece o <code>fd</code> dos nós <code>HERE</code></li><li><strong>POSIX:</strong> <code>open</code>, <code>dup2</code>, <code>close</code>, <code>fstat</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Todos os arquivos abertos no pai antes da execução</td><td><code>src/facade.c:55</code></td><td>🟢</td></tr><tr><td><code>dup2</code> feito no filho, perto do <code>execve</code></td><td><code>src/exec/exec_path.c:21</code></td><td>🟢</td></tr><tr><td>Entrada procurada atrás (1 nó) e à frente; saída só à frente</td><td><code>src/fd_handler.c:15-70</code></td><td>🟢</td></tr><tr><td>Arquivos de saída abertos com <code>O_RDWR</code>, não <code>O_WRONLY</code></td><td><code>src/fd_handler_utils.c:33-37</code></td><td>🟢</td></tr><tr><td>Validação dos fds com <code>fstat</code> em vez do retorno de <code>open</code></td><td><code>src/fd_handler.c:20</code>, <code>src/main.c:76-81</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p>Os fds vivem no <code>union</code> de cada nó durante a linha. O pai fecha os de saída em <code>init_fork</code>; os de pipe e heredoc em <code>init_fork</code>/<code>close_here_doc</code>. Os de entrada (<code>REDI</code>) ficam abertos e vazam para os filhos seguintes 🟢 (observado na revisão de 2026-11-22).</p>
+<h3>Observabilidade</h3>
+<p><code>perror(alvo)</code> (saída), <code>&lt;alvo&gt;: No such file or directory</code> (entrada, escrito pelo filho) 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 BUG-01: crash quando um arquivo de saída não pode ser aberto</li><li>🟢 BUG-08 e BUG-09: redirecionamentos antes do comando</li><li>🟢 RR-04: redirecionamento entre <code>|</code> e o comando</li><li>🟡 RR-07: <code>file_exists</code> lido do <code>union</code> em nós de comando</li><li>🟢 RR-08: vazamento de fd de <code>REDI</code> por linha (observado na revisão de 2026-11-22)</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: um modelo "cada comando tem sua lista de redirecionamentos" (como no bash) resolve BUG-08, BUG-09, RR-04 e ML-04 de uma vez, mas muda a estrutura da lista</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>executar-comando-simples</code> implementada (lista de nós com <code>union</code> <code>bin</code>/<code>fd</code>)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>executar-pipeline</code> implementada (ramos <code>PIPE</code> de <code>find_input</code>/<code>find_output</code>)</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 sobre o modelo de redirecionamento (posicional, as-is, ou por comando, como no bash) → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Implementar <code>open_fds</code> com os modos de RD-01 a RD-03<ul><li>Origem no legado: <code>src/fd_handler_utils.c:15-44</code></li><li>Critério de pronto: cenários "Truncar e acrescentar" e "Último redirecionamento vence"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Tratar falha de abertura de arquivo de saída <strong>sem</strong> derrubar o shell: <code>perror(alvo)</code>, descartar a linha, <code>$?=1</code><ul><li>Origem no legado: <code>src/fd_handler_utils.c:39-43</code> (BUG-01)</li><li>Critério de pronto: <code>echo x &gt; /nonexistent/x</code> → mensagem e prompt de volta</li><li>Confiança: 🟢</li><li>Nota: ✅ P-7 (respondida em 2026-11-22): numa reimplementação, este caso deve ser <strong>corrigido</strong>; o critério de pronto desta tarefa é a correção, e o as-is fica documentado em <code>requirements.md</code></li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Implementar <code>find_input</code> (anterior imediato + varredura para frente até <code>PIPE</code>, último vence, erro com <code>-1</code>)<ul><li>Origem no legado: <code>src/fd_handler.c:15-42</code></li><li>Critério de pronto: <code>cat &lt; in1</code>, <code>&lt; in1 cat</code>, <code>echo z | cat &lt; in1</code> → <code>conteudo</code>; <code>cat &lt; nope</code> → mensagem e <code>$?=1</code></li><li>Confiança: 🟢</li><li>Nota: no as-is, <code>&lt; nope cat</code> roda sem erro (BUG-09); a correção depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Implementar <code>find_output</code> (varredura para frente, último vence, <code>PIPE</code> como padrão)<ul><li>Origem no legado: <code>src/fd_handler.c:44-70</code></li><li>Critério de pronto: <code>echo a &gt; f5 | cat</code> → <code>cat</code> não recebe nada; <code>cat &lt; in1 &gt; o2</code> → <code>o2</code> = <code>conteudo</code></li><li>Confiança: 🟢</li><li>Nota: no as-is, <code>&gt; f4 echo d</code> vai para o terminal (BUG-08); a correção depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Implementar <code>close_fds</code> e o fechamento de <code>REDO</code>/<code>REDA</code> no pai (<code>init_fork</code>)<ul><li>Origem no legado: <code>src/fd_handler.c:72-95</code>, <code>src/exec/init_fork.c:22-24</code></li><li>Critério de pronto: nenhum fd extra aberto no filho (<code>ls -l /proc/self/fd</code>)</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-06, Fechar também os fds de <code>REDI</code> no pai ao fim da linha<ul><li>Origem no legado: ausência em <code>src/exec/exec_list.c:27</code> (RR-08)</li><li>Critério de pronto: 200 linhas <code>cat &lt; in1</code> não aumentam os fds abertos do shell</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-07, Substituir a checagem <code>file_exists(fd)</code> em nós que não são de entrada por uma checagem só de nós <code>REDI</code>/<code>HERE</code><ul><li>Origem no legado: <code>src/fd_handler.c:18-24</code> (RR-07)</li><li>Critério de pronto: <code>cat &lt; in1 -e</code> tem comportamento determinístico em 100 execuções</li><li>Confiança: 🟡</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Cenários de <code>requirements.md</code> (truncar, acrescentar, último vence, entrada, prioridade sobre o pipe, entrada inexistente)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Cenários <code>@divergente</code> (BUG-08, BUG-09, RR-04) (L-07 = as-is: estes cenários são o comportamento esperado)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Permissões: arquivo criado tem modo <code>0644 &amp; ~umask</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, Crash (BUG-01): o teste deve <strong>falhar</strong> no legado e passar na reimplementação</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 (abertura segura)</li><li>T-03 → T-04 → T-05 (ligação no filho)</li><li>T-06 → T-07 (endurecimento)</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: modelo posicional (as-is) ou por comando (bash), que decide BUG-08, BUG-09, RR-04 e ML-04</li><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). P-7 respondida: o crash (BUG-01) deve ser corrigido numa reimplementação (T-02)</li></ul></div></details>
+</section><nav class="feature-pager"><a href="executar-pipeline.html">← Executar Pipeline</a><a href="ler-heredoc.html">Ler Heredoc →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-redirecionar-entrada-e-saida">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/redirecionar-entrada-e-saida/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

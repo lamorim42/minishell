@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executar Comando Simples | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/executar-comando-simples/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-executar-comando-simples">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Executar Comando Simples</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Transforma os tokens limpos em uma <strong>lista de nós</strong> (comandos e operadores), resolve o binário de cada comando (builtin, caminho literal ou busca no <code>PATH</code>), executa e grava o status em <code>$?</code>. Esta unit cobre a linha com <strong>um</strong> comando; a combinação com <code>|</code> fica em <code>executar-pipeline</code> e a abertura de arquivos em <code>redirecionar-entrada-e-saida</code>.</p><p><span class="badge bug">BUG-03</span><span class="badge bug">BUG-04</span><span class="badge bug">BUG-10</span><span class="badge bug">BUG-16</span><span class="badge bug">BUG-20</span><span class="badge ok">confiança 98%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad, com um <code>readline</code> substituto que lê linhas do stdin e stdout com buffer de linha (como num terminal). O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Transforma os tokens limpos em uma <strong>lista de nós</strong> (comandos e operadores), resolve o binário de cada comando (builtin, caminho literal ou busca no <code>PATH</code>), executa e grava o status em <code>$?</code>. Esta unit cobre a linha com <strong>um</strong> comando; a combinação com <code>|</code> fica em <code>executar-pipeline</code> e a abertura de arquivos em <code>redirecionar-entrada-e-saida</code> 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Agrupar os tokens em nós <code>t_pipe_list</code> (lista duplamente encadeada) 🟢</li><li>Classificar cada nó de comando: builtin, caminho literal ou busca no <code>PATH</code> 🟢</li><li>Executar builtins no próprio shell quando o comando é o último nó da linha 🟢</li><li>Executar os demais comandos em um processo filho com <code>execve</code> 🟢</li><li>Esperar os filhos e converter o status em <code>$?</code> 🟢</li><li>Informar <code>command not found</code> e erros do <code>execve</code> 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<h4>Montagem da lista</h4>
+<ul><li>ML-01: uma sequência de tokens <code>WORD</code>/<code>VAR</code> forma <strong>um</strong> nó de comando; <code>args</code> = tokens limpos (<code>ctks</code>) 🟢</li><li>ML-02: cada operador de redirecionamento forma um nó de 2 posições: <code>args[0]</code> = lexema (<code>&quot;REDO&quot;</code>, <code>&quot;REDA&quot;</code>, <code>&quot;REDI&quot;</code>, <code>&quot;HERE&quot;</code>) e <code>args[1]</code> = alvo 🟢</li><li>ML-03: <code>|</code> forma um nó de 1 posição, <code>args[0]</code> = <code>&quot;PIPE&quot;</code> 🟢</li><li>ML-04: palavras <strong>depois</strong> de um redirecionamento formam um <strong>novo</strong> nó de comando: <code>echo a &gt; f b</code> → <code>[echo a] [REDO f] [b]</code>; <code>b</code> é executado como comando (<code>b: command not found</code>, <code>$?=127</code>) e <code>f</code> recebe <code>a</code> 🟢 (observado). ⚠️ O bash trata <code>b</code> como argumento de <code>echo</code></li></ul>
+<h4>Resolução do binário</h4>
+<ul><li>RN-30: nome que começa com <code>/</code>, <code>./</code> ou <code>../</code> é usado como caminho literal 🟢. ⚠️ O bash aceita qualquer nome com <code>/</code>: <code>d/s</code> → <code>command not found</code> no minishell 🟢 (observado)</li><li>RN-31 / RE-06: os outros nomes são procurados nos diretórios do <code>PATH</code> <strong>da tabela de ambiente</strong>, na ordem, e vence o primeiro que <strong>existe</strong> (<code>access(F_OK)</code>), mesmo sem permissão de execução 🟢</li><li><code>PATH</code> removido (<code>unset PATH</code>) ou ausente → todo comando sem <code>/</code> dá <code>command not found</code> 🟢 (observado: <code>ls</code> → 127)</li><li>RN-32 / BUG-04: o nome é considerado builtin quando é <strong>prefixo</strong> de <code>echo</code>, <code>cd</code>, <code>pwd</code>, <code>export</code>, <code>unset</code>, <code>env</code> ou <code>exit</code>, ou quando tem um deles como prefixo (comparação com <code>ft_strncmp</code>). Depois, a execução exige igualdade exata; se não houver, a resposta é <code>&lt;nome&gt;: command not found</code> e <code>$?=127</code>. Exemplos: <code>pwdx</code>, <code>envsubst</code>, <code>e</code>, <code>ec</code>, <code>ex</code> 🟢 (observado). ⚠️ O bash executaria o programa externo</li><li>BUG-20 (novo): um comando cujo nome é <strong>prefixo</strong> de <code>PIPE</code>, <code>REDO</code>, <code>REDA</code>, <code>REDI</code> ou <code>HERE</code> (<code>P</code>, <code>PI</code>, <code>R</code>, <code>RE</code>, <code>H</code>, <code>HE</code>...) ou é <strong>vazio</strong> é tratado como operador e <strong>ignorado em silêncio</strong>: nada executa e <code>$?</code> não muda. <code>$NOPE ls</code> não executa <code>ls</code> 🟢 (observado). Causa: o <code>ft_strncmp</code> da Libft retorna 0 quando uma das strings termina antes de <code>n</code> (<code>Libft/ft_strncmp.c</code>). ⚠️ O bash executaria <code>P</code> ou <code>ls</code></li></ul>
+<h4>Execução</h4>
+<ul><li>RN-36 / RE-01: builtin no <strong>último nó da lista</strong> roda no próprio shell (altera diretório e ambiente) 🟢 (observado: <code>cd /tmp</code> seguido de <code>pwd</code> → <code>/tmp</code>)</li><li>RE-01: se houver qualquer redirecionamento <strong>depois</strong> do builtin, ele deixa de ser o último nó e roda em um filho, sem efeito no shell: <code>cd /tmp &gt; /dev/null</code> não muda o diretório 🟢 (observado). ⚠️ No bash o <code>cd</code> funciona</li><li>RE-02 / BUG-10: builtin em filho sempre sai com <strong>0</strong>: <code>cd nope &gt; /dev/null</code> → mensagem de erro e <code>$?=0</code> 🟢 (observado)</li><li>RE-03 / BUG-03: o <code>execve</code> recebe o <code>envp</code> <strong>original</strong> do processo, não a tabela: depois de <code>export ZZ=1</code>, <code>sh -c &#x27;echo $ZZ&#x27;</code> imprime vazio; depois de <code>unset HOME</code>, o filho ainda vê <code>HOME</code> 🟢 (observado). ⚠️ No bash os filhos herdam as mudanças</li><li>RE-04: comando não encontrado → <code>&lt;nome&gt;: command not found</code> em stderr, <code>$?=127</code> 🟢 (observado)</li><li>RE-05 / BUG-16: falha do <code>execve</code> (diretório, arquivo sem permissão de execução) → <code>perror(&lt;nome&gt;)</code> e <code>$?=127</code>: <code>/etc</code> → <code>/etc: Permission denied</code>; <code>./d/s</code> sem <code>+x</code> → <code>./d/s: Permission denied</code> 🟢 (observado). ⚠️ O bash usa 126</li><li>RE-07: comando relativo sem <code>./</code> (<code>d/s</code>) só é procurado no <code>PATH</code> 🟢 (observado)</li><li>RN-34 (parcial): <code>$?</code> recebe o status do último filho esperado. Se nenhum filho rodou (builtin no pai), vale o <code>status_code</code> deixado pelo <code>waitpid</code> do filho do heredoc, que roda em toda linha e sai com 0, a menos que o builtin o tenha alterado (ex.: <code>export 1A=2</code> → 1). Por isso <code>ls /nope</code> seguido de <code>pwd</code> dá <code>$?=0</code> 🟢 (observado)</li></ul>
+<h4><code>$?</code></h4>
+<ul><li><code>WIFEXITED</code> → código de saída; <code>WIFSIGNALED</code> → <code>128 + sinal</code>; os outros casos copiam o valor bruto (<code>src/exec/exec_list.c:54-69</code>) 🟢</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: ML-04, RN-32, BUG-20, RE-01 (redirecionamento depois de builtin), RE-02, RE-03 e RE-05)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Montar a lista de nós conforme ML-01 a ML-04</td><td>Must</td><td><code>echo a b &gt; out</code> → <code>[echo a b] [REDO out]</code></td></tr><tr><td>RF-02</td><td>Executar programa pelo caminho literal quando o nome começa com <code>/</code>, <code>./</code> ou <code>../</code></td><td>Must</td><td><code>/bin/echo oi</code> → <code>oi</code></td></tr><tr><td>RF-03</td><td>Procurar o programa no <code>PATH</code> da tabela</td><td>Must</td><td><code>ls</code> lista o diretório; depois de <code>unset PATH</code>, <code>ls</code> → 127</td></tr><tr><td>RF-04</td><td>Executar builtins no shell quando são o último nó</td><td>Must</td><td><code>cd /tmp</code> muda o diretório do shell</td></tr><tr><td>RF-05</td><td>Executar externos em filho com <code>execve</code> e esperar o término</td><td>Must</td><td><code>sleep 1</code> bloqueia o prompt por 1 s</td></tr><tr><td>RF-06</td><td>Informar <code>command not found</code> com <code>$?=127</code></td><td>Must</td><td><code>naoexiste</code> → mensagem em stderr; <code>echo $?</code> → <code>127</code></td></tr><tr><td>RF-07</td><td>Informar erro do <code>execve</code> com <code>perror</code> e <code>$?=127</code> (as-is)</td><td>Should</td><td><code>/etc</code> → <code>/etc: Permission denied</code></td></tr><tr><td>RF-08</td><td>Gravar o status do último comando em <code>$?</code></td><td>Must</td><td><code>ls /nao-existe</code>; <code>echo $?</code> → <code>2</code></td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Isolamento</td><td>Externos e builtins não finais rodam em processo filho; o pai só faz <code>waitpid</code></td><td><code>src/exec/init_fork.c:15-30</code>, <code>src/exec/exec_list.c:30-40</code></td><td>🟢</td></tr><tr><td>Segurança</td><td>A busca no <code>PATH</code> aceita arquivos sem permissão de execução (<code>F_OK</code>), e o erro só aparece no <code>execve</code></td><td><code>src/exec/path_finder.c:39</code></td><td>🟢</td></tr><tr><td>Memória</td><td>O filho libera a linha e a tabela antes de sair (<code>free_exit</code>)</td><td><code>src/free.c:24-29</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Execução de um comando
+
+  Cenário: Programa encontrado no PATH
+    Dado PATH=/usr/bin:/bin
+    Quando o usuário digita &quot;ls /&quot;
+    Então o conteúdo de &quot;/&quot; é exibido
+    E $? é 0
+
+  Cenário: Caminho literal
+    Quando o usuário digita &quot;/bin/echo absoluto&quot;
+    Então a saída é &quot;absoluto&quot;
+
+  Cenário: Builtin no shell
+    Quando o usuário digita &quot;cd /tmp&quot;
+    E depois digita &quot;pwd&quot;
+    Então a saída é &quot;/tmp&quot;
+
+  Cenário: Comando inexistente
+    Quando o usuário digita &quot;naoexiste&quot;
+    Então &quot;naoexiste: command not found&quot; é escrito em stderr
+    E $? é 127
+
+  Cenário: Status de saída propagado
+    Quando o usuário digita &quot;ls /nao-existe&quot;
+    E depois digita &quot;echo $?&quot;
+    Então a saída é &quot;2&quot;
+
+  @divergente
+  Cenário: Palavra depois de redirecionamento vira comando (ML-04)
+    Quando o usuário digita &quot;echo a &gt; f b&quot;
+    Então &quot;b: command not found&quot; é escrito em stderr
+    E o arquivo &quot;f&quot; contém &quot;a&quot;
+
+  @divergente
+  Cenário: Nome com prefixo de builtin (BUG-04)
+    Quando o usuário digita &quot;pwdx&quot;
+    Então &quot;pwdx: command not found&quot; é escrito em stderr
+
+  @divergente
+  Cenário: Comando ignorado em silêncio (BUG-20)
+    Dado que a variável NOPE não existe
+    Quando o usuário digita &quot;$NOPE ls&quot;
+    Então nada é exibido
+    E $? não muda
+
+  @divergente
+  Cenário: Builtin com redirecionamento roda em filho (RE-01)
+    Quando o usuário digita &quot;cd /tmp &gt; /dev/null&quot;
+    E depois digita &quot;pwd&quot;
+    Então o diretório não mudou
+
+  @divergente
+  Cenário: export não chega aos filhos (BUG-03)
+    Quando o usuário digita &quot;export ZZ=1&quot;
+    E depois digita &quot;sh -c &#x27;echo $ZZ&#x27;&quot;
+    Então a saída é uma linha vazia
+
+  @divergente
+  Cenário: execve falha com 127 (BUG-16)
+    Quando o usuário digita &quot;/etc&quot;
+    Então &quot;/etc: Permission denied&quot; é escrito em stderr
+    E $? é 127</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01, RF-02, RF-03, RF-05, RF-06, RF-08</td><td>Must</td><td>Caminho crítico de toda linha executável</td></tr><tr><td>RF-04</td><td>Must</td><td>Sem ele <code>cd</code>, <code>export</code>, <code>unset</code> e <code>exit</code> não têm efeito</td></tr><tr><td>RF-07</td><td>Should</td><td>Mensagem de erro com código divergente (126 no bash)</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/exec/creat_cmd_table.c</code></td><td><code>creat_list_cmd</code>, <code>make_args</code>, <code>get_arg_size</code></td><td>🟢</td></tr><tr><td><code>src/exec/make_list.c</code></td><td><code>add_back_list</code>, <code>new_node</code></td><td>🟢</td></tr><tr><td><code>src/arr_utils.c</code></td><td><code>copy_array</code></td><td>🟢</td></tr><tr><td><code>src/exec/list_generation_bin.c</code></td><td><code>list_generation_bin</code>, <code>is_path</code></td><td>🟢</td></tr><tr><td><code>src/exec/path_finder.c</code></td><td><code>path_finder</code>, <code>split_path</code>, <code>access_path</code>, <code>get_path</code></td><td>🟢</td></tr><tr><td><code>src/builtins/builtins_utils.c</code></td><td><code>is_a_builtin</code>, <code>exec_builtins</code></td><td>🟢</td></tr><tr><td><code>src/exec/exec_utils.c</code></td><td><code>is_command</code></td><td>🟢</td></tr><tr><td><code>src/exec/exec_list.c</code></td><td><code>exec_list</code>, <code>wait_child</code>, <code>update_status_code</code></td><td>🟢</td></tr><tr><td><code>src/exec/init_fork.c</code></td><td><code>init_fork</code>, <code>population_arr_pid</code></td><td>🟢</td></tr><tr><td><code>src/exec/exec_path.c</code></td><td><code>exec_path</code>, <code>make_redirections</code></td><td>🟢</td></tr><tr><td><code>src/facade.c</code></td><td><code>exec_pipe_line</code>, <code>alloc_commands</code></td><td>🟢</td></tr><tr><td><code>src/free.c</code></td><td><code>error_msg</code>, <code>free_exit</code>, <code>free_list</code></td><td>🟢</td></tr><tr><td><code>Libft/ft_strncmp.c</code></td><td><code>ft_strncmp</code> (semântica de prefixo, causa do BUG-20)</td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>creat_list_cmd</code></td><td><code>(t_line *line)</code></td><td><code>void</code></td><td>Preenche <code>line-&gt;list_cmds</code> 🟢</td></tr><tr><td><code>make_args</code></td><td><code>(t_line *line, int *index)</code></td><td><code>char **</code></td><td>Copia <code>size</code> tokens de <code>ctks</code>; em operador, troca <code>args[0]</code> pelo lexema 🟢</td></tr><tr><td><code>get_arg_size</code></td><td><code>(t_line *line, int index)</code></td><td><code>int</code></td><td><code>WORD</code>/<code>VAR</code> consecutivos → n; <code>PIPE</code> → 1; redirecionamento → 2 🟢</td></tr><tr><td><code>new_node</code> / <code>add_back_list</code></td><td><code>(char **args)</code> / <code>(t_pipe_list **, t_pipe_list *)</code></td><td>nó / <code>void</code></td><td>Lista duplamente encadeada 🟢</td></tr><tr><td><code>list_generation_bin</code></td><td><code>(t_line *line, t_hash_table **table)</code></td><td><code>void</code></td><td>Preenche <code>bin</code> de cada nó de comando 🟢</td></tr><tr><td><code>path_finder</code></td><td><code>(char *cmd, t_hash_table **table)</code></td><td><code>char *</code> ou <code>NULL</code></td><td>Primeiro <code>dir/cmd</code> com <code>access(F_OK) == 0</code> 🟢</td></tr><tr><td><code>is_a_builtin</code></td><td><code>(char **node)</code></td><td><code>FALSE</code> se builtin, <code>TRUE</code> se não (lógica invertida)</td><td>Comparação por prefixo 🟢</td></tr><tr><td><code>is_command</code></td><td><code>(t_pipe_list *node)</code></td><td>bool</td><td><code>args[0]</code> diferente (por prefixo) dos 5 lexemas de operador 🟢</td></tr><tr><td><code>exec_list</code></td><td><code>(t_line *line, t_hash_table **table)</code></td><td><code>void</code></td><td>Despacha, espera e atualiza <code>$?</code> 🟢</td></tr><tr><td><code>init_fork</code></td><td><code>(t_line *line, t_pipe_list *list, t_hash_table **table)</code></td><td><code>void</code></td><td>Fork do comando; fecha pipes no pai 🟢</td></tr><tr><td><code>exec_path</code></td><td><code>(t_line *line, t_pipe_list *list, t_hash_table **table)</code></td><td>não retorna</td><td>Roda no filho 🟢</td></tr><tr><td><code>exec_builtins</code></td><td><code>(t_pipe_list *node, t_hash_table **table)</code></td><td><code>void</code></td><td>Igualdade exata com os 7 nomes 🟢</td></tr></tbody></table></div>
+<h4>Estrutura <code>t_pipe_list</code> (<code>includes/minishell.h</code>)</h4>
+<div class="table-wrap"><table><thead><tr><th>Campo</th><th>Tipo</th><th>Uso</th></tr></thead><tbody><tr><td><code>args</code></td><td><code>char **</code></td><td>comando: <code>argv</code>; operador: <code>{lexema, alvo}</code> ou <code>{&quot;PIPE&quot;}</code></td></tr><tr><td><code>bin</code> / <code>fd[2]</code></td><td><code>union</code></td><td>comando: caminho ou <code>&quot;builtin&quot;</code>; operador: descritores</td></tr><tr><td><code>next</code>, <code>prev</code></td><td><code>t_pipe_list *</code></td><td>encadeamento duplo (ADR-005)</td></tr></tbody></table></div>
+<h3>Fluxo Principal</h3>
+<p>Dentro de <code>exec_pipe_line</code> (<code>src/facade.c:32-59</code>) 🟢:</p>
+<ol><li><code>creat_list_cmd</code>: percorre <code>tks</code>; em cada posição, <code>make_args</code> copia <code>get_arg_size</code> tokens de <code>ctks</code> e avança o índice</li><li><code>creat_here_doc</code> e o filho do heredoc (unit <code>ler-heredoc</code>)</li><li><code>list_generation_bin</code> (<code>src/exec/list_generation_bin.c:17-36</code>): ``<code> para cada nó: se is_a_builtin(args[0]) == 0:    bin = &quot;builtin&quot; senão se is_command(nó): se args[0] começa com &quot;/&quot;, &quot;./&quot; ou &quot;../&quot;: bin = strdup(args[0]) senão: bin = path_finder(args[0])          # NULL se não achar </code><code></code></li><li><code>alloc_commands</code>: conta os nós de comando (<code>count_cmds</code>) e aloca <code>pid[count_cmds + 1]</code> zerado</li><li><code>open_fds</code> (unit <code>redirecionar-entrada-e-saida</code>)</li><li><code>exec_list</code> (<code>src/exec/exec_list.c:18-40</code>): ``<code> para cada nó: se !is_command(nó): continua se bin == &quot;builtin&quot; e nó-&gt;next == NULL: exec_builtins(nó)    # no pai senão: init_fork(nó) wait_child: waitpid(pid[i], &amp;status_code, WUNTRACED) para cada pid update_status_code </code><code></code></li><li><code>init_fork</code> (<code>src/exec/init_fork.c:17-42</code>): <code>signals_parent</code>, <code>fork</code>; no filho <code>close_std_fd</code> e <code>exec_path</code>; no pai guarda o pid e fecha o pipe do nó anterior</li><li><code>exec_path</code> no filho (<code>src/exec/exec_path.c:17-39</code>): ``<code> input = make_redirections(nó)       # find_input, find_output, close_fds se input &lt; 0:            free_exit(1) se bin == NULL:          &quot;&lt;nome&gt;: command not found&quot; em stderr; free_exit(127) se bin == &quot;builtin&quot;:     exec_builtins; free_exit(0) execve(bin, args, line-&gt;envp)       # envp original de main em erro: perror(args[0]); free_exit(127) </code><code></code></li><li><code>add_history(line-&gt;str)</code> e <code>free_line</code> (<code>src/facade.c:57-58</code>)</li></ol>
+<h4>Algoritmo <code>path_finder</code></h4>
+<pre class="code" data-lang="text"><code>path = search_item(table, &quot;PATH&quot;)          # cópia; NULL se não existir
+se NULL: retorna NULL
+para cada dir em split(path, &#x27;:&#x27;):
+   cand = dir + &quot;/&quot; + cmd
+   se access(cand, F_OK) == 0: retorna cand
+retorna NULL</code></pre>
+<h4>Semântica de <code>ft_strncmp</code> (causa de BUG-04 e BUG-20)</h4>
+<p><code>ft_strncmp(a, b, n)</code> para no primeiro <code>\0</code> de <strong>qualquer</strong> das strings e retorna 0 se não houve diferença até ali (<code>Libft/ft_strncmp.c</code>) 🟢. Logo:</p>
+<ul><li><code>ft_strncmp(&quot;&quot;, X, n) == 0</code> para todo <code>X</code></li><li><code>ft_strncmp(&quot;ec&quot;, &quot;echo&quot;, 4) == 0</code> e <code>ft_strncmp(&quot;pwdx&quot;, &quot;pwd&quot;, 3) == 0</code></li></ul>
+<p>Efeitos: <code>is_a_builtin</code> aceita prefixos nos dois sentidos; <code>is_command</code> rejeita <code>&quot;&quot;</code>, <code>P</code>, <code>PI</code>, <code>R</code>, <code>RE</code>, <code>RED</code>, <code>H</code>, <code>HE</code>, <code>HER</code> etc. Um nó de comando rejeitado por <code>is_command</code> não recebe <code>bin</code>, não é contado em <code>count_cmds</code> e é pulado por <code>exec_list</code> 🟢 (observado no gdb: <code>$NOPE ls</code> → nó <code>{&quot;&quot;, &quot;ls&quot;}</code>, <code>bin = NULL</code>, <code>count_cmds = 0</code>).</p>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>Builtin final:</strong> <code>exec_builtins</code> no pai; nenhum pid é registrado; <code>wait_child</code> não espera nada e <code>update_status_code</code> usa o <code>status_code</code> corrente 🟢</li><li><strong>Builtin não final</strong> (seguido de redirecionamento ou pipe): roda no filho e sai com 0 (BUG-10) 🟢</li><li><strong>Nome igual a prefixo de builtin, mas não exato</strong> (<code>pwdx</code>): <code>bin = &quot;builtin&quot;</code> → <code>exec_builtins</code> cai no <code>else</code>: grava <code>status_code = 127</code> na global e escreve <code>command not found</code> 🟢</li><li>**<code>PATH</code> ausente:** <code>path_finder</code> → <code>NULL</code> → <code>command not found</code> no filho 🟢</li><li>**Falha de <code>fork</code>:** não tratada; <code>pid = -1</code> é guardado e esperado 🟡</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>analisar-linha-de-comando / expandir-variaveis:</strong> <code>lex</code> e <code>ctks</code></li><li><strong>hash_table:</strong> <code>search_item(&quot;PATH&quot;)</code>; <code>update_status_code</code> grava <code>?</code></li><li><strong>redirecionar-entrada-e-saida:</strong> <code>open_fds</code>, <code>find_input</code>, <code>find_output</code>, <code>close_fds</code></li><li><strong>builtins:</strong> <code>exec_builtins</code> despacha para as units <code>navegar-diretorios</code>, <code>imprimir-texto-echo</code>, <code>gerenciar-variaveis-de-ambiente</code>, <code>encerrar-shell</code></li><li><strong>tratar-sinais:</strong> <code>signals_parent</code> antes de cada fork</li><li><strong>POSIX:</strong> <code>fork</code>, <code>execve</code>, <code>waitpid</code>, <code>access</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Lista duplamente encadeada de nós de comando e de operador (ADR-005)</td><td><code>src/exec/make_list.c</code></td><td>🟢</td></tr><tr><td><code>union</code> <code>bin</code>/<code>fd</code> no nó: o tipo do nó define qual campo vale</td><td><code>includes/minishell.h</code></td><td>🟢</td></tr><tr><td>Resolução de <code>PATH</code> pela tabela, não por <code>getenv</code> (ADR-008)</td><td><code>src/exec/path_finder.c:22</code></td><td>🟢</td></tr><tr><td>Builtin no pai quando é o último nó (ADR-009)</td><td><code>src/exec/exec_list.c:30-32</code></td><td>🟢</td></tr><tr><td><code>execve</code> com o <code>envp</code> de <code>main</code></td><td><code>src/exec/exec_path.c:34</code></td><td>🟢</td></tr><tr><td>Categorias e nomes comparados por prefixo com <code>ft_strncmp</code></td><td><code>src/exec/exec_utils.c:15-22</code>, <code>src/builtins/builtins_utils.c:40-51</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<ul><li><code>line-&gt;list_cmds</code>: uma lista por linha, liberada em <code>free_line</code> 🟢</li><li><code>line-&gt;pid[]</code>, <code>pid_index</code>, <code>count_cmds</code>: por linha; <code>free_line</code> libera <code>pid</code> e zera <code>count_cmds</code> (<code>src/free.c:39-44</code>) 🟢</li><li><code>line-&gt;status_code</code>: último status bruto de <code>waitpid</code>; persiste entre linhas 🟢</li></ul>
+<h3>Observabilidade</h3>
+<p>Mensagens em stderr: <code>&lt;nome&gt;: command not found</code> (<code>error_msg</code>) e <code>perror(&lt;nome&gt;)</code> 🟢. Nenhuma mensagem para os comandos ignorados por BUG-20 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 BUG-20 (novo): comandos com nome vazio ou prefixo de lexema somem em silêncio</li><li>🟢 BUG-04: programas externos com prefixo de builtin não executam</li><li>🟢 BUG-03: <code>envp</code> original no <code>execve</code></li><li>🟢 ML-04: argumentos depois de redirecionamento viram comando</li><li>🟡 <code>fork</code> sem tratamento de erro; <code>pid</code> negativo seria esperado com <code>waitpid(-1)</code></li><li>🟡 <code>free_list</code> também usa <code>ft_strncmp</code> por prefixo para decidir o que liberar (<code>src/free.c:58-80</code>); nós com nome vazio podem não ser liberados</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: corrigir <code>ft_strncmp</code> (ou trocar por igualdade exata) muda o comportamento de várias units ao mesmo tempo; a decisão precisa ser única</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Units <code>analisar-linha-de-comando</code> e <code>expandir-variaveis</code> implementadas (<code>lex</code> e <code>ctks</code>)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Tabela de ambiente com <code>search_item</code> (unit <code>gerenciar-variaveis-de-ambiente</code>)</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 sobre a semântica de comparação: reproduzir o <code>ft_strncmp</code> por prefixo (as-is) ou usar igualdade exata → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Definir <code>t_pipe_list</code> com <code>args</code>, <code>union { bin; fd[2]; }</code>, <code>next</code> e <code>prev</code>, e as funções <code>new_node</code> / <code>add_back_list</code><ul><li>Origem no legado: <code>includes/minishell.h</code>, <code>src/exec/make_list.c</code></li><li>Critério de pronto: lista de 3 nós com <code>prev</code> e <code>next</code> coerentes</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Implementar <code>get_arg_size</code>, <code>make_args</code> e <code>creat_list_cmd</code> (ML-01 a ML-04)<ul><li>Origem no legado: <code>src/exec/creat_cmd_table.c:18-67</code></li><li>Critério de pronto: <code>echo a b &gt; out | wc -l &lt; in</code> → <code>[echo a b] [REDO out] [PIPE] [wc -l] [REDI in]</code>; <code>echo a &gt; f b</code> → <code>[echo a] [REDO f] [b]</code></li><li>Confiança: 🟢</li><li>Nota: juntar as palavras depois do redirecionamento ao comando anterior alinha com o bash; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Implementar <code>is_command</code> e <code>is_a_builtin</code><ul><li>Origem no legado: <code>src/exec/exec_utils.c:15-22</code>, <code>src/builtins/builtins_utils.c:40-51</code>, <code>Libft/ft_strncmp.c</code></li><li>Critério de pronto (as-is): <code>pwdx</code> e <code>e</code> → builtin; <code>P</code> e <code>&quot;&quot;</code> → não comando. Critério de pronto (corrigido): igualdade exata nos dois casos</li><li>Confiança: 🟢</li><li>Nota: BUG-04 e BUG-20 vêm da mesma causa; tratar junto com L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Implementar <code>path_finder</code> com a busca no <code>PATH</code> da tabela e <code>access(F_OK)</code><ul><li>Origem no legado: <code>src/exec/path_finder.c:15-75</code></li><li>Critério de pronto: <code>ls</code> → <code>/usr/bin/ls</code> (ou o primeiro diretório que o contenha); <code>PATH</code> ausente → <code>NULL</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Implementar <code>list_generation_bin</code> (builtin → <code>&quot;builtin&quot;</code>; <code>/</code>, <code>./</code>, <code>../</code> → literal; senão <code>path_finder</code>)<ul><li>Origem no legado: <code>src/exec/list_generation_bin.c:17-42</code></li><li>Critério de pronto: <code>d/s</code> → <code>bin = NULL</code> (as-is); <code>./d/s</code> → <code>bin = &quot;./d/s&quot;</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-06, Implementar <code>alloc_commands</code> (contar nós de comando e alocar <code>pid[]</code> zerado)<ul><li>Origem no legado: <code>src/facade.c:61-76</code></li><li>Critério de pronto: <code>count_cmds</code> igual ao número de nós de comando; <code>pid[count_cmds] == 0</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-07, Implementar <code>exec_path</code> no filho: redirecionamentos → <code>command not found</code> (127) → builtin (<code>exit 0</code>) → <code>execve(bin, args, envp_original)</code> → <code>perror</code> (127)<ul><li>Origem no legado: <code>src/exec/exec_path.c:17-39</code></li><li>Critério de pronto: cenários "Comando inexistente" e "execve falha com 127"</li><li>Confiança: 🟢</li><li>Nota: passar a tabela como <code>envp</code> (BUG-03), sair com o status real do builtin (BUG-10) e usar 126 (BUG-16) dependem de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-08, Implementar <code>init_fork</code>: <code>signals_parent</code>, <code>fork</code>, <code>close_std_fd</code> no filho, registro do pid no pai<ul><li>Origem no legado: <code>src/exec/init_fork.c:17-42</code></li><li>Critério de pronto: <code>sleep 1</code> bloqueia o prompt por 1 s; nenhum fd de <code>std_fd</code> aberto no filho</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-09, Implementar <code>exec_list</code> com o builtin no pai quando <code>next == NULL</code>, <code>wait_child</code> e <code>update_status_code</code><ul><li>Origem no legado: <code>src/exec/exec_list.c:18-69</code></li><li>Critério de pronto: cenários "Builtin no shell", "Status de saída propagado" e "Builtin com redirecionamento roda em filho" (as-is)</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-10, Implementar <code>error_msg</code> e <code>free_exit</code><ul><li>Origem no legado: <code>src/free.c:15-29</code></li><li>Critério de pronto: <code>naoexiste</code> → <code>naoexiste: command not found</code> em stderr; Valgrind no filho sem vazamento</li><li>Confiança: 🟢</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Integração: <code>ls /</code>, <code>/bin/echo absoluto</code>, <code>naoexiste</code> (127), <code>ls /nao-existe</code> (2), <code>cd /tmp</code> + <code>pwd</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, <code>unset PATH</code> seguido de <code>ls</code> → 127; <code>/bin/ls</code> continua funcionando</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Arquivo no <code>PATH</code> sem <code>+x</code> → <code>Permission denied</code> e 127 (RE-05, RE-06)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, Cenários <code>@divergente</code> de <code>requirements.md</code> (ML-04, BUG-04, BUG-20, RE-01, BUG-03, BUG-16)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-05, Teste unitário de <code>get_arg_size</code> para cada lexema</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-06, Valgrind com <code>--trace-children=yes</code> em 50 linhas mistas (builtin, externo, inexistente)</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 (estrutura e montagem; testáveis sem fork)</li><li>T-03 → T-04 → T-05 (resolução do binário)</li><li>T-06 → T-10 → T-07 → T-08 → T-09 (execução)</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: semântica de comparação (<code>ft_strncmp</code> por prefixo), causa comum de BUG-04 e BUG-20</li><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: ML-04 (palavras depois de redirecionamento), RE-01 (builtin com redirecionamento), BUG-03 (<code>envp</code>), BUG-10 (status do builtin no filho), BUG-16 (126)</li><li>✅ L-03 (respondida em 2026-11-22): é um <strong>bug</strong> (BUG-03), confirmado pelo autor; documentado como comportamento atual (L-07)</li></ul></div></details>
+</section><nav class="feature-pager"><a href="expandir-variaveis.html">← Expandir Variáveis</a><a href="executar-pipeline.html">Executar Pipeline →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-executar-comando-simples">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/executar-comando-simples/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

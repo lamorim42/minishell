@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executar Pipeline | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/executar-pipeline/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-executar-pipeline">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Executar Pipeline</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Encadeia dois ou mais comandos com <code>|</code>, ligando o stdout de cada um ao stdin do seguinte por um <code>pipe()</code>. Os comandos rodam em paralelo e <code>$?</code> recebe o status do último. Usa a montagem da lista e a execução de <code>executar-comando-simples</code>.</p><p><span class="badge bug">BUG-02</span><span class="badge bug">BUG-20</span><span class="badge ok">confiança 98%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad (readline substituto lendo stdin, stdout com buffer de linha). O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Encadeia dois ou mais comandos com <code>|</code>, ligando o stdout de cada um ao stdin do seguinte por um <code>pipe()</code>. Os comandos rodam em paralelo e <code>$?</code> recebe o status do último. Usa a montagem da lista e a execução de <code>executar-comando-simples</code> 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Criar um <code>pipe()</code> para cada nó <code>PIPE</code>, no pai e antes de qualquer <code>fork</code> 🟢</li><li>Ligar, em cada filho, a ponta de leitura do pipe anterior ao stdin e a ponta de escrita do pipe seguinte ao stdout 🟢</li><li>Fechar no pai as pontas de cada pipe assim que o comando seguinte foi criado 🟢</li><li>Esperar todos os filhos e gravar o status do último em <code>$?</code> 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<ul><li>RN-34: os comandos de um pipeline rodam em <strong>paralelo</strong>: <code>sleep 1 | sleep 1 | echo x</code> termina em ~1 s 🟢 (observado)</li><li>RN-34: <code>$?</code> é o status do <strong>último</strong> comando: <code>ls /nope | true</code> → 0; <code>true | ls /nope</code> → 2 🟢 (observado)</li><li>PL-01: dados fluem por pipelines de qualquer tamanho: <code>echo abc | cat | cat | wc -c</code> → <code>4</code> 🟢 (observado)</li><li>PL-02: um leitor que termina cedo não trava o pipeline: <code>yes | head -1</code> → <code>y</code>, <code>$?=0</code> 🟢 (observado)</li><li>RN-36 / BUG-02: builtin <strong>no último nó</strong> roda no <strong>shell</strong>, mesmo depois de um pipe:<ul><li><code>ls | exit 3</code> encerra o shell com código 3 🟢 (observado). ⚠️ No bash, cada parte do pipeline roda em subshell e o shell continua</li><li><code>echo a | cd /tmp</code> muda o diretório do shell 🟢 (observado). ⚠️ No bash não muda</li><li>o builtin final não lê o pipe; o pipe anterior é fechado sem leitor 🟢</li></ul></li><li>PL-03: com builtin no último nó, <code>$?</code> fica com o status do <strong>último filho esperado</strong>, não do builtin: <code>ls /nope | echo x</code> → <code>x</code> e <code>$?=2</code> 🟢 (observado). ⚠️ O bash dá 0</li><li>PL-04: builtin fora do último nó roda em filho e não afeta o shell: <code>exit 3 | echo depois</code> → <code>depois</code>, o shell continua; <code>export PX=1 | cat</code> não cria <code>PX</code> 🟢 (observado), igual ao bash</li><li>RN-12: <code>|</code> no fim da linha é aceito; o comando escreve num pipe sem leitor e nada aparece: <code>ls |</code> → <code>$?=0</code> 🟢 (observado)</li><li>PL-05: comando inexistente no meio não interrompe os outros: <code>echo a | naoexiste | wc -l</code> → <code>naoexiste: command not found</code> e <code>0</code>; <code>$?=0</code> 🟢 (observado), igual ao bash</li><li>PL-06: o último nó vazio ou ignorado (BUG-20) deixa o comando anterior sem leitor válido: <code>echo a | cat -e | &quot;&quot;</code> → <code>cat: -: Bad file descriptor</code>, <code>$?=1</code> 🟢 (observado)</li><li>RN-43: redirecionamento explícito tem prioridade sobre o pipe (detalhado em <code>redirecionar-entrada-e-saida</code>) 🟢</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: BUG-02 (builtin final no shell) e PL-03)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Criar um pipe por <code>\|</code> antes de criar os processos</td><td>Must</td><td><code>ls \| wc -l</code> imprime a contagem</td></tr><tr><td>RF-02</td><td>Ligar stdout do comando <em>i</em> ao stdin do comando <em>i+1</em></td><td>Must</td><td><code>echo abc \| cat \| cat \| wc -c</code> → <code>4</code></td></tr><tr><td>RF-03</td><td>Executar os comandos em paralelo</td><td>Must</td><td><code>sleep 1 \| sleep 1</code> termina em ~1 s</td></tr><tr><td>RF-04</td><td>Fechar as pontas dos pipes no pai</td><td>Must</td><td><code>yes \| head -1</code> termina</td></tr><tr><td>RF-05</td><td>Gravar em <code>$?</code> o status do último filho</td><td>Must</td><td><code>true \| ls /nope</code>; <code>echo $?</code> → <code>2</code></td></tr><tr><td>RF-06</td><td>Rodar o builtin do último nó no shell (as-is, BUG-02)</td><td>Should</td><td><code>ls \| exit 3</code> encerra o shell com 3</td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Recursos</td><td>Todos os pipes da linha são criados de uma vez, antes dos forks; o limite de fds do processo limita o tamanho do pipeline</td><td><code>src/fd_handler_utils.c:15-28</code></td><td>🟢</td></tr><tr><td>Concorrência</td><td>Os filhos são esperados na ordem de criação (<code>waitpid</code> com <code>WUNTRACED</code>)</td><td><code>src/exec/exec_list.c:42-52</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Pipeline
+
+  Cenário: Dois comandos
+    Quando o usuário digita &quot;echo abc | wc -c&quot;
+    Então a saída é &quot;4&quot;
+
+  Cenário: Pipeline longo
+    Quando o usuário digita &quot;echo abc | cat | cat | wc -c&quot;
+    Então a saída é &quot;4&quot;
+
+  Cenário: Status do último comando
+    Quando o usuário digita &quot;true | ls /nope&quot;
+    E depois digita &quot;echo $?&quot;
+    Então a saída é &quot;2&quot;
+
+  Cenário: Execução paralela
+    Quando o usuário digita &quot;sleep 1 | sleep 1 | echo x&quot;
+    Então &quot;x&quot; aparece em cerca de 1 segundo
+
+  Cenário: Builtin no meio do pipeline
+    Quando o usuário digita &quot;exit 3 | echo depois&quot;
+    Então a saída é &quot;depois&quot;
+    E o shell continua aberto
+
+  @divergente
+  Cenário: exit no último nó encerra o shell (BUG-02)
+    Quando o usuário digita &quot;ls | exit 3&quot;
+    Então o shell termina com código 3
+
+  @divergente
+  Cenário: Status com builtin final (PL-03)
+    Quando o usuário digita &quot;ls /nope | echo x&quot;
+    E depois digita &quot;echo $?&quot;
+    Então a saída é &quot;2&quot;
+
+  @divergente
+  Cenário: Pipe no fim da linha
+    Quando o usuário digita &quot;ls |&quot;
+    Então nada é exibido</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01 a RF-05</td><td>Must</td><td>Pipes são parte obrigatória do subject</td></tr><tr><td>RF-06</td><td>Should</td><td>Comportamento divergente, mantido só por fidelidade ao as-is</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/fd_handler_utils.c</code></td><td><code>open_fds</code> (ramo <code>PIPE</code>)</td><td>🟢</td></tr><tr><td><code>src/fd_handler.c</code></td><td><code>find_input</code>, <code>find_output</code>, <code>close_fds</code> (ramos <code>PIPE</code>)</td><td>🟢</td></tr><tr><td><code>src/exec/init_fork.c</code></td><td><code>init_fork</code> (fechamento do pipe anterior no pai)</td><td>🟢</td></tr><tr><td><code>src/exec/exec_list.c</code></td><td><code>exec_list</code>, <code>wait_child</code>, <code>update_status_code</code></td><td>🟢</td></tr><tr><td><code>src/exec/creat_cmd_table.c</code></td><td><code>get_arg_size</code> (nó <code>PIPE</code> de tamanho 1)</td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>open_fds</code></td><td><code>(t_line *line)</code></td><td><code>void</code></td><td>Para cada nó <code>PIPE</code>: <code>pipe(node-&gt;fd)</code>; em erro escreve <code>pipe error</code> 🟢</td></tr><tr><td><code>find_input</code></td><td><code>(t_pipe_list *node)</code></td><td><code>int</code> (fd de entrada, 0 ou -1)</td><td>Se o nó <strong>anterior</strong> é <code>PIPE</code> (ou <code>REDI</code>/<code>HERE</code>): <code>dup2(prev-&gt;fd[0], 0)</code> 🟢</td></tr><tr><td><code>find_output</code></td><td><code>(t_pipe_list *node)</code></td><td><code>void</code></td><td>Procura para frente até o próximo <code>PIPE</code>; sem redirecionamento de saída, usa <code>pipe-&gt;fd[1]</code> 🟢</td></tr><tr><td><code>close_fds</code></td><td><code>(t_pipe_list *node)</code></td><td><code>void</code></td><td>Volta ao início da lista e fecha as duas pontas de todo <code>PIPE</code> e <code>HERE</code> 🟢</td></tr><tr><td><code>init_fork</code></td><td><code>(t_line*, t_pipe_list*, t_hash_table**)</code></td><td><code>void</code></td><td>Depois do fork, fecha no pai as duas pontas do <code>PIPE</code> anterior ao nó 🟢</td></tr><tr><td><code>wait_child</code> (static)</td><td><code>(t_line *line)</code></td><td><code>void</code></td><td><code>waitpid(pid[i], &amp;status_code, WUNTRACED)</code> até <code>pid[i] == 0</code> 🟢</td></tr></tbody></table></div>
+<p>Os descritores do pipe ficam no <code>union</code> do nó <code>PIPE</code>: <code>fd[0]</code> (leitura) e <code>fd[1]</code> (escrita) 🟢.</p>
+<h3>Fluxo Principal</h3>
+<p>Exemplo <code>A | B | C</code> → lista <code>[A] [PIPE₁] [B] [PIPE₂] [C]</code> 🟢.</p>
+<ol><li><code>open_fds</code> (pai): <code>pipe(PIPE₁.fd)</code>, <code>pipe(PIPE₂.fd)</code></li><li><code>exec_list</code> percorre os nós de comando; para cada um, <code>init_fork</code>:<ul><li><strong>filho de A:</strong> <code>find_input</code> (sem anterior) → stdin original; <code>find_output</code> encontra <code>PIPE₁</code> → <code>dup2(PIPE₁.fd[1], 1)</code>; <code>close_fds</code> fecha todas as pontas; <code>execve</code></li><li><strong>pai, depois de A:</strong> o anterior de A não é <code>PIPE</code> → nada a fechar</li><li><strong>filho de B:</strong> anterior = <code>PIPE₁</code> → <code>dup2(PIPE₁.fd[0], 0)</code>; saída → <code>PIPE₂.fd[1]</code>; <code>close_fds</code>; <code>execve</code></li><li><strong>pai, depois de B:</strong> fecha <code>PIPE₁.fd[0]</code> e <code>PIPE₁.fd[1]</code></li><li><strong>filho de C:</strong> anterior = <code>PIPE₂</code> → <code>dup2(PIPE₂.fd[0], 0)</code>; nenhum <code>PIPE</code> à frente → stdout original</li><li><strong>pai, depois de C:</strong> fecha <code>PIPE₂</code></li></ul></li><li><code>wait_child</code> espera A, B e C nessa ordem; <code>status_code</code> termina com o status de C 🟢</li><li><code>update_status_code</code> grava <code>$?</code> 🟢</li></ol>
+<h4>Caso builtin no último nó (<code>A | exit 3</code>)</h4>
+<p><code>exec_list</code> testa <code>bin == &quot;builtin&quot; &amp;&amp; next == NULL</code> <strong>antes</strong> de <code>init_fork</code>; <code>exec_builtins</code> roda no pai sem <code>find_input</code>, e por isso o pipe é ignorado. O fechamento do <code>PIPE</code> anterior, que fica em <code>init_fork</code>, <strong>não</strong> acontece para esse nó; os fds do pipe são fechados em <code>close_fds(temp)</code> no fim de <code>exec_list</code>, com <code>temp == NULL</code>, ou seja, <strong>não</strong> são fechados: depois de 2 linhas <code>echo a | pwd</code>, <code>ls /proc/self/fd</code> mostra 4 fds extras 🟢 (observado na revisão de 2026-11-22). <code>wait_child</code> espera só <code>A</code>, então <code>$?</code> = status de A (PL-03) 🟢.</p>
+<h3>Fluxos Alternativos</h3>
+<ul><li>**<code>|</code> no fim da linha:** o último nó é <code>PIPE</code>; <code>find_output</code> do comando anterior escreve em <code>PIPE.fd[1]</code>; ninguém lê, e o pai fecha as duas pontas depois. Saída descartada 🟢 (observado)</li><li><strong>Comando inexistente no meio:</strong> o filho sai com 127 antes do <code>execve</code>, já com os fds fechados; o seguinte recebe EOF 🟢 (observado)</li><li><strong>Nó de comando ignorado (BUG-20) no fim:</strong> o pipe anterior fica sem leitor e o comando anterior falha ao escrever ou ler 🟢 (observado: <code>Bad file descriptor</code>)</li><li>**Falha de <code>pipe()</code>:** só a mensagem <code>pipe error</code>; a execução segue com fds inválidos 🟡</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>executar-comando-simples:</strong> lista de nós, <code>init_fork</code>, <code>exec_path</code>, <code>exec_list</code></li><li><strong>redirecionar-entrada-e-saida:</strong> compartilha <code>find_input</code>/<code>find_output</code>; o redirecionamento explícito vence o pipe</li><li><strong>POSIX:</strong> <code>pipe</code>, <code>dup2</code>, <code>close</code>, <code>fork</code>, <code>waitpid</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Todos os pipes criados no pai antes dos forks</td><td><code>src/facade.c:55</code>, <code>src/fd_handler_utils.c:15-28</code></td><td>🟢</td></tr><tr><td>Cada filho fecha <strong>todos</strong> os fds de pipe da lista depois do <code>dup2</code></td><td><code>src/fd_handler.c:60-83</code></td><td>🟢</td></tr><tr><td>O pai fecha cada pipe assim que o comando à direita foi criado</td><td><code>src/exec/init_fork.c:25-29</code></td><td>🟢</td></tr><tr><td>A ligação de entrada olha só o nó <strong>imediatamente anterior</strong> (lista dupla, ADR-005)</td><td><code>src/fd_handler.c:9-12</code></td><td>🟢</td></tr><tr><td>Builtin final no pai, mesmo em pipeline (ADR-009)</td><td><code>src/exec/exec_list.c:30-32</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p><code>line-&gt;pid[]</code> com <code>count_cmds + 1</code> posições (a última fica 0 e marca o fim); <code>pid_index</code> avança a cada fork. Os dois são liberados e zerados em <code>free_line</code> 🟢.</p>
+<h3>Observabilidade</h3>
+<p>Nenhuma mensagem própria, além de <code>pipe error</code> em falha de <code>pipe()</code> 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 BUG-02: builtin final executa no shell (<code>ls | exit</code>)</li><li>🟢 PL-03: <code>$?</code> errado com builtin final</li><li>🟢 Os fds do pipe anterior a um builtin final continuam abertos no pai depois da linha (2 por linha) (observado na revisão de 2026-11-22)</li><li>🟡 <code>wait_child</code> para no primeiro <code>pid == 0</code>; um <code>fork</code> que falhe (<code>-1</code>) é esperado como "qualquer filho"</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: rodar todo builtin de pipeline em subshell, como o bash, muda também RE-01</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>executar-comando-simples</code> implementada (lista de nós, <code>init_fork</code>, <code>exec_path</code>, <code>exec_list</code>)</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 sobre BUG-02 (builtin final no shell) → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Criar um <code>pipe()</code> em <code>node-&gt;fd</code> para cada nó <code>PIPE</code>, no pai, antes dos forks<ul><li>Origem no legado: <code>src/fd_handler_utils.c:15-28</code></li><li>Critério de pronto: <code>ls | wc -l</code> imprime a contagem</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Em <code>find_input</code>, ligar <code>prev-&gt;fd[0]</code> ao stdin quando o nó anterior é <code>PIPE</code><ul><li>Origem no legado: <code>src/fd_handler.c:15-24</code></li><li>Critério de pronto: <code>echo abc | cat</code> → <code>abc</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Em <code>find_output</code>, ligar <code>pipe-&gt;fd[1]</code> ao stdout quando não há redirecionamento de saída antes do próximo <code>PIPE</code><ul><li>Origem no legado: <code>src/fd_handler.c:44-70</code></li><li>Critério de pronto: <code>echo abc | cat | cat | wc -c</code> → <code>4</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Em <code>close_fds</code> (filho), fechar as duas pontas de todos os <code>PIPE</code> e <code>HERE</code> da lista<ul><li>Origem no legado: <code>src/fd_handler.c:72-95</code></li><li>Critério de pronto: <code>yes | head -1</code> termina; <code>ls -l /proc/self/fd</code> dentro do pipeline mostra só 0, 1 e 2</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Em <code>init_fork</code> (pai), fechar o <code>PIPE</code> anterior depois de criar o comando à direita<ul><li>Origem no legado: <code>src/exec/init_fork.c:25-29</code></li><li>Critério de pronto: <code>cat | ls</code> não trava depois de <code>ls</code> terminar e do Ctrl-D no <code>cat</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-06, Esperar todos os filhos na ordem e usar o status do último em <code>$?</code><ul><li>Origem no legado: <code>src/exec/exec_list.c:42-69</code></li><li>Critério de pronto: <code>ls /nope | true</code> → 0; <code>true | ls /nope</code> → 2</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-07, Manter (as-is) ou corrigir a execução do builtin final no shell (BUG-02, PL-03)<ul><li>Origem no legado: <code>src/exec/exec_list.c:30-32</code></li><li>Critério de pronto (as-is): <code>ls | exit 3</code> encerra com 3. Critério de pronto (corrigido): o builtin roda no shell só quando a linha não tem <code>PIPE</code></li><li>Confiança: 🟢</li><li>Nota: depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Cenários de <code>requirements.md</code>: dois comandos, pipeline longo, status do último, paralelismo, builtin no meio</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Cenários <code>@divergente</code> (BUG-02, PL-03, <code>|</code> no fim)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Teste de vazamento de fd: 200 linhas <code>echo a | cat</code> seguidas; <code>ls /proc/&lt;pid&gt;/fd</code> do shell não cresce</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, Pipeline com 50 comandos <code>cat</code> (limite de fds)</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 → T-03 → T-04 → T-05 (ligação dos fds; validar com <code>echo | cat</code>)</li><li>T-06 (status)</li><li>T-07 só em uma reimplementação corretiva (L-07 = as-is)</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: BUG-02 (builtin final no shell, inclusive <code>exit</code> e <code>cd</code>) e PL-03 (<code>$?</code> com builtin final)</li></ul></div></details>
+</section><nav class="feature-pager"><a href="executar-comando-simples.html">← Executar Comando Simples</a><a href="redirecionar-entrada-e-saida.html">Redirecionar Entrada e Saída →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-executar-pipeline">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/executar-pipeline/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,116 @@
+{
+ "schemaVersion": 1,
+ "source": "reversa-sdd/domain.md §2 (soul.md ausente)",
+ "concepts": [
+  {
+   "term": "Linha (`t_line`)",
+   "definition": "Unidade de trabalho: o texto digitado depois do prompt e todo o estado derivado dele",
+   "source": "`minishell.h` 🟢"
+  },
+  {
+   "term": "Token (`tks`)",
+   "definition": "Pedaço da linha separado por espaços e operadores, ainda com aspas",
+   "source": "`tokenizer.c` 🟢"
+  },
+  {
+   "term": "Token limpo (`ctks`)",
+   "definition": "Token sem aspas, depois da expansão",
+   "source": "`clean_tokens.c` 🟢"
+  },
+  {
+   "term": "Lexema / categoria (`lex`)",
+   "definition": "Classe do token: `WORD`, `VAR`, `PIPE`, `REDI`, `REDO`, `REDA`, `HERE`",
+   "source": "`lexical_analyzer.c` 🟢"
+  },
+  {
+   "term": "WORD",
+   "definition": "Palavra literal",
+   "source": "🟢"
+  },
+  {
+   "term": "VAR",
+   "definition": "Palavra com `$` que precisa de expansão",
+   "source": "🟢"
+  },
+  {
+   "term": "PIPE",
+   "definition": "Operador `\\|`",
+   "source": "🟢"
+  },
+  {
+   "term": "REDI",
+   "definition": "*Redirect Input*: `<`",
+   "source": "🟢"
+  },
+  {
+   "term": "REDO",
+   "definition": "*Redirect Output*: `>` (trunca)",
+   "source": "🟢"
+  },
+  {
+   "term": "REDA",
+   "definition": "*Redirect Append*: `>>`",
+   "source": "🟢"
+  },
+  {
+   "term": "HERE",
+   "definition": "*Here-document*: `<<`",
+   "source": "🟢"
+  },
+  {
+   "term": "Nó (`t_pipe_list`)",
+   "definition": "Elemento da lista de execução: um **comando** ou um **operador** com seu alvo",
+   "source": "`make_list.c` 🟢"
+  },
+  {
+   "term": "Comando",
+   "definition": "Nó cujo `args[0]` não é categoria de operador",
+   "source": "`is_command` 🟢"
+  },
+  {
+   "term": "bin",
+   "definition": "Caminho absoluto do executável, o literal `\"builtin\"`, ou `NULL`",
+   "source": "`list_generation_bin.c` 🟢"
+  },
+  {
+   "term": "Builtin",
+   "definition": "Comando interno: `echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit`",
+   "source": "`builtins_utils.c` 🟢"
+  },
+  {
+   "term": "Tabela (`t_hash_table`)",
+   "definition": "O \"ambiente\" do shell: variáveis exportadas e `?`",
+   "source": "`hash_table/` 🟢"
+  },
+  {
+   "term": "Status code / `$?`",
+   "definition": "Código de saída do último comando, guardado na chave `\"?\"` da tabela",
+   "source": "`exec_list.c` 🟢"
+  },
+  {
+   "term": "Heredoc",
+   "definition": "Texto digitado até uma linha delimitadora, entregue como stdin",
+   "source": "`here_doc*.c` 🟢"
+  },
+  {
+   "term": "Delimitador",
+   "definition": "`args[1]` do nó `HERE`, já sem aspas",
+   "source": "🟢"
+  },
+  {
+   "term": "Facade",
+   "definition": "Função `facade()`, ponto único que orquestra o processamento de uma linha",
+   "source": "README, `facade.c` 🟢"
+  },
+  {
+   "term": "Miau",
+   "definition": "Identidade do projeto: prompt `miau> `, nome *MiauShell*, \"feito por pessoas que amam gatos\"",
+   "source": "README 🟢"
+  },
+  {
+   "term": "Sorvetinho / saga do gnl",
+   "definition": "Mensagens de commit informais (07/07 e 11/07/2022). Não revelam decisão 🟢",
+   "source": "Git"
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Reversa Pricing Product"
+  short_description: "Calculadora de ponto de equilibrio para vender o software…"
+policy:
+  allow_implicit_invocation: false
