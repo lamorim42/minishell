@@ -17,11 +17,9 @@ void	print_table(t_hash_table **table)
 	t_hash_item	*current;
 	t_hash_item	*temp;
 	int			i;
-	int			counter;
 
 	current = NULL;
 	i = 0;
-	counter = 0;
 	while (i < (*table)->size)
 	{
 		if ((*table)->item[i])
@@ -33,9 +31,7 @@ void	print_table(t_hash_table **table)
 				if (current->key != NULL)
 					printf("%s=%s\n", current->key, current->value);
 				current = temp;
-				counter++;
 			}
-			counter++;
 		}
 		i++;
 	}

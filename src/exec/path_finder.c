@@ -14,10 +14,8 @@
 
 static char	*get_path(t_hash_table **table)
 {
-	int		i;
 	char	*path;
 
-	i = 0;
 	path = NULL;
 	path = search_item(*table, "PATH");
 	return (path);
