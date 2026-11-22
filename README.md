@@ -116,7 +116,7 @@ O MiauShell está sendo reescrito em Rust, seguindo o POSIX.1-2024 (capítulo 2,
 | [`crates/msh-runtime`](./crates/msh-runtime/) | M2, pronto | Variáveis, expansão (`$VAR`, `~`, field splitting) e builtins `env`, `export` e `unset` |
 | `msh-runtime` (execução) | M3, pronto | Comando simples, busca no `PATH`, atribuições (`A=1 cmd`), status 126, 127 e 2, e builtins `echo`, `cd`, `pwd` e `exit` |
 | `msh-runtime` (execução) | M4, pronto | Pipes, redirecionamentos `<`, `>` e `>>`, e heredoc `<<` guardado em memória (`memfd_create`) |
-| [`crates/msh-cli`](./crates/msh-cli/) | M3, pronto | Binário `minishell` em Rust: prompt `miau> ` com rustyline, `-c` e scripts |
+| [`crates/msh-cli`](./crates/msh-cli/) | M3 e M5, pronto | Binário `minishell` em Rust: prompt `miau> ` com rustyline, `-c` e scripts, Ctrl+C/Ctrl+D/Ctrl+\\ como no bash, OSC 7 e pacote `.deb` |
 
 ## Dependências no Linux
 
@@ -192,6 +192,7 @@ make fclean # apaga objetos e binário
 | `make rust-fclean` | `cargo clean` | Apaga a pasta `target/` inteira (como o `fclean`) |
 | `make rust-re` | `rust-fclean` + `rust` | Recompila tudo do zero (como o `re`) |
 | `make rust-run` | `cargo run -p msh-cli` | Abre o shell em Rust |
+| `make rust-deb` | `cargo deb -p msh-cli` | Gera o pacote em `target/debian/` (precisa do `cargo install cargo-deb`) |
 
 ## Como executar
 
@@ -211,7 +212,15 @@ make rust-run                          # ou: cargo run -p msh-cli
 ./target/debug/minishell script.sh     # um script
 ```
 
-Aparece o mesmo prompt `miau>`.
+Aparece o mesmo prompt `miau>`. Com `--osc7`, o shell avisa o terminal do diretório atual a cada prompt (é o que a GUI da fase 2 vai usar); dentro de terminais VTE isso já vem ligado.
+
+Para instalar como pacote do Debian:
+
+```
+cargo install cargo-deb --version 3.8.0 --locked   # uma vez
+make rust-deb
+sudo apt install ./target/debian/minishell_*.deb  # instala /usr/bin/minishell e o man minishell
+```
 
 ### Exemplo
 
@@ -235,9 +244,10 @@ Os testes incluem:
 - **Testes de unidade e integração** em `crates/*/tests/`. Os casos dos antigos testes GoogleTest foram portados para lá.
 - **Snapshots** da AST com o [insta](https://insta.rs). Quando uma mudança altera um snapshot, revise com `cargo insta review` (instale antes com `cargo install cargo-insta`).
 - **Compatibilidade** em `crates/msh-cli/tests/compat_*.rs`: cada caso roda no `minishell`, no `dash` e no `bash --posix`, e stdout, status e stderr (sem o prefixo do nome do shell) precisam bater. Onde os dois oráculos divergem, o caso tem a expectativa escrita à mão e um comentário com a seção do POSIX. Precisa do `dash` e do `bash` instalados.
+- **Interativos** em `crates/msh-cli/tests/interactive.rs`, com o [rexpect](https://github.com/rust-cli/rexpect) num PTY real: prompt, Ctrl+C no prompt, num comando e no heredoc, Ctrl+\\, Ctrl+D e OSC 7.
 - **Testes de propriedade** com o [proptest](https://proptest-rs.github.io/proptest/). Eles geram milhares de entradas aleatórias para verificar, por exemplo, que o parser nunca entra em pânico.
 
-O CI ([`.github/workflows/rust.yml`](./.github/workflows/rust.yml)) roda fmt, clippy e testes num container `debian:trixie` a cada push.
+O CI ([`.github/workflows/rust.yml`](./.github/workflows/rust.yml)) roda fmt, clippy e testes (inclusive a comparação com o dash e o bash) num container `debian:trixie` a cada push. Um segundo job gera o `.deb`, instala num Debian limpo, roda o shell e guarda o pacote como artefato.
 
 **Versão em C** (GoogleTest, só para a tokenização):
 

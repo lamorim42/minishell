@@ -1,6 +1,6 @@
 [package]
 name = "msh-cli"
-description = "Binário minishell: modo interativo (rustyline), -c e scripts"
+description = "MiauShell: um shell POSIX pequeno, escrito em Rust"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -13,8 +13,29 @@ path = "src/main.rs"
 [dependencies]
 msh-runtime.workspace = true
 msh-syntax.workspace = true
-nix = { workspace = true, features = ["fs", "term"] }
+nix = { workspace = true, features = ["fs", "hostname", "term"] }
 rustyline = { workspace = true }
+
+# `cargo deb -p msh-cli` (RNF-11): instala /usr/bin/minishell e a página de
+# manual. O .deb sai em target/debian/.
+[package.metadata.deb]
+name = "minishell"
+maintainer = "Luís Amorim e Daniela Monteiro"
+copyright = "2026, Luís Amorim e Daniela Monteiro"
+section = "shells"
+priority = "optional"
+extended-description = """\
+O MiauShell é um shell POSIX pequeno, escrito em Rust: prompt miau> com \
+histórico, aspas, expansão de variáveis, pipes, redirecionamentos, heredoc \
+e os builtins echo, cd, pwd, export, unset, env e exit."""
+depends = "$auto"
+assets = [
+    ["target/release/minishell", "usr/bin/", "755"],
+    ["man/minishell.1", "usr/share/man/man1/", "644"],
+]
+
+[dev-dependencies]
+rexpect.workspace = true
 
 [lints]
 workspace = true

@@ -125,7 +125,9 @@
 | `crates/msh-runtime/src/exec/redirect.rs` | `redirecionar-entrada-e-saida/` | `src/fd_handler*.c`, `src/exec/exec_utils.c` | M4 ✅ | POSIX 2.7: ordem da esquerda para a direita, criação com 0666 menos a umask, alvo sem field splitting (como o dash); builtin com redirecionamento roda no pai e o fd é restaurado (RE-01 corrigido) |
 | `crates/msh-runtime/src/exec/heredoc.rs`, `src/input.rs` | `ler-heredoc/` | `src/exec/here_doc*.c` | M4 ✅ | POSIX 2.7.4: lido no pai antes dos forks, em `memfd` (ADR-009), sem limite de 64 KiB; expansão só com delimitador sem aspas, `\` como entre aspas duplas |
 | `crates/msh-cli/src/main.rs`, `input.rs` | `iniciar-sessao-e-ler-comando/`, `encerrar-shell/` (Ctrl+D) | `src/main.c` | M3 ✅ | POSIX `sh`: interativo só com terminal; `-c`, script e stdin lido sem consumir além da linha; Ctrl+D sai com `$?` (cenário divergente corrigido); aspas abertas continuam na linha seguinte |
-| `msh-cli` (sinais, OSC 7) | `tratar-sinais/` | `src/signals*.c` | M5 ⏳ | ADR-008 (sem estado global) |
+| `crates/msh-runtime/src/exec/sys.rs` (sinais), `crates/msh-cli/src/main.rs` | `tratar-sinais/` | `src/signals*.c` | M5 ✅ | ADR-008, sem estado global: o rustyline trata Ctrl+C/Ctrl+D na leitura, o pai ignora SIGINT/SIGQUIT, o filho volta ao padrão; `$?` 130/131; Ctrl+C no heredoc cancela a linha |
+| `crates/msh-cli/src/osc7.rs` | n/a (requisito novo, RF-17 do PRD) | — | M5 ✅ | OSC 7 com `--osc7` ou em terminal VTE |
+| `crates/msh-cli/Cargo.toml` (`[package.metadata.deb]`), `man/minishell.1` | n/a (RNF-11) | `Makefile` | M5 ✅ | `.deb` com `/usr/bin/minishell` e a página de manual |
 
 ### Testes em Rust
 
@@ -136,4 +138,5 @@
 | `crates/msh-runtime/tests/builtins.rs` | `gerenciar-variaveis-de-ambiente/`, `imprimir-texto-echo/`, `encerrar-shell/` | |
 | `crates/msh-cli/tests/compat_m3.rs` (+ `common/mod.rs`) | `executar-comando-simples/`, `imprimir-texto-echo/`, `navegar-diretorios/`, `encerrar-shell/` | compara com o dash e o `bash --posix`; cobre os cenários `@divergente` (TT-04 e TT-02 das units) |
 | `crates/msh-cli/tests/compat_m4.rs` | `executar-pipeline/`, `redirecionar-entrada-e-saida/`, `ler-heredoc/` | inclui o teste de vazamento de fds (`/proc/self/fd`, RNF-10) |
+| `crates/msh-cli/tests/interactive.rs` | `iniciar-sessao-e-ler-comando/`, `tratar-sinais/`, `ler-heredoc/` | PTY real com rexpect |
 | `crates/msh-cli/tests/modes.rs` | `iniciar-sessao-e-ler-comando/` | `-c`, script e stdin |

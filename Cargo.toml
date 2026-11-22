@@ -21,6 +21,7 @@ rustyline = { version = "19.0.0", default-features = false }
 # dev
 insta = "1.49.0"
 proptest = "1.12.0"
+rexpect = "0.7.1"
 
 [workspace.lints.rust]
 # ADR-005: `unsafe` só é liberado em `msh-runtime/src/exec/sys.rs`.

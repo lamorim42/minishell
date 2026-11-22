@@ -1,0 +1,80 @@
+.TH MINISHELL 1 "2026-11-22" "minishell 0.1.0" "Comandos do usuário"
+.SH NOME
+minishell \- o MiauShell, um shell POSIX pequeno escrito em Rust
+.SH SINOPSE
+.B minishell
+.RB [ \-i ]
+.RB [ \-\-osc7 ]
+.RB [ \-c
+.IR comando " [" nome "] | " script ]
+.SH DESCRIÇÃO
+O
+.B minishell
+lê comandos do terminal, de um script, da opção
+.B \-c
+ou da entrada padrão e os executa seguindo o POSIX.1-2024, capítulo 2
+(Shell Command Language), num subconjunto.
+.PP
+No modo interativo, o prompt é
+.BR "miau> " ,
+com edição de linha e histórico.
+.SS O que o shell entende
+.IP \(bu 2
+aspas simples, aspas duplas, \e e comentários com #;
+.IP \(bu 2
+expansão de til, $NOME, ${NOME}, $? e parâmetros especiais, com
+\fIfield splitting\fR por IFS;
+.IP \(bu 2
+atribuições (NOME=valor, também antes de um comando);
+.IP \(bu 2
+pipes (|) e redirecionamentos <, >, >> e << (heredoc);
+.IP \(bu 2
+os builtins echo, cd, pwd, export, unset, env e exit.
+.PP
+Não fazem parte do shell: ;, &, && e ||, subshells, substituição de comando,
+wildcards, job control e estruturas como if e while. Eles são recusados com
+um erro de sintaxe.
+.SH OPÇÕES
+.TP
+.BI \-c " comando"
+Executa
+.I comando
+e sai. O operando seguinte, se houver, vira $0.
+.TP
+.B \-i
+Força o modo interativo. Sem esta opção, o shell é interativo quando não há
+operandos e a entrada padrão e a saída de erro são um terminal.
+.TP
+.B \-\-osc7
+A cada prompt, avisa o terminal do diretório atual com a sequência OSC 7.
+Ligado automaticamente dentro de terminais VTE.
+.TP
+.B \-\-help
+Mostra o uso e sai.
+.TP
+.B \-\-version
+Mostra a versão e sai.
+.SH TECLAS
+.TP
+.B Ctrl+C
+No prompt, descarta a linha ($? = 130). Durante um comando, termina o
+comando. Durante um heredoc, cancela a linha inteira.
+.TP
+.B Ctrl+\e
+Ignorado no prompt. Durante um comando, termina o comando com core dump
+($? = 131).
+.TP
+.B Ctrl+D
+Na linha vazia, imprime exit e sai com o status do último comando.
+.SH STATUS DE SAÍDA
+O status do último comando, ou o argumento de
+.BR exit .
+Erro de sintaxe dá 2; comando não encontrado, 127; achado mas não
+executável, 126; comando terminado pelo sinal
+.IR n ,
+128 +
+.IR n .
+.SH VEJA TAMBÉM
+.BR sh (1),
+.BR dash (1),
+.BR bash (1)

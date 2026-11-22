@@ -50,3 +50,42 @@ jobs:
 
       - name: Testes
         run: cargo test --workspace --locked
+
+  deb:
+    name: pacote .deb (cargo deb)
+    needs: check
+    runs-on: ubuntu-latest
+    container: debian:trixie
+    steps:
+      - name: Pacotes do sistema
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            ca-certificates curl git build-essential pkg-config
+
+      - uses: actions/checkout@v5
+
+      - name: Toolchain Rust via rustup (ADR-001)
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+            | sh -s -- -y --profile minimal --default-toolchain none
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      - name: Instalar a toolchain e o cargo-deb
+        run: |
+          rustup toolchain install
+          cargo install cargo-deb --version 3.8.0 --locked
+
+      - name: Gerar o .deb
+        run: cargo deb -p msh-cli --locked
+
+      - name: Instalar num Debian limpo e rodar
+        run: |
+          dpkg -i target/debian/minishell_*.deb
+          test "$(/usr/bin/minishell -c 'echo ok | tr a-z A-Z')" = OK
+          test -f /usr/share/man/man1/minishell.1.gz
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: minishell-deb
+          path: target/debian/*.deb

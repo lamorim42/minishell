@@ -4,12 +4,14 @@
 //! minishell                  interativo se stdin e stderr forem terminais
 //! minishell -c 'comando' [nome]
 //! minishell [-i] script
+//! minishell --osc7           avisa o terminal do diretório (OSC 7)
 //! ```
 //!
 //! O shell é interativo com `-i`, ou sem operandos e com stdin e stderr num
 //! terminal (POSIX, `sh`, opção `-i`). Só então aparece o prompt `miau> `.
 
 mod input;
+mod osc7;
 
 use std::ffi::OsString;
 use std::io::BufReader;
@@ -26,7 +28,7 @@ const PROMPT: &str = "miau> ";
 /// Prompt de continuação (o `PS2` do POSIX).
 const PROMPT_MORE: &str = "> ";
 
-const USAGE: &str = "usage: minishell [-i] [-c command [name] | script]";
+const USAGE: &str = "usage: minishell [-i] [--osc7] [-c command [name] | script]";
 
 #[derive(Debug, PartialEq, Eq)]
 enum Mode {
@@ -39,6 +41,8 @@ enum Mode {
 struct Options {
     mode: Mode,
     interactive: bool,
+    /// `--osc7`: avisa o terminal do diretório a cada prompt.
+    osc7: bool,
 }
 
 fn main() -> ExitCode {
@@ -83,12 +87,16 @@ fn main() -> ExitCode {
         // rustyline lê essas teclas em modo raw, e os filhos voltam ao padrão.
         sys::ignore_job_signals();
     }
-    exit_code(run(&mut sh, &mut input))
+    let osc7 = sh.interactive && osc7::wanted(opts.osc7);
+    exit_code(run(&mut sh, &mut input, osc7))
 }
 
 /// Lê e executa até o fim da entrada ou um `exit`. Devolve o código de saída.
-fn run(sh: &mut Shell, input: &mut Input) -> i32 {
+fn run(sh: &mut Shell, input: &mut Input, osc7: bool) -> i32 {
     loop {
+        if osc7 {
+            osc7::emit(&mut std::io::stdout(), sh.env.get("PWD"));
+        }
         let mut line = match input.read_line(PROMPT) {
             Line::Text(line) => line,
             Line::Interrupted => {
@@ -135,12 +143,14 @@ fn needs_more(line: &str) -> bool {
 fn parse_args(args: &[OsString]) -> Result<Option<Options>, String> {
     let mut interactive = None;
     let mut command = false;
+    let mut osc7 = false;
     let mut i = 0;
     while let Some(arg) = args.get(i) {
         let Some(arg) = arg.to_str() else { break };
         match arg {
             "-c" => command = true,
             "-i" => interactive = Some(true),
+            "--osc7" => osc7 = true,
             "--" => {
                 i += 1;
                 break;
@@ -180,7 +190,11 @@ fn parse_args(args: &[OsString]) -> Result<Option<Options>, String> {
         Mode::Stdin
     };
     let interactive = interactive.unwrap_or_else(|| mode == Mode::Stdin && on_terminal());
-    Ok(Some(Options { mode, interactive }))
+    Ok(Some(Options {
+        mode,
+        interactive,
+        osc7,
+    }))
 }
 
 fn on_terminal() -> bool {

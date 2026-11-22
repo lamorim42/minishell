@@ -127,6 +127,9 @@ rust:
 rust-run:
 			$(CARGO) run -p msh-cli
 
+rust-deb:
+			$(CARGO) deb -p msh-cli
+
 rust-release:
 			$(CARGO) build --workspace --release
 
@@ -154,4 +157,4 @@ rust-fclean:
 
 rust-re:	rust-fclean rust
 
-.PHONY: rust rust-run rust-release rust-test rust-fmt rust-lint rust-check rust-clean rust-fclean rust-re
+.PHONY: rust rust-run rust-deb rust-release rust-test rust-fmt rust-lint rust-check rust-clean rust-fclean rust-re
