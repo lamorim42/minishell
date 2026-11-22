@@ -131,3 +131,55 @@ fn unset_invalid() {
     assert_eq!(sh.env.get("A"), None);
     assert_eq!(run(&mut sh, "unset", &["-f", "x"]).status, 2);
 }
+
+// --- M3: echo e exit -----------------------------------------------------------
+
+#[test]
+fn echo_options_and_escapes() {
+    let mut sh = shell(&[]);
+    assert_eq!(run(&mut sh, "echo", &["a", "b"]).out, "a b\n");
+    assert_eq!(run(&mut sh, "echo", &[]).out, "\n");
+    assert_eq!(run(&mut sh, "echo", &["-n", "x"]).out, "x");
+    assert_eq!(run(&mut sh, "echo", &["-nn", "x"]).out, "-nn x\n");
+    assert_eq!(run(&mut sh, "echo", &["a\\tb\\\\"]).out, "a\tb\\\n");
+    assert_eq!(run(&mut sh, "echo", &["a\\cb", "c"]).out, "a");
+    assert_eq!(run(&mut sh, "echo", &["\\0101\\q"]).out, "A\\q\n");
+}
+
+#[test]
+fn exit_sets_request() {
+    let mut sh = shell(&[]);
+    sh.last_status = 3;
+    assert_eq!(run(&mut sh, "exit", &[]).status, 3);
+    assert_eq!(sh.exit_request.take(), Some(3));
+
+    assert_eq!(run(&mut sh, "exit", &["300"]).status, 44);
+    assert_eq!(sh.exit_request.take(), Some(44));
+
+    let r = run(&mut sh, "exit", &["abc"]);
+    assert_eq!(r.status, 2);
+    assert_eq!(r.err, "minishell: exit: abc: numeric argument required\n");
+    assert_eq!(sh.exit_request.take(), Some(2));
+
+    let r = run(&mut sh, "exit", &["1", "2"]);
+    assert_eq!(r.status, 1);
+    assert_eq!(r.err, "minishell: exit: too many arguments\n");
+    assert_eq!(sh.exit_request, None);
+}
+
+#[test]
+fn interactive_exit_prints_exit() {
+    let mut sh = shell(&[]);
+    sh.interactive = true;
+    assert_eq!(run(&mut sh, "exit", &[]).err, "exit\n");
+}
+
+#[test]
+fn special_builtins() {
+    for name in ["exit", "export", "unset"] {
+        assert!(Builtin::lookup(name).unwrap().is_special(), "{name}");
+    }
+    for name in ["cd", "echo", "env", "pwd"] {
+        assert!(!Builtin::lookup(name).unwrap().is_special(), "{name}");
+    }
+}
