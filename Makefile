@@ -116,3 +116,39 @@ gdb:	obj_dir $(OBJ) $(LIBFT)
 		$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT) -o a.out
 
 .PHONY= all clean fclean re $(NAME)
+
+#Rust (crates/): mesmos nomes da versão em C, com o prefixo rust-
+CARGO	= cargo
+CRATES	= -p msh-syntax -p msh-runtime
+
+rust:
+			$(CARGO) build --workspace
+
+rust-release:
+			$(CARGO) build --workspace --release
+
+rust-test:
+			$(CARGO) test --workspace
+
+rust-fmt:
+			$(CARGO) fmt --all
+
+rust-lint:
+			$(CARGO) fmt --all --check
+			$(CARGO) clippy --workspace --all-targets -- -D warnings
+
+# O mesmo que o CI roda: lint + testes, com o Cargo.lock travado.
+rust-check:	rust-lint
+			$(CARGO) test --workspace --locked
+
+# Apaga só o que é nosso; as dependências já compiladas ficam.
+rust-clean:
+			$(CARGO) clean $(CRATES)
+
+# Apaga a pasta target/ inteira.
+rust-fclean:
+			$(CARGO) clean
+
+rust-re:	rust-fclean rust
+
+.PHONY: rust rust-release rust-test rust-fmt rust-lint rust-check rust-clean rust-fclean rust-re

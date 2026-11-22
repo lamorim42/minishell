@@ -177,12 +177,19 @@ make re     # recompila tudo do zero
 make fclean # apaga objetos e binário
 ```
 
-**Versão em Rust:**
+**Versão em Rust:** o Makefile da raiz tem alvos com o prefixo `rust-`, equivalentes aos da versão em C.
 
-```
-cargo build --workspace           # build de desenvolvimento, em target/debug
-cargo build --workspace --release # build otimizado, em target/release
-```
+| Make | Equivale a | O que faz |
+| :--- | :--------- | :-------- |
+| `make rust` | `cargo build --workspace` | Build de desenvolvimento, em `target/debug` |
+| `make rust-release` | `cargo build --workspace --release` | Build otimizado, em `target/release` |
+| `make rust-test` | `cargo test --workspace` | Roda todos os testes |
+| `make rust-fmt` | `cargo fmt --all` | Formata o código |
+| `make rust-lint` | `cargo fmt --check` + `cargo clippy -- -D warnings` | Verifica formatação e lint |
+| `make rust-check` | `rust-lint` + `cargo test --locked` | O mesmo que o CI roda; use antes do push |
+| `make rust-clean` | `cargo clean -p ...` | Apaga só os nossos crates compilados (como o `clean`) |
+| `make rust-fclean` | `cargo clean` | Apaga a pasta `target/` inteira (como o `fclean`) |
+| `make rust-re` | `rust-fclean` + `rust` | Recompila tudo do zero (como o `re`) |
 
 ## Como executar
 
@@ -202,7 +209,7 @@ Aparece o prompt `miau>`. Para sair, use `exit` ou Ctrl+D.
 
 ## Como testar
 
-**Versão em Rust:**
+**Versão em Rust:** `make rust-test` roda todos os testes, e `make rust-check` roda lint e testes como o CI. Para filtrar, use o `cargo` direto:
 
 ```
 cargo test --workspace                                # todos os testes
