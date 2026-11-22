@@ -152,10 +152,17 @@ rust-check:	rust-lint
 
 # Fase 2: Miau Files (GTK4 + libadwaita + VTE).
 rust-gui:
-			$(CARGO) build -p msh-gui -p msh-cli
+			$(CARGO) build -p msh-gui -p msh-cli -p msh-files
 
 rust-gui-run:	rust-gui
 			$(CARGO) run -p msh-gui
+
+# Pacote miau-files (GUI + helper do polkit). Instale junto com o minishell:
+# sudo apt install ./target/debian/minishell_*.deb ./target/debian/miau-files_*.deb
+rust-gui-deb:
+			$(CARGO) build --release -p msh-files -p msh-cli
+			$(CARGO) deb -p msh-cli
+			$(CARGO) deb -p msh-gui
 
 # Lint e testes da GUI, mais o autoteste com a janela de verdade (precisa de
 # uma tela: rode dentro da sessão gráfica ou com xvfb-run).
@@ -174,4 +181,4 @@ rust-fclean:
 
 rust-re:	rust-fclean rust
 
-.PHONY: rust rust-run rust-deb rust-release rust-test rust-fmt rust-lint rust-check rust-gui rust-gui-run rust-gui-check rust-clean rust-fclean rust-re
+.PHONY: rust rust-run rust-deb rust-release rust-test rust-fmt rust-lint rust-check rust-gui rust-gui-run rust-gui-deb rust-gui-check rust-clean rust-fclean rust-re

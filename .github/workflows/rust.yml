@@ -64,7 +64,7 @@ jobs:
           apt-get install -y --no-install-recommends \
             ca-certificates curl git build-essential pkg-config \
             libgtk-4-dev libadwaita-1-dev libvte-2.91-gtk4-dev \
-            xvfb fonts-dejavu-core
+            xvfb fonts-dejavu-core make
 
       - uses: actions/checkout@v5
 
@@ -87,18 +87,58 @@ jobs:
       # recusa a rodar como root, então o autoteste roda como `nobody`.
       - name: Autoteste da janela (Xvfb)
         run: |
-          cargo build -p msh-gui -p msh-cli --locked
+          cargo build -p msh-gui -p msh-cli -p msh-files --locked
           Xvfb :99 -ac -screen 0 1280x800x24 &
           sleep 2
           # Fora do workspace, para `nobody` conseguir ler; o miau-files acha
           # o minishell ao lado dele.
           mkdir -p /tmp/miau-bin /tmp/miau-home && chmod 777 /tmp/miau-home
-          cp target/debug/miau-files target/debug/minishell /tmp/miau-bin/
+          cp target/debug/miau-files target/debug/minishell target/debug/miau-files-helper /tmp/miau-bin/
           chmod -R a+rX /tmp/miau-bin
           setpriv --reuid=65534 --regid=65534 --clear-groups \
             env HOME=/tmp/miau-home XDG_RUNTIME_DIR=/tmp/miau-home \
               DISPLAY=:99 GTK_A11Y=none \
               timeout 120 /tmp/miau-bin/miau-files --self-test
+
+      - name: Gerar os .deb (minishell e miau-files)
+        run: |
+          cargo install cargo-deb --version 3.8.0 --locked
+          make rust-gui-deb
+
+      # Instala os pacotes num sistema com D-Bus e polkit de verdade e roda o
+      # autoteste a partir de /usr/bin, agora com as ações de administrador
+      # (RF-24): uma regra de teste autoriza o `nobody`, e o helper grava como
+      # root numa pasta em que o usuário não pode escrever.
+      - name: Instalar e testar o pacote com pkexec
+        run: |
+          apt-get install -y --no-install-recommends \
+            ./target/debian/minishell_*.deb ./target/debian/miau-files_*.deb dbus
+          test -x /usr/libexec/miau-files/miau-files-helper
+          test -f /usr/share/polkit-1/actions/org.miaushell.files.policy
+          mkdir -p /run/dbus /etc/polkit-1/rules.d /srv/miau-admin
+          cat > /etc/polkit-1/rules.d/90-miau-selftest.rules <<'RULES'
+          polkit.addRule(function (action, subject) {
+              if (action.id == "org.miaushell.files.helper" && subject.user == "nobody") {
+                  return polkit.Result.YES;
+              }
+          });
+          RULES
+          dbus-daemon --system --fork
+          /usr/lib/polkit-1/polkitd --no-debug &
+          sleep 2
+          pkaction --action-id org.miaushell.files.helper
+          Xvfb :98 -ac -screen 0 1280x800x24 &
+          sleep 2
+          setpriv --reuid=65534 --regid=65534 --clear-groups \
+            env HOME=/tmp/miau-home XDG_RUNTIME_DIR=/tmp/miau-home \
+              DISPLAY=:98 GTK_A11Y=none MIAU_FILES_SELFTEST_ADMIN_DIR=/srv/miau-admin \
+              timeout 120 /usr/bin/miau-files --self-test
+          test "$(stat -c %U /srv/miau-admin/miau2.conf)" = root
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: miau-files-deb
+          path: target/debian/miau-files_*.deb
 
   deb:
     name: pacote .deb (cargo deb)

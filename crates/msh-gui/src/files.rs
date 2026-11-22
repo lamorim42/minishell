@@ -61,9 +61,10 @@ impl FileList {
         let selection = gtk::MultiSelection::new(Some(sort_model));
         view.set_model(Some(&selection));
 
-        let name_col = add_column(&view, "Nome", true, name_cell, Some(by_name()));
+        let name_col = add_column(&view, &selection, "Nome", true, name_cell, Some(by_name()));
         add_column(
             &view,
+            &selection,
             "Tamanho",
             false,
             |i| text_cell(&size_text(i)),
@@ -71,6 +72,7 @@ impl FileList {
         );
         add_column(
             &view,
+            &selection,
             "Dono",
             false,
             |i| text_cell(&i.attribute_string("owner::user").unwrap_or_default()),
@@ -78,6 +80,7 @@ impl FileList {
         );
         add_column(
             &view,
+            &selection,
             "Permissões",
             false,
             |i| {
@@ -91,6 +94,7 @@ impl FileList {
         );
         add_column(
             &view,
+            &selection,
             "Modificado",
             false,
             |i| text_cell(&date_text(i)),
@@ -118,6 +122,16 @@ impl FileList {
         self.dir_list.set_file(Some(&gio::File::for_path(path)));
     }
 
+    /// Relê a pasta. O GIO já acompanha as mudanças, mas o GTK 4.14 (Ubuntu
+    /// 24.04) não tira o nome antigo da lista num `rename`; depois das
+    /// nossas próprias ações, relemos para não depender disso.
+    pub fn reload(&self) {
+        if let Some(file) = self.dir_list.file() {
+            self.dir_list.set_file(None::<&gio::File>);
+            self.dir_list.set_file(Some(&file));
+        }
+    }
+
     pub fn toggle_hidden(&self) {
         self.show_hidden.set(!self.show_hidden.get());
         self.filter.changed(gtk::FilterChange::Different);
@@ -135,6 +149,14 @@ impl FileList {
             .map(|i| i.name().to_string_lossy().into_owned())
             .collect()
     }
+
+    /// Os `FileInfo` selecionados.
+    pub fn selected(&self) -> Vec<gio::FileInfo> {
+        let set = self.selection.selection();
+        (0..set.size())
+            .filter_map(|i| self.info_at(set.nth(u32::try_from(i).unwrap_or(u32::MAX))))
+            .collect()
+    }
 }
 
 fn info(obj: &glib::Object) -> Option<&gio::FileInfo> {
@@ -143,12 +165,14 @@ fn info(obj: &glib::Object) -> Option<&gio::FileInfo> {
 
 fn add_column(
     view: &gtk::ColumnView,
+    selection: &gtk::MultiSelection,
     title: &str,
     expand: bool,
     make: fn(&gio::FileInfo) -> gtk::Widget,
     sorter: Option<gtk::Sorter>,
 ) -> gtk::ColumnViewColumn {
     let factory = gtk::SignalListItemFactory::new();
+    let selection = selection.clone();
     factory.connect_bind(move |_, item| {
         let Some(item) = item.downcast_ref::<gtk::ListItem>() else {
             return;
@@ -157,6 +181,20 @@ fn add_column(
             .item()
             .and_downcast::<gio::FileInfo>()
             .map(|i| make(&i));
+        if let Some(w) = &widget {
+            // O botão direito seleciona a linha antes do menu de contexto
+            // (que a lista abre), como nos outros gerenciadores de arquivos.
+            let click = gtk::GestureClick::builder().button(3).build();
+            let selection = selection.clone();
+            let item = item.clone();
+            click.connect_pressed(move |_, _, _, _| {
+                let pos = item.position();
+                if !selection.is_selected(pos) {
+                    selection.select_item(pos, true);
+                }
+            });
+            w.add_controller(click);
+        }
         item.set_child(widget.as_ref());
     });
     let col = gtk::ColumnViewColumn::builder()

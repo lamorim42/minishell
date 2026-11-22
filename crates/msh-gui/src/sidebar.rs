@@ -1,5 +1,5 @@
-//! Barra lateral (RF-20): locais fixos (Pasta pessoal, `/`, `/etc`,
-//! `/var/log`, TDD §7).
+//! Barra lateral (RF-20, RF-23): locais fixos (Pasta pessoal, `/`, `/etc`,
+//! `/var/log`, TDD §7) e os favoritos do usuário.
 
 use std::cell::RefCell;
 use std::path::{Path, PathBuf};
@@ -71,13 +71,14 @@ impl Sidebar {
         self.rows.borrow_mut().push(None);
     }
 
-    pub fn push_row(&self, icon: &str, title: &str, path: PathBuf) -> gtk::ListBoxRow {
+    pub fn push_row(&self, icon: &str, title: &str, path: PathBuf) -> gtk::Box {
         let b = gtk::Box::new(gtk::Orientation::Horizontal, 10);
         b.append(&gtk::Image::from_icon_name(icon));
         b.append(
             &gtk::Label::builder()
                 .label(title)
                 .xalign(0.0)
+                .hexpand(true)
                 .ellipsize(gtk::pango::EllipsizeMode::End)
                 .build(),
         );
@@ -85,7 +86,35 @@ impl Sidebar {
         row.set_tooltip_text(Some(&path.to_string_lossy()));
         self.list.append(&row);
         self.rows.borrow_mut().push(Some(path));
-        row
+        b
+    }
+
+    /// Uma linha de favorito, com um botão para remover. Devolve o botão.
+    pub fn push_bookmark(&self, title: &str, path: PathBuf) -> gtk::Button {
+        let b = self.push_row("starred-symbolic", title, path);
+        let remove = gtk::Button::builder()
+            .icon_name("list-remove-symbolic")
+            .tooltip_text("Remover dos favoritos")
+            .build();
+        remove.add_css_class("flat");
+        b.append(&remove);
+        remove
+    }
+
+    /// Apaga as linhas a partir da posição `from` (usado para refazer a
+    /// seção de favoritos).
+    pub fn truncate(&self, from: usize) {
+        while self.rows.borrow().len() > from {
+            let last = i32::try_from(self.rows.borrow().len() - 1).unwrap_or(i32::MAX);
+            if let Some(row) = self.list.row_at_index(last) {
+                self.list.remove(&row);
+            }
+            self.rows.borrow_mut().pop();
+        }
+    }
+
+    pub fn len(&self) -> usize {
+        self.rows.borrow().len()
     }
 
     pub fn path_of(&self, row: &gtk::ListBoxRow) -> Option<PathBuf> {

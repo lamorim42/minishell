@@ -7,10 +7,11 @@ use std::rc::Rc;
 
 use adw::prelude::*;
 use gtk::{gio, glib};
+use msh_files::bookmarks::{self, Bookmark};
 use msh_files::history::History;
 use vte::prelude::*;
 
-use crate::{files, sidebar, terminal};
+use crate::{actions, files, sidebar, terminal};
 
 /// Quem pediu a navegação. Só a tela e o histórico mandam `cd` ao shell; o
 /// que vem do shell (OSC 7) só muda a tela.
@@ -49,6 +50,14 @@ pub struct Inner {
     /// A última pasta que o shell anunciou por OSC 7.
     pub shell_dir: RefCell<Option<PathBuf>>,
     pub last_sync: Cell<ShellSync>,
+    /// Botão de favoritar a pasta atual.
+    pub star: gtk::Button,
+    pub clipboard: RefCell<Option<actions::Clip>>,
+    pub bookmarks: RefCell<Vec<Bookmark>>,
+    /// Onde os favoritos são salvos (`None` sem `HOME`).
+    pub bookmarks_file: RefCell<Option<PathBuf>>,
+    /// Quantas linhas da barra lateral vêm antes dos favoritos.
+    places_len: usize,
 }
 
 /// Uma referência barata para a janela e o seu estado.
@@ -77,9 +86,12 @@ impl Window {
         header.pack_start(&forward);
         header.pack_start(&up);
         header.set_title_widget(Some(&path_entry));
+        let star = icon_button("non-starred-symbolic", "Favoritar esta pasta (Ctrl+D)");
+        header.pack_end(&star);
 
         let list = files::FileList::new();
         let sidebar = sidebar::Sidebar::new();
+        let places_len = sidebar.len();
         let terminal = terminal::new_terminal();
 
         let terminal_box = gtk::ScrolledWindow::builder()
@@ -131,6 +143,16 @@ impl Window {
             shell_pid: Cell::new(None),
             shell_dir: RefCell::new(None),
             last_sync: Cell::new(ShellSync::None),
+            star,
+            clipboard: RefCell::new(None),
+            bookmarks: RefCell::new(Vec::new()),
+            bookmarks_file: RefCell::new(bookmarks::default_file(
+                std::env::var_os("XDG_CONFIG_HOME")
+                    .as_deref()
+                    .map(Path::new),
+                Some(&glib::home_dir()),
+            )),
+            places_len,
         }));
         win.connect_signals();
         win.show_dir(start);
@@ -212,6 +234,66 @@ impl Window {
         self.forward.set_sensitive(h.can_go_forward());
         self.up.set_sensitive(path != Path::new("/"));
         self.sidebar.select(path);
+        self.update_star();
+    }
+
+    fn update_star(&self) {
+        let dir = self.current_dir();
+        let on = self.bookmarks.borrow().iter().any(|b| b.path == dir);
+        self.star.set_icon_name(if on {
+            "starred-symbolic"
+        } else {
+            "non-starred-symbolic"
+        });
+        self.star.set_tooltip_text(Some(if on {
+            "Tirar dos favoritos (Ctrl+D)"
+        } else {
+            "Favoritar esta pasta (Ctrl+D)"
+        }));
+    }
+
+    /// Lê os favoritos do arquivo e refaz a barra lateral.
+    pub fn reload_bookmarks(&self) {
+        let file = self.bookmarks_file.borrow().clone();
+        let list = match &file {
+            Some(file) => bookmarks::load(file).unwrap_or_else(|e| {
+                self.toast(&format!("Não deu para ler os favoritos: {e}"));
+                Vec::new()
+            }),
+            None => Vec::new(),
+        };
+        self.bookmarks.replace(list);
+        self.refresh_sidebar();
+    }
+
+    /// Troca os favoritos, salva no arquivo e refaz a barra lateral.
+    pub fn set_bookmarks(&self, list: Vec<Bookmark>) {
+        if let Some(file) = self.bookmarks_file.borrow().as_ref()
+            && let Err(e) = bookmarks::save(file, &list)
+        {
+            self.toast(&format!("Não deu para salvar os favoritos: {e}"));
+        }
+        self.bookmarks.replace(list);
+        self.refresh_sidebar();
+    }
+
+    fn refresh_sidebar(&self) {
+        self.sidebar.truncate(self.places_len);
+        let list = self.bookmarks.borrow().clone();
+        if !list.is_empty() {
+            self.sidebar.header("Favoritos");
+        }
+        for b in list {
+            let remove = self.sidebar.push_bookmark(&b.title(), b.path.clone());
+            let w = self.clone();
+            remove.connect_clicked(move |_| {
+                let mut list = w.bookmarks.borrow().clone();
+                bookmarks::remove(&mut list, &b.path);
+                w.set_bookmarks(list);
+            });
+        }
+        self.sidebar.select(&self.current_dir());
+        self.update_star();
     }
 
     /// Tela → shell: digita `cd '<pasta>'` no terminal, se o shell estiver
@@ -257,10 +339,7 @@ impl Window {
         let w = self.clone();
         self.list.view.connect_activate(move |_, pos| {
             if let Some(info) = w.list.info_at(pos) {
-                let path = w.current_dir().join(info.name());
-                if info.file_type() == gio::FileType::Directory {
-                    w.navigate(&path, Origin::Screen);
-                }
+                actions::open(&w, &w.current_dir().join(info.name()));
             }
         });
 
@@ -280,33 +359,49 @@ impl Window {
 
         terminal::connect(self);
         self.add_shortcuts();
+        actions::install(self);
     }
 
+    /// Atalhos de navegação. Valem com o foco fora do terminal (lista,
+    /// barra lateral, cabeçalho): no terminal, Ctrl+H, Ctrl+L e Alt+setas
+    /// continuam indo para o shell.
     fn add_shortcuts(&self) {
         let actions: [Shortcut; 5] = [
-            ("back", &["<Alt>Left"], Self::go_back),
-            ("forward", &["<Alt>Right"], Self::go_forward),
-            ("up", &["<Alt>Up"], Self::go_up),
-            ("location", &["<Control>l"], |w| {
+            ("back", "<Alt>Left", Self::go_back),
+            ("forward", "<Alt>Right", Self::go_forward),
+            ("up", "<Alt>Up", Self::go_up),
+            ("location", "<Control>l", |w| {
                 w.path_entry.grab_focus();
             }),
-            ("hidden", &["<Control>h"], |w| w.list.toggle_hidden()),
+            ("hidden", "<Control>h", |w| w.list.toggle_hidden()),
         ];
-        let app = self.window.application();
-        for (name, accels, f) in actions {
+        let shortcuts = gtk::ShortcutController::new();
+        shortcuts.set_scope(gtk::ShortcutScope::Local);
+        for (name, accel, f) in actions {
             let action = gio::SimpleAction::new(name, None);
             let w = self.clone();
             action.connect_activate(move |_, _| f(&w));
             self.window.add_action(&action);
-            if let Some(app) = &app {
-                app.set_accels_for_action(&format!("win.{name}"), accels);
+            shortcuts.add_shortcut(gtk::Shortcut::new(
+                gtk::ShortcutTrigger::parse_string(accel),
+                Some(gtk::NamedAction::new(&format!("win.{name}"))),
+            ));
+        }
+        // Na área de arquivos e na barra lateral; não no terminal.
+        self.list.scrolled.add_controller(shortcuts.clone());
+        let side = gtk::ShortcutController::new();
+        side.set_scope(gtk::ShortcutScope::Local);
+        for i in 0..shortcuts.n_items() {
+            if let Some(s) = shortcuts.item(i).and_downcast::<gtk::Shortcut>() {
+                side.add_shortcut(gtk::Shortcut::new(s.trigger(), s.action()));
             }
         }
+        self.sidebar.scrolled.add_controller(side);
     }
 }
 
 /// Nome da ação, atalhos e o que ela faz.
-type Shortcut = (&'static str, &'static [&'static str], fn(&Window));
+type Shortcut = (&'static str, &'static str, fn(&Window));
 
 fn icon_button(icon: &str, tooltip: &str) -> gtk::Button {
     gtk::Button::builder()

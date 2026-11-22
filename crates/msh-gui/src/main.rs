@@ -10,6 +10,8 @@
 //! A GUI e o shell só conversam pelo PTY: a tela digita `cd '...'` no
 //! terminal, e o shell avisa o diretório com OSC 7 a cada prompt.
 
+mod actions;
+mod admin;
 mod files;
 mod selftest;
 mod sidebar;

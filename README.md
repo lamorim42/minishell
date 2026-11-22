@@ -117,8 +117,8 @@ O MiauShell está sendo reescrito em Rust, seguindo o POSIX.1-2024 (capítulo 2,
 | `msh-runtime` (execução) | M3, pronto | Comando simples, busca no `PATH`, atribuições (`A=1 cmd`), status 126, 127 e 2, e builtins `echo`, `cd`, `pwd` e `exit` |
 | `msh-runtime` (execução) | M4, pronto | Pipes, redirecionamentos `<`, `>` e `>>`, e heredoc `<<` guardado em memória (`memfd_create`) |
 | [`crates/msh-cli`](./crates/msh-cli/) | M3 e M5, pronto | Binário `minishell` em Rust: prompt `miau> ` com rustyline, `-c` e scripts, Ctrl+C/Ctrl+D/Ctrl+\\ como no bash, OSC 7 e pacote `.deb` |
-| [`crates/msh-gui`](./crates/msh-gui/) | M6, pronto | **Miau Files** (`miau-files`), fase 2: navegador de arquivos em GTK4 + libadwaita com o `minishell` num terminal VTE, sincronizados nos dois sentidos |
-| [`crates/msh-files`](./crates/msh-files/) | M6, pronto | O que a GUI faz sem GTK: formatação das colunas, URIs do OSC 7, histórico de navegação e detecção de "terminal ocupado" |
+| [`crates/msh-gui`](./crates/msh-gui/) | M6 e M7, pronto | **Miau Files** (`miau-files`), fase 2: navegador de arquivos em GTK4 + libadwaita com o `minishell` num terminal VTE, sincronizados nos dois sentidos; abrir, copiar, mover, renomear, lixeira, favoritos e ações de administrador via polkit |
+| [`crates/msh-files`](./crates/msh-files/) | M6 e M7, pronto | O que a GUI faz sem GTK: colunas, URIs do OSC 7, histórico, "terminal ocupado", favoritos, operações de arquivo e o `miau-files-helper`, que roda como root via `pkexec` |
 
 ## Dependências no Linux
 
@@ -203,6 +203,7 @@ make fclean # apaga objetos e binário
 | `make rust-deb` | `cargo deb -p msh-cli` | Gera o pacote em `target/debian/` (precisa do `cargo install cargo-deb`) |
 | `make rust-gui` | `cargo build -p msh-gui -p msh-cli` | Build da GUI e do shell que ela abre |
 | `make rust-gui-run` | `cargo run -p msh-gui` | Abre o Miau Files |
+| `make rust-gui-deb` | `cargo deb -p msh-cli` + `cargo deb -p msh-gui` | Gera os pacotes `minishell` e `miau-files` em `target/debian/` |
 | `make rust-gui-check` | clippy + testes + `miau-files --self-test` | O mesmo que o job `gui` do CI (precisa de uma tela, ou do `xvfb-run`) |
 
 ## Como executar
@@ -238,7 +239,21 @@ A janela tem a barra lateral com os locais, a lista de arquivos (nome, tamanho, 
 - um `cd` digitado no terminal muda a pasta da tela (o shell avisa por OSC 7 a cada prompt);
 - se o terminal estiver rodando um programa (um `cat`, um `vim`), a tela navega sozinha e não digita nada nele.
 
-Atalhos: Alt+← e Alt+→ (voltar e avançar), Alt+↑ (pasta acima), Ctrl+L (barra de caminho) e Ctrl+H (mostrar arquivos ocultos). A GUI se recusa a abrir como root.
+Com o botão direito (ou o teclado, com o foco na lista) dá para abrir, copiar (Ctrl+C), recortar (Ctrl+X), colar (Ctrl+V), renomear (F2), criar pasta (Ctrl+Shift+N) e mover para a lixeira (Delete). Arquivos abrem no aplicativo padrão. A estrela no cabeçalho (ou Ctrl+D) favorita a pasta atual; os favoritos aparecem na barra lateral e ficam em `~/.config/miau-files/bookmarks`.
+
+Atalhos de navegação: Alt+← e Alt+→ (voltar e avançar), Alt+↑ (pasta acima), Ctrl+L (barra de caminho) e Ctrl+H (mostrar arquivos ocultos). Os atalhos só valem fora do terminal: lá, Ctrl+C, Ctrl+D, Ctrl+H e Ctrl+L continuam indo para o shell.
+
+**Administrador.** A GUI se recusa a abrir como root. Quando copiar, mover, renomear ou criar pasta esbarra em "permissão negada", ela oferece tentar como administrador; o menu também tem "Editar como administrador…", um editor de texto para arquivos como os de `/etc`. Nos dois casos, só o `miau-files-helper` roda como root, chamado com `pkexec`: o polkit pede a senha (ação `org.miaushell.files.helper`, que vale por alguns minutos na sessão ativa). O helper aceita só caminhos absolutos e normalizados, não segue links ao salvar e nunca sobrescreve um arquivo ao copiar, mover ou renomear.
+
+Para instalar a GUI como pacote:
+
+```
+cargo install cargo-deb --version 3.8.0 --locked   # uma vez
+make rust-gui-deb
+sudo apt install ./target/debian/minishell_*.deb ./target/debian/miau-files_*.deb
+```
+
+O pacote instala `/usr/bin/miau-files`, o helper em `/usr/libexec/miau-files/`, o atalho no menu de aplicativos, o ícone e a política do polkit, e puxa o `pkexec`.
 
 Para instalar como pacote do Debian:
 
@@ -271,10 +286,10 @@ Os testes incluem:
 - **Snapshots** da AST com o [insta](https://insta.rs). Quando uma mudança altera um snapshot, revise com `cargo insta review` (instale antes com `cargo install cargo-insta`).
 - **Compatibilidade** em `crates/msh-cli/tests/compat_*.rs`: cada caso roda no `minishell`, no `dash` e no `bash --posix`, e stdout, status e stderr (sem o prefixo do nome do shell) precisam bater. Onde os dois oráculos divergem, o caso tem a expectativa escrita à mão e um comentário com a seção do POSIX. Precisa do `dash` e do `bash` instalados.
 - **Interativos** em `crates/msh-cli/tests/interactive.rs`, com o [rexpect](https://github.com/rust-cli/rexpect) num PTY real: prompt, Ctrl+C no prompt, num comando e no heredoc, Ctrl+\\, Ctrl+D e OSC 7.
-- **Autoteste da GUI** (`miau-files --self-test`): abre a janela de verdade com o `minishell` no terminal e confere a sincronização nos dois sentidos e o caso do terminal ocupado. No CI, roda num Xvfb como o usuário `nobody`.
+- **Autoteste da GUI** (`miau-files --self-test`): abre a janela de verdade com o `minishell` no terminal e confere a sincronização nos dois sentidos, o caso do terminal ocupado, copiar/colar/renomear e os favoritos. No CI, roda num Xvfb como o usuário `nobody`; depois os pacotes são instalados e o autoteste roda de novo com D-Bus e polkit de verdade, incluindo as ações de administrador via `pkexec`.
 - **Testes de propriedade** com o [proptest](https://proptest-rs.github.io/proptest/). Eles geram milhares de entradas aleatórias para verificar, por exemplo, que o parser nunca entra em pânico.
 
-O CI ([`.github/workflows/rust.yml`](./.github/workflows/rust.yml)) roda fmt, clippy e testes (inclusive a comparação com o dash e o bash) num container `debian:trixie` a cada push. O job `gui` instala as bibliotecas do GTK, roda clippy e testes do `msh-gui` e o autoteste da janela. Outro job gera o `.deb`, instala num Debian limpo, roda o shell e guarda o pacote como artefato.
+O CI ([`.github/workflows/rust.yml`](./.github/workflows/rust.yml)) roda fmt, clippy e testes (inclusive a comparação com o dash e o bash) num container `debian:trixie` a cada push. O job `gui` instala as bibliotecas do GTK, roda clippy, testes e o autoteste da janela, gera e instala o `.deb` do `miau-files` e guarda o pacote como artefato. Outro job gera o `.deb`, instala num Debian limpo, roda o shell e guarda o pacote como artefato.
 
 **Versão em C** (GoogleTest, só para a tokenização):
 

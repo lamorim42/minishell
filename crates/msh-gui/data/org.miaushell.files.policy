@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<!--
+  RF-24: o Miau Files nunca roda como root. As ações de administrador
+  (copiar, mover, renomear, criar pasta e salvar arquivo) passam pelo
+  miau-files-helper, chamado com pkexec. A senha de administrador vale por
+  alguns minutos (auth_admin_keep) só na sessão ativa.
+-->
+<policyconfig>
+  <vendor>MiauShell</vendor>
+  <vendor_url>https://github.com/lamorim42/minishell</vendor_url>
+  <action id="org.miaushell.files.helper">
+    <description>Run a Miau Files administrator action</description>
+    <description xml:lang="pt_BR">Executar uma ação de administrador do Miau Files</description>
+    <message>Authentication is required to change files that belong to another user</message>
+    <message xml:lang="pt_BR">É preciso autenticar para mudar arquivos que pertencem a outro usuário</message>
+    <icon_name>org.miaushell.Files</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/miau-files/miau-files-helper</annotate>
+  </action>
+</policyconfig>

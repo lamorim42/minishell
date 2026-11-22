@@ -8,8 +8,11 @@
 //!   via polkit e precisa ser pequeno: ele usa só este crate, sem linkar o
 //!   GTK (ADR-011, TDD §7).
 
+pub mod bookmarks;
 pub mod format;
+pub mod helper;
 pub mod history;
+pub mod ops;
 pub mod paths;
 pub mod proc;
 pub mod uri;
