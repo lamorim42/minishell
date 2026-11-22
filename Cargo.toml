@@ -10,6 +10,7 @@ publish = false
 
 [workspace.dependencies]
 msh-syntax = { path = "crates/msh-syntax" }
+nix = { version = "0.32.0", default-features = false }
 thiserror = "2.0.21"
 # dev
 insta = "1.49.0"

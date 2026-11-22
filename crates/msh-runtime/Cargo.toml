@@ -1,0 +1,18 @@
+[package]
+name = "msh-runtime"
+description = "Estado, expansão, execução e builtins do minishell"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+msh-syntax.workspace = true
+nix = { workspace = true, features = ["user"] }
+thiserror.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
+
+[lints]
+workspace = true
