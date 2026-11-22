@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Miau Files: uma pasta com orelhas de gato e um prompt. -->
+  <path d="M22 30 L34 8 L46 30 Z" fill="#c64600"/>
+  <path d="M82 30 L94 8 L106 30 Z" fill="#c64600"/>
+  <path d="M12 34 a8 8 0 0 1 8 -8 h30 l8 10 h50 a8 8 0 0 1 8 8 v62 a8 8 0 0 1 -8 8 h-88 a8 8 0 0 1 -8 -8 z" fill="#e66100"/>
+  <rect x="12" y="46" width="104" height="68" rx="8" fill="#ffa348"/>
+  <path d="M34 66 L50 78 L34 90" fill="none" stroke="#3d3846" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M58 92 H88" stroke="#3d3846" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="84" cy="66" r="4" fill="#3d3846"/>
+  <circle cx="100" cy="66" r="4" fill="#3d3846"/>
+</svg>

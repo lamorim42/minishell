@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Miau Files
+GenericName=Gerenciador de arquivos
+Comment=Navegue nas pastas com o MiauShell embutido
+Exec=miau-files
+Icon=org.miaushell.Files
+Terminal=false
+Categories=GTK;GNOME;System;FileTools;FileManager;
+Keywords=arquivos;pastas;terminal;shell;miau;
+StartupNotify=true

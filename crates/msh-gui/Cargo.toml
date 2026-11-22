@@ -1,0 +1,43 @@
+[package]
+name = "msh-gui"
+description = "Miau Files: navegador de arquivos com o MiauShell embutido"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "miau-files"
+path = "src/main.rs"
+
+[dependencies]
+msh-files.workspace = true
+gtk = { workspace = true }
+adw = { workspace = true }
+vte = { workspace = true }
+
+# `make rust-gui-deb` (TDD §8): o pacote miau-files traz a GUI, o helper de
+# administrador, o .desktop, o ícone e a política do polkit. O helper vem do
+# crate msh-files, então o Makefile compila os dois antes do `cargo deb`.
+[package.metadata.deb]
+name = "miau-files"
+maintainer = "Luís Amorim e Daniela Monteiro"
+copyright = "2026, Luís Amorim e Daniela Monteiro"
+section = "utils"
+priority = "optional"
+extended-description = """\
+O Miau Files é um navegador de arquivos em GTK4 e libadwaita com o MiauShell \
+num terminal embutido. Navegar na tela muda a pasta do shell, e um cd no \
+shell muda a tela. Ações que precisam de root pedem a senha pelo polkit; a \
+interface nunca roda como root."""
+depends = "$auto, minishell, pkexec"
+assets = [
+    ["target/release/miau-files", "usr/bin/", "755"],
+    ["target/release/miau-files-helper", "usr/libexec/miau-files/", "755"],
+    ["data/org.miaushell.Files.desktop", "usr/share/applications/", "644"],
+    ["data/org.miaushell.Files.svg", "usr/share/icons/hicolor/scalable/apps/", "644"],
+    ["data/org.miaushell.files.policy", "usr/share/polkit-1/actions/", "644"],
+]
+
+[lints]
+workspace = true

@@ -128,6 +128,12 @@
 | `crates/msh-runtime/src/exec/sys.rs` (sinais), `crates/msh-cli/src/main.rs` | `tratar-sinais/` | `src/signals*.c` | M5 ✅ | ADR-008, sem estado global: o rustyline trata Ctrl+C/Ctrl+D na leitura, o pai ignora SIGINT/SIGQUIT, o filho volta ao padrão; `$?` 130/131; Ctrl+C no heredoc cancela a linha |
 | `crates/msh-cli/src/osc7.rs` | n/a (requisito novo, RF-17 do PRD) | — | M5 ✅ | OSC 7 com `--osc7` ou em terminal VTE |
 | `crates/msh-cli/Cargo.toml` (`[package.metadata.deb]`), `man/minishell.1` | n/a (RNF-11) | `Makefile` | M5 ✅ | `.deb` com `/usr/bin/minishell` e a página de manual |
+| `crates/msh-gui/src/main.rs`, `window.rs`, `sidebar.rs`, `files.rs` | n/a (fase 2, RF-20 do PRD; sem equivalente no C) | — | M6 ✅ | GTK4 + libadwaita (ADR-011); a GUI se recusa a rodar como root (PRD §3) |
+| `crates/msh-gui/src/terminal.rs`, `crates/msh-files/src/uri.rs`, `proc.rs`, `history.rs`, `paths.rs` (`cd_command`) | `navegar-diretorios/` (lado do shell: `cd` e `PWD`); RF-21 e RF-22 do PRD | — | M6 ✅ | a GUI só fala com o shell pelo PTY: digita `cd '<pasta>'` (aspas POSIX 2.2.2) e lê o OSC 7 do prompt; não digita nada com o terminal ocupado |
+| `crates/msh-gui/src/selftest.rs` | n/a (PRD §3, "teste com VTE") | — | M6/M7 ✅ | `miau-files --self-test`, no CI num Xvfb como `nobody` |
+| `crates/msh-gui/src/actions.rs`, `crates/msh-files/src/ops.rs`, `bookmarks.rs` | n/a (RF-23 do PRD) | — | M7 ✅ | copiar não sobrescreve (`nome (cópia)`); mover e renomear dão erro se o nome existir; favoritos no formato do GTK em `$XDG_CONFIG_HOME` |
+| `crates/msh-gui/src/admin.rs`, `crates/msh-files/src/helper.rs`, `src/bin/miau-files-helper.rs`, `crates/msh-gui/data/org.miaushell.files.policy` | n/a (RF-24 do PRD) | — | M7 ✅ | só o helper roda como root, via `pkexec` (`auth_admin_keep`); caminhos absolutos e normalizados, sem seguir links ao salvar |
+| `crates/msh-gui/Cargo.toml` (`[package.metadata.deb]`), `data/*.desktop`, `data/*.svg` | n/a (TDD §8, fase 2) | — | M7 ✅ | pacote `miau-files`: `/usr/bin/miau-files`, helper em `/usr/libexec/miau-files/`, `.desktop`, ícone e política do polkit |
 
 ### Testes em Rust
 
@@ -140,3 +146,5 @@
 | `crates/msh-cli/tests/compat_m4.rs` | `executar-pipeline/`, `redirecionar-entrada-e-saida/`, `ler-heredoc/` | inclui o teste de vazamento de fds (`/proc/self/fd`, RNF-10) |
 | `crates/msh-cli/tests/interactive.rs` | `iniciar-sessao-e-ler-comando/`, `tratar-sinais/`, `ler-heredoc/` | PTY real com rexpect |
 | `crates/msh-cli/tests/modes.rs` | `iniciar-sessao-e-ler-comando/` | `-c`, script e stdin |
+| `crates/msh-files/src/*.rs` (`#[cfg(test)]`) | `navegar-diretorios/` (OSC 7 e `cd`) | colunas, URIs, histórico, `/proc`, operações de arquivo, favoritos e o parser estrito do helper |
+| `miau-files --self-test` (`crates/msh-gui/src/selftest.rs`) | `navegar-diretorios/` | janela real com o `minishell` no VTE: tela → shell, shell → tela, terminal ocupado, copiar/colar/renomear, favoritos e, com polkit, as ações de administrador |
