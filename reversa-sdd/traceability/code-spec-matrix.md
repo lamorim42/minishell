@@ -96,3 +96,33 @@
 | BUG-20 | `ft_strncmp` retorna 0 quando uma das strings termina: comando vazio ou prefixo de `PIPE`/`REDO`/`REDA`/`REDI`/`HERE` é ignorado em silêncio; prefixo de builtin vira `command not found` | `Libft/ft_strncmp.c`, `src/exec/exec_utils.c:15-22` | `executar-comando-simples/` |
 | BUG-21 | `exit 2 <arg>` encerra com 2 em vez de `too many arguments` | `src/builtins/exit.c:51` | `encerrar-shell/` |
 | RX-06 (confirmado) | Valor auto-referente (`A='$A'`) trava a expansão em loop infinito; antes era 🟡 | `src/exec/expand_var.c:27-28` | `expandir-variaveis/` |
+
+## 6. Reescrita em Rust (`crates/`)
+
+> Adicionado em 2026-11-22, após a unificação com a `feature/refac-rust` (PR #36). Critério da coluna **Divergências**: pela decisão L-08 (`questions.md`, Pergunta 9), o Rust segue o POSIX nos itens ⚠️ DIVERGÊNCIA / `@divergente` da unit e não reproduz os bugs do C.
+> Legenda do marco: ✅ pronto · ⏳ planejado.
+
+| Arquivo em Rust | Unit correspondente | Equivalente em C | Marco | Divergências |
+|-----------------|---------------------|------------------|-------|--------------|
+| `crates/msh-syntax/src/lexer.rs`, `token.rs` | `analisar-linha-de-comando/` | `src/tokens/count_tks.c`, `tokenizer.c`, `tokenizer_utils.c`, `lexical_analyzer.c`, `clean_tokens.c` | M1 ✅ | POSIX 2.2 e 2.3 |
+| `crates/msh-syntax/src/parser.rs`, `ast.rs` | `analisar-linha-de-comando/` | `src/tokens/sintax_analysis.c`, `src/exec/make_list.c` | M1 ✅ | POSIX 2.10 (subconjunto) |
+| `crates/msh-syntax/src/error.rs` | `analisar-linha-de-comando/` (mensagens de erro de sintaxe) | `src/tokens/sintax_analysis.c`, `src/free.c` (`free_sintax`) | M1 ✅ | mensagens no formato do bash |
+| `crates/msh-syntax/src/display.rs` | n/a (forma canônica para testes) | — | M1 ✅ | n/a |
+| `crates/msh-runtime/src/shell.rs` | `iniciar-sessao-e-ler-comando/`, `tratar-sinais/` (estado global) | `g_minishell` em `includes/minishell.h`, `src/init.c` | M2 ✅ (parcial) | estado sem variável global |
+| `crates/msh-runtime/src/env.rs` | `gerenciar-variaveis-de-ambiente/` | `src/hash_table/*.c` | M2 ✅ | POSIX |
+| `crates/msh-runtime/src/expand.rs` | `expandir-variaveis/` | `src/exec/expand_var.c`, `expand_var_utils.c`, `exec_utils.c` | M2 ✅ | POSIX 2.6 (til, parâmetros, *field splitting*, remoção de aspas) |
+| `crates/msh-runtime/src/builtins/env.rs` | `gerenciar-variaveis-de-ambiente/` | `src/builtins/env.c`, `src/hash_table/print_table.c` | M2 ✅ | POSIX |
+| `crates/msh-runtime/src/builtins/export.rs` | `gerenciar-variaveis-de-ambiente/` | `src/builtins/export.c`, `builtins_utils.c` | M2 ✅ | POSIX (`export -p` no formato do `bash --posix`) |
+| `crates/msh-runtime/src/builtins/unset.rs` | `gerenciar-variaveis-de-ambiente/` | `src/builtins/unset.c` | M2 ✅ | POSIX |
+| `crates/msh-runtime/src/builtins/mod.rs` | `executar-comando-simples/` (despacho de builtins) | `src/builtins/builtins_utils.c` (`exec_builtins`, `is_a_builtin`) | M2 ✅ (parcial) | POSIX |
+| `msh-runtime` (execução) | `executar-comando-simples/`, `executar-pipeline/`, `redirecionar-entrada-e-saida/`, `ler-heredoc/` | `src/exec/*.c`, `src/fd_handler*.c` | M3/M4 ⏳ | POSIX 2.7, 2.9 |
+| `msh-runtime` (builtins restantes) | `imprimir-texto-echo/`, `navegar-diretorios/`, `encerrar-shell/` | `src/builtins/echo.c`, `cd.c`, `pwd.c`, `exit.c` | M3/M4 ⏳ | POSIX |
+| `msh-cli` | `iniciar-sessao-e-ler-comando/`, `tratar-sinais/` | `src/main.c`, `src/signals*.c` | M3 ⏳ | POSIX |
+
+### Testes em Rust
+
+| Arquivo | Unit | Observação |
+|---------|------|------------|
+| `crates/msh-syntax/tests/lexer.rs`, `parser.rs`, `properties.rs`, `snapshots/` | `analisar-linha-de-comando/` | inclui casos portados dos testes GTest (`tests/tests_*.cpp`, ADR-002 desta extração) |
+| `crates/msh-runtime/tests/expand.rs` | `expandir-variaveis/` | |
+| `crates/msh-runtime/tests/builtins.rs` | `gerenciar-variaveis-de-ambiente/` | |
