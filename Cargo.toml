@@ -1,0 +1,33 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+publish = false
+
+[workspace.dependencies]
+msh-syntax = { path = "crates/msh-syntax" }
+thiserror = "2.0.21"
+# dev
+insta = "1.49.0"
+proptest = "1.12.0"
+
+[workspace.lints.rust]
+# ADR-005: `unsafe` só é liberado em `msh-runtime/src/exec/sys.rs`.
+unsafe_code = "deny"
+missing_debug_implementations = "warn"
+
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+
+[profile.release]
+lto = "thin"
+panic = "abort"
+
+# Snapshots do insta ficam mais rápidos de comparar com o crate otimizado.
+[profile.dev.package]
+insta.opt-level = 3
+similar.opt-level = 3

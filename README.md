@@ -9,6 +9,7 @@ _Esse é o minishell feito por pessoas que amam gatos_
 1. [Entendendo projeto](#entendendo-projeto)
 2. [Algumas funções autorizadas](#algumas-funções-autorizadas)
 3. [Clone e execute o prejeto](#clone-e-execute-o-prejeto)
+4. [Reescrita em Rust (em andamento)](#reescrita-em-rust-em-andamento)
 
 ## Entendendo Projeto
 
@@ -122,3 +123,29 @@ make
 ### Exemplo
 
 ![exemplo de miaushell sendo utilizado](./assets/miaushell.gif)
+
+## Reescrita em Rust (em andamento)
+
+O MiauShell está sendo reescrito em Rust, seguindo o POSIX.1-2024 (capítulo 2, *Shell Command Language*). O código em C continua sendo o shell oficial até a nova versão passar em toda a suíte de compatibilidade.
+
+| Crate | Situação | O que faz |
+| :---- | :------- | :-------- |
+| [`crates/msh-syntax`](./crates/msh-syntax/) | M1 pronto | Lexer, parser e AST, sem I/O |
+| `msh-runtime` | próximo | Ambiente, expansão, execução e builtins |
+| `msh-cli` | próximo | Binário `minishell` com rustyline |
+
+Pré-requisitos no Debian:
+
+```
+sudo apt install build-essential pkg-config curl git
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Comandos:
+
+```
+cargo test --workspace                                # testes
+cargo clippy --workspace --all-targets -- -D warnings # lint
+cargo fmt --all                                       # formatação
+cargo insta review                                    # revisar snapshots (cargo install cargo-insta)
+```

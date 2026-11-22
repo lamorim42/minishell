@@ -8,3 +8,7 @@ tests/Makefile
 fileout
 file
 minishell_tester/
+# Rust
+/target
+*.snap.new
+*.pending-snap

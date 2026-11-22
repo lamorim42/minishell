@@ -1,0 +1,5 @@
+# ADR-001: Rust estável via rustup, igual no CI e nas máquinas de desenvolvimento.
+[toolchain]
+channel = "stable"
+components = ["rustfmt", "clippy"]
+profile = "minimal"

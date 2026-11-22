@@ -1,0 +1,52 @@
+name: rust
+
+on:
+  push:
+    paths:
+      - "crates/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - ".github/workflows/rust.yml"
+  pull_request:
+    paths:
+      - "crates/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - ".github/workflows/rust.yml"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  check:
+    name: fmt, clippy e testes (Debian 13 trixie)
+    runs-on: ubuntu-latest
+    container: debian:trixie
+    steps:
+      - name: Pacotes do sistema
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            ca-certificates curl git build-essential pkg-config bash dash
+
+      - uses: actions/checkout@v4
+
+      - name: Toolchain Rust via rustup (ADR-001)
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+            | sh -s -- -y --profile minimal --default-toolchain none
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      - name: Instalar a toolchain do rust-toolchain.toml
+        run: rustup toolchain install
+
+      - name: Formatação
+        run: cargo fmt --all --check
+
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+      - name: Testes
+        run: cargo test --workspace --locked
