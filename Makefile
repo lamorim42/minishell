@@ -118,11 +118,14 @@ gdb:	obj_dir $(OBJ) $(LIBFT)
 .PHONY= all clean fclean re $(NAME)
 
 #Rust (crates/): mesmos nomes da versão em C, com o prefixo rust-
+# Os alvos rust-* não incluem a GUI (msh-gui), que precisa das bibliotecas
+# do GTK; ela tem os alvos rust-gui-*.
 CARGO	= cargo
-CRATES	= -p msh-syntax -p msh-runtime -p msh-cli
+CRATES	= -p msh-syntax -p msh-runtime -p msh-cli -p msh-files
+CORE	= --workspace --exclude msh-gui
 
 rust:
-			$(CARGO) build --workspace
+			$(CARGO) build $(CORE)
 
 rust-run:
 			$(CARGO) run -p msh-cli
@@ -131,25 +134,39 @@ rust-deb:
 			$(CARGO) deb -p msh-cli
 
 rust-release:
-			$(CARGO) build --workspace --release
+			$(CARGO) build $(CORE) --release
 
 rust-test:
-			$(CARGO) test --workspace
+			$(CARGO) test $(CORE)
 
 rust-fmt:
 			$(CARGO) fmt --all
 
 rust-lint:
 			$(CARGO) fmt --all --check
-			$(CARGO) clippy --workspace --all-targets -- -D warnings
+			$(CARGO) clippy $(CORE) --all-targets -- -D warnings
 
 # O mesmo que o CI roda: lint + testes, com o Cargo.lock travado.
 rust-check:	rust-lint
-			$(CARGO) test --workspace --locked
+			$(CARGO) test $(CORE) --locked
+
+# Fase 2: Miau Files (GTK4 + libadwaita + VTE).
+rust-gui:
+			$(CARGO) build -p msh-gui -p msh-cli
+
+rust-gui-run:	rust-gui
+			$(CARGO) run -p msh-gui
+
+# Lint e testes da GUI, mais o autoteste com a janela de verdade (precisa de
+# uma tela: rode dentro da sessão gráfica ou com xvfb-run).
+rust-gui-check:	rust-gui
+			$(CARGO) clippy -p msh-gui -p msh-files --all-targets -- -D warnings
+			$(CARGO) test -p msh-gui -p msh-files --locked
+			./target/debug/miau-files --self-test
 
 # Apaga só o que é nosso; as dependências já compiladas ficam.
 rust-clean:
-			$(CARGO) clean $(CRATES)
+			$(CARGO) clean $(CRATES) -p msh-gui
 
 # Apaga a pasta target/ inteira.
 rust-fclean:
@@ -157,4 +174,4 @@ rust-fclean:
 
 rust-re:	rust-fclean rust
 
-.PHONY: rust rust-run rust-deb rust-release rust-test rust-fmt rust-lint rust-check rust-clean rust-fclean rust-re
+.PHONY: rust rust-run rust-deb rust-release rust-test rust-fmt rust-lint rust-check rust-gui rust-gui-run rust-gui-check rust-clean rust-fclean rust-re

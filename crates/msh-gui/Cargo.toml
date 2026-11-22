@@ -1,0 +1,20 @@
+[package]
+name = "msh-gui"
+description = "Miau Files: navegador de arquivos com o MiauShell embutido"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "miau-files"
+path = "src/main.rs"
+
+[dependencies]
+msh-files.workspace = true
+gtk = { workspace = true }
+adw = { workspace = true }
+vte = { workspace = true }
+
+[lints]
+workspace = true

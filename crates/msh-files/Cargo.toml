@@ -1,0 +1,13 @@
+[package]
+name = "msh-files"
+description = "Operações de arquivo do Miau Files e o helper de administrador (polkit)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+nix = { workspace = true, features = ["fs", "user"] }
+
+[lints]
+workspace = true

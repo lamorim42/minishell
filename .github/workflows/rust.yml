@@ -45,11 +45,60 @@ jobs:
       - name: Formatação
         run: cargo fmt --all --check
 
+      # A GUI (msh-gui) precisa das bibliotecas do GTK e tem o job `gui`.
       - name: Clippy
-        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+        run: cargo clippy --workspace --exclude msh-gui --all-targets --locked -- -D warnings
 
       - name: Testes
-        run: cargo test --workspace --locked
+        run: cargo test --workspace --exclude msh-gui --locked
+
+  gui:
+    name: GUI (GTK4 + VTE) e autoteste com tela virtual
+    needs: check
+    runs-on: ubuntu-latest
+    container: debian:trixie
+    steps:
+      - name: Pacotes do sistema
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            ca-certificates curl git build-essential pkg-config \
+            libgtk-4-dev libadwaita-1-dev libvte-2.91-gtk4-dev \
+            xvfb fonts-dejavu-core
+
+      - uses: actions/checkout@v5
+
+      - name: Toolchain Rust via rustup (ADR-001)
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+            | sh -s -- -y --profile minimal --default-toolchain none
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      - name: Instalar a toolchain do rust-toolchain.toml
+        run: rustup toolchain install
+
+      - name: Clippy
+        run: cargo clippy -p msh-gui --all-targets --locked -- -D warnings
+
+      - name: Testes
+        run: cargo test -p msh-gui --locked
+
+      # PRD §3: "teste com VTE" da sincronização nos dois sentidos. A GUI se
+      # recusa a rodar como root, então o autoteste roda como `nobody`.
+      - name: Autoteste da janela (Xvfb)
+        run: |
+          cargo build -p msh-gui -p msh-cli --locked
+          Xvfb :99 -ac -screen 0 1280x800x24 &
+          sleep 2
+          # Fora do workspace, para `nobody` conseguir ler; o miau-files acha
+          # o minishell ao lado dele.
+          mkdir -p /tmp/miau-bin /tmp/miau-home && chmod 777 /tmp/miau-home
+          cp target/debug/miau-files target/debug/minishell /tmp/miau-bin/
+          chmod -R a+rX /tmp/miau-bin
+          setpriv --reuid=65534 --regid=65534 --clear-groups \
+            env HOME=/tmp/miau-home XDG_RUNTIME_DIR=/tmp/miau-home \
+              DISPLAY=:99 GTK_A11Y=none \
+              timeout 120 /tmp/miau-bin/miau-files --self-test
 
   deb:
     name: pacote .deb (cargo deb)

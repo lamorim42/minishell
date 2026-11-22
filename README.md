@@ -117,6 +117,8 @@ O MiauShell está sendo reescrito em Rust, seguindo o POSIX.1-2024 (capítulo 2,
 | `msh-runtime` (execução) | M3, pronto | Comando simples, busca no `PATH`, atribuições (`A=1 cmd`), status 126, 127 e 2, e builtins `echo`, `cd`, `pwd` e `exit` |
 | `msh-runtime` (execução) | M4, pronto | Pipes, redirecionamentos `<`, `>` e `>>`, e heredoc `<<` guardado em memória (`memfd_create`) |
 | [`crates/msh-cli`](./crates/msh-cli/) | M3 e M5, pronto | Binário `minishell` em Rust: prompt `miau> ` com rustyline, `-c` e scripts, Ctrl+C/Ctrl+D/Ctrl+\\ como no bash, OSC 7 e pacote `.deb` |
+| [`crates/msh-gui`](./crates/msh-gui/) | M6, pronto | **Miau Files** (`miau-files`), fase 2: navegador de arquivos em GTK4 + libadwaita com o `minishell` num terminal VTE, sincronizados nos dois sentidos |
+| [`crates/msh-files`](./crates/msh-files/) | M6, pronto | O que a GUI faz sem GTK: formatação das colunas, URIs do OSC 7, histórico de navegação e detecção de "terminal ocupado" |
 
 ## Dependências no Linux
 
@@ -159,7 +161,13 @@ Sem argumentos, esse comando lê o `rust-toolchain.toml`. O CI usa a mesma vers�
 
 As dependências em Rust (`nix`, `thiserror` e, nos testes, `insta` e `proptest`) são baixadas pelo `cargo` na primeira compilação. Não é preciso instalar nada pelo `apt` para elas.
 
-> **Fase 2 (interface gráfica):** quando o `msh-gui` existir, serão necessários também `libgtk-4-dev`, `libadwaita-1-dev` e `libvte-2.91-gtk4-dev`. Por enquanto não precisa.
+**Fase 2 (interface gráfica, `msh-gui`):** precisa também das bibliotecas do GTK. Sem elas, os alvos `rust-*` continuam funcionando, porque não incluem a GUI.
+
+```
+sudo apt install libgtk-4-dev libadwaita-1-dev libvte-2.91-gtk4-dev
+```
+
+As versões mínimas são GTK 4.12, libadwaita 1.5 e VTE 0.76 (o Debian 13 tem 4.18, 1.7 e 0.80; o Ubuntu 24.04 tem 4.14, 1.5 e 0.76).
 
 ## Como compilar
 
@@ -182,9 +190,9 @@ make fclean # apaga objetos e binário
 
 | Make | Equivale a | O que faz |
 | :--- | :--------- | :-------- |
-| `make rust` | `cargo build --workspace` | Build de desenvolvimento, em `target/debug` |
-| `make rust-release` | `cargo build --workspace --release` | Build otimizado, em `target/release` |
-| `make rust-test` | `cargo test --workspace` | Roda todos os testes |
+| `make rust` | `cargo build --workspace --exclude msh-gui` | Build de desenvolvimento do shell, em `target/debug` |
+| `make rust-release` | `cargo build ... --release` | Build otimizado, em `target/release` |
+| `make rust-test` | `cargo test --workspace --exclude msh-gui` | Roda os testes do shell |
 | `make rust-fmt` | `cargo fmt --all` | Formata o código |
 | `make rust-lint` | `cargo fmt --check` + `cargo clippy -- -D warnings` | Verifica formatação e lint |
 | `make rust-check` | `rust-lint` + `cargo test --locked` | O mesmo que o CI roda; use antes do push |
@@ -193,6 +201,9 @@ make fclean # apaga objetos e binário
 | `make rust-re` | `rust-fclean` + `rust` | Recompila tudo do zero (como o `re`) |
 | `make rust-run` | `cargo run -p msh-cli` | Abre o shell em Rust |
 | `make rust-deb` | `cargo deb -p msh-cli` | Gera o pacote em `target/debian/` (precisa do `cargo install cargo-deb`) |
+| `make rust-gui` | `cargo build -p msh-gui -p msh-cli` | Build da GUI e do shell que ela abre |
+| `make rust-gui-run` | `cargo run -p msh-gui` | Abre o Miau Files |
+| `make rust-gui-check` | clippy + testes + `miau-files --self-test` | O mesmo que o job `gui` do CI (precisa de uma tela, ou do `xvfb-run`) |
 
 ## Como executar
 
@@ -212,7 +223,22 @@ make rust-run                          # ou: cargo run -p msh-cli
 ./target/debug/minishell script.sh     # um script
 ```
 
-Aparece o mesmo prompt `miau>`. Com `--osc7`, o shell avisa o terminal do diretório atual a cada prompt (é o que a GUI da fase 2 vai usar); dentro de terminais VTE isso já vem ligado.
+Aparece o mesmo prompt `miau>`. Com `--osc7`, o shell avisa o terminal do diretório atual a cada prompt (é o que a GUI usa); dentro de terminais VTE isso já vem ligado.
+
+**Interface gráfica (Miau Files):**
+
+```
+make rust-gui-run                 # ou: cargo build -p msh-cli && cargo run -p msh-gui
+./target/debug/miau-files /etc    # abre direto numa pasta
+```
+
+A janela tem a barra lateral com os locais, a lista de arquivos (nome, tamanho, dono, permissões e data) e, embaixo, um terminal rodando o `minishell`. Os dois andam juntos:
+
+- dar dois cliques numa pasta, usar a barra lateral, a barra de caminho ou os botões voltar/avançar/subir digita `cd '<pasta>'` no terminal;
+- um `cd` digitado no terminal muda a pasta da tela (o shell avisa por OSC 7 a cada prompt);
+- se o terminal estiver rodando um programa (um `cat`, um `vim`), a tela navega sozinha e não digita nada nele.
+
+Atalhos: Alt+← e Alt+→ (voltar e avançar), Alt+↑ (pasta acima), Ctrl+L (barra de caminho) e Ctrl+H (mostrar arquivos ocultos). A GUI se recusa a abrir como root.
 
 Para instalar como pacote do Debian:
 
@@ -245,9 +271,10 @@ Os testes incluem:
 - **Snapshots** da AST com o [insta](https://insta.rs). Quando uma mudança altera um snapshot, revise com `cargo insta review` (instale antes com `cargo install cargo-insta`).
 - **Compatibilidade** em `crates/msh-cli/tests/compat_*.rs`: cada caso roda no `minishell`, no `dash` e no `bash --posix`, e stdout, status e stderr (sem o prefixo do nome do shell) precisam bater. Onde os dois oráculos divergem, o caso tem a expectativa escrita à mão e um comentário com a seção do POSIX. Precisa do `dash` e do `bash` instalados.
 - **Interativos** em `crates/msh-cli/tests/interactive.rs`, com o [rexpect](https://github.com/rust-cli/rexpect) num PTY real: prompt, Ctrl+C no prompt, num comando e no heredoc, Ctrl+\\, Ctrl+D e OSC 7.
+- **Autoteste da GUI** (`miau-files --self-test`): abre a janela de verdade com o `minishell` no terminal e confere a sincronização nos dois sentidos e o caso do terminal ocupado. No CI, roda num Xvfb como o usuário `nobody`.
 - **Testes de propriedade** com o [proptest](https://proptest-rs.github.io/proptest/). Eles geram milhares de entradas aleatórias para verificar, por exemplo, que o parser nunca entra em pânico.
 
-O CI ([`.github/workflows/rust.yml`](./.github/workflows/rust.yml)) roda fmt, clippy e testes (inclusive a comparação com o dash e o bash) num container `debian:trixie` a cada push. Um segundo job gera o `.deb`, instala num Debian limpo, roda o shell e guarda o pacote como artefato.
+O CI ([`.github/workflows/rust.yml`](./.github/workflows/rust.yml)) roda fmt, clippy e testes (inclusive a comparação com o dash e o bash) num container `debian:trixie` a cada push. O job `gui` instala as bibliotecas do GTK, roda clippy e testes do `msh-gui` e o autoteste da janela. Outro job gera o `.deb`, instala num Debian limpo, roda o shell e guarda o pacote como artefato.
 
 **Versão em C** (GoogleTest, só para a tokenização):
 
