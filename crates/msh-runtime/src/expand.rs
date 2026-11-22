@@ -62,6 +62,31 @@ pub fn expand_words(words: &[Word], sh: &Shell) -> Vec<String> {
     words.iter().flat_map(|w| expand_word(w, sh)).collect()
 }
 
+/// Valor de uma atribuição (`NOME=valor`, POSIX 2.9.1): til, parâmetros e
+/// remoção de aspas, mas sem field splitting. O resultado é sempre um campo.
+#[must_use]
+pub fn expand_assignment(word: &Word, sh: &Shell) -> String {
+    let mut out = String::new();
+    for part in &word.parts {
+        match part {
+            WordPart::Literal(s) | WordPart::SingleQuoted(s) => out.push_str(s),
+            WordPart::DoubleQuoted(inner) => {
+                for p in inner {
+                    match p {
+                        WordPart::Literal(s) => out.push_str(s),
+                        other => out.push_str(&param_value(other, sh).unwrap_or_default()),
+                    }
+                }
+            }
+            WordPart::Var(_) | WordPart::LastStatus => {
+                out.push_str(&param_value(part, sh).unwrap_or_default());
+            }
+            WordPart::Tilde(user) => out.push_str(&tilde(user.as_deref(), sh)),
+        }
+    }
+    out
+}
+
 /// Alvo de `<`, `>` e `>>`: precisa virar exatamente um campo.
 ///
 /// # Errors

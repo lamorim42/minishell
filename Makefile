@@ -119,10 +119,13 @@ gdb:	obj_dir $(OBJ) $(LIBFT)
 
 #Rust (crates/): mesmos nomes da versão em C, com o prefixo rust-
 CARGO	= cargo
-CRATES	= -p msh-syntax -p msh-runtime
+CRATES	= -p msh-syntax -p msh-runtime -p msh-cli
 
 rust:
 			$(CARGO) build --workspace
+
+rust-run:
+			$(CARGO) run -p msh-cli
 
 rust-release:
 			$(CARGO) build --workspace --release
@@ -151,4 +154,4 @@ rust-fclean:
 
 rust-re:	rust-fclean rust
 
-.PHONY: rust rust-release rust-test rust-fmt rust-lint rust-check rust-clean rust-fclean rust-re
+.PHONY: rust rust-run rust-release rust-test rust-fmt rust-lint rust-check rust-clean rust-fclean rust-re

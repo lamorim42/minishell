@@ -1,6 +1,7 @@
 //! Variáveis do shell (ADR-007).
 
 use std::collections::HashMap;
+use std::ffi::CString;
 
 /// Uma variável do shell.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -91,9 +92,33 @@ impl Env {
         }
     }
 
+    /// Volta a variável a um estado salvo com [`Env::var`] (`None` remove).
+    pub fn restore(&mut self, name: &str, saved: Option<Var>) {
+        match saved {
+            Some(var) => {
+                self.vars.insert(name.to_owned(), var);
+            }
+            None => {
+                self.vars.remove(name);
+            }
+        }
+    }
+
     /// Remove a variável. Retorna `true` se ela existia.
     pub fn unset(&mut self, name: &str) -> bool {
         self.vars.remove(name).is_some()
+    }
+
+    /// Ambiente para o `execve`: `NOME=valor` de cada variável exportada que
+    /// tem valor. Nomes ou valores com NUL (impossível vindo do sistema) são
+    /// descartados.
+    #[must_use]
+    pub fn to_envp(&self) -> Vec<CString> {
+        self.vars
+            .iter()
+            .filter(|(_, v)| v.exported)
+            .filter_map(|(k, v)| CString::new(format!("{k}={}", v.value.as_deref()?)).ok())
+            .collect()
     }
 
     /// Variáveis exportadas, em ordem alfabética.
@@ -158,5 +183,18 @@ mod tests {
         assert!(!env.unset("M"));
         let names: Vec<_> = env.exported().into_iter().map(|(k, _)| k).collect();
         assert_eq!(names, ["A", "Z"]);
+    }
+
+    #[test]
+    fn envp_has_only_exported_with_value() {
+        let mut env = Env::from_pairs([("A", "1")]);
+        env.set("LOCAL", "x");
+        env.export("DECLARED", None);
+        let envp: Vec<_> = env
+            .to_envp()
+            .into_iter()
+            .map(|c| c.into_string().unwrap())
+            .collect();
+        assert_eq!(envp, ["A=1"]);
     }
 }

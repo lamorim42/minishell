@@ -115,9 +115,15 @@
 | `crates/msh-runtime/src/builtins/export.rs` | `gerenciar-variaveis-de-ambiente/` | `src/builtins/export.c`, `builtins_utils.c` | M2 ✅ | POSIX (`export -p` no formato do `bash --posix`) |
 | `crates/msh-runtime/src/builtins/unset.rs` | `gerenciar-variaveis-de-ambiente/` | `src/builtins/unset.c` | M2 ✅ | POSIX |
 | `crates/msh-runtime/src/builtins/mod.rs` | `executar-comando-simples/` (despacho de builtins) | `src/builtins/builtins_utils.c` (`exec_builtins`, `is_a_builtin`) | M2 ✅ (parcial) | POSIX |
-| `msh-runtime` (execução) | `executar-comando-simples/`, `executar-pipeline/`, `redirecionar-entrada-e-saida/`, `ler-heredoc/` | `src/exec/*.c`, `src/fd_handler*.c` | M3/M4 ⏳ | POSIX 2.7, 2.9 |
-| `msh-runtime` (builtins restantes) | `imprimir-texto-echo/`, `navegar-diretorios/`, `encerrar-shell/` | `src/builtins/echo.c`, `cd.c`, `pwd.c`, `exit.c` | M3/M4 ⏳ | POSIX |
-| `msh-cli` | `iniciar-sessao-e-ler-comando/`, `tratar-sinais/` | `src/main.c`, `src/signals*.c` | M3 ⏳ | POSIX |
+| `crates/msh-runtime/src/exec/mod.rs` | `executar-comando-simples/` | `src/facade.c`, `src/exec/exec_list.c`, `init_fork.c` | M3 ✅ | POSIX 2.9.1 (atribuições, special built-ins, 2.8.1): `export` chega aos filhos (BUG-03), `pwdx` não é builtin (BUG-04) |
+| `crates/msh-runtime/src/exec/path.rs` | `executar-comando-simples/` | `src/exec/path_finder.c`, `exec_path.c`, `list_generation_bin.c` | M3 ✅ | XBD 8.3: arquivo sem permissão no `PATH` não conta (127, como no dash); `execve` falho dá 126 ou 127 conforme o erro (BUG-16); `PATH` ausente usa o padrão do dash |
+| `crates/msh-runtime/src/exec/sys.rs` | `executar-comando-simples/`, `tratar-sinais/` | `src/exec/init_fork.c`, `src/signals*.c` | M3 ✅ | único `unsafe` (ADR-005); `$?` = 128+n quando morto por sinal |
+| `crates/msh-runtime/src/builtins/echo.rs` | `imprimir-texto-echo/` | `src/builtins/echo.c` | M3 ✅ | segue o dash onde o POSIX deixa aberto: só o 1º `-n` é opção (`-nn` é texto, EC-04 coincide), escapes do XSI; `echo a "" b` dá `a  b` (EC-07 corrigido) |
+| `crates/msh-runtime/src/builtins/cd.rs`, `pwd.rs` | `navegar-diretorios/` | `src/builtins/cd.c`, `pwd.c` | M3 ✅ | POSIX `cd`/`pwd`: `cd -`, `CDPATH`, `-L`/`-P`, `PWD`/`OLDPWD`; `HOME` ausente dá erro e status 1 (BUG-12 corrigido); `pwd` usa `getcwd` se `PWD` for inválido |
+| `crates/msh-runtime/src/builtins/exit.rs` | `encerrar-shell/` | `src/builtins/exit.c` | M3 ✅ | `exit` sem argumento usa `$?` (XT-01 corrigido); `exit 2 3` dá `too many arguments` (BUG-21 corrigido); negativo é erro, como no dash |
+| `msh-runtime` (pipes, redirecionamentos, heredoc) | `executar-pipeline/`, `redirecionar-entrada-e-saida/`, `ler-heredoc/` | `src/exec/*.c`, `src/fd_handler*.c` | M4 ⏳ | POSIX 2.7, 2.9.2; builtin com redirecionamento roda no pai (RE-01) |
+| `crates/msh-cli/src/main.rs`, `input.rs` | `iniciar-sessao-e-ler-comando/`, `encerrar-shell/` (Ctrl+D) | `src/main.c` | M3 ✅ | POSIX `sh`: interativo só com terminal; `-c`, script e stdin lido sem consumir além da linha; Ctrl+D sai com `$?` (cenário divergente corrigido); aspas abertas continuam na linha seguinte |
+| `msh-cli` (sinais, OSC 7) | `tratar-sinais/` | `src/signals*.c` | M5 ⏳ | ADR-008 (sem estado global) |
 
 ### Testes em Rust
 
@@ -125,4 +131,6 @@
 |---------|------|------------|
 | `crates/msh-syntax/tests/lexer.rs`, `parser.rs`, `properties.rs`, `snapshots/` | `analisar-linha-de-comando/` | inclui casos portados dos testes GTest (`tests/tests_*.cpp`, ADR-002 desta extração) |
 | `crates/msh-runtime/tests/expand.rs` | `expandir-variaveis/` | |
-| `crates/msh-runtime/tests/builtins.rs` | `gerenciar-variaveis-de-ambiente/` | |
+| `crates/msh-runtime/tests/builtins.rs` | `gerenciar-variaveis-de-ambiente/`, `imprimir-texto-echo/`, `encerrar-shell/` | |
+| `crates/msh-cli/tests/compat_m3.rs` (+ `common/mod.rs`) | `executar-comando-simples/`, `imprimir-texto-echo/`, `navegar-diretorios/`, `encerrar-shell/` | compara com o dash e o `bash --posix`; cobre os cenários `@divergente` (TT-04 e TT-02 das units) |
+| `crates/msh-cli/tests/modes.rs` | `iniciar-sessao-e-ler-comando/` | `-c`, script e stdin |

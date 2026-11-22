@@ -1,0 +1,20 @@
+[package]
+name = "msh-cli"
+description = "Binário minishell: modo interativo (rustyline), -c e scripts"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "minishell"
+path = "src/main.rs"
+
+[dependencies]
+msh-runtime.workspace = true
+msh-syntax.workspace = true
+nix = { workspace = true, features = ["fs", "term"] }
+rustyline = { workspace = true }
+
+[lints]
+workspace = true

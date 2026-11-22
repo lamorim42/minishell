@@ -8,7 +8,8 @@ publish.workspace = true
 
 [dependencies]
 msh-syntax.workspace = true
-nix = { workspace = true, features = ["user"] }
+libc.workspace = true
+nix = { workspace = true, features = ["fs", "process", "signal", "user"] }
 thiserror.workspace = true
 
 [dev-dependencies]

@@ -114,8 +114,9 @@ O MiauShell está sendo reescrito em Rust, seguindo o POSIX.1-2024 (capítulo 2,
 | :---- | :---- | :-------- |
 | [`crates/msh-syntax`](./crates/msh-syntax/) | M1, pronto | Lexer, parser e AST, sem I/O |
 | [`crates/msh-runtime`](./crates/msh-runtime/) | M2, pronto | Variáveis, expansão (`$VAR`, `~`, field splitting) e builtins `env`, `export` e `unset` |
-| `msh-runtime` (execução) | M3 e M4 | Execução de comandos, `PATH`, pipes, redirecionamentos e heredoc |
-| `msh-cli` | M3 | Binário `minishell` em Rust, com rustyline |
+| `msh-runtime` (execução) | M3, pronto | Comando simples, busca no `PATH`, atribuições (`A=1 cmd`), status 126, 127 e 2, e builtins `echo`, `cd`, `pwd` e `exit` |
+| `msh-runtime` (execução) | M4 | Pipes, redirecionamentos e heredoc |
+| [`crates/msh-cli`](./crates/msh-cli/) | M3, pronto | Binário `minishell` em Rust: prompt `miau> ` com rustyline, `-c` e scripts |
 
 ## Dependências no Linux
 
@@ -190,6 +191,7 @@ make fclean # apaga objetos e binário
 | `make rust-clean` | `cargo clean -p ...` | Apaga só os nossos crates compilados (como o `clean`) |
 | `make rust-fclean` | `cargo clean` | Apaga a pasta `target/` inteira (como o `fclean`) |
 | `make rust-re` | `rust-fclean` + `rust` | Recompila tudo do zero (como o `re`) |
+| `make rust-run` | `cargo run -p msh-cli` | Abre o shell em Rust |
 
 ## Como executar
 
@@ -201,7 +203,15 @@ make fclean # apaga objetos e binário
 
 Aparece o prompt `miau>`. Para sair, use `exit` ou Ctrl+D.
 
-**Versão em Rust:** ainda não existe um binário para executar. Ele chega no M3, com o crate `msh-cli`. Até lá, o código em Rust roda pelos testes (próxima seção).
+**Versão em Rust:**
+
+```
+make rust-run                          # ou: cargo run -p msh-cli
+./target/debug/minishell -c 'echo oi'  # um comando, sem prompt
+./target/debug/minishell script.sh     # um script
+```
+
+Aparece o mesmo prompt `miau>`. Pipes, redirecionamentos e heredoc chegam no M4; até lá, o shell em Rust avisa que ainda não os implementa.
 
 ### Exemplo
 
@@ -224,6 +234,7 @@ Os testes incluem:
 
 - **Testes de unidade e integração** em `crates/*/tests/`. Os casos dos antigos testes GoogleTest foram portados para lá.
 - **Snapshots** da AST com o [insta](https://insta.rs). Quando uma mudança altera um snapshot, revise com `cargo insta review` (instale antes com `cargo install cargo-insta`).
+- **Compatibilidade** em `crates/msh-cli/tests/compat_*.rs`: cada caso roda no `minishell`, no `dash` e no `bash --posix`, e stdout, status e stderr (sem o prefixo do nome do shell) precisam bater. Onde os dois oráculos divergem, o caso tem a expectativa escrita à mão e um comentário com a seção do POSIX. Precisa do `dash` e do `bash` instalados.
 - **Testes de propriedade** com o [proptest](https://proptest-rs.github.io/proptest/). Eles geram milhares de entradas aleatórias para verificar, por exemplo, que o parser nunca entra em pânico.
 
 O CI ([`.github/workflows/rust.yml`](./.github/workflows/rust.yml)) roda fmt, clippy e testes num container `debian:trixie` a cada push.
