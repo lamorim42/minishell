@@ -1,0 +1,93 @@
+---
+source: crates/msh-syntax/tests/parser.rs
+expression: "full(\"(a && b | c) > out | d\")"
+---
+Pipeline(
+    Pipeline {
+        commands: [
+            Subshell {
+                body: And(
+                    Pipeline(
+                        Pipeline {
+                            commands: [
+                                Simple(
+                                    SimpleCommand {
+                                        argv: [
+                                            Word {
+                                                parts: [
+                                                    Literal(
+                                                        "a",
+                                                    ),
+                                                ],
+                                            },
+                                        ],
+                                        redirects: [],
+                                    },
+                                ),
+                            ],
+                        },
+                    ),
+                    Pipeline(
+                        Pipeline {
+                            commands: [
+                                Simple(
+                                    SimpleCommand {
+                                        argv: [
+                                            Word {
+                                                parts: [
+                                                    Literal(
+                                                        "b",
+                                                    ),
+                                                ],
+                                            },
+                                        ],
+                                        redirects: [],
+                                    },
+                                ),
+                                Simple(
+                                    SimpleCommand {
+                                        argv: [
+                                            Word {
+                                                parts: [
+                                                    Literal(
+                                                        "c",
+                                                    ),
+                                                ],
+                                            },
+                                        ],
+                                        redirects: [],
+                                    },
+                                ),
+                            ],
+                        },
+                    ),
+                ),
+                redirects: [
+                    Out(
+                        Word {
+                            parts: [
+                                Literal(
+                                    "out",
+                                ),
+                            ],
+                        },
+                    ),
+                ],
+            },
+            Simple(
+                SimpleCommand {
+                    argv: [
+                        Word {
+                            parts: [
+                                Literal(
+                                    "d",
+                                ),
+                            ],
+                        },
+                    ],
+                    redirects: [],
+                },
+            ),
+        ],
+    },
+)

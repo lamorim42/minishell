@@ -1,0 +1,102 @@
+---
+source: crates/msh-syntax/tests/parser.rs
+expression: "parse_ok(\"< in grep -v \\\"a $B\\\" | sort -r > \\\"out file\\\" >> ~/log\")"
+---
+Pipeline(
+    Pipeline {
+        commands: [
+            Simple(
+                SimpleCommand {
+                    argv: [
+                        Word {
+                            parts: [
+                                Literal(
+                                    "grep",
+                                ),
+                            ],
+                        },
+                        Word {
+                            parts: [
+                                Literal(
+                                    "-v",
+                                ),
+                            ],
+                        },
+                        Word {
+                            parts: [
+                                DoubleQuoted(
+                                    [
+                                        Literal(
+                                            "a ",
+                                        ),
+                                        Var(
+                                            "B",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        },
+                    ],
+                    redirects: [
+                        In(
+                            Word {
+                                parts: [
+                                    Literal(
+                                        "in",
+                                    ),
+                                ],
+                            },
+                        ),
+                    ],
+                },
+            ),
+            Simple(
+                SimpleCommand {
+                    argv: [
+                        Word {
+                            parts: [
+                                Literal(
+                                    "sort",
+                                ),
+                            ],
+                        },
+                        Word {
+                            parts: [
+                                Literal(
+                                    "-r",
+                                ),
+                            ],
+                        },
+                    ],
+                    redirects: [
+                        Out(
+                            Word {
+                                parts: [
+                                    DoubleQuoted(
+                                        [
+                                            Literal(
+                                                "out file",
+                                            ),
+                                        ],
+                                    ),
+                                ],
+                            },
+                        ),
+                        Append(
+                            Word {
+                                parts: [
+                                    Tilde(
+                                        None,
+                                    ),
+                                    Literal(
+                                        "/log",
+                                    ),
+                                ],
+                            },
+                        ),
+                    ],
+                },
+            ),
+        ],
+    },
+)

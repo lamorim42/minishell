@@ -1,0 +1,17 @@
+[package]
+name = "msh-syntax"
+description = "Lexer, parser e AST do minishell, sem I/O (POSIX.1-2024, cap. 2, subconjunto)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+thiserror.workspace = true
+
+[dev-dependencies]
+insta.workspace = true
+proptest.workspace = true
+
+[lints]
+workspace = true
