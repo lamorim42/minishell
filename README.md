@@ -8,8 +8,11 @@ _Esse é o minishell feito por pessoas que amam gatos_
 
 1. [Entendendo projeto](#entendendo-projeto)
 2. [Algumas funções autorizadas](#algumas-funções-autorizadas)
-3. [Clone e execute o prejeto](#clone-e-execute-o-prejeto)
-4. [Reescrita em Rust (em andamento)](#reescrita-em-rust-em-andamento)
+3. [Reescrita em Rust (em andamento)](#reescrita-em-rust-em-andamento)
+4. [Dependências no Linux](#dependências-no-linux)
+5. [Como compilar](#como-compilar)
+6. [Como executar](#como-executar)
+7. [Como testar](#como-testar)
 
 ## Entendendo Projeto
 
@@ -103,49 +106,125 @@ Estamos tratando a informação passada pelo usuário seguindo a arquiterura do 
 | [tgoto](https://linux.die.net/man/3/tgoto) |Trata o caso de especial de cursor|char *tgoto (char *cstring, int hpos, int vpos)|Success: retorna 1, 0 se não houver tal entrada e -1 se o banco de dados terminfo não puder ser encontrado.|
 | [tputs](https://linux.die.net/man/3/tputs) |recupera recursos pelo nome termcap ou terminfo.|int tputs(const char *str, int affcnt, int (*putc)(int));|Success: retorna 1, 0 se não houver tal entrada e -1 se o banco de dados terminfo não puder ser encontrado.|
 
-## Clone e execute o prejeto
+## Reescrita em Rust (em andamento)
 
-1. Clone ester repositório:
+O MiauShell está sendo reescrito em Rust, seguindo o POSIX.1-2024 (capítulo 2, *Shell Command Language*). A versão em C continua sendo o shell oficial até a versão em Rust passar em toda a suíte de compatibilidade.
+
+| Crate | Marco | O que faz |
+| :---- | :---- | :-------- |
+| [`crates/msh-syntax`](./crates/msh-syntax/) | M1, pronto | Lexer, parser e AST, sem I/O |
+| [`crates/msh-runtime`](./crates/msh-runtime/) | M2, pronto | Variáveis, expansão (`$VAR`, `~`, field splitting) e builtins `env`, `export` e `unset` |
+| `msh-runtime` (execução) | M3 e M4 | Execução de comandos, `PATH`, pipes, redirecionamentos e heredoc |
+| `msh-cli` | M3 | Binário `minishell` em Rust, com rustyline |
+
+## Dependências no Linux
+
+Os comandos abaixo são para Debian 13 (trixie) e Ubuntu. Em outras distribuições, os pacotes têm nomes parecidos.
+
+### Versão em C
+
+| Para | Pacotes |
+| :--- | :------ |
+| Compilar e executar | `git`, `make`, `clang`, `libreadline-dev` |
+| Testes (GoogleTest) | `cmake`, `g++`, `libgtest-dev` |
+
+```
+sudo apt install git make clang libreadline-dev
+sudo apt install cmake g++ libgtest-dev
+```
+
+### Versão em Rust
+
+| Para | O que instalar |
+| :--- | :------------- |
+| Linker e ferramentas de build | `build-essential`, `pkg-config` |
+| Baixar o código e o rustup | `git`, `curl`, `ca-certificates` |
+| Compilador Rust | `rustup`, que instala a versão fixada em [`rust-toolchain.toml`](./rust-toolchain.toml) (hoje, 1.100.0, com `rustfmt` e `clippy`) |
+| Comparar com outros shells (opcional) | `bash`, `dash` |
+| Revisar snapshots de teste (opcional) | `cargo-insta` |
+
+```
+sudo apt install build-essential pkg-config git curl ca-certificates
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Depois de instalar o rustup, abra um terminal novo (ou rode `source ~/.cargo/env`) e, na pasta do projeto, instale a versão do Rust usada pelo projeto:
+
+```
+rustup toolchain install
+```
+
+Sem argumentos, esse comando lê o `rust-toolchain.toml`. O CI usa a mesma versão, então o que passa na sua máquina passa no CI.
+
+As dependências em Rust (`nix`, `thiserror` e, nos testes, `insta` e `proptest`) são baixadas pelo `cargo` na primeira compilação. Não é preciso instalar nada pelo `apt` para elas.
+
+> **Fase 2 (interface gráfica):** quando o `msh-gui` existir, serão necessários também `libgtk-4-dev`, `libadwaita-1-dev` e `libvte-2.91-gtk4-dev`. Por enquanto não precisa.
+
+## Como compilar
+
+Clone o repositório:
+
 ```
 git clone https://github.com/lamorim42/minishell.git miaushell
+cd miaushell
 ```
 
-2. Make para compilar o projeto:
+**Versão em C:**
+
 ```
-make
+make        # gera ./minishell
+make re     # recompila tudo do zero
+make fclean # apaga objetos e binário
 ```
 
-3. Rode o 'miaushell':
+**Versão em Rust:**
+
+```
+cargo build --workspace           # build de desenvolvimento, em target/debug
+cargo build --workspace --release # build otimizado, em target/release
+```
+
+## Como executar
+
+**Versão em C** (o shell oficial, por enquanto):
+
 ```
 ./minishell
 ```
+
+Aparece o prompt `miau>`. Para sair, use `exit` ou Ctrl+D.
+
+**Versão em Rust:** ainda não existe um binário para executar. Ele chega no M3, com o crate `msh-cli`. Até lá, o código em Rust roda pelos testes (próxima seção).
 
 ### Exemplo
 
 ![exemplo de miaushell sendo utilizado](./assets/miaushell.gif)
 
-## Reescrita em Rust (em andamento)
+## Como testar
 
-O MiauShell está sendo reescrito em Rust, seguindo o POSIX.1-2024 (capítulo 2, *Shell Command Language*). O código em C continua sendo o shell oficial até a nova versão passar em toda a suíte de compatibilidade.
-
-| Crate | Situação | O que faz |
-| :---- | :------- | :-------- |
-| [`crates/msh-syntax`](./crates/msh-syntax/) | M1 pronto | Lexer, parser e AST, sem I/O |
-| `msh-runtime` | próximo | Ambiente, expansão, execução e builtins |
-| `msh-cli` | próximo | Binário `minishell` com rustyline |
-
-Pré-requisitos no Debian:
+**Versão em Rust:**
 
 ```
-sudo apt install build-essential pkg-config curl git
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo test --workspace                                # todos os testes
+cargo test -p msh-syntax                              # só um crate
+cargo test -p msh-runtime --test expand               # só um arquivo de testes
+cargo test -p msh-syntax heredoc                      # só os testes com "heredoc" no nome
+cargo clippy --workspace --all-targets -- -D warnings # lint, como no CI
+cargo fmt --all                                       # formata o código
 ```
 
-Comandos:
+Os testes incluem:
+
+- **Testes de unidade e integração** em `crates/*/tests/`. Os casos dos antigos testes GoogleTest foram portados para lá.
+- **Snapshots** da AST com o [insta](https://insta.rs). Quando uma mudança altera um snapshot, revise com `cargo insta review` (instale antes com `cargo install cargo-insta`).
+- **Testes de propriedade** com o [proptest](https://proptest-rs.github.io/proptest/). Eles geram milhares de entradas aleatórias para verificar, por exemplo, que o parser nunca entra em pânico.
+
+O CI ([`.github/workflows/rust.yml`](./.github/workflows/rust.yml)) roda fmt, clippy e testes num container `debian:trixie` a cada push.
+
+**Versão em C** (GoogleTest, só para a tokenização):
 
 ```
-cargo test --workspace                                # testes
-cargo clippy --workspace --all-targets -- -D warnings # lint
-cargo fmt --all                                       # formatação
-cargo insta review                                    # revisar snapshots (cargo install cargo-insta)
+cmake -S tests -B tests/build
+cmake --build tests/build
+./tests/build/runTests
 ```

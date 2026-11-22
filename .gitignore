@@ -8,6 +8,13 @@ tests/Makefile
 fileout
 file
 minishell_tester/
+# Build da versão em C
+*.o
+*.a
+/obj/
+/minishell
+/tests/build/
+
 # Rust
 /target
 *.snap.new
