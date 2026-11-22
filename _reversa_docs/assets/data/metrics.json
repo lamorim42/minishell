@@ -1,0 +1,552 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-22T14:15:03+00:00",
+ "treemap_loc_by_folder": [
+  {
+   "folder": "src/exec",
+   "loc": 530,
+   "modules": 12
+  },
+  {
+   "folder": "src",
+   "loc": 438,
+   "modules": 9
+  },
+  {
+   "folder": "Libft",
+   "loc": 356,
+   "modules": 17
+  },
+  {
+   "folder": "src/tokens",
+   "loc": 324,
+   "modules": 6
+  },
+  {
+   "folder": "src/builtins",
+   "loc": 318,
+   "modules": 8
+  },
+  {
+   "folder": "src/hash_table",
+   "loc": 249,
+   "modules": 8
+  },
+  {
+   "folder": "includes",
+   "loc": 147,
+   "modules": 1
+  }
+ ],
+ "top_complexity": [
+  {
+   "id": "src/tokens/sintax_analysis.c",
+   "complexity": 26,
+   "loc": 62
+  },
+  {
+   "id": "src/tokens/tokenizer.c",
+   "complexity": 26,
+   "loc": 90
+  },
+  {
+   "id": "src/fd_handler.c",
+   "complexity": 24,
+   "loc": 87
+  },
+  {
+   "id": "src/tokens/count_tks.c",
+   "complexity": 23,
+   "loc": 71
+  },
+  {
+   "id": "src/builtins/builtins_utils.c",
+   "complexity": 22,
+   "loc": 81
+  },
+  {
+   "id": "Libft/ft_split.c",
+   "complexity": 16,
+   "loc": 80
+  },
+  {
+   "id": "src/fd_handler_utils.c",
+   "complexity": 14,
+   "loc": 45
+  },
+  {
+   "id": "src/hash_table/create_table.c",
+   "complexity": 14,
+   "loc": 80
+  },
+  {
+   "id": "src/exec/exec_list.c",
+   "complexity": 12,
+   "loc": 50
+  },
+  {
+   "id": "Libft/ft_atoi.c",
+   "complexity": 12,
+   "loc": 30
+  },
+  {
+   "id": "src/builtins/echo.c",
+   "complexity": 11,
+   "loc": 23
+  },
+  {
+   "id": "src/tokens/clean_tokens.c",
+   "complexity": 11,
+   "loc": 53
+  },
+  {
+   "id": "src/tokens/lexical_analyzer.c",
+   "complexity": 11,
+   "loc": 35
+  },
+  {
+   "id": "src/builtins/exit.c",
+   "complexity": 10,
+   "loc": 44
+  },
+  {
+   "id": "src/builtins/export.c",
+   "complexity": 10,
+   "loc": 68
+  },
+  {
+   "id": "src/exec/creat_cmd_table.c",
+   "complexity": 10,
+   "loc": 59
+  },
+  {
+   "id": "src/exec/expand_var.c",
+   "complexity": 10,
+   "loc": 72
+  },
+  {
+   "id": "src/exec/here_doc_utils.c",
+   "complexity": 10,
+   "loc": 48
+  },
+  {
+   "id": "src/main.c",
+   "complexity": 10,
+   "loc": 71
+  },
+  {
+   "id": "src/builtins/cd.c",
+   "complexity": 9,
+   "loc": 53
+  }
+ ],
+ "loc_histogram": {
+  "bins": [
+   0,
+   25,
+   50,
+   75,
+   100,
+   150,
+   300
+  ],
+  "counts": [
+   22,
+   20,
+   13,
+   5,
+   1,
+   0
+  ]
+ },
+ "dependency_sankey": {
+  "nodes": [
+   {
+    "id": "src"
+   },
+   {
+    "id": "src/builtins"
+   },
+   {
+    "id": "src/exec"
+   },
+   {
+    "id": "src/hash_table"
+   },
+   {
+    "id": "src/tokens"
+   },
+   {
+    "id": "includes"
+   },
+   {
+    "id": "Libft"
+   }
+  ],
+  "links": [
+   {
+    "source": "src/tokens",
+    "target": "Libft",
+    "value": 53
+   },
+   {
+    "source": "src/exec",
+    "target": "Libft",
+    "value": 49
+   },
+   {
+    "source": "src",
+    "target": "Libft",
+    "value": 31
+   },
+   {
+    "source": "includes",
+    "target": "src",
+    "value": 26
+   },
+   {
+    "source": "includes",
+    "target": "src/exec",
+    "value": 20
+   },
+   {
+    "source": "src/builtins",
+    "target": "Libft",
+    "value": 17
+   },
+   {
+    "source": "src/hash_table",
+    "target": "Libft",
+    "value": 15
+   },
+   {
+    "source": "includes",
+    "target": "src/builtins",
+    "value": 14
+   },
+   {
+    "source": "src/exec",
+    "target": "src",
+    "value": 13
+   },
+   {
+    "source": "src/builtins",
+    "target": "src/hash_table",
+    "value": 11
+   },
+   {
+    "source": "src/builtins",
+    "target": "src/tokens",
+    "value": 11
+   },
+   {
+    "source": "includes",
+    "target": "src/hash_table",
+    "value": 10
+   },
+   {
+    "source": "includes",
+    "target": "src/tokens",
+    "value": 9
+   },
+   {
+    "source": "src/builtins",
+    "target": "src",
+    "value": 8
+   },
+   {
+    "source": "src",
+    "target": "src/exec",
+    "value": 8
+   },
+   {
+    "source": "src",
+    "target": "src/tokens",
+    "value": 7
+   },
+   {
+    "source": "src/exec",
+    "target": "src/tokens",
+    "value": 6
+   },
+   {
+    "source": "src",
+    "target": "src/hash_table",
+    "value": 5
+   },
+   {
+    "source": "src/exec",
+    "target": "src/hash_table",
+    "value": 4
+   },
+   {
+    "source": "src/exec",
+    "target": "src/builtins",
+    "value": 3
+   },
+   {
+    "source": "src/hash_table",
+    "target": "src/tokens",
+    "value": 1
+   }
+  ]
+ },
+ "language_distribution": [
+  {
+   "language": "c",
+   "modules": 61,
+   "loc": 2362
+  }
+ ],
+ "confidence_by_spec": [
+  {
+   "spec": "iniciar-sessao-e-ler-comando",
+   "green": 52,
+   "yellow": 3,
+   "red": 0,
+   "confidence": 97
+  },
+  {
+   "spec": "analisar-linha-de-comando",
+   "green": 99,
+   "yellow": 4,
+   "red": 0,
+   "confidence": 98
+  },
+  {
+   "spec": "expandir-variaveis",
+   "green": 84,
+   "yellow": 3,
+   "red": 0,
+   "confidence": 98
+  },
+  {
+   "spec": "executar-comando-simples",
+   "green": 86,
+   "yellow": 3,
+   "red": 0,
+   "confidence": 98
+  },
+  {
+   "spec": "executar-pipeline",
+   "green": 57,
+   "yellow": 2,
+   "red": 0,
+   "confidence": 98
+  },
+  {
+   "spec": "redirecionar-entrada-e-saida",
+   "green": 66,
+   "yellow": 3,
+   "red": 0,
+   "confidence": 98
+  },
+  {
+   "spec": "ler-heredoc",
+   "green": 62,
+   "yellow": 1,
+   "red": 0,
+   "confidence": 99
+  },
+  {
+   "spec": "gerenciar-variaveis-de-ambiente",
+   "green": 85,
+   "yellow": 2,
+   "red": 0,
+   "confidence": 99
+  },
+  {
+   "spec": "navegar-diretorios",
+   "green": 43,
+   "yellow": 5,
+   "red": 0,
+   "confidence": 95
+  },
+  {
+   "spec": "imprimir-texto-echo",
+   "green": 37,
+   "yellow": 1,
+   "red": 0,
+   "confidence": 99
+  },
+  {
+   "spec": "encerrar-shell",
+   "green": 41,
+   "yellow": 0,
+   "red": 0,
+   "confidence": 100
+  },
+  {
+   "spec": "tratar-sinais",
+   "green": 50,
+   "yellow": 5,
+   "red": 0,
+   "confidence": 95
+  },
+  {
+   "spec": "user-stories/uso-interativo.md",
+   "green": 30,
+   "yellow": 0,
+   "red": 0,
+   "confidence": 100
+  },
+  {
+   "spec": "user-stories/automacao-com-pipes-e-redirecionamentos.md",
+   "green": 29,
+   "yellow": 0,
+   "red": 0,
+   "confidence": 100
+  },
+  {
+   "spec": "traceability/code-spec-matrix.md",
+   "green": 56,
+   "yellow": 7,
+   "red": 0,
+   "confidence": 94
+  }
+ ],
+ "bugs": [
+  {
+   "id": "BUG-01",
+   "severity": "Crash",
+   "summary": "Falha ao abrir arquivo de saída causa use-after-free e double free",
+   "where": "`fd_handler_utils.c:51-55`"
+  },
+  {
+   "id": "BUG-02",
+   "severity": "Alta",
+   "summary": "Builtin no último nó de um pipe roda no pai (`ls \\| exit` encerra o shell)",
+   "where": "`exec_list.c:30-32`"
+  },
+  {
+   "id": "BUG-03",
+   "severity": "Alta",
+   "summary": "`export`/`unset` não chegam aos filhos (o `execve` usa o `envp` original)",
+   "where": "`exec_path.c:34`"
+  },
+  {
+   "id": "BUG-04",
+   "severity": "Média",
+   "summary": "Comandos externos com prefixo de builtin (`pwdx`, `envsubst`) não executam",
+   "where": "`builtins_utils.c:40-51`"
+  },
+  {
+   "id": "BUG-05",
+   "severity": "Média",
+   "summary": "Variável inexistente apaga o token inteiro; `$A$B` não expande",
+   "where": "`expand_var.c:48-53`, `expand_var_utils.c:44`"
+  },
+  {
+   "id": "BUG-06",
+   "severity": "Média",
+   "summary": "`export A=b=c` grava `b=b=`; `export A=` é ignorado",
+   "where": "`builtins_utils.c:70-80`"
+  },
+  {
+   "id": "BUG-07",
+   "severity": "Média",
+   "summary": "`unset` falha quando a chave é a cabeça de uma lista de colisão; `table_delete` apaga sem conferir a chave",
+   "where": "`delete_node.c:24-31,47`"
+  },
+  {
+   "id": "BUG-08",
+   "severity": "Média",
+   "summary": "Redirecionamento de saída antes do comando é ignorado",
+   "where": "`fd_handler.c:44-70`"
+  },
+  {
+   "id": "BUG-09",
+   "severity": "Média",
+   "summary": "`< inexistente cmd` não dá erro",
+   "where": "`fd_handler.c:21-24`"
+  },
+  {
+   "id": "BUG-10",
+   "severity": "Média",
+   "summary": "Builtin em um filho sempre sai com 0",
+   "where": "`exec_path.c:31-32`"
+  },
+  {
+   "id": "BUG-11",
+   "severity": "Média",
+   "summary": "Remoção de aspas errada em `\"a\"b\"c\"` e com aspas mistas",
+   "where": "`clean_tokens.c:42-47`"
+  },
+  {
+   "id": "BUG-12",
+   "severity": "Baixa",
+   "summary": "Erros de sintaxe não gravam `$?=2`; `cd` sem HOME não grava 1",
+   "where": "`free.c:47`, `cd.c:70`"
+  },
+  {
+   "id": "BUG-13",
+   "severity": "Baixa",
+   "summary": "`>`/`<`/`<<` seguido de `$VAR` é erro de sintaxe",
+   "where": "`sintax_analysis.c:29-40`"
+  },
+  {
+   "id": "BUG-14",
+   "severity": "Baixa",
+   "summary": "stdio com buffer herdado pelos forks: a saída do `printf` dos builtins **duplica** quando stdout não é um terminal",
+   "where": "`facade.c:40` + `echo.c`"
+  },
+  {
+   "id": "BUG-15",
+   "severity": "Baixa",
+   "summary": "Ctrl-C no heredoc não cancela a linha",
+   "where": "`facade.c:51-56`"
+  },
+  {
+   "id": "BUG-16",
+   "severity": "Baixa",
+   "summary": "Falha do `execve` retorna 127 em vez de 126",
+   "where": "`exec_path.c:37`"
+  },
+  {
+   "id": "BUG-17",
+   "severity": "Baixa",
+   "summary": "`$X'q'` vira dois argumentos",
+   "where": "`tokenizer.c:107-110`"
+  },
+  {
+   "id": "BUG-18",
+   "severity": "Baixa",
+   "summary": "`init_line` zera só 2 bytes de `fd[2]`",
+   "where": "`init.c:27`"
+  },
+  {
+   "id": "BUG-19",
+   "severity": "Baixa",
+   "summary": "Ctrl-D escreve um byte `\\0` extra",
+   "where": "`main.c:70`"
+  },
+  {
+   "id": "BUG-20",
+   "severity": "Média",
+   "summary": "[Revisão 2026-11-22] `ft_strncmp` da Libft retorna 0 quando uma das strings termina (semântica de prefixo): comando vazio ou prefixo de `PIPE`/`REDO`/`REDA`/`REDI`/`HERE` (`P`, `R x`, `$NOPE ls`) é ignorado em silêncio; é também a causa do BUG-04",
+   "where": "`Libft/ft_strncmp.c`, `exec_utils.c:15-22`"
+  },
+  {
+   "id": "BUG-21",
+   "severity": "Baixa",
+   "summary": "[Revisão 2026-11-22] `exit 2 <arg>` encerra com 2 em vez de `too many arguments`: o valor 2 é confundido com o código de erro de `is_char_number`",
+   "where": "`exit.c:51`"
+  }
+ ],
+ "bugs_by_severity": {
+  "Crash": 1,
+  "Alta": 2,
+  "Média": 9,
+  "Baixa": 9
+ },
+ "totals": {
+  "modules": 61,
+  "loc": 2362,
+  "functions": 143,
+  "edges": 221,
+  "cycles": 2,
+  "bugs": 21,
+  "specs": 12,
+  "confidence": 97.9
+ }
+}

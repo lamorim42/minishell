@@ -109,8 +109,8 @@ doc_level = "completo"
 # e o usuário confirmar a escolha no menu (logo após a pergunta de doc_level).
 # Para reapresentar o menu, remova a seção [specs] inteira e rode o Reversa de novo.
 [specs]
-layout = ""              # constante "feature-folder" após a primeira execução
-granularity = ""         # module | use-case | endpoint | hybrid | feature | custom
-custom_folders = []      # preenchido apenas quando granularity == "custom"
-scout_suggestion = ""    # registro da sugestão original do Scout, imutável após a 1a execução
-decided_at = ""          # timestamp ISO 8601 da escolha do usuário
+layout = "feature-folder"
+granularity = "use-case"
+custom_folders = []
+scout_suggestion = "module"
+decided_at = "2026-11-11T20:00:00Z"

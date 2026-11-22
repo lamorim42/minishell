@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sessão e Ler Comando | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/iniciar-sessao-e-ler-comando/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-iniciar-sessao-e-ler-comando">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Iniciar Sessão e Ler Comando</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Inicializa o shell (estado da linha e ambiente) e mantém o laço interativo <strong>ler → filtrar → despachar</strong>. Cada linha digitada no prompt <code>miau&gt; </code> é verificada (EOF, aspas, comentário) antes de seguir para o processamento (<code>facade</code>). É a porta de entrada de todos os outros casos de uso.</p><p><span class="badge bug">BUG-19</span><span class="badge ok">confiança 97%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-11<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Visão Geral</h3>
+<p>Inicializa o shell (estado da linha e ambiente) e mantém o laço interativo <strong>ler → filtrar → despachar</strong>. Cada linha digitada no prompt <code>miau&gt; </code> é verificada (EOF, aspas, comentário) antes de seguir para o processamento (<code>facade</code>). É a porta de entrada de todos os outros casos de uso 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Inicializar a <code>t_line</code> e copiar o <code>envp</code> para a tabela de ambiente, incluindo <code>?=0</code> 🟢</li><li>Guardar cópias de stdin e stdout e restaurá-las depois de cada linha 🟢</li><li>Mostrar o prompt e ler a linha com GNU Readline 🟢</li><li>Encerrar a sessão com Ctrl-D (EOF) 🟢</li><li>Rejeitar linhas com aspas desbalanceadas 🟢</li><li>Ignorar linhas de comentário 🟢</li><li>Despachar as outras linhas para a Facade 🟢</li><li>Registrar no histórico as linhas que foram executadas 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<ul><li>RN-01: o prompt é exatamente <code>miau&gt; </code> 🟢</li><li>RN-02: EOF no prompt → escreve <code>exit\n</code> em <strong>stderr</strong> e termina com código <strong>0</strong> 🟢. ⚠️ O bash termina com o último <code>$?</code>. Bug menor: um byte <code>\0</code> extra é escrito (BUG-19)</li><li>RN-03: aspas desbalanceadas → <code>Syntax ERROR!\n</code> em <strong>stdout</strong>, a linha é descartada e <code>$?</code> não muda 🟢. ⚠️ O bash pediria continuação (PS2)</li><li>RN-04: se o primeiro caractere depois dos espaços iniciais (só <code>&#x27; &#x27;</code>) for <code>#</code>, a linha inteira é ignorada 🟢</li><li>RN-03 é avaliada <strong>antes</strong> da RN-04: <code># it&#x27;s</code> gera erro de sintaxe 🟢</li><li>RN-05: só entram no histórico as linhas que chegam à execução (sintaxe válida e não vazia). ⚠️ O bash registra toda linha não vazia 🟢</li><li>Linha vazia (<code>&quot;&quot;</code>) é descartada sem efeito. Linha só com espaços percorre o pipeline inteiro e entra no histórico 🟢</li><li>Argumentos passados ao <code>./minishell</code> são ignorados; não há modo não interativo (<code>-c</code>, script) 🟢</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Carregar todas as entradas <code>K=V</code> do <code>envp</code> na tabela, preservando <code>=</code> dentro do valor, e acrescentar <code>?</code>=<code>0</code></td><td>Must</td><td><code>env</code> lista as variáveis herdadas e <code>?=0</code></td></tr><tr><td>RF-02</td><td>Mostrar <code>miau&gt; </code> e ler uma linha por iteração</td><td>Must</td><td>O prompt aparece depois de cada comando</td></tr><tr><td>RF-03</td><td>Com EOF, liberar a tabela, escrever <code>exit</code> em stderr e sair com 0</td><td>Must</td><td>Ctrl-D encerra o processo, <code>echo $?</code> no shell pai mostra 0</td></tr><tr><td>RF-04</td><td>Rejeitar aspas desbalanceadas com <code>Syntax ERROR!</code></td><td>Must</td><td><code>echo &quot;abc</code> → mensagem, nada executa</td></tr><tr><td>RF-05</td><td>Ignorar comentários iniciados por <code>#</code></td><td>Should</td><td><code>   # nada</code> → nenhuma saída</td></tr><tr><td>RF-06</td><td>Restaurar stdin e stdout originais depois de cada linha</td><td>Must</td><td>Depois de <code>ls &gt; f</code>, o próximo <code>ls</code> sai no terminal</td></tr><tr><td>RF-07</td><td>Adicionar ao histórico as linhas executadas</td><td>Should</td><td>Seta para cima recupera o último comando executado</td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Interatividade</td><td>Edição de linha e histórico em memória via GNU Readline; o histórico não é salvo em arquivo</td><td><code>src/main.c:45</code>, <code>src/facade.c:57</code></td><td>🟢</td></tr><tr><td>Recursos</td><td>Um par de fds (<code>dup</code> de 0 e 1) mantido aberto durante toda a sessão</td><td><code>src/main.c:40-41</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Sessão interativa
+
+  Cenário: Prompt e execução de linha válida
+    Dado que o minishell foi iniciado
+    Quando o usuário digita &quot;echo oi&quot;
+    Então &quot;oi&quot; é exibido
+    E o prompt &quot;miau&gt; &quot; volta a aparecer
+
+  Cenário: Encerrar com Ctrl-D
+    Dado o prompt vazio
+    Quando o usuário envia EOF (Ctrl-D)
+    Então &quot;exit&quot; é escrito em stderr
+    E o processo termina com código 0
+
+  Cenário: Aspas desbalanceadas
+    Dado o prompt
+    Quando o usuário digita echo &quot;abc
+    Então &quot;Syntax ERROR!&quot; é escrito em stdout
+    E nenhum comando é executado
+    E o valor de $? não muda
+
+  Cenário: Comentário
+    Quando o usuário digita &quot;   # comentário&quot;
+    Então nada é executado nem exibido
+
+  Cenário: Restauração de stdout
+    Dado que o usuário executou &quot;echo a &gt; f&quot;
+    Quando o usuário digita &quot;echo b&quot;
+    Então &quot;b&quot; aparece no terminal
+
+  @divergente
+  Cenário: Ctrl-D depois de um erro (bash usaria o último status)
+    Dado que o último comando terminou com status 1
+    Quando o usuário envia EOF
+    Então o processo termina com código 0</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01, RF-02, RF-03, RF-06</td><td>Must</td><td>Sem eles não há sessão utilizável</td></tr><tr><td>RF-04</td><td>Must</td><td>Evita tokenizar entrada inválida</td></tr><tr><td>RF-05, RF-07</td><td>Should</td><td>Conveniências</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/main.c</code></td><td><code>main</code>, <code>main_loop</code>, <code>control_d</code>, <code>is_a_comment</code>, <code>file_exists</code></td><td>🟢</td></tr><tr><td><code>src/init.c</code></td><td><code>init_line</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/create_table.c</code></td><td><code>population_hash_table</code>, <code>preper_to_insert</code></td><td>🟢</td></tr><tr><td><code>src/tokens/sintax_analysis.c</code></td><td><code>verify_quots</code>, <code>find_pair</code></td><td>🟢</td></tr><tr><td><code>src/fd_handler_utils.c</code></td><td><code>close_std_fd</code></td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>main</code></td><td><code>(int argc, char **argv, char **envp)</code></td><td><code>int</code> (nunca retorna normalmente)</td><td>Preenche a global <code>g_minishell</code> 🟢</td></tr><tr><td><code>main_loop</code> (static)</td><td><code>(t_line *line, t_hash_table **table)</code></td><td><code>void</code></td><td>Laço infinito 🟢</td></tr><tr><td><code>control_d</code> (static)</td><td><code>(char *str, t_hash_table **table)</code></td><td><code>void</code></td><td>Chama <code>exit(0)</code> se <code>str == NULL</code> 🟢</td></tr><tr><td><code>is_a_comment</code> (static)</td><td><code>(char *str)</code></td><td><code>int</code> (bool)</td><td>Pula só <code>&#x27; &#x27;</code> 🟢</td></tr><tr><td><code>verify_quots</code></td><td><code>(char *str)</code></td><td><code>int</code> (bool)</td><td>Pareamento de <code>&quot;</code> e <code>&#x27;</code> 🟢</td></tr><tr><td><code>init_line</code></td><td><code>(t_line *line)</code></td><td><code>void</code></td><td>🟢</td></tr><tr><td><code>population_hash_table</code></td><td><code>(t_line *line, t_hash_table **table)</code></td><td><code>t_hash_table *</code></td><td>🟢</td></tr></tbody></table></div>
+<p>Entradas: <code>envp</code> do processo e stdin (TTY). Saídas: prompt e mensagens em stdout/stderr, e a linha (<code>line-&gt;str</code>) entregue à Facade.</p>
+<h3>Fluxo Principal</h3>
+<ol><li><code>init_line(&amp;line)</code>: zera os ponteiros, <code>status_code = 0</code>, <code>sig = 1</code> (<code>src/init.c:15-28</code>) 🟢</li><li><code>line.envp = envp</code>; <code>population_hash_table</code> cria a tabela com 149 buckets e insere cada <code>envp[i]</code> (<code>src/hash_table/create_table.c:36-57</code>) 🟢:<ul><li><code>ft_split(envp[i], &#x27;=&#x27;)</code></li><li>se houver mais de um <code>=</code>, <code>preper_to_insert</code> junta os pedaços do valor de volta com <code>=</code></li><li><code>K</code> sem valor → <code>&quot;&quot;</code></li><li>por fim, <code>hash_insert(&quot;?&quot;, &quot;0&quot;)</code></li></ul></li><li><code>g_minishell.line = &amp;line; g_minishell.table = table</code> (<code>src/main.c:32-33</code>) 🟢</li><li><code>std_fd[IN] = dup(0); std_fd[OUT] = dup(1)</code> (<code>src/main.c:40-41</code>) 🟢</li><li>Laço (<code>src/main.c:42-61</code>):<ol><li><code>signals(line)</code>: SIGINT → <code>sig_handler</code>, SIGQUIT → ignorado</li><li><code>line-&gt;str = readline(&quot;miau&gt; &quot;)</code></li><li><code>control_d</code>: se <code>NULL</code>, faz <code>free_table</code>, <code>write(2, &quot;exit\n&quot;, 6)</code>, <code>close_std_fd</code>, <code>exit(0)</code></li><li>se <code>!verify_quots(str)</code>: libera, <code>printf(&quot;Syntax ERROR!\n&quot;)</code>, <code>continue</code></li><li>se <code>is_a_comment(str)</code>: libera, <code>continue</code></li><li><code>facade(line, table)</code> (ver as units 2 a 7)</li><li><code>dup2(std_fd[IN], 0); dup2(std_fd[OUT], 1)</code></li></ol></li></ol>
+<h4>Algoritmo <code>verify_quots</code></h4>
+<pre class="code" data-lang="text"><code>i = 0; ok = TRUE
+enquanto str[i]:
+  se str[i] é &#x27;&quot;&#x27; ou &#x27;\&#x27;&#x27;:
+     q = str[i]; i++
+     avança até str[i] == q ou fim
+     se achou q: i++, ok = TRUE  senão ok = FALSE
+  senão i++
+  se !ok: pare
+retorna ok</code></pre>
+<p>Aspas de um tipo dentro de aspas do outro tipo são literais 🟢.</p>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>Linha vazia:</strong> <code>facade</code> verifica <code>ft_strlen &gt; 0</code>; senão só libera 🟢</li><li><strong>Ctrl-C no prompt:</strong> tratado na unit <code>tratar-sinais</code> (novo prompt, <code>$?</code> não muda) 🟢</li><li><strong>Comentário com aspas desbalanceadas:</strong> erro de sintaxe, porque <code>verify_quots</code> vem primeiro 🟢</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>GNU Readline:</strong> <code>readline</code>, <code>add_history</code> (este último na Facade)</li><li><strong>hash_table:</strong> <code>create_table</code>, <code>hash_insert</code>, <code>free_table</code></li><li><strong>signals:</strong> <code>signals()</code></li><li><strong>Facade</strong> (<code>src/facade.c</code>), que encadeia as units 2 a 7</li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>A validação de aspas acontece no REPL, antes da tokenização</td><td><code>src/main.c:47</code></td><td>🟢</td></tr><tr><td>Global única com ponteiros para a linha e a tabela (ADR-007)</td><td><code>src/main.c:15,32-33</code></td><td>🟢</td></tr><tr><td><code>t_line</code> reaproveitada entre iterações</td><td><code>src/free.c:31-45</code></td><td>🟢</td></tr><tr><td>A guarda <code>argv[0] == NULL &amp;&amp; argc &gt; 1</code> serve só para "usar" os parâmetros (Norminette/<code>-Werror</code>)</td><td><code>src/main.c:27</code></td><td>🟡</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<ul><li><code>t_line</code> (pilha de <code>main</code>): <code>str</code> por iteração, <code>std_fd</code> por sessão.</li><li><code>t_hash_table</code> (heap): durante a sessão inteira.</li><li><code>g_minishell</code>: aponta para os dois acima.</li></ul>
+<h3>Observabilidade</h3>
+<p>Não há logs. As mensagens ao usuário são <code>Syntax ERROR!</code> (stdout) e <code>exit</code> (stderr) 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟡 <code>init_line</code> faz <code>ft_bzero(line-&gt;fd, 2)</code>, que zera só 2 bytes. O campo não é usado</li><li>🟡 <code>std_fd</code> não é verificado (<code>dup</code> pode falhar)</li><li>✅ L-01 (respondida em 2026-11-22): o alvo é o <strong>mínimo exigido pelo subject</strong> da 42; o modo não interativo (<code>-c</code>, script) fica <strong>fora do escopo</strong> 🟢</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; GNU Readline (headers e lib) disponível</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>gerenciar-variaveis-de-ambiente</code> (tabela hash) implementada</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>tratar-sinais</code> (pelo menos <code>signals()</code>) implementada</li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Definir <code>t_line</code> e <code>init_line</code> com todos os campos zerados (corrigir o zeramento de <code>fd</code>)<ul><li>Origem no legado: <code>includes/minishell.h:60-76</code>, <code>src/init.c:15-28</code></li><li>Critério de pronto: nenhum campo lido antes de ser inicializado (Valgrind sem "uninitialised")</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Carregar o <code>envp</code> na tabela preservando <code>=</code> nos valores e acrescentar <code>?</code>=<code>0</code><ul><li>Origem no legado: <code>src/hash_table/create_table.c:36-101</code></li><li>Critério de pronto: <code>env</code> reproduz o ambiente herdado; <code>LS_COLORS</code> (com <code>=</code>) intacta</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Preencher a global <code>g_minishell</code> com os ponteiros da linha e da tabela<ul><li>Origem no legado: <code>src/main.c:15,32-33</code></li><li>Critério de pronto: os handlers de sinal conseguem acessar a linha e a tabela</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Guardar stdin e stdout (<code>dup</code>) antes do laço e restaurá-los (<code>dup2</code>) depois de cada linha<ul><li>Origem no legado: <code>src/main.c:40-41,59-60</code></li><li>Critério de pronto: cenário "Restauração de stdout"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Implementar o laço <code>readline(&quot;miau&gt; &quot;)</code> com o tratamento de EOF (<code>exit</code> em stderr, código 0)<ul><li>Origem no legado: <code>src/main.c:42-74</code></li><li>Critério de pronto: cenário "Encerrar com Ctrl-D"; sem byte <code>\0</code> extra</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-06, Implementar <code>verify_quots</code> e rejeitar a linha com <code>Syntax ERROR!</code><ul><li>Origem no legado: <code>src/tokens/sintax_analysis.c:46-81</code>, <code>src/main.c:47-52</code></li><li>Critério de pronto: cenário "Aspas desbalanceadas"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-07, Implementar <code>is_a_comment</code> (espaços seguidos de <code>#</code>)<ul><li>Origem no legado: <code>src/main.c:83-93</code></li><li>Critério de pronto: cenário "Comentário"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-08, Despachar para <code>facade</code> e registrar no histórico as linhas executadas<ul><li>Origem no legado: <code>src/main.c:58</code>, <code>src/facade.c:57</code></li><li>Critério de pronto: a seta para cima recupera o comando</li><li>Confiança: 🟢</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Teste de integração: <code>printf &#x27;echo oi\n&#x27; | ./minishell</code> produz <code>oi</code> (com o readline em modo não TTY)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, EOF imediato → código de saída 0, stderr contém <code>exit</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Aspas desbalanceadas → <code>Syntax ERROR!</code> e nenhuma execução</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, Comentário → nenhuma saída</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-05, Valgrind: nenhum vazamento de <code>line-&gt;str</code> em 100 iterações</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 → T-03 (estado)</li><li>T-04 → T-05 (laço mínimo)</li><li>T-06 → T-07 → T-08 (filtros e despacho)</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-01 (respondida em 2026-11-22): o alvo é o <strong>mínimo exigido pelo subject</strong> da 42; modo não interativo fora do escopo</li><li>✅ L-04 (respondida em 2026-11-22): <strong>não foi deliberado</strong>; é um bug (BUG-12/RN-13), documentado como comportamento atual (L-07)</li></ul></div></details>
+</section><nav class="feature-pager"><span></span><a href="analisar-linha-de-comando.html">Analisar Linha de Comando →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-iniciar-sessao-e-ler-comando">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/iniciar-sessao-e-ler-comando/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

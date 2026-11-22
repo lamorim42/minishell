@@ -1,0 +1,1253 @@
+{
+  "generated_at": "2026-11-11T20:30:00Z",
+  "modules": [
+    {
+      "name": "core",
+      "path": "src/",
+      "purpose": "REPL, orquestração por linha (Facade), inicialização, liberação de memória e utilitários de array",
+      "primary_files": [
+        "src/main.c",
+        "src/facade.c",
+        "src/init.c",
+        "src/free.c",
+        "src/arr_utils.c"
+      ],
+      "functions": [
+        {
+          "name": "main",
+          "file": "src/main.c",
+          "params": [
+            "int argc",
+            "char **argv",
+            "char **envp"
+          ],
+          "returns": "int",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "facade",
+          "file": "src/facade.c",
+          "params": [
+            "t_line *line",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "init_line",
+          "file": "src/init.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "free_line",
+          "file": "src/free.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "free_exit",
+          "file": "src/free.c",
+          "params": [
+            "t_line *line",
+            "t_hash_table *table",
+            "int status"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "error_msg",
+          "file": "src/free.c",
+          "params": [
+            "char *str",
+            "char *msg"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "copy_array",
+          "file": "src/arr_utils.c",
+          "params": [
+            "char **tokens",
+            "int size"
+          ],
+          "returns": "char **",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [
+        {
+          "name": "t_line",
+          "fields": [
+            {
+              "name": "str",
+              "type": "char *",
+              "required": true
+            },
+            {
+              "name": "std_fd",
+              "type": "int[2]",
+              "required": true
+            },
+            {
+              "name": "ctks",
+              "type": "char **",
+              "required": true
+            },
+            {
+              "name": "tks",
+              "type": "char **",
+              "required": true
+            },
+            {
+              "name": "fd",
+              "type": "int[2]",
+              "required": true
+            },
+            {
+              "name": "lex",
+              "type": "char **",
+              "required": true
+            },
+            {
+              "name": "tks_nbr",
+              "type": "int",
+              "required": true
+            },
+            {
+              "name": "envp",
+              "type": "char **",
+              "required": true
+            },
+            {
+              "name": "status_code",
+              "type": "int",
+              "required": true
+            },
+            {
+              "name": "count_cmds",
+              "type": "int",
+              "required": true
+            },
+            {
+              "name": "pid",
+              "type": "int *",
+              "required": true
+            },
+            {
+              "name": "pid_index",
+              "type": "int",
+              "required": true
+            },
+            {
+              "name": "sig",
+              "type": "int",
+              "required": true
+            },
+            {
+              "name": "list_cmds",
+              "type": "t_pipe_list *",
+              "required": true
+            }
+          ],
+          "confidence": "confirmed"
+        },
+        {
+          "name": "s_minishell (g_minishell)",
+          "fields": [
+            {
+              "name": "line",
+              "type": "t_line *",
+              "required": true
+            },
+            {
+              "name": "table",
+              "type": "t_hash_table *",
+              "required": true
+            }
+          ],
+          "confidence": "confirmed"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "Aspas desbalanceadas imprimem 'Syntax ERROR!' em stdout e não executam",
+          "location": "src/main.c:47",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Linha que começa com '#' (depois de espaços) é ignorada",
+          "location": "src/main.c:83",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Ctrl-D escreve 'exit' em stderr e sai com 0",
+          "location": "src/main.c:65",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Só linhas executadas entram no histórico",
+          "location": "src/facade.c:57",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "O heredoc sempre usa um fork, mesmo sem '<<' na linha",
+          "location": "src/facade.c:40",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "tokens",
+        "exec",
+        "redirections",
+        "hash_table",
+        "signals",
+        "libft"
+      ],
+      "algorithms": [
+        "pipeline pipe-and-filter por linha"
+      ],
+      "complexity": "medium"
+    },
+    {
+      "name": "tokens",
+      "path": "src/tokens/",
+      "purpose": "Contagem, tokenização, classificação léxica, validação sintática e remoção de aspas",
+      "primary_files": [
+        "src/tokens/count_tks.c",
+        "src/tokens/tokenizer.c",
+        "src/tokens/tokenizer_utils.c",
+        "src/tokens/lexical_analyzer.c",
+        "src/tokens/sintax_analysis.c",
+        "src/tokens/clean_tokens.c"
+      ],
+      "functions": [
+        {
+          "name": "count_tks",
+          "file": "src/tokens/count_tks.c",
+          "params": [
+            "char *line"
+          ],
+          "returns": "int",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "tokenizer",
+          "file": "src/tokens/tokenizer.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "char **",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "lexical_analyzer",
+          "file": "src/tokens/lexical_analyzer.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "char **",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "sintax_analysis",
+          "file": "src/tokens/sintax_analysis.c",
+          "params": [
+            "char **lex"
+          ],
+          "returns": "int",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "verify_quots",
+          "file": "src/tokens/sintax_analysis.c",
+          "params": [
+            "char *str"
+          ],
+          "returns": "int",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "clean_tokens",
+          "file": "src/tokens/clean_tokens.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "char **",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "building_tokens",
+          "file": "src/tokens/tokenizer_utils.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "ft_strcmp_len",
+          "file": "src/tokens/tokenizer_utils.c",
+          "params": [
+            "char *s1",
+            "char *s2"
+          ],
+          "returns": "char",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [
+        {
+          "name": "LexCategory (string enum)",
+          "fields": [
+            {
+              "name": "PIPE",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "REDA",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "HERE",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "REDO",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "REDI",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "VAR",
+              "type": "string",
+              "required": false
+            },
+            {
+              "name": "WORD",
+              "type": "string",
+              "required": false
+            }
+          ],
+          "confidence": "confirmed"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "PIPE no início ou PIPE seguido de PIPE é erro de sintaxe",
+          "location": "src/tokens/sintax_analysis.c:22-28",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Redirecionamento precisa ser seguido de WORD (VAR é rejeitado)",
+          "location": "src/tokens/sintax_analysis.c:29-40",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "PIPE no final da linha é aceito",
+          "location": "src/tokens/sintax_analysis.c:17",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Palavra que começa com '$' é cortada na primeira aspa",
+          "location": "src/tokens/tokenizer.c:107-110",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Token entre aspas é cortado no próximo '$'",
+          "location": "src/tokens/tokenizer.c:92",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Token que começa e termina com a mesma aspa só perde as aspas das pontas; senão perde todas",
+          "location": "src/tokens/clean_tokens.c:42-47",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "libft"
+      ],
+      "algorithms": [
+        "scanner de tokens por ponteiro com recursão para aspas encadeadas",
+        "classificação léxica por prefixo",
+        "validação de gramática por vizinho"
+      ],
+      "complexity": "medium",
+      "tests": {
+        "framework": "GoogleTest",
+        "files": [
+          "tests/tests_count_tks.cpp",
+          "tests/tests_tokenizer.cpp",
+          "tests/tests_lexical_analyzer.cpp",
+          "tests/tests_sintax_analysis.cpp",
+          "tests/tests_clean_tokens.cpp"
+        ],
+        "cases": 84
+      }
+    },
+    {
+      "name": "exec",
+      "path": "src/exec/",
+      "purpose": "Expansão de variáveis, lista de comandos, heredoc, resolução no PATH, fork/execve, espera e $?",
+      "primary_files": [
+        "src/exec/expand_var.c",
+        "src/exec/expand_var_utils.c",
+        "src/exec/creat_cmd_table.c",
+        "src/exec/make_list.c",
+        "src/exec/here_doc.c",
+        "src/exec/here_doc_utils.c",
+        "src/exec/list_generation_bin.c",
+        "src/exec/path_finder.c",
+        "src/exec/exec_list.c",
+        "src/exec/exec_path.c",
+        "src/exec/exec_utils.c",
+        "src/exec/init_fork.c"
+      ],
+      "functions": [
+        {
+          "name": "expand_var",
+          "file": "src/exec/expand_var.c",
+          "params": [
+            "t_line *line",
+            "t_hash_table *table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "creat_list_cmd",
+          "file": "src/exec/creat_cmd_table.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "creat_here_doc",
+          "file": "src/exec/here_doc_utils.c",
+          "params": [
+            "t_pipe_list *list"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "here_doc_verification",
+          "file": "src/exec/here_doc_utils.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "here_doc_buffer",
+          "file": "src/exec/here_doc.c",
+          "params": [
+            "t_pipe_list *node"
+          ],
+          "returns": "char *",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "list_generation_bin",
+          "file": "src/exec/list_generation_bin.c",
+          "params": [
+            "t_line *line",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "path_finder",
+          "file": "src/exec/path_finder.c",
+          "params": [
+            "char *cmd",
+            "t_hash_table **table"
+          ],
+          "returns": "char *",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "exec_list",
+          "file": "src/exec/exec_list.c",
+          "params": [
+            "t_line *line",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "init_fork",
+          "file": "src/exec/init_fork.c",
+          "params": [
+            "t_line *line",
+            "t_pipe_list *list",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "exec_path",
+          "file": "src/exec/exec_path.c",
+          "params": [
+            "t_line *line",
+            "t_pipe_list *list",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "is_command",
+          "file": "src/exec/exec_utils.c",
+          "params": [
+            "t_pipe_list *node"
+          ],
+          "returns": "int",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [
+        {
+          "name": "t_pipe_list",
+          "fields": [
+            {
+              "name": "args",
+              "type": "char **",
+              "required": true
+            },
+            {
+              "name": "bin (union)",
+              "type": "char *",
+              "required": false
+            },
+            {
+              "name": "fd (union)",
+              "type": "int[2]",
+              "required": false
+            },
+            {
+              "name": "next",
+              "type": "t_pipe_list *",
+              "required": false
+            },
+            {
+              "name": "prev",
+              "type": "t_pipe_list *",
+              "required": false
+            }
+          ],
+          "confidence": "confirmed"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "Variável inexistente transforma o token inteiro em vazio",
+          "location": "src/exec/expand_var.c:48-53",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Tokens que começam com aspa simples não são expandidos",
+          "location": "src/exec/expand_var.c:26",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Builtin no último nó roda no processo pai",
+          "location": "src/exec/exec_list.c:30-32",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Builtin em processo filho sempre sai com 0",
+          "location": "src/exec/exec_path.c:31-32",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "execve usa o envp original (export/unset não chegam aos filhos)",
+          "location": "src/exec/exec_path.c:34",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Comando não encontrado sai com 127; falha de execve também sai com 127",
+          "location": "src/exec/exec_path.c:24-38",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "A busca no PATH aceita arquivo existente (F_OK), sem checar permissão de execução",
+          "location": "src/exec/path_finder.c:51",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "$? vira 128+sinal quando o filho foi terminado por sinal",
+          "location": "src/exec/exec_list.c:62",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "O heredoc lê até uma linha igual ao delimitador; com EOF imprime '<delim>: Wanted'",
+          "location": "src/exec/here_doc.c:44-55",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Ctrl-C no heredoc não cancela a execução da linha",
+          "location": "src/facade.c:51-56",
+          "confidence": "inferred"
+        }
+      ],
+      "dependencies": [
+        "tokens",
+        "redirections",
+        "builtins",
+        "hash_table",
+        "signals",
+        "libft"
+      ],
+      "algorithms": [
+        "expansão iterativa por substituição de chave",
+        "agrupamento de tokens em nós por categoria léxica",
+        "busca linear no PATH"
+      ],
+      "complexity": "high"
+    },
+    {
+      "name": "redirections",
+      "path": "src/",
+      "purpose": "Abertura de arquivos de redirecionamento, criação de pipes e dup2 de stdin/stdout no filho",
+      "primary_files": [
+        "src/fd_handler.c",
+        "src/fd_handler_utils.c"
+      ],
+      "functions": [
+        {
+          "name": "open_fds",
+          "file": "src/fd_handler_utils.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "find_input",
+          "file": "src/fd_handler.c",
+          "params": [
+            "t_pipe_list *node"
+          ],
+          "returns": "int",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "find_output",
+          "file": "src/fd_handler.c",
+          "params": [
+            "t_pipe_list *node"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "close_fds",
+          "file": "src/fd_handler.c",
+          "params": [
+            "t_pipe_list *node"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "close_std_fd",
+          "file": "src/fd_handler_utils.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [],
+      "business_rules": [
+        {
+          "description": "Arquivos de saída são criados/truncados no pai antes da execução, com permissão 0644",
+          "location": "src/fd_handler_utils.c:45-49",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "O último redirecionamento de saída depois do comando vence; redirecionamento explícito tem prioridade sobre o pipe",
+          "location": "src/fd_handler.c:53-62",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Redirecionamento de saída antes do comando é ignorado",
+          "location": "src/fd_handler.c:50",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Só o nó imediatamente anterior é considerado para a entrada",
+          "location": "src/fd_handler.c:21-24",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Erro ao abrir arquivo de saída provoca use-after-free/double free (crash)",
+          "location": "src/fd_handler_utils.c:51-55",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "exec",
+        "libft"
+      ],
+      "algorithms": [
+        "varredura da lista até o próximo PIPE"
+      ],
+      "complexity": "medium"
+    },
+    {
+      "name": "builtins",
+      "path": "src/builtins/",
+      "purpose": "Comandos internos echo, cd, pwd, export, unset, env, exit",
+      "primary_files": [
+        "src/builtins/builtins_utils.c",
+        "src/builtins/echo.c",
+        "src/builtins/cd.c",
+        "src/builtins/pwd.c",
+        "src/builtins/export.c",
+        "src/builtins/unset.c",
+        "src/builtins/env.c",
+        "src/builtins/exit.c"
+      ],
+      "functions": [
+        {
+          "name": "is_a_builtin",
+          "file": "src/builtins/builtins_utils.c",
+          "params": [
+            "char **node"
+          ],
+          "returns": "int (0 = é builtin)",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "exec_builtins",
+          "file": "src/builtins/builtins_utils.c",
+          "params": [
+            "t_pipe_list *node",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "echo_builtin",
+          "file": "src/builtins/echo.c",
+          "params": [
+            "t_pipe_list *node"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "cd_builtin",
+          "file": "src/builtins/cd.c",
+          "params": [
+            "t_pipe_list *node",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "pwd_builtin",
+          "file": "src/builtins/pwd.c",
+          "params": [
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "export_builtin",
+          "file": "src/builtins/export.c",
+          "params": [
+            "t_pipe_list *node",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "unset_builtin",
+          "file": "src/builtins/unset.c",
+          "params": [
+            "t_pipe_list *node",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "env_builtin",
+          "file": "src/builtins/env.c",
+          "params": [
+            "t_pipe_list *node",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "exit_builtin",
+          "file": "src/builtins/exit.c",
+          "params": [
+            "t_pipe_list *node",
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "update_var_env",
+          "file": "src/builtins/cd.c",
+          "params": [
+            "t_hash_table **table",
+            "char *str_key",
+            "char *val"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [],
+      "business_rules": [
+        {
+          "description": "Builtin é detectado por prefixo, mas despachado por igualdade exata (pwdx, envsubst → command not found)",
+          "location": "src/builtins/builtins_utils.c:40-51",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "echo aceita vários '-n' exatos e pula argumentos vazios",
+          "location": "src/builtins/echo.c:22-34",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "cd sem argumento ou com '~' vai para HOME; erro → status 1",
+          "location": "src/builtins/cd.c:26-32",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "pwd imprime PWD da hash table, não getcwd",
+          "location": "src/builtins/pwd.c:19",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "export só aceita identificador com letra inicial e só insere se houver '=' e valor não vazio",
+          "location": "src/builtins/export.c:35",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "export A=b=c grava 'b=b='",
+          "location": "src/builtins/builtins_utils.c:70-80",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "env com argumento → 127; env lista também '?'",
+          "location": "src/builtins/env.c:19-25",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "exit não numérico → exit 2; mais de um argumento → status 1 sem sair",
+          "location": "src/builtins/exit.c:17-60",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "hash_table",
+        "core",
+        "libft"
+      ],
+      "algorithms": [],
+      "complexity": "medium"
+    },
+    {
+      "name": "hash_table",
+      "path": "src/hash_table/",
+      "purpose": "Armazenamento das variáveis de ambiente e de $? em tabela hash com encadeamento",
+      "primary_files": [
+        "src/hash_table/create_table.c",
+        "src/hash_table/create_node.c",
+        "src/hash_table/insert_node.c",
+        "src/hash_table/search_item.c",
+        "src/hash_table/delete_node.c",
+        "src/hash_table/hash_function.c",
+        "src/hash_table/free_hash_table.c",
+        "src/hash_table/print_table.c"
+      ],
+      "functions": [
+        {
+          "name": "create_table",
+          "file": "src/hash_table/create_table.c",
+          "params": [
+            "int size"
+          ],
+          "returns": "t_hash_table *",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "population_hash_table",
+          "file": "src/hash_table/create_table.c",
+          "params": [
+            "t_line *line",
+            "t_hash_table **table"
+          ],
+          "returns": "t_hash_table *",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "hash_function",
+          "file": "src/hash_table/hash_function.c",
+          "params": [
+            "char *str"
+          ],
+          "returns": "unsigned long",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "hash_insert",
+          "file": "src/hash_table/insert_node.c",
+          "params": [
+            "t_hash_table **table",
+            "char *key",
+            "char *value"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "search_item",
+          "file": "src/hash_table/search_item.c",
+          "params": [
+            "t_hash_table *table",
+            "char *key"
+          ],
+          "returns": "char * (cópia; o chamador libera)",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "table_delete",
+          "file": "src/hash_table/delete_node.c",
+          "params": [
+            "t_hash_table **table",
+            "char *key"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "free_table",
+          "file": "src/hash_table/free_hash_table.c",
+          "params": [
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "print_table",
+          "file": "src/hash_table/print_table.c",
+          "params": [
+            "t_hash_table **table"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [
+        {
+          "name": "t_hash_table",
+          "fields": [
+            {
+              "name": "item",
+              "type": "t_hash_item **",
+              "required": true
+            },
+            {
+              "name": "size",
+              "type": "int",
+              "required": true
+            },
+            {
+              "name": "count",
+              "type": "int",
+              "required": true
+            }
+          ],
+          "confidence": "confirmed"
+        },
+        {
+          "name": "t_hash_item",
+          "fields": [
+            {
+              "name": "key",
+              "type": "char *",
+              "required": true
+            },
+            {
+              "name": "value",
+              "type": "char *",
+              "required": true
+            },
+            {
+              "name": "next",
+              "type": "t_hash_item *",
+              "required": false
+            }
+          ],
+          "confidence": "confirmed"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "hash = soma ASCII % 149",
+          "location": "src/hash_table/hash_function.c:15-27",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "A inserção só deduplica contra a cabeça do bucket",
+          "location": "src/hash_table/insert_node.c:33",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "A remoção em bucket de um item não compara a chave",
+          "location": "src/hash_table/delete_node.c:24-29",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "A remoção da cabeça de uma lista com 2+ itens não acontece",
+          "location": "src/hash_table/delete_node.c:47",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "'?' é inicializado com '0'",
+          "location": "src/hash_table/create_table.c:55",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "libft"
+      ],
+      "algorithms": [
+        "hash aditivo módulo primo",
+        "encadeamento separado com inserção no fim"
+      ],
+      "complexity": "low"
+    },
+    {
+      "name": "signals",
+      "path": "src/",
+      "purpose": "Tratamento de SIGINT/SIGQUIT no prompt, no heredoc e durante a execução",
+      "primary_files": [
+        "src/signals.c",
+        "src/signals_utils.c"
+      ],
+      "functions": [
+        {
+          "name": "signals",
+          "file": "src/signals_utils.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "sig_handler",
+          "file": "src/signals_utils.c",
+          "params": [
+            "int sig"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "signal_here",
+          "file": "src/signals_utils.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "sig_here",
+          "file": "src/signals_utils.c",
+          "params": [
+            "int sig"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "signal_ignore",
+          "file": "src/signals.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "signals_parent",
+          "file": "src/signals.c",
+          "params": [
+            "t_line *line"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "sig_write",
+          "file": "src/signals.c",
+          "params": [
+            "int sig"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [],
+      "business_rules": [
+        {
+          "description": "No prompt: Ctrl-C limpa a linha e mostra um novo prompt; Ctrl-\\ é ignorado",
+          "location": "src/signals_utils.c:36-51",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Ctrl-C no prompt não altera $?",
+          "location": "src/signals_utils.c:44",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "No heredoc: Ctrl-C encerra o filho com 130",
+          "location": "src/signals_utils.c:23-33",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "Durante a execução: Ctrl-C → status 130; Ctrl-\\ → 'Quit' em stderr",
+          "location": "src/signals.c:17-31",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [
+        "core",
+        "hash_table"
+      ],
+      "algorithms": [],
+      "complexity": "low"
+    },
+    {
+      "name": "libft",
+      "path": "Libft/",
+      "purpose": "Biblioteca utilitária da 42 (strings, memória, conversões) com extras ft_free_arr, ft_arrcmp, ft_strcmp",
+      "primary_files": [
+        "Libft/libft.h",
+        "Libft/ft_split.c",
+        "Libft/ft_strncmp.c",
+        "Libft/ft_strjoin.c",
+        "Libft/ft_free_arr.c",
+        "Libft/ft_strcmp.c",
+        "Libft/ft_arrcmp.c"
+      ],
+      "functions": [
+        {
+          "name": "ft_split",
+          "file": "Libft/ft_split.c",
+          "params": [
+            "char const *s",
+            "char c"
+          ],
+          "returns": "char **",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "ft_free_arr",
+          "file": "Libft/ft_free_arr.c",
+          "params": [
+            "char **mtx"
+          ],
+          "returns": "void",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "ft_strcmp",
+          "file": "Libft/ft_strcmp.c",
+          "params": [
+            "char *a",
+            "char *b"
+          ],
+          "returns": "int (1 = iguais)",
+          "confidence": "confirmed"
+        },
+        {
+          "name": "ft_arrcmp",
+          "file": "Libft/ft_arrcmp.c",
+          "params": [
+            "char **arr1",
+            "char **arr2"
+          ],
+          "returns": "int (0 = iguais)",
+          "confidence": "confirmed"
+        }
+      ],
+      "entities": [
+        {
+          "name": "t_list",
+          "fields": [
+            {
+              "name": "content",
+              "type": "void *",
+              "required": true
+            },
+            {
+              "name": "next",
+              "type": "t_list *",
+              "required": false
+            }
+          ],
+          "confidence": "confirmed"
+        }
+      ],
+      "business_rules": [
+        {
+          "description": "ft_split descarta campos vazios",
+          "location": "Libft/ft_split.c",
+          "confidence": "confirmed"
+        },
+        {
+          "description": "ft_free_arr não aceita NULL",
+          "location": "Libft/ft_free_arr.c",
+          "confidence": "confirmed"
+        }
+      ],
+      "dependencies": [],
+      "algorithms": [],
+      "complexity": "low"
+    }
+  ]
+}

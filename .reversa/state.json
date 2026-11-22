@@ -8,16 +8,191 @@
   "doc_level": "completo",
   "output_folder": "reversa-sdd",
   "forward_folder": "_reversa_forward",
-  "phase": null,
-  "completed": [],
-  "pending": [
+  "phase": "concluido",
+  "completed": [
     "reconhecimento",
     "escavacao",
     "interpretacao",
     "geracao",
     "revisao"
   ],
-  "checkpoints": {},
+  "pending": [],
+  "checkpoints": {
+    "scout": {
+      "completed_at": "2026-11-11T19:50:00Z",
+      "files": [
+        "reversa-sdd/inventory.md",
+        "reversa-sdd/dependencies.md",
+        ".reversa/context/surface.json"
+      ]
+    },
+    "archaeologist": {
+      "completed_at": "2026-11-11T20:30:00Z",
+      "modules_analyzed": [
+        "core",
+        "tokens",
+        "exec",
+        "redirections",
+        "builtins",
+        "hash_table",
+        "signals",
+        "libft"
+      ],
+      "modules_pending": [],
+      "files": [
+        "reversa-sdd/code-analysis.md",
+        "reversa-sdd/data-dictionary.md",
+        "reversa-sdd/flowcharts/core.md",
+        "reversa-sdd/flowcharts/tokens.md",
+        "reversa-sdd/flowcharts/exec.md",
+        "reversa-sdd/flowcharts/redirections.md",
+        "reversa-sdd/flowcharts/builtins.md",
+        "reversa-sdd/flowcharts/hash_table.md",
+        "reversa-sdd/flowcharts/signals.md",
+        "reversa-sdd/flowcharts/libft.md",
+        ".reversa/context/modules.json"
+      ],
+      "notes": "Comportamentos validados com build isolado na scratchpad (stub de readline); repositório não alterado."
+    },
+    "detective": {
+      "completed_at": "2026-11-11T21:00:00Z",
+      "files": [
+        "reversa-sdd/domain.md",
+        "reversa-sdd/state-machines.md",
+        "reversa-sdd/permissions.md",
+        "reversa-sdd/adrs/001-pipe-and-filter-com-facade.md",
+        "reversa-sdd/adrs/002-tdd-com-googletest-na-tokenizacao.md",
+        "reversa-sdd/adrs/003-arrays-paralelos-de-tokens.md",
+        "reversa-sdd/adrs/004-hash-table-para-ambiente.md",
+        "reversa-sdd/adrs/005-lista-duplamente-encadeada-de-nos.md",
+        "reversa-sdd/adrs/006-heredoc-em-processo-filho.md",
+        "reversa-sdd/adrs/007-variavel-global-unica.md",
+        "reversa-sdd/adrs/008-path-resolvido-pela-tabela.md",
+        "reversa-sdd/adrs/009-builtin-no-pai-quando-ultimo.md",
+        "reversa-sdd/adrs/010-toolchain-42.md"
+      ],
+      "business_rules": 53,
+      "adrs": 10,
+      "state_machines": 5,
+      "gaps": [
+        "L-01",
+        "L-02",
+        "L-03",
+        "L-04",
+        "L-05",
+        "L-06",
+        "L-07"
+      ]
+    },
+    "architect": {
+      "completed_at": "2026-11-11T21:30:00Z",
+      "files": [
+        "reversa-sdd/architecture.md",
+        "reversa-sdd/c4-context.md",
+        "reversa-sdd/c4-containers.md",
+        "reversa-sdd/c4-components.md",
+        "reversa-sdd/erd-complete.md",
+        "reversa-sdd/traceability/spec-impact-matrix.md"
+      ],
+      "components": 16,
+      "containers": 3,
+      "integrations": [
+        "GNU Readline",
+        "POSIX syscalls"
+      ],
+      "tech_debts": 14
+    },
+    "writer": {
+      "completed_at": "2026-11-22T12:00:00Z",
+      "units": 12,
+      "files": [
+        "reversa-sdd/iniciar-sessao-e-ler-comando/requirements.md",
+        "reversa-sdd/iniciar-sessao-e-ler-comando/design.md",
+        "reversa-sdd/iniciar-sessao-e-ler-comando/tasks.md",
+        "reversa-sdd/analisar-linha-de-comando/requirements.md",
+        "reversa-sdd/analisar-linha-de-comando/design.md",
+        "reversa-sdd/analisar-linha-de-comando/tasks.md",
+        "reversa-sdd/expandir-variaveis/requirements.md",
+        "reversa-sdd/expandir-variaveis/design.md",
+        "reversa-sdd/expandir-variaveis/tasks.md",
+        "reversa-sdd/executar-comando-simples/requirements.md",
+        "reversa-sdd/executar-comando-simples/design.md",
+        "reversa-sdd/executar-comando-simples/tasks.md",
+        "reversa-sdd/executar-pipeline/requirements.md",
+        "reversa-sdd/executar-pipeline/design.md",
+        "reversa-sdd/executar-pipeline/tasks.md",
+        "reversa-sdd/redirecionar-entrada-e-saida/requirements.md",
+        "reversa-sdd/redirecionar-entrada-e-saida/design.md",
+        "reversa-sdd/redirecionar-entrada-e-saida/tasks.md",
+        "reversa-sdd/ler-heredoc/requirements.md",
+        "reversa-sdd/ler-heredoc/design.md",
+        "reversa-sdd/ler-heredoc/tasks.md",
+        "reversa-sdd/gerenciar-variaveis-de-ambiente/requirements.md",
+        "reversa-sdd/gerenciar-variaveis-de-ambiente/design.md",
+        "reversa-sdd/gerenciar-variaveis-de-ambiente/tasks.md",
+        "reversa-sdd/navegar-diretorios/requirements.md",
+        "reversa-sdd/navegar-diretorios/design.md",
+        "reversa-sdd/navegar-diretorios/tasks.md",
+        "reversa-sdd/imprimir-texto-echo/requirements.md",
+        "reversa-sdd/imprimir-texto-echo/design.md",
+        "reversa-sdd/imprimir-texto-echo/tasks.md",
+        "reversa-sdd/encerrar-shell/requirements.md",
+        "reversa-sdd/encerrar-shell/design.md",
+        "reversa-sdd/encerrar-shell/tasks.md",
+        "reversa-sdd/tratar-sinais/requirements.md",
+        "reversa-sdd/tratar-sinais/design.md",
+        "reversa-sdd/tratar-sinais/tasks.md",
+        "reversa-sdd/user-stories/uso-interativo.md",
+        "reversa-sdd/user-stories/automacao-com-pipes-e-redirecionamentos.md",
+        "reversa-sdd/traceability/code-spec-matrix.md"
+      ],
+      "globals": [
+        "reversa-sdd/user-stories/uso-interativo.md",
+        "reversa-sdd/user-stories/automacao-com-pipes-e-redirecionamentos.md",
+        "reversa-sdd/traceability/code-spec-matrix.md"
+      ],
+      "coverage": {
+        "src_includes": "100%",
+        "repo": "68.7%"
+      },
+      "new_findings": [
+        "BUG-20",
+        "BUG-21"
+      ],
+      "notes": "Comportamentos observados com build isolado na scratchpad (readline substituto lendo stdin; pty para heredoc e sinais). OpenAPI não aplicável (sem API)."
+    },
+    "reviewer": {
+      "completed_at": "2026-11-22T14:00:00Z",
+      "specs_reviewed": 12,
+      "cross_review": "não (Codex indisponível)",
+      "reclassifications": {
+        "🔴→🟢 (respostas do usuário)": 5,
+        "🟡→🟢 (observado)": 6,
+        "🟢 corrigido (RR-04)": 1,
+        "novos 🟢 (BUG-20, BUG-21)": 2
+      },
+      "questions": {
+        "generated": 9,
+        "answered": 9
+      },
+      "confidence": "97.9%",
+      "counts": {
+        "green": 877,
+        "yellow": 39,
+        "red": 0
+      },
+      "files": [
+        "reversa-sdd/questions.md",
+        "reversa-sdd/gaps.md",
+        "reversa-sdd/confidence-report.md"
+      ],
+      "also_updated": [
+        "reversa-sdd/code-analysis.md (§9: BUG-20, BUG-21)",
+        "reversa-sdd/domain.md (respostas às lacunas)"
+      ],
+      "regression_check": "pulado: sem _reversa_forward/ nem addenda"
+    }
+  },
   "engines": [
     "claude-code"
   ],
@@ -281,5 +456,154 @@
     ".reversa/plan.md",
     ".reversa/version",
     ".reversa/_config/manifest.yaml"
-  ]
+  ],
+  "redator_progress": {
+    "mode": "autonomo (/loop pedido pelo usuário em 2026-11-22)",
+    "units_total": 12,
+    "files_total": 41,
+    "units_done": [
+      "iniciar-sessao-e-ler-comando",
+      "analisar-linha-de-comando",
+      "expandir-variaveis",
+      "executar-comando-simples",
+      "executar-pipeline",
+      "redirecionar-entrada-e-saida",
+      "ler-heredoc",
+      "gerenciar-variaveis-de-ambiente",
+      "navegar-diretorios",
+      "imprimir-texto-echo",
+      "encerrar-shell",
+      "tratar-sinais"
+    ],
+    "files_done": [
+      "reversa-sdd/iniciar-sessao-e-ler-comando/requirements.md",
+      "reversa-sdd/iniciar-sessao-e-ler-comando/design.md",
+      "reversa-sdd/iniciar-sessao-e-ler-comando/tasks.md",
+      "reversa-sdd/analisar-linha-de-comando/requirements.md",
+      "reversa-sdd/analisar-linha-de-comando/design.md",
+      "reversa-sdd/analisar-linha-de-comando/tasks.md",
+      "reversa-sdd/expandir-variaveis/requirements.md",
+      "reversa-sdd/expandir-variaveis/design.md",
+      "reversa-sdd/expandir-variaveis/tasks.md",
+      "reversa-sdd/executar-comando-simples/requirements.md",
+      "reversa-sdd/executar-comando-simples/design.md",
+      "reversa-sdd/executar-comando-simples/tasks.md",
+      "reversa-sdd/executar-pipeline/requirements.md",
+      "reversa-sdd/executar-pipeline/design.md",
+      "reversa-sdd/executar-pipeline/tasks.md",
+      "reversa-sdd/redirecionar-entrada-e-saida/requirements.md",
+      "reversa-sdd/redirecionar-entrada-e-saida/design.md",
+      "reversa-sdd/redirecionar-entrada-e-saida/tasks.md",
+      "reversa-sdd/ler-heredoc/requirements.md",
+      "reversa-sdd/ler-heredoc/design.md",
+      "reversa-sdd/ler-heredoc/tasks.md",
+      "reversa-sdd/gerenciar-variaveis-de-ambiente/requirements.md",
+      "reversa-sdd/gerenciar-variaveis-de-ambiente/design.md",
+      "reversa-sdd/gerenciar-variaveis-de-ambiente/tasks.md",
+      "reversa-sdd/navegar-diretorios/requirements.md",
+      "reversa-sdd/navegar-diretorios/design.md",
+      "reversa-sdd/navegar-diretorios/tasks.md",
+      "reversa-sdd/imprimir-texto-echo/requirements.md",
+      "reversa-sdd/imprimir-texto-echo/design.md",
+      "reversa-sdd/imprimir-texto-echo/tasks.md",
+      "reversa-sdd/encerrar-shell/requirements.md",
+      "reversa-sdd/encerrar-shell/design.md",
+      "reversa-sdd/encerrar-shell/tasks.md",
+      "reversa-sdd/tratar-sinais/requirements.md",
+      "reversa-sdd/tratar-sinais/design.md",
+      "reversa-sdd/tratar-sinais/tasks.md",
+      "reversa-sdd/user-stories/uso-interativo.md",
+      "reversa-sdd/user-stories/automacao-com-pipes-e-redirecionamentos.md",
+      "reversa-sdd/traceability/code-spec-matrix.md"
+    ],
+    "next_unit": null,
+    "plan": [
+      "iniciar-sessao-e-ler-comando",
+      "analisar-linha-de-comando",
+      "expandir-variaveis",
+      "executar-comando-simples",
+      "executar-pipeline",
+      "redirecionar-entrada-e-saida",
+      "ler-heredoc",
+      "gerenciar-variaveis-de-ambiente",
+      "navegar-diretorios",
+      "imprimir-texto-echo",
+      "encerrar-shell",
+      "tratar-sinais",
+      "user-stories/uso-interativo.md",
+      "user-stories/automacao-com-pipes-e-redirecionamentos.md",
+      "traceability/code-spec-matrix.md"
+    ],
+    "policy": "as-is com ⚠️ DIVERGÊNCIA marcada (L-07 em aberto)",
+    "current_unit": null,
+    "next_file": null,
+    "updated_at": "2026-11-22T00:00:00Z",
+    "notes": [
+      "2026-11-22: expansão validada com driver isolado na scratchpad (stub de readline e file_exists); RX-06 loop infinito observado.",
+      "2026-11-22: shell completo compilado na scratchpad com readline lendo stdin (exp/msh, exp/run/t.sh).",
+      "2026-11-22: heredoc e sinais testados por pty (exp/ptyrun.py)."
+    ],
+    "new_findings": [
+      {
+        "id": "BUG-20",
+        "summary": "ft_strncmp da Libft retorna 0 quando uma string termina: comando vazio ou prefixo de PIPE/REDO/REDA/REDI/HERE é ignorado em silêncio; prefixo de builtin vira command not found",
+        "evidence": "Libft/ft_strncmp.c, src/exec/exec_utils.c:15-22",
+        "observed": true
+      },
+      {
+        "id": "BUG-21",
+        "summary": "exit 2 <arg> encerra com 2 em vez de too many arguments: o valor 2 é confundido com o código de erro de is_char_number",
+        "evidence": "src/builtins/exit.c:51",
+        "observed": true
+      }
+    ],
+    "completed_at": "2026-11-22T12:00:00Z"
+  },
+  "decisions": {
+    "L-07": {
+      "answer": "documentar o comportamento atual (as-is)",
+      "decided_at": "2026-11-22",
+      "source": "usuário, no chat (/reversa l-07 documentar o comportamento atual)"
+    },
+    "L-01": {
+      "answer": "mínimo do subject; extras fora do escopo",
+      "decided_at": "2026-11-22",
+      "source": "reversa-sdd/questions.md"
+    },
+    "L-02": {
+      "answer": "aprovado; bugs conhecidos",
+      "decided_at": "2026-11-22",
+      "source": "reversa-sdd/questions.md"
+    },
+    "L-03": {
+      "answer": "bug",
+      "decided_at": "2026-11-22",
+      "source": "reversa-sdd/questions.md"
+    },
+    "L-04": {
+      "answer": "não deliberado; bug",
+      "decided_at": "2026-11-22",
+      "source": "reversa-sdd/questions.md"
+    },
+    "L-05": {
+      "answer": "resultados não guardados",
+      "decided_at": "2026-11-22",
+      "source": "reversa-sdd/questions.md"
+    },
+    "L-06": {
+      "answer": "não versionar",
+      "decided_at": "2026-11-22",
+      "source": "reversa-sdd/questions.md"
+    },
+    "P-7": {
+      "answer": "corrigir numa reimplementação",
+      "decided_at": "2026-11-22",
+      "source": "reversa-sdd/questions.md"
+    },
+    "P-8": {
+      "answer": "adicionar ao code-analysis",
+      "decided_at": "2026-11-22",
+      "source": "reversa-sdd/questions.md"
+    }
+  }
 }

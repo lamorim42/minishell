@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprimir Texto (echo) | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/imprimir-texto-echo/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-imprimir-texto-echo">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Imprimir Texto (echo)</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Implementa o builtin <code>echo</code>: escreve os argumentos separados por espaço, seguidos de <code>\n</code>, com a opção <code>-n</code> para omitir a quebra de linha. A saída usa <code>printf</code> (stdio com buffer).</p><p><span class="badge bug">BUG-14</span><span class="badge ok">confiança 99%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad, com um <code>readline</code> substituto que esvazia o stdout antes de ler (como o readline real faz ao mostrar o prompt). Saída inspecionada com <code>cat -A</code>. O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Implementa o builtin <code>echo</code>: escreve os argumentos separados por espaço, seguidos de <code>\n</code>, com a opção <code>-n</code> para omitir a quebra de linha. A saída usa <code>printf</code> (stdio com buffer) 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Escrever os argumentos separados por um espaço 🟢</li><li>Reconhecer uma ou mais opções <code>-n</code> no início 🟢</li><li>Omitir os argumentos vazios 🟢</li><li>Terminar com <code>\n</code>, exceto com <code>-n</code> 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<ul><li>EC-01: <code>echo</code> sem argumentos → <code>\n</code> 🟢 (observado)</li><li>EC-02: <code>echo a b c</code> → <code>a b c\n</code> 🟢 (observado)</li><li>EC-03: <code>-n</code> é reconhecido só como <strong>argumento exatamente igual</strong> a <code>-n</code>, em qualquer quantidade no início: <code>echo -n x</code> → <code>x</code>; <code>echo -n -n y</code> → <code>y</code> 🟢 (observado)</li><li>EC-04: <code>-nn</code> não é opção: <code>echo -nn z</code> → <code>-nn z\n</code> 🟢 (observado). ⚠️ O bash aceita <code>-nn</code> como <code>-n</code></li><li>EC-05: <code>-n</code> depois de um argumento comum é texto: <code>echo a -n b</code> → <code>a -n b</code> 🟢 (observado)</li><li>EC-06: <code>echo -n</code> sozinho não imprime nada 🟢 (observado)</li><li>EC-07: argumentos <strong>vazios</strong> são omitidos, inclusive o espaço: <code>echo &quot;&quot; a</code> → <code>a</code>; <code>echo a &quot;&quot; b</code> → <code>a b</code> 🟢 (observado). ⚠️ O bash dá <code> a</code> e <code>a  b</code></li><li>EC-08: argumento vazio no fim deixa um espaço sobrando: <code>echo a &quot;&quot;</code> → <code>a \n</code> 🟢 (observado), igual ao bash</li><li>EC-09: <code>echo $NOPE</code> (token expandido para vazio) → só <code>\n</code> 🟢 (observado)</li><li>EC-10: não há <code>-e</code> nem <code>-E</code>; o texto sai literal: <code>echo -e &quot;a\nb&quot;</code> → <code>-e a\nb</code> 🟢 (observado). ⚠️ O <code>echo</code> do bash interpreta <code>-e</code></li><li>EC-11: espaços dentro de aspas são preservados: <code>echo &quot;a  b&quot;</code> → <code>a  b</code> 🟢 (observado)</li><li>EC-12: funciona em pipeline e com redirecionamento (roda em filho): <code>echo x | cat -e</code> → <code>x$</code>; <code>echo a &gt; ob</code> grava <code>a\n</code> 🟢 (observado)</li><li>BUG-14: como a saída usa <code>printf</code>, o buffer do stdio pode ser herdado pelos <code>fork</code> seguintes e <strong>duplicar</strong> a saída quando o stdout não é um terminal (pipe ou arquivo) 🟢 (ver <code>code-analysis.md</code> §9)</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: EC-04, EC-07 e BUG-14)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Escrever os argumentos separados por um espaço e <code>\n</code> no fim</td><td>Must</td><td><code>echo a b c</code> → <code>a b c</code></td></tr><tr><td>RF-02</td><td>Aceitar <code>-n</code> (uma ou mais vezes no início) e omitir o <code>\n</code></td><td>Must</td><td><code>echo -n x \| cat -e</code> → <code>x</code> sem <code>$</code></td></tr><tr><td>RF-03</td><td>Tratar <code>-n</code> fora do início como texto</td><td>Must</td><td><code>echo a -n b</code> → <code>a -n b</code></td></tr><tr><td>RF-04</td><td><code>echo</code> sem argumentos imprime uma linha vazia</td><td>Must</td><td><code>echo \| cat -e</code> → <code>$</code></td></tr><tr><td>RF-05</td><td>Omitir argumentos vazios (as-is)</td><td>Should</td><td><code>echo &quot;&quot; a</code> → <code>a</code></td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>E/S</td><td>Saída pelo stdio (<code>printf</code>), com buffer; não usa <code>write</code> direto</td><td><code>src/builtins/echo.c:15-37</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: echo
+
+  Cenário: Argumentos simples
+    Quando o usuário digita &quot;echo a b c&quot;
+    Então a saída é &quot;a b c&quot; seguida de quebra de linha
+
+  Cenário: Opção -n
+    Quando o usuário digita &quot;echo -n x | cat -e&quot;
+    Então a saída é &quot;x&quot; sem &quot;$&quot;
+
+  Cenário: Várias opções -n
+    Quando o usuário digita &quot;echo -n -n y | cat -e&quot;
+    Então a saída é &quot;y&quot; sem &quot;$&quot;
+
+  Cenário: -n no meio é texto
+    Quando o usuário digita &quot;echo a -n b&quot;
+    Então a saída é &quot;a -n b&quot;
+
+  Cenário: Sem argumentos
+    Quando o usuário digita &quot;echo | cat -e&quot;
+    Então a saída é &quot;$&quot;
+
+  @divergente
+  Cenário: -nn não é opção (EC-04)
+    Quando o usuário digita &quot;echo -nn z&quot;
+    Então a saída é &quot;-nn z&quot;
+
+  @divergente
+  Cenário: Argumento vazio omitido (EC-07)
+    Quando o usuário digita &#x27;echo a &quot;&quot; b&#x27;
+    Então a saída é &quot;a b&quot;</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01 a RF-04</td><td>Must</td><td><code>echo</code> com <code>-n</code> é obrigatório no subject</td></tr><tr><td>RF-05</td><td>Should</td><td>Divergente; mantido por fidelidade ao as-is</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/builtins/echo.c</code></td><td><code>echo_builtin</code></td><td>🟢</td></tr><tr><td><code>src/builtins/builtins_utils.c</code></td><td><code>exec_builtins</code> (despacho)</td><td>🟢</td></tr><tr><td><code>src/tokens/tokenizer_utils.c</code></td><td><code>ft_strcmp_len</code> (comparação exata com <code>-n</code>)</td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>echo_builtin</code></td><td><code>(t_pipe_list *node)</code></td><td><code>void</code></td><td>Lê <code>node-&gt;args</code>; não altera <code>$?</code> 🟢</td></tr></tbody></table></div>
+<h3>Fluxo Principal</h3>
+<p><code>src/builtins/echo.c:15-37</code> 🟢:</p>
+<pre class="code" data-lang="text"><code>i = 1
+se args[1] == NULL: printf(&quot;\n&quot;)                        # echo sem argumentos
+enquanto args[i] e args[i] == &quot;-n&quot;: i++                 # pula as opções
+enquanto args[i]:
+   se args[i] não é vazio e args[i+1] == NULL:          # último argumento
+       printf(&quot;%s&quot;, args[i]); pare
+   se args[i] não é vazio: printf(&quot;%s &quot;, args[i])       # vazio: nada, nem o espaço
+   i++
+se args[1] != NULL e args[1] != &quot;-n&quot;: printf(&quot;\n&quot;)</code></pre>
+<p>Observações sobre o algoritmo 🟢:</p>
+<ul><li>O separador é escrito <strong>depois</strong> de cada argumento não vazio que não é o último. Por isso um último argumento vazio deixa o espaço do penúltimo (<code>echo a &quot;&quot;</code> → <code>a </code>), e um vazio no meio some com o seu espaço (<code>echo a &quot;&quot; b</code> → <code>a b</code>)</li><li>A decisão de imprimir <code>\n</code> olha só <code>args[1]</code>: basta o <strong>primeiro</strong> argumento ser <code>-n</code></li><li>A comparação com <code>-n</code> é exata (<code>ft_strcmp_len</code>), então <code>-nn</code> é texto</li></ul>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>No shell</strong> (último nó, sem redirecionamento): <code>printf</code> no processo do shell; o readline esvazia o buffer ao mostrar o próximo prompt 🟢</li><li><strong>Em filho</strong> (pipeline ou redirecionamento): <code>printf</code> no filho; <code>free_exit</code> → <code>exit</code> esvazia o buffer 🟢</li><li><strong>stdout que não é terminal:</strong> buffer completo; um <code>fork</code> posterior herda bytes pendentes e os escreve de novo ao sair (BUG-14) 🟢</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>executar-comando-simples:</strong> <code>exec_builtins</code></li><li><strong>expandir-variaveis / analisar-linha-de-comando:</strong> <code>args</code> já expandidos e sem aspas</li><li><strong>libc:</strong> <code>printf</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Saída por <code>printf</code> em vez de <code>write</code></td><td><code>src/builtins/echo.c</code></td><td>🟢</td></tr><tr><td>Argumentos vazios descartados de propósito (provável efeito colateral do BUG-05, para que <code>$NOPE</code> não gere espaços)</td><td><code>src/builtins/echo.c:28-33</code></td><td>🟡</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p>Nenhum 🟢.</p>
+<h3>Observabilidade</h3>
+<p>Nenhuma 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 BUG-14: duplicação de saída pelo buffer do stdio herdado em <code>fork</code></li><li>🟢 EC-04 (<code>-nn</code>), EC-07 (argumentos vazios)</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: trocar <code>printf</code> por <code>write</code> (ou <code>fflush</code> antes de cada <code>fork</code>) elimina o BUG-14</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>executar-comando-simples</code> com o despacho de builtins</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 sobre EC-04, EC-07 e BUG-14 → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Implementar <code>echo_builtin</code> com o laço de <code>-n</code> exatos no início<ul><li>Origem no legado: <code>src/builtins/echo.c:15-24</code></li><li>Critério de pronto: cenários "Opção -n", "Várias opções -n" e "-n no meio é texto"</li><li>Confiança: 🟢</li><li>Nota: aceitar <code>-nnn</code> alinha com o bash; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Escrever os argumentos com um espaço entre eles, omitindo os vazios<ul><li>Origem no legado: <code>src/builtins/echo.c:25-34</code></li><li>Critério de pronto: <code>echo a b c</code> → <code>a b c</code>; <code>echo &quot;&quot; a</code> → <code>a</code> (as-is)</li><li>Confiança: 🟢</li><li>Nota: manter argumentos vazios (como o bash) só faz sentido junto com a correção do BUG-05; decidir as duas juntas em L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Escrever <code>\n</code> no fim, exceto quando o primeiro argumento é <code>-n</code>; <code>echo</code> sem argumentos → <code>\n</code><ul><li>Origem no legado: <code>src/builtins/echo.c:20-21,35-36</code></li><li>Critério de pronto: cenário "Sem argumentos"; <code>echo -n</code> não imprime nada</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Evitar a duplicação de saída (BUG-14): usar <code>write(1, …)</code> ou garantir <code>fflush(stdout)</code> antes de cada <code>fork</code><ul><li>Origem no legado: <code>src/builtins/echo.c</code>, <code>src/facade.c:40</code>, <code>src/exec/init_fork.c:16</code></li><li>Critério de pronto: <code>printf &#x27;echo -n x\nls\n&#x27; | ./minishell | od -c</code> mostra um único <code>x</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Cenários de <code>requirements.md</code>, com <code>cat -e</code> para tornar visível o <code>\n</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Cenários <code>@divergente</code> (EC-04, EC-07)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Modo não interativo (stdout em pipe) para o BUG-14</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 → T-03</li><li>T-04</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: <code>-nn</code>, argumentos vazios (junto com BUG-05), <code>printf</code> vs <code>write</code></li></ul></div></details>
+</section><nav class="feature-pager"><a href="navegar-diretorios.html">← Navegar Diretórios</a><a href="encerrar-shell.html">Encerrar Shell →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-imprimir-texto-echo">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/imprimir-texto-echo/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

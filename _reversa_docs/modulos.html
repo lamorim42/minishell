@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulos | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="modulos">
+    <meta name="reversa-source-md" content="../reversa-sdd/c4-components.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-mapper">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/site.css">
+    <script src="assets/vendor/d3.v7.min.js"></script>
+</head>
+<body data-style="premium" data-page="modulos">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="index.html" data-page-id="index">Visão geral</a><a href="arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="modulos.html" data-page-id="modulos">Módulos</a><a href="metricas.html" data-page-id="metricas">Métricas</a><a href="glossario.html" data-page-id="glossario">Glossário</a><a href="deck.html" data-page-id="deck">Deck</a><a href="index.html#features" data-page-id="features">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Módulos</h1>
+            <p class="lead">Cada nó é um arquivo; cada aresta é "o arquivo A chama uma função definida no arquivo B", com espessura proporcional ao número de chamadas. Os nós com contorno vermelho fazem parte de um ciclo de dependência. Arraste os nós, use a roda do mouse para aproximar e passe o mouse para ver os detalhes.</p>
+<section class="reversa-doc-graph-stage" data-mode="force-directed">
+  <svg id="d3-canvas" class="reversa-doc-d3-canvas" aria-label="Mapa de módulos"></svg>
+  <div id="tip" class="rv-tooltip"></div>
+</section>
+<div class="legend-swatches" id="legend"></div>
+<details class="reversa-doc-graph-legend"><summary>Legenda</summary><ul>
+<li>Nó: arquivo. Tamanho proporcional ao LOC. Cor: pasta.</li>
+<li>Aresta: dependência por chamada de função. Espessura proporcional ao número de chamadas.</li>
+<li>Contorno vermelho: o arquivo faz parte de um ciclo detectado.</li></ul></details>
+<h2>Ciclos detectados</h2><div id="cycles"></div>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="modulos">
+        <div class="rv-sidebar"><h2>Filtros</h2>
+<label for="p-kind">Tipo</label><select id="p-kind" data-param="kind" data-default="todos"><option value="todos">Todos</option><option value="source">Só código do shell</option></select>
+<label for="p-charge">Força de repulsão</label><input id="p-charge" type="range" min="-600" max="-30" step="10" value="-220" data-param="charge" data-default="-220">
+<label for="p-dist">Distância mínima</label><input id="p-dist" type="range" min="20" max="200" step="5" value="70" data-param="dist" data-default="70">
+<button type="button" data-action="reset">Restaurar padrões</button></div>
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../reversa-sdd/c4-components.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/nav.js"></script>
+    <script src="assets/js/sidebar.js"></script>
+    <script>
+(function(){
+  var D = window.RV_DATA || {}; var all = (D.modules && D.modules.modules) || []; var deps = D.deps || {edges: [], cycles: []};
+  var cyc = new Set((deps.cycles||[]).flat()); var svg = d3.select('#d3-canvas'); var tip = document.getElementById('tip');
+  document.getElementById('cycles').innerHTML = (deps.cycles||[]).map(function(c, i){ return '<p><b>Ciclo ' + (i+1) + ':</b> ' + c.map(function(x){return '<code>'+x+'</code>';}).join(' ↔ ') + '</p>'; }).join('') || '<p>Nenhum.</p>';
+  var folders = Array.from(new Set(all.map(function(m){return m.folder;})));
+  var color = d3.scaleOrdinal().domain(folders).range(['#d4af37','#6cb6ff','#3fb950','#f778ba','#a371f7','#e3b341','#56d4dd','#ff9b6b']);
+  document.getElementById('legend').innerHTML = folders.map(function(f){ return '<span><i style="background:'+color(f)+'"></i>'+f+'</span>'; }).join('');
+  var g = svg.append('g'); svg.call(d3.zoom().scaleExtent([0.2, 4]).on('zoom', function(e){ g.attr('transform', e.transform); }));
+  var sim, kind = 'todos', charge = -220, dist = 70;
+  function draw(){
+    g.selectAll('*').remove(); if (sim) sim.stop();
+    var nodes = all.filter(function(m){ return kind==='todos' || m.kind!=='lib'; }).map(function(m){ return Object.assign({}, m); });
+    var ids = new Set(nodes.map(function(n){return n.id;}));
+    var links = deps.edges.filter(function(e){ return ids.has(e.source) && ids.has(e.target); }).map(function(e){ return Object.assign({}, e); });
+    var box = svg.node().getBoundingClientRect();
+    sim = d3.forceSimulation(nodes).force('link', d3.forceLink(links).id(function(d){return d.id;}).distance(dist))
+      .force('charge', d3.forceManyBody().strength(charge)).force('center', d3.forceCenter(box.width/2, box.height/2)).force('collide', d3.forceCollide(function(d){ return 6 + Math.sqrt(d.loc); }));
+    var link = g.append('g').selectAll('line').data(links).join('line').attr('stroke', '#5a5a70').attr('stroke-opacity', 0.55).attr('stroke-width', function(d){ return Math.min(6, 0.6 + Math.sqrt(d.weight)); });
+    var node = g.append('g').selectAll('circle').data(nodes).join('circle').attr('r', function(d){ return 3 + Math.sqrt(d.loc); })
+      .attr('fill', function(d){ return color(d.folder); }).attr('stroke', function(d){ return cyc.has(d.id) ? '#ff4d4d' : '#0a0a14'; }).attr('stroke-width', function(d){ return cyc.has(d.id) ? 3 : 1.2; })
+      .call(d3.drag().on('start', function(e, d){ if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on('drag', function(e, d){ d.fx = e.x; d.fy = e.y; }).on('end', function(e, d){ if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }))
+      .on('mousemove', function(e, d){ var r = svg.node().getBoundingClientRect(); tip.style.display = 'block'; tip.style.left = (e.clientX - r.left + 14) + 'px'; tip.style.top = (e.clientY - r.top + 14) + 'px';
+        var out = links.filter(function(l){return l.source.id===d.id;}).length, inn = links.filter(function(l){return l.target.id===d.id;}).length;
+        tip.innerHTML = '<b>' + d.id + '</b><br>' + d.loc + ' LOC · ' + d.functions + ' funções<br>usa ' + out + ' arquivos · usado por ' + inn + '<br>Unit: ' + d.unit; })
+      .on('mouseout', function(){ tip.style.display = 'none'; });
+    var label = g.append('g').selectAll('text').data(nodes).join('text').text(function(d){ return d.name; }).attr('font-size', 10).attr('fill', '#c9c9d3').attr('dx', 8).attr('dy', 3).style('pointer-events', 'none');
+    sim.on('tick', function(){ link.attr('x1', function(d){return d.source.x;}).attr('y1', function(d){return d.source.y;}).attr('x2', function(d){return d.target.x;}).attr('y2', function(d){return d.target.y;});
+      node.attr('cx', function(d){return d.x;}).attr('cy', function(d){return d.y;}); label.attr('x', function(d){return d.x;}).attr('y', function(d){return d.y;}); });
+  }
+  document.addEventListener('reversa:param-change', function(ev){ var p = ev.detail.param, v = ev.detail.value;
+    if (p==='kind') kind = v; if (p==='charge') charge = +v; if (p==='dist') dist = +v; draw(); }, true);
+  draw();
+})();
+</script>
+</body>
+</html>

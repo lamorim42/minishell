@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisar Linha de Comando | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/analisar-linha-de-comando/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-analisar-linha-de-comando">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Analisar Linha de Comando</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Transforma a linha crua aceita pelo laço interativo (já com aspas balanceadas e sem ser comentário) em uma sequência de <strong>tokens</strong> com uma <strong>categoria léxica</strong> paralela, valida a gramática e, depois da expansão, gera os <strong>tokens limpos</strong> sem aspas. É a ponte entre <code>iniciar-sessao-e-ler-comando</code> e a montagem da lista de execução.</p><p><span class="badge bug">BUG-11</span><span class="badge bug">BUG-12</span><span class="badge bug">BUG-13</span><span class="badge bug">BUG-17</span><span class="badge ok">confiança 98%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Visão Geral</h3>
+<p>Transforma a linha crua aceita pelo laço interativo (já com aspas balanceadas e sem ser comentário) em uma sequência de <strong>tokens</strong> com uma <strong>categoria léxica</strong> paralela, valida a gramática e, depois da expansão, gera os <strong>tokens limpos</strong> sem aspas. É a ponte entre <code>iniciar-sessao-e-ler-comando</code> e a montagem da lista de execução 🟢.</p>
+<p>Fronteira: esta unit define <em>como</em> os tokens são cortados, classificados, validados e limpos. A <strong>ordem</strong> "expandir → limpar aspas" e as regras de substituição de <code>$</code> ficam em <code>expandir-variaveis</code> 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Contar os tokens da linha antes de alocar os arrays (<code>tks_nbr</code>) 🟢</li><li>Cortar a linha em tokens (<code>tks</code>), preservando as aspas dentro de cada token 🟢</li><li>Classificar cada token em <code>WORD</code>, <code>VAR</code>, <code>PIPE</code>, <code>REDI</code>, <code>REDO</code>, <code>REDA</code> ou <code>HERE</code> (<code>lex</code>, array paralelo a <code>tks</code>) 🟢</li><li>Validar a gramática sobre <code>lex</code> e, em caso de erro, informar <code>Syntax ERROR!</code> e descartar a linha 🟢</li><li>Gerar <code>ctks</code>, cópia de <code>tks</code> sem aspas, usada pelo resto do pipeline 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<h4>Corte de tokens</h4>
+<ul><li>RN-06: só o espaço <code>&#x27; &#x27;</code> separa tokens. Tab e outros brancos fazem parte do token 🟢. ⚠️ No bash, tab também separa</li><li>AT-01: <code>|</code>, <code>&lt;</code> e <code>&gt;</code> são tokens próprios, mesmo colados a palavras (<code>ls&gt;file</code> → <code>ls</code>, <code>&gt;</code>, <code>file</code>) 🟢</li><li>AT-02: <code>&gt;&gt;</code> e <code>&lt;&lt;</code> são tokens de 2 caracteres. Sequências maiores são cortadas da esquerda para a direita, em pares: <code>&lt;&lt;&lt;</code> → <code>&lt;&lt;</code>, <code>&lt;</code>; <code>&lt;&gt;</code> → <code>&lt;</code>, <code>&gt;</code>; <code>&gt;|</code> → <code>&gt;</code>, <code>|</code>; <code>||</code> → <code>|</code>, <code>|</code> 🟢</li><li>AT-03: um token que começa com aspa vai até a aspa de fechamento do mesmo tipo e continua até um delimitador do conjunto <code>| &gt; &lt; $ espaço</code>. Se encontrar outra aspa nesse trecho, absorve o novo trecho entre aspas: <code>&quot;a&quot;&#x27;b&#x27;c</code> é um token só 🟢</li><li>AT-04: <code>$</code> depois de um trecho entre aspas <strong>corta</strong> o token: <code>&quot;a&quot;$X</code> → <code>&quot;a&quot;</code>, <code>$X</code> 🟢. ⚠️ No bash é uma palavra só</li><li>AT-05: uma palavra que <strong>não</strong> começa com <code>$</code> absorve aspas: <code>a&quot;b c&quot;d</code> é um token só, com o espaço interno preservado 🟢</li><li>AT-06: uma palavra que começa com <code>$</code> é cortada na primeira aspa: <code>$X&#x27;q&#x27;</code> → <code>$X</code>, <code>&#x27;q&#x27;</code>. Por isso <code>echo $X&#x27;q&#x27;</code> imprime dois argumentos (BUG-17) 🟢. ⚠️ No bash é <code>helloq</code></li><li>AT-07: dentro de aspas, operadores e espaços são literais: <code>&#x27;/bin/ls obj&#x27;</code> é um token só 🟢</li><li>AT-08: a contagem (<code>count_tks</code>) segue exatamente as mesmas regras do corte; o número contado dimensiona <code>tks</code>, <code>lex</code> e <code>ctks</code> 🟢</li></ul>
+<h4>Classificação léxica (primeira regra que casar)</h4>
+<ul><li>LX-01: começa com <code>|</code> → <code>PIPE</code> 🟢</li><li>LX-02: igual a <code>&gt;&gt;</code> → <code>REDA</code>; igual a <code>&lt;&lt;</code> → <code>HERE</code> 🟢</li><li>LX-03: começa com <code>&gt;</code> → <code>REDO</code>; começa com <code>&lt;</code> → <code>REDI</code> 🟢</li><li>LX-04: contém <code>$</code> e tem mais de 1 caractere → <code>VAR</code>, inclusive entre aspas (<code>&quot;$HOME&quot;</code>, <code>&#x27;$HOME&#x27;</code>, <code>a$b</code>) 🟢</li><li>LX-05: qualquer outro token → <code>WORD</code>, incluindo <code>$</code> sozinho e operadores entre aspas (<code>&quot;&gt;&quot;</code> é <code>WORD</code>) 🟢</li></ul>
+<h4>Gramática</h4>
+<ul><li>RN-10 / G-01: <code>PIPE</code> na primeira posição é erro 🟢</li><li>RN-10 / G-02: <code>PIPE</code> seguido de <code>PIPE</code> é erro (<code>ls | | cat</code>, <code>ls || cat</code>) 🟢</li><li>RN-11 / G-03: <code>REDO</code>, <code>REDA</code>, <code>REDI</code> e <code>HERE</code> precisam ser seguidos <strong>exatamente</strong> de um <code>WORD</code>. Fim da linha, operador ou <code>VAR</code> são erro: <code>&gt; $F</code>, <code>&gt; &quot;$x&quot;</code>, <code>&lt;&lt; $EOF</code>, <code>&gt; a$b</code> são rejeitados (BUG-13) 🟢. ⚠️ O bash aceita alvos com <code>$</code></li><li>RN-12: <code>PIPE</code> no fim da linha é aceito; <code>ls |</code> executa <code>ls</code> com a saída indo para um pipe que ninguém lê, sem mensagem 🟢. ⚠️ O bash pede continuação</li><li>RN-13: erro de sintaxe → <code>Syntax ERROR!\n</code> em <strong>stdout</strong>, <code>tks</code>, <code>lex</code> e a linha são liberados, nada executa, a linha não entra no histórico e <code>$?</code> não muda (BUG-12) 🟢. ⚠️ O bash escreve em stderr e grava <code>$?=2</code></li><li>Linha só com espaços gera zero tokens, passa na gramática e segue para a execução sem efeito visível 🟢</li><li>RN-14: não há suporte a <code>;</code>, <code>&amp;&amp;</code>, <code>||</code> (como operador lógico), <code>()</code>, <code>*</code>, <code>\</code> (escape) nem <code>&lt;&gt;</code>. Esses caracteres são literais ou caem nas regras acima 🟡</li></ul>
+<h4>Remoção de aspas</h4>
+<ul><li>AQ-01: token sem aspas é copiado como está 🟢</li><li>AQ-02: token que começa <strong>e</strong> termina com <code>&quot;</code> perde <strong>todas</strong> as <code>&quot;</code> das duas pontas (<code>ft_strtrim</code>); as do meio ficam: <code>&quot;a&quot;b&quot;c&quot;</code> → <code>a&quot;b&quot;c</code> (BUG-11) 🟢. ⚠️ O bash dá <code>abc</code></li><li>AQ-03: a mesma regra vale para <code>&#x27;</code> nas duas pontas 🟢</li><li>AQ-04: nos demais casos, <strong>todas</strong> as aspas dos dois tipos são removidas: <code>a&quot;b&#x27;c&quot;</code> → <code>abc</code> (BUG-11) 🟢. ⚠️ O bash dá <code>ab&#x27;c</code></li><li>AQ-05: aspas do tipo oposto dentro de aspas são preservadas só quando o token cai em AQ-02/AQ-03: <code>&quot;it&#x27;s&quot;</code> → <code>it&#x27;s</code> 🟢</li><li>AQ-06: a limpeza roda sobre os tokens <strong>já expandidos</strong>, então aspas vindas do valor de uma variável também são removidas (RN-26) 🟢</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: não está decidido se as ⚠️ DIVERGÊNCIAS acima devem ser preservadas (documentação as-is) ou corrigidas em uma reimplementação)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td>Cortar a linha em tokens conforme AT-01 a AT-07</td><td>Must</td><td><code>ls -a\|cat -e</code> → <code>ls</code>, <code>-a</code>, <code>\|</code>, <code>cat</code>, <code>-e</code></td></tr><tr><td>RF-02</td><td>Contar os tokens com as mesmas regras do corte (AT-08)</td><td>Must</td><td><code>count_tks(s)</code> igual ao número de elementos de <code>tokenizer(s)</code> para toda linha válida</td></tr><tr><td>RF-03</td><td>Gerar <code>lex[]</code> paralelo a <code>tks[]</code>, terminado em <code>NULL</code>, conforme LX-01 a LX-05</td><td>Must</td><td><code>cat &lt;&lt; miau</code> → <code>WORD</code>, <code>HERE</code>, <code>WORD</code></td></tr><tr><td>RF-04</td><td>Rejeitar a linha quando violar G-01, G-02 ou G-03</td><td>Must</td><td><code>\| ls</code>, <code>ls \| \| cat</code>, <code>ls &gt;</code> → <code>Syntax ERROR!</code></td></tr><tr><td>RF-05</td><td>Aceitar <code>PIPE</code> no fim da linha (RN-12)</td><td>Should</td><td><code>ls \|</code> não exibe erro</td></tr><tr><td>RF-06</td><td>Em erro de sintaxe, liberar <code>tks</code>, <code>lex</code> e <code>str</code>, não executar nada e não mexer em <code>$?</code></td><td>Must</td><td>Depois de <code>ls &gt;</code>, <code>echo $?</code> mostra o status anterior</td></tr><tr><td>RF-07</td><td>Gerar <code>ctks[]</code> sem aspas conforme AQ-01 a AQ-05</td><td>Must</td><td><code>echo &quot;oi&quot;</code> → <code>ctks</code> = <code>echo</code>, <code>oi</code></td></tr><tr><td>RF-08</td><td>Tratar operadores entre aspas como palavras literais</td><td>Must</td><td><code>echo &quot;&gt;&quot;</code> imprime <code>&gt;</code> e não cria arquivo</td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Testabilidade</td><td>Módulo coberto por 83 testes GoogleTest (tokenizer 22, count_tks 31, lexical 10, sintaxe 7, clean 13)</td><td><code>tests/*.cpp</code>, ADR-002</td><td>🟢</td></tr><tr><td>Desempenho</td><td>Duas passadas lineares sobre a linha (contar e cortar); a classificação é uma passada sobre os tokens</td><td><code>src/tokens/tokenizer_utils.c:17-19</code></td><td>🟢</td></tr><tr><td>Robustez</td><td><code>lexical_analyzer</code> e <code>clean_tokens</code> não verificam o retorno do <code>malloc</code>; <code>tokenizer</code> retorna <code>NULL</code> em falha, mas <code>building_tokens</code> não trata</td><td><code>src/tokens/lexical_analyzer.c:23</code>, <code>src/tokens/clean_tokens.c:25</code>, <code>src/tokens/tokenizer_utils.c:18</code></td><td>🟢</td></tr><tr><td>Pré-condição</td><td>O corte presume aspas balanceadas; o laço interativo garante isso antes (<code>verify_quots</code>)</td><td><code>src/main.c</code>, <code>src/tokens/sintax_analysis.c:46</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Análise da linha de comando
+
+  Cenário: Operadores colados a palavras
+    Dado a linha &quot;ls&gt;&gt;file&quot;
+    Quando a linha é tokenizada
+    Então os tokens são &quot;ls&quot;, &quot;&gt;&gt;&quot;, &quot;file&quot;
+    E as categorias são WORD, REDA, WORD
+
+  Cenário: Texto entre aspas forma um token só
+    Dado a linha &quot;echo &#x27;a | b&#x27;&quot;
+    Quando a linha é analisada
+    Então os tokens são &quot;echo&quot;, &quot;&#x27;a | b&#x27;&quot;
+    E nenhuma categoria é PIPE
+
+  Cenário: Palavra que absorve aspas
+    Dado a linha &#x27;echo a&quot;b c&quot;d&#x27;
+    Quando a linha é analisada e limpa
+    Então há 2 tokens
+    E o segundo token limpo é &quot;ab cd&quot;
+
+  Cenário: Pipe no início
+    Dado a linha &quot;| ls&quot;
+    Quando a gramática é validada
+    Então &quot;Syntax ERROR!&quot; é escrito em stdout
+    E nenhum comando é executado
+    E $? mantém o valor anterior
+
+  Cenário: Redirecionamento sem alvo
+    Dado a linha &quot;echo oi &gt;&quot;
+    Quando a gramática é validada
+    Então &quot;Syntax ERROR!&quot; é escrito em stdout
+    E nenhum arquivo é criado
+
+  Cenário: Operador entre aspas é literal
+    Dado a linha &#x27;echo &quot;&gt;&quot;&#x27;
+    Quando a linha é executada
+    Então &quot;&gt;&quot; é exibido
+    E nenhum arquivo é criado
+
+  @divergente
+  Cenário: Pipe no fim é aceito (bash pediria continuação)
+    Dado a linha &quot;ls |&quot;
+    Quando a linha é executada
+    Então nenhuma mensagem de erro é exibida
+
+  @divergente
+  Cenário: Alvo de redirecionamento com variável é rejeitado (BUG-13)
+    Dado a linha &quot;echo oi &gt; $HOME/f&quot;
+    Quando a gramática é validada
+    Então &quot;Syntax ERROR!&quot; é escrito em stdout
+
+  @divergente
+  Cenário: Variável seguida de aspas vira dois argumentos (BUG-17)
+    Dado X=hello no ambiente
+    Quando o usuário digita &quot;echo $X&#x27;q&#x27;&quot;
+    Então a saída é &quot;hello q&quot;
+
+  @divergente
+  Cenário: Remoção de aspas pelas pontas (BUG-11)
+    Quando o usuário digita &#x27;echo &quot;a&quot;b&quot;c&quot;&#x27;
+    Então a saída é &#x27;a&quot;b&quot;c&#x27;</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01, RF-02, RF-03</td><td>Must</td><td>Toda linha não vazia passa por aqui; os arrays dimensionam o resto do pipeline</td></tr><tr><td>RF-04, RF-06</td><td>Must</td><td>Impede montar uma lista de execução inválida</td></tr><tr><td>RF-07, RF-08</td><td>Must</td><td>Sem eles, argumentos com aspas chegam errados aos comandos</td></tr><tr><td>RF-05</td><td>Should</td><td>Comportamento herdado e sem efeito útil; mantido por fidelidade ao as-is</td></tr></tbody></table></div>
+<blockquote>Prioridade inferida pela posição no pipeline (<code>facade</code>) e pela cobertura de testes.</blockquote>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/tokens/tokenizer_utils.c</code></td><td><code>building_tokens</code>, <code>ft_strcmp_len</code></td><td>🟢</td></tr><tr><td><code>src/tokens/count_tks.c</code></td><td><code>count_tks</code>, <code>count_special_chr</code>, <code>count_inside_quot_as_one_word</code>, <code>count_word</code></td><td>🟢</td></tr><tr><td><code>src/tokens/tokenizer.c</code></td><td><code>tokenizer</code>, <code>worddup</code>, <code>make_red_len</code>, <code>make_quots_len</code>, <code>make_word_len</code></td><td>🟢</td></tr><tr><td><code>src/tokens/lexical_analyzer.c</code></td><td><code>lexical_analyzer</code>, <code>find_lexema</code></td><td>🟢</td></tr><tr><td><code>src/tokens/sintax_analysis.c</code></td><td><code>sintax_analysis</code></td><td>🟢</td></tr><tr><td><code>src/tokens/clean_tokens.c</code></td><td><code>clean_tokens</code>, <code>clean_quots</code>, <code>clean_in_middle</code>, <code>count_quots</code></td><td>🟢</td></tr><tr><td><code>src/free.c</code></td><td><code>free_sintax</code></td><td>🟢</td></tr><tr><td><code>src/facade.c</code></td><td><code>facade</code> (chamada de <code>building_tokens</code> e <code>sintax_analysis</code>), <code>exec_pipe_line</code> (chamada de <code>clean_tokens</code>)</td><td>🟢</td></tr><tr><td><code>tests/tests_*.cpp</code></td><td>Suítes GTest do módulo</td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>building_tokens</code></td><td><code>(t_line *line)</code></td><td><code>void</code></td><td>Preenche <code>tks_nbr</code>, <code>tks</code> e <code>lex</code> 🟢</td></tr><tr><td><code>count_tks</code></td><td><code>(char *line)</code></td><td><code>int</code></td><td>Número de tokens; reimplementa as regras do <code>tokenizer</code> 🟢</td></tr><tr><td><code>tokenizer</code></td><td><code>(t_line *line)</code></td><td><code>char **</code> terminado em <code>NULL</code></td><td>Lê <code>line-&gt;str</code>; retorna <code>NULL</code> se o <code>malloc</code> falhar 🟢</td></tr><tr><td><code>worddup</code> (static)</td><td><code>(char **s)</code></td><td><code>char *</code></td><td>Copia um token e avança <code>*s</code> 🟢</td></tr><tr><td><code>make_red_len</code> / <code>make_quots_len</code> / <code>make_word_len</code> (static)</td><td><code>(char *str, int *len)</code></td><td><code>void</code></td><td>Calculam o tamanho do token a partir de <code>str</code> 🟢</td></tr><tr><td><code>lexical_analyzer</code></td><td><code>(t_line *line)</code></td><td><code>char **</code> terminado em <code>NULL</code></td><td>Um lexema por token, mesmo índice 🟢</td></tr><tr><td><code>find_lexema</code> (static)</td><td><code>(t_line *line, char **lex, int i)</code></td><td><code>void</code></td><td>Grava <code>lex[i]</code> 🟢</td></tr><tr><td><code>sintax_analysis</code></td><td><code>(char **lex)</code></td><td><code>int</code> (<code>TRUE</code>/<code>FALSE</code>)</td><td>Só olha <code>lex</code>, nunca o texto 🟢</td></tr><tr><td><code>free_sintax</code></td><td><code>(t_line *line)</code></td><td><code>void</code></td><td>Imprime <code>Syntax ERROR!</code> e libera <code>tks</code>, <code>lex</code>, <code>str</code> 🟢</td></tr><tr><td><code>clean_tokens</code></td><td><code>(t_line *line)</code></td><td><code>char **</code> terminado em <code>NULL</code></td><td>Lê <code>line-&gt;tks</code> (já expandido) 🟢</td></tr><tr><td><code>clean_quots</code> / <code>clean_in_middle</code> (static)</td><td><code>(char *tks)</code></td><td><code>char *</code> novo</td><td>🟢</td></tr><tr><td><code>count_quots</code></td><td><code>(char *tks)</code></td><td><code>int</code></td><td>Conta <code>&quot;</code> e <code>&#x27;</code> 🟢</td></tr><tr><td><code>ft_strcmp_len</code></td><td><code>(char *s1, char *s2)</code></td><td><code>char</code> (bool)</td><td>Igualdade exata; usado por <code>expand_var</code> para testar <code>&quot;VAR&quot;</code> 🟢</td></tr></tbody></table></div>
+<p><strong>Entrada:</strong> <code>line-&gt;str</code>, com aspas balanceadas e sem ser comentário (garantido por <code>main_loop</code>) 🟢.</p>
+<p>**Saída (campos de <code>t_line</code>):**</p>
+<div class="table-wrap"><table><thead><tr><th>Campo</th><th>Conteúdo</th><th>Produzido em</th></tr></thead><tbody><tr><td><code>tks_nbr</code></td><td>quantidade de tokens</td><td><code>building_tokens</code></td></tr><tr><td><code>tks[]</code></td><td>texto cru de cada token, com aspas</td><td><code>tokenizer</code></td></tr><tr><td><code>lex[]</code></td><td><code>&quot;WORD&quot;</code>, <code>&quot;VAR&quot;</code>, <code>&quot;PIPE&quot;</code>, <code>&quot;REDI&quot;</code>, <code>&quot;REDO&quot;</code>, <code>&quot;REDA&quot;</code> ou <code>&quot;HERE&quot;</code></td><td><code>lexical_analyzer</code></td></tr><tr><td><code>ctks[]</code></td><td>texto de <code>tks[]</code> (já expandido) sem aspas</td><td><code>clean_tokens</code></td></tr></tbody></table></div>
+<p>Os três arrays são <strong>paralelos</strong>: o índice <code>i</code> identifica o mesmo token em todos (ADR-003) 🟢.</p>
+<h3>Fluxo Principal</h3>
+<ol><li><code>facade</code> verifica <code>str != NULL &amp;&amp; ft_strlen(str) &gt; 0</code> (<code>src/facade.c:20</code>) 🟢</li><li><code>building_tokens</code> (<code>src/tokens/tokenizer_utils.c:15-20</code>) 🟢:<ol><li><code>tks_nbr = count_tks(str)</code></li><li><code>tks = tokenizer(line)</code>: chama <code>count_tks</code> <strong>de novo</strong> para dimensionar o array</li><li><code>lex = lexical_analyzer(line)</code>: aloca <code>tks_nbr + 1</code></li></ol></li><li><code>sintax_analysis(lex)</code> (<code>src/facade.c:23</code>) 🟢:<ul><li><code>FALSE</code> → <code>free_sintax(line)</code> e fim da linha</li><li><code>TRUE</code> → <code>exec_pipe_line</code></li></ul></li><li><code>exec_pipe_line</code> chama <code>expand_var(line, table)</code> (unit <code>expandir-variaveis</code>), que reescreve <code>tks[i]</code> no lugar sem tocar em <code>lex</code> 🟢</li><li><code>ctks = clean_tokens(line)</code> (<code>src/facade.c:37</code>) 🟢</li><li><code>creat_list_cmd</code> consome <code>lex</code> (para agrupar) e <code>ctks</code> (para os argumentos) (unit <code>executar-comando-simples</code>) 🟢</li></ol>
+<h4>Algoritmo de corte (<code>tokenizer</code> + <code>worddup</code>)</h4>
+<pre class="code" data-lang="text"><code>ptr = str
+enquanto *ptr:
+  se *ptr == &#x27; &#x27;: ptr++; continue
+  len = 0
+  se *ptr em &quot;|&gt;&lt;&quot;:   make_red_len
+  senão se *ptr em &quot;\&quot;&#x27;&quot;: make_quots_len
+  senão:              make_word_len
+  tks[i++] = cópia de ptr[0..len); ptr += len
+tks[i] = NULL</code></pre>
+<pre class="code" data-lang="text"><code>make_red_len(str, len):
+  op = str[len]; len++
+  se op == &#x27;&gt;&#x27; e str[len] == &#x27;&gt;&#x27;: len++
+  se op == &#x27;&lt;&#x27; e str[len] == &#x27;&lt;&#x27;: len++
+
+make_quots_len(str, len):
+  q = str[len]; len++
+  avança até str[len] == q ou fim; se achou q: len++
+  enquanto str[len] e str[len] não está em &quot;|&gt;&lt;$ &quot;:
+     se str[len] é aspa: make_quots_len(str, len); retorna   # absorve outro trecho
+     len++
+
+make_word_len(str, len):
+  inicio = str[len]
+  enquanto str[len] e str[len] não está em &quot;|&gt;&lt; &quot;:
+     se str[len] é aspa:
+        se inicio != &#x27;$&#x27;: make_quots_len(str, len); retorna   # absorve (AT-05)
+        senão: retorna                                       # corta (AT-06)
+     len++</code></pre>
+<p>Note a assimetria: <code>make_quots_len</code> para em <code>$</code>, <code>make_word_len</code> não 🟢.</p>
+<h4>Algoritmo de contagem (<code>count_tks</code>)</h4>
+<p>Mesma máquina de estados, mas incrementa um contador em vez de copiar. Quando uma palavra continua em um trecho entre aspas, o contador é incrementado pela chamada recursiva e decrementado antes dela, para que o token continue contando como um só (<code>src/tokens/count_tks.c:69,86</code>) 🟢.</p>
+<h4>Classificação (<code>find_lexema</code>)</h4>
+<p>Avaliada em ordem, a primeira que casar vence (<code>src/tokens/lexical_analyzer.c:35-50</code>) 🟢:</p>
+<div class="table-wrap"><table><thead><tr><th>Ordem</th><th>Teste</th><th>Lexema</th></tr></thead><tbody><tr><td>1</td><td><code>strncmp(t, &quot;\|&quot;, 1) == 0</code></td><td><code>PIPE</code></td></tr><tr><td>2</td><td><code>t == &quot;&gt;&gt;&quot;</code></td><td><code>REDA</code></td></tr><tr><td>3</td><td><code>t == &quot;&lt;&lt;&quot;</code></td><td><code>HERE</code></td></tr><tr><td>4</td><td><code>strncmp(t, &quot;&gt;&quot;, 1) == 0</code></td><td><code>REDO</code></td></tr><tr><td>5</td><td><code>strncmp(t, &quot;&lt;&quot;, 1) == 0</code></td><td><code>REDI</code></td></tr><tr><td>6</td><td><code>strchr(t, &#x27;$&#x27;) &amp;&amp; strlen(t) &gt; 1</code></td><td><code>VAR</code></td></tr><tr><td>7</td><td>—</td><td><code>WORD</code></td></tr></tbody></table></div>
+<p>Como o corte nunca produz operador junto com texto, os testes por prefixo (1, 4, 5) só casam com o operador sozinho 🟢.</p>
+<h4>Gramática (<code>sintax_analysis</code>)</h4>
+<pre class="code" data-lang="text"><code>se lex[0] existe e é PIPE: FALSE                       # G-01
+para cada i:
+  se lex[i] == PIPE e lex[i+1] == PIPE: FALSE           # G-02
+  se lex[i] em {REDO, REDA, REDI, HERE}
+     e (lex[i+1] == NULL ou lex[i+1] != WORD): FALSE    # G-03
+TRUE</code></pre>
+<p><code>PIPE</code> seguido de <code>NULL</code> não é testado, por isso <code>ls |</code> passa (RN-12) 🟢. As comparações usam <code>ft_strncmp(..., 4)</code> 🟢.</p>
+<h4>Remoção de aspas (<code>clean_tokens</code>)</h4>
+<pre class="code" data-lang="text"><code>para cada tks[i]:
+  sem aspas                         → strdup
+  começa e termina com &#x27;&quot;&#x27;          → ft_strtrim(t, &quot;\&quot;&quot;)   # tira todas as &quot; das pontas
+  começa e termina com &#x27;\&#x27;&#x27;         → ft_strtrim(t, &quot;&#x27;&quot;)
+  caso contrário                    → clean_in_middle: copia sem nenhuma aspa
+ctks[i] = NULL</code></pre>
+<p><code>ft_strtrim</code> remove qualquer sequência de <code>&quot;</code> nas pontas, não só uma aspa: <code>&quot;a&quot;b&quot;c&quot;</code> → <code>a&quot;b&quot;c</code> e <code>&quot;a&quot;&quot;&quot;</code> → <code>a</code> 🟢.</p>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>Linha só com espaços:</strong> <code>count_tks</code> = 0; <code>tks</code> e <code>lex</code> = <code>{NULL}</code>; a gramática retorna <code>TRUE</code> e o pipeline segue sem nós 🟢</li><li><strong>Erro de sintaxe:</strong> <code>free_sintax</code> faz <code>printf(&quot;Syntax ERROR!\n&quot;)</code>, <code>ft_free_arr(tks)</code>, <code>ft_free_arr(lex)</code>, <code>free(str)</code>; <code>status_code</code> não é alterado e <code>add_history</code> não é chamado (<code>src/free.c:47-56</code>) 🟢</li><li><strong>Operador entre aspas</strong> (<code>&quot;&gt;&quot;</code>): começa com aspa, então cai em <code>make_quots_len</code> e é classificado como <code>WORD</code> (regra 7) 🟢</li><li><strong>Token expandido para vazio:</strong> continua no array com <code>lex = VAR</code>; <code>clean_tokens</code> gera <code>&quot;&quot;</code> (detalhado em <code>expandir-variaveis</code>) 🟢</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>Libft:</strong> <code>ft_strchr</code>, <code>ft_strncmp</code>, <code>ft_strlen</code>, <code>ft_strlcpy</code>, <code>ft_strdup</code>, <code>ft_strtrim</code>, <code>ft_free_arr</code></li><li><strong>iniciar-sessao-e-ler-comando:</strong> garante as aspas balanceadas (<code>verify_quots</code>) e chama <code>facade</code></li><li><strong>expandir-variaveis:</strong> roda entre <code>sintax_analysis</code> e <code>clean_tokens</code>, usa <code>lex</code> e reescreve <code>tks</code></li><li><strong>executar-comando-simples:</strong> <code>creat_list_cmd</code> / <code>make_args</code> consomem <code>lex</code> e <code>ctks</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Arrays paralelos <code>tks</code>/<code>lex</code>/<code>ctks</code> indexados pela posição (ADR-003)</td><td><code>includes/minishell.h:63-67</code></td><td>🟢</td></tr><tr><td>Lexemas como strings, não <code>enum</code></td><td><code>src/tokens/lexical_analyzer.c:36-50</code></td><td>🟢</td></tr><tr><td>Contagem separada do corte, para alocar antes</td><td><code>src/tokens/count_tks.c</code>, <code>src/tokens/tokenizer.c:28</code></td><td>🟢</td></tr><tr><td>A gramática é verificada <strong>antes</strong> da expansão, sobre os lexemas originais</td><td><code>src/facade.c:23,36</code></td><td>🟢</td></tr><tr><td>A remoção de aspas é feita <strong>depois</strong> da expansão, sobre o texto expandido</td><td><code>src/facade.c:36-37</code></td><td>🟢</td></tr><tr><td>Módulo desenvolvido com TDD em GoogleTest (ADR-002)</td><td><code>tests/*.cpp</code>, <code>tests/CMakeLists.txt</code></td><td>🟢</td></tr><tr><td>Não há modelo formal de <em>quoting</em>; os casos foram corrigidos um a um</td><td>histórico Git (<code>fix: echo &#x27;oi&#x27;$USER&#x27;oi&#x27;</code>)</td><td>🟡</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p>Sem estado próprio. Tudo vive em <code>t_line</code> e dura uma linha 🟢:</p>
+<ul><li><code>tks</code>, <code>lex</code> são alocados em <code>building_tokens</code>; <code>ctks</code> em <code>clean_tokens</code></li><li>Liberados por <code>free_sintax</code> (erro) ou <code>free_line</code> (fim da linha, <code>src/free.c:31-45</code>)</li><li><code>tks_nbr</code> é sobrescrito na linha seguinte</li></ul>
+<h3>Observabilidade</h3>
+<p>Única saída: <code>Syntax ERROR!\n</code> em stdout, sem indicar a posição nem o token 🟢. Não há logs.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 <code>count_tks</code> e <code>tokenizer</code> são duas implementações das mesmas regras. Se divergirem, <code>tokenizer</code>, <code>lexical_analyzer</code> e <code>clean_tokens</code> escrevem fora do array. Hoje as duas coincidem para entradas com aspas balanceadas (31 testes de <code>count_tks</code>)</li><li>🟢 <code>lexical_analyzer</code> e <code>clean_tokens</code> não testam o <code>malloc</code>; <code>building_tokens</code> não trata <code>tokenizer == NULL</code></li><li>🟢 <code>clean_tokens</code> aloca <code>tks_nbr + 1</code> posições, mas itera até <code>tks[i] == NULL</code>: depende de as duas contagens coincidirem</li><li>🟡 <code>count_inside_quot_as_one_word</code> usa <code>*(*line + 1)</code> como condição de parada, diferente de <code>make_quots_len</code>; com aspas desbalanceadas os dois divergiriam, mas o REPL impede esse caso</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: não está decidido se BUG-11, BUG-13 e BUG-17 devem ser mantidos por fidelidade ou corrigidos</li><li>✅ L-04 (respondida em 2026-11-22): <strong>não foi deliberado</strong>; é um bug (BUG-12/RN-13), documentado como comportamento atual (L-07)</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>iniciar-sessao-e-ler-comando</code> implementada (entrega <code>line-&gt;str</code> com aspas balanceadas e sem ser comentário)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Libft com <code>ft_strchr</code>, <code>ft_strncmp</code>, <code>ft_strlcpy</code>, <code>ft_strdup</code>, <code>ft_strtrim</code>, <code>ft_free_arr</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; GoogleTest e CMake disponíveis para as suítes de <code>tests/</code> (ADR-002)</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 tomada: reproduzir as ⚠️ DIVERGÊNCIAS (as-is) ou corrigi-las. As tarefas abaixo descrevem o as-is e indicam onde a correção entraria → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Declarar em <code>t_line</code> os campos <code>tks_nbr</code>, <code>tks</code>, <code>lex</code> e <code>ctks</code>, como arrays paralelos terminados em <code>NULL</code><ul><li>Origem no legado: <code>includes/minishell.h:63-67</code>, ADR-003</li><li>Critério de pronto: <code>init_line</code> zera os quatro campos; <code>free_line</code> libera os três arrays</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Implementar o corte de tokens (<code>tokenizer</code>, <code>worddup</code>, <code>make_red_len</code>, <code>make_quots_len</code>, <code>make_word_len</code>) conforme AT-01 a AT-07<ul><li>Origem no legado: <code>src/tokens/tokenizer.c:20-113</code></li><li>Critério de pronto: as 22 suítes de <code>tests/tests_tokenizer.cpp</code> passam; <code>ls&gt;&gt;file</code> → <code>ls</code>, <code>&gt;&gt;</code>, <code>file</code>; <code>a&quot;b c&quot;d</code> → um token; <code>&quot;a&quot;$X</code> → dois tokens</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Implementar <code>count_tks</code> com as mesmas regras de T-02, incluindo o decremento quando uma palavra continua em aspas<ul><li>Origem no legado: <code>src/tokens/count_tks.c:21-93</code></li><li>Critério de pronto: as 31 suítes de <code>tests/tests_count_tks.cpp</code> passam; para todo caso de T-02, <code>count_tks(s)</code> é igual ao tamanho de <code>tokenizer(s)</code></li><li>Confiança: 🟢</li><li>Nota: numa reimplementação, vale derivar a contagem do próprio corte (uma única máquina de estados) para eliminar o risco de escrita fora do array 🟡</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Implementar <code>building_tokens</code> encadeando contagem, corte e classificação<ul><li>Origem no legado: <code>src/tokens/tokenizer_utils.c:15-20</code></li><li>Critério de pronto: depois da chamada, <code>tks_nbr</code>, <code>tks</code> e <code>lex</code> estão preenchidos e têm o mesmo tamanho</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Implementar <code>lexical_analyzer</code> / <code>find_lexema</code> com a ordem de LX-01 a LX-05<ul><li>Origem no legado: <code>src/tokens/lexical_analyzer.c:17-51</code></li><li>Critério de pronto: as 10 suítes de <code>tests/tests_lexical_analyzer.cpp</code> passam; <code>&quot;&gt;&quot;</code> → <code>WORD</code>; <code>$</code> → <code>WORD</code>; <code>&#x27;$HOME&#x27;</code> → <code>VAR</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-06, Implementar <code>sintax_analysis</code> com G-01, G-02 e G-03, aceitando <code>PIPE</code> no fim (RN-12)<ul><li>Origem no legado: <code>src/tokens/sintax_analysis.c:17-44</code></li><li>Critério de pronto: as 7 suítes de <code>tests/tests_sintax_analysis.cpp</code> passam; <code>| ls</code>, <code>ls | | cat</code>, <code>ls &gt;</code>, <code>cat &lt;&lt;&lt; x</code>, <code>&gt; $F</code> → <code>FALSE</code>; <code>ls |</code> → <code>TRUE</code></li><li>Confiança: 🟢</li><li>Nota: corrigir BUG-13 (aceitar <code>VAR</code> como alvo) é decisão de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-07, Implementar <code>free_sintax</code>: imprimir <code>Syntax ERROR!\n</code> em stdout, liberar <code>tks</code>, <code>lex</code> e <code>str</code>, sem alterar <code>status_code</code><ul><li>Origem no legado: <code>src/free.c:47-56</code></li><li>Critério de pronto: cenário "Pipe no início"; Valgrind sem vazamento depois de 100 linhas inválidas</li><li>Confiança: 🟢</li><li>Nota: mudar para stderr e <code>$?=2</code> é bug (L-04 respondida); mantido as-is pela L-07</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-08, Integrar na <code>facade</code>: <code>building_tokens</code> → <code>sintax_analysis</code> → (<code>free_sintax</code> | <code>exec_pipe_line</code>)<ul><li>Origem no legado: <code>src/facade.c:18-30</code></li><li>Critério de pronto: linha inválida não chega a <code>expand_var</code> nem a <code>add_history</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-09, Implementar <code>clean_tokens</code> / <code>clean_quots</code> / <code>clean_in_middle</code> conforme AQ-01 a AQ-05, chamado depois de <code>expand_var</code><ul><li>Origem no legado: <code>src/tokens/clean_tokens.c:18-87</code>, <code>src/facade.c:36-37</code></li><li>Critério de pronto: as 13 suítes de <code>tests/tests_clean_tokens.cpp</code> passam; <code>&quot;it&#x27;s&quot;</code> → <code>it&#x27;s</code>; <code>a&quot;b&#x27;c&quot;</code> → <code>abc</code>; <code>&quot;a&quot;b&quot;c&quot;</code> → <code>a&quot;b&quot;c</code></li><li>Confiança: 🟢</li><li>Nota: corrigir BUG-11 (remoção de aspas como no bash) depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-10, Verificar o retorno de todos os <code>malloc</code> do módulo e tratar <code>tokenizer == NULL</code> em <code>building_tokens</code><ul><li>Origem no legado: <code>src/tokens/lexical_analyzer.c:23</code>, <code>src/tokens/clean_tokens.c:25,77</code>, <code>src/tokens/tokenizer_utils.c:18</code></li><li>Critério de pronto: com falha de alocação simulada, o shell descarta a linha sem <em>segfault</em></li><li>Confiança: 🟢 (lacuna de robustez do legado, não um comportamento observável)</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Rodar as 83 suítes GTest existentes (<code>tests/</code>) contra a nova implementação, sem alterar os casos</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Teste de integração: <code>echo &#x27;a | b&#x27;</code> imprime <code>a | b</code> e não cria pipe</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Erros de sintaxe (<code>| ls</code>, <code>ls | | cat</code>, <code>echo oi &gt;</code>, <code>cat &lt;&lt;</code>, <code>cat &lt;&lt;&lt; x</code>) → <code>Syntax ERROR!</code> em stdout, nada executa, <code>echo $?</code> mostra o valor anterior</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, <code>echo &quot;&gt;&quot;</code> imprime <code>&gt;</code> e nenhum arquivo é criado</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-05, Linha só com espaços → nenhuma saída e nenhuma mensagem</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-06, Teste de propriedade: para strings aleatórias com aspas balanceadas sobre o alfabeto <code>a $ &quot; &#x27; | &lt; &gt; espaço</code>, <code>count_tks(s) == len(tokenizer(s))</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-07, Cenários <code>@divergente</code> de <code>requirements.md</code> (<code>ls |</code>, <code>&gt; $HOME/f</code>, <code>echo $X&#x27;q&#x27;</code>, <code>echo &quot;a&quot;b&quot;c&quot;</code>), que fixam o as-is (L-07 = documentar o comportamento atual)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-08, Tab dentro da linha: <code>echo&lt;TAB&gt;oi</code> é um único token (RN-06)</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 (estruturas)</li><li>T-02 → T-03 → T-04 (corte e contagem juntos, porque precisam coincidir; validar com TT-06 logo cedo)</li><li>T-05 → T-06 → T-07 → T-08 (classificação, gramática e integração na <code>facade</code>)</li><li>T-09 depende da unit <code>expandir-variaveis</code> só para o teste de integração; a função pode ser feita e testada isoladamente antes</li><li>T-10 por último, como endurecimento</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: manter ou corrigir BUG-11 (remoção de aspas), BUG-13 (alvo <code>VAR</code> rejeitado), BUG-17 (<code>$X&#x27;q&#x27;</code> em dois argumentos), AT-04 (<code>&quot;a&quot;$X</code> em dois tokens) e RN-12 (<code>PIPE</code> final aceito)</li><li>✅ L-04 (respondida em 2026-11-22): <strong>não foi deliberado</strong>; é um bug (BUG-12/RN-13), documentado como comportamento atual (L-07)</li><li>✅ L-01 (respondida em 2026-11-22): o alvo é o <strong>mínimo exigido pelo subject</strong> da 42; tab como separador (RN-06) fica fora do escopo</li></ul></div></details>
+</section><nav class="feature-pager"><a href="iniciar-sessao-e-ler-comando.html">← Iniciar Sessão e Ler Comando</a><a href="expandir-variaveis.html">Expandir Variáveis →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-analisar-linha-de-comando">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/analisar-linha-de-comando/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>
