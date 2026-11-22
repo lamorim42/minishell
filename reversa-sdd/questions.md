@@ -102,3 +102,20 @@
 **Impacto:** centraliza a lista de bugs em um só lugar. Sem isso, quem lê só o `code-analysis.md` não vê os dois achados.
 
 **Resposta:**  adicionar
+
+---
+
+## Pergunta 9 (L-08) ✅ Respondida
+
+**Contexto:** unificação da `featura/reversa` com a `feature/refac-rust` (PR #36). As specs descrevem o comportamento atual da versão em C (L-07), incluindo as ⚠️ DIVERGÊNCIAS em relação ao bash. A reescrita em Rust segue o POSIX.1-2024 (capítulo 2, *Shell Command Language*).
+**Spec afetada:** todas as units, nos itens marcados ⚠️ DIVERGÊNCIA ou `@divergente`; [`reversa-sdd/traceability/code-spec-matrix.md`] §6
+**Pergunta:** Na reescrita em Rust, os casos em que o C diverge do bash/POSIX devem ser reproduzidos (fidelidade ao C) ou seguir o POSIX?
+**Impacto:** define o critério de pronto da reescrita. Com "POSIX", cada ⚠️ DIVERGÊNCIA vira um comportamento que o Rust **não** reproduz, e o teste de aceitação passa a comparar com o POSIX (e com `bash --posix`/`dash` como referência prática), não com o binário em C.
+
+**Resposta:** seguir o POSIX (respondida no chat em 2026-11-22). Regras de aplicação:
+
+1. **Versão em C:** nada muda. L-07 continua valendo e as specs seguem descrevendo o que o C faz.
+2. **Versão em Rust:** onde a spec marca ⚠️ DIVERGÊNCIA ou `@divergente`, vale o POSIX. O comportamento do C fica só como registro histórico, não como critério de pronto.
+3. **Bugs (BUG-xx, RX-xx):** não são reproduzidos no Rust (consistente com a Pergunta 7, "corrigidos").
+4. **Escopo (Pergunta 1):** a lista "fora do escopo" (`${}`, `$$`, modo `-c`, `cd -` etc.) vale para o C. No Rust, o que já está implementado segue o POSIX. O que ainda não está implementado entra no escopo pelos marcos M3/M4 e pelos documentos de planejamento da refatoração.
+5. **Em caso de dúvida:** consultar o PRD, o TDD e os ADRs da refatoração em Rust, que têm precedência sobre estas specs para a versão em Rust. Atenção: a numeração dos ADRs da refatoração (citados no código como ADR-003, ADR-004, ADR-007, ADR-010, ADR-013 a ADR-015) **não** corresponde à dos ADRs desta extração em `reversa-sdd/adrs/` (ADR-001 a ADR-010, que descrevem a versão em C).
