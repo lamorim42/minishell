@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navegar Diretórios | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/navegar-diretorios/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-navegar-diretorios">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Navegar Diretórios</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Implementa os builtins <code>cd</code> (mudar o diretório de trabalho do shell e atualizar <code>PWD</code>/<code>OLDPWD</code> na tabela) e <code>pwd</code> (mostrar o diretório). O <code>pwd</code> mostra a variável <code>PWD</code> da tabela, não o diretório real do processo.</p><p><span class="badge bug">BUG-12</span><span class="badge ok">confiança 95%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad. Ambiente de teste: <code>HOME=/tmp PWD=/start PATH=/usr/bin:/bin</code>. O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Implementa os builtins <code>cd</code> (mudar o diretório de trabalho do shell e atualizar <code>PWD</code>/<code>OLDPWD</code> na tabela) e <code>pwd</code> (mostrar o diretório). O <code>pwd</code> mostra a variável <code>PWD</code> da tabela, não o diretório real do processo 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li><code>cd &lt;dir&gt;</code>: <code>chdir</code> e atualização de <code>PWD</code> e <code>OLDPWD</code> 🟢</li><li><code>cd</code> e <code>cd ~</code>: ir para <code>$HOME</code> 🟢</li><li>Informar erros de <code>chdir</code> e <code>HOME</code> ausente 🟢</li><li><code>pwd</code>: imprimir o valor de <code>PWD</code> 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<h4><code>cd</code></h4>
+<ul><li>CD-01: <code>cd &lt;dir&gt;</code> → <code>chdir(dir)</code>; em sucesso, <code>PWD</code> = <code>getcwd()</code> (caminho resolvido) e <code>OLDPWD</code> = diretório anterior (<code>getcwd()</code> antes do <code>chdir</code>): <code>cd /usr/../etc</code> → <code>PWD=/etc</code> 🟢 (observado)</li><li>CD-02: <code>cd</code> sem argumento ou <code>cd ~</code> (exatamente) → <code>chdir($HOME)</code>; <code>PWD</code> recebe o <strong>valor literal</strong> de <code>HOME</code>, sem resolver: <code>HOME=/usr/../tmp</code> → <code>PWD=/usr/../tmp</code> 🟢 (observado). ⚠️ O bash grava o caminho lógico normalizado</li><li>CD-03: só o primeiro argumento é usado; os outros são ignorados: <code>cd /usr bin</code> → <code>/usr</code> 🟢 (observado). ⚠️ O bash recente reclama de <code>too many arguments</code></li><li>CD-04: <code>~</code> só é expandido sozinho: <code>cd ~/x</code> → <code>~/x: No such file or directory</code> 🟢 (observado). ⚠️ O bash expande o til</li><li>CD-05: <code>cd -</code> não é suportado → <code>-: No such file or directory</code>, <code>$?=1</code> 🟢 (observado). ⚠️ O bash vai para <code>$OLDPWD</code></li><li>CD-06: falha de <code>chdir</code> → <code>perror(&lt;dir&gt;)</code> e <code>$?=1</code>: <code>cd /nope</code> → <code>/nope: No such file or directory</code> 🟢 (observado). ⚠️ O bash prefixa com <code>cd: </code></li><li>CD-07 / BUG-12: <code>HOME</code> ausente → <code>cd: HOME not set</code> em stderr e **<code>$?=0</code>** 🟢 (observado). ⚠️ O bash grava 1</li><li>CD-08: <code>cd &quot;&quot;</code> → <code>chdir(&quot;&quot;)</code> falha → <code>No such file or directory</code> (sem nome) e <code>$?=1</code> 🟢 (observado). ⚠️ O bash não faz nada e retorna 0</li><li>CD-09: <code>cd</code> só muda o diretório do shell quando é o último nó da linha (RE-01): <code>cd /tmp &gt; /dev/null</code> não tem efeito 🟢 (observado em <code>executar-comando-simples</code>)</li><li>CD-10: o diretório anterior é lido num buffer fixo de 500 bytes; caminhos maiores deixam <code>OLDPWD</code> indefinido 🟡</li></ul>
+<h4><code>pwd</code></h4>
+<ul><li>PW-01: <code>pwd</code> imprime o valor de <code>PWD</code> <strong>da tabela</strong>, seguido de <code>\n</code> 🟢</li><li>PW-02: o valor herdado do ambiente é usado sem conferência: com <code>PWD=/start</code> herdado, <code>pwd</code> → <code>/start</code> 🟢 (observado). ⚠️ O bash confere se <code>PWD</code> aponta para o diretório atual</li><li>PW-03: <code>export PWD=/fake</code> → <code>pwd</code> imprime <code>/fake</code> (enquanto <code>/bin/pwd</code> imprime o real) 🟢 (observado). ⚠️ O bash usa o diretório real</li><li>PW-04: sem <code>PWD</code> na tabela (<code>unset PWD</code> ou ambiente vazio), <code>pwd</code> <strong>não imprime nada</strong> 🟢 (observado). ⚠️ O bash imprime o diretório real</li><li>PW-05: argumentos são ignorados 🟢</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: CD-02 a CD-08 e PW-02 a PW-04)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td><code>cd &lt;dir&gt;</code> muda o diretório e atualiza <code>PWD</code>/<code>OLDPWD</code></td><td>Must</td><td><code>cd /usr</code>; <code>pwd</code> → <code>/usr</code>; <code>echo $OLDPWD</code> → diretório anterior</td></tr><tr><td>RF-02</td><td><code>cd</code> e <code>cd ~</code> vão para <code>$HOME</code></td><td>Must</td><td><code>cd</code>; <code>pwd</code> → valor de <code>HOME</code></td></tr><tr><td>RF-03</td><td><code>chdir</code> falho → mensagem e <code>$?=1</code></td><td>Must</td><td><code>cd /nope</code> → mensagem; <code>echo $?</code> → <code>1</code></td></tr><tr><td>RF-04</td><td><code>HOME</code> ausente → <code>cd: HOME not set</code></td><td>Should</td><td><code>unset HOME</code>; <code>cd</code> → mensagem</td></tr><tr><td>RF-05</td><td><code>pwd</code> imprime o diretório atual</td><td>Must</td><td>Depois de <code>cd /etc</code>, <code>pwd</code> → <code>/etc</code></td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Robustez</td><td>Buffer fixo de 500 bytes para <code>getcwd</code>; retorno não verificado</td><td><code>src/builtins/cd.c:22-23,32</code></td><td>🟢</td></tr><tr><td>Consistência</td><td><code>pwd</code> depende de <code>PWD</code> estar coerente; nada sincroniza a tabela com o diretório real</td><td><code>src/builtins/pwd.c:15-22</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: cd e pwd
+
+  Cenário: Mudar de diretório
+    Quando o usuário digita &quot;cd /usr&quot;
+    E depois digita &quot;pwd&quot;
+    Então a saída é &quot;/usr&quot;
+
+  Cenário: Caminho com &quot;..&quot; é resolvido
+    Quando o usuário digita &quot;cd /usr/../etc&quot;
+    E depois digita &quot;pwd&quot;
+    Então a saída é &quot;/etc&quot;
+
+  Cenário: cd sem argumento
+    Dado HOME=/tmp
+    Quando o usuário digita &quot;cd&quot;
+    E depois digita &quot;pwd&quot;
+    Então a saída é &quot;/tmp&quot;
+
+  Cenário: Diretório inexistente
+    Quando o usuário digita &quot;cd /nope&quot;
+    Então &quot;/nope: No such file or directory&quot; é escrito em stderr
+    E $? é 1
+
+  @divergente
+  Cenário: HOME ausente não altera $? (BUG-12)
+    Dado que HOME não existe
+    Quando o usuário digita &quot;cd&quot;
+    Então &quot;cd: HOME not set&quot; é escrito em stderr
+    E $? é 0
+
+  @divergente
+  Cenário: cd - não é suportado
+    Quando o usuário digita &quot;cd -&quot;
+    Então &quot;-: No such file or directory&quot; é escrito em stderr
+
+  @divergente
+  Cenário: pwd usa a variável PWD
+    Quando o usuário digita &quot;export PWD=/fake&quot;
+    E depois digita &quot;pwd&quot;
+    Então a saída é &quot;/fake&quot;
+
+  @divergente
+  Cenário: pwd sem PWD
+    Quando o usuário digita &quot;unset PWD&quot;
+    E depois digita &quot;pwd&quot;
+    Então nada é exibido</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01, RF-02, RF-03, RF-05</td><td>Must</td><td><code>cd</code> (caminho relativo ou absoluto) e <code>pwd</code> são obrigatórios no subject</td></tr><tr><td>RF-04</td><td>Should</td><td>Mensagem auxiliar</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/builtins/cd.c</code></td><td><code>cd_builtin</code>, <code>cd_expand</code>, <code>update_var_env</code></td><td>🟢</td></tr><tr><td><code>src/builtins/pwd.c</code></td><td><code>pwd_builtin</code></td><td>🟢</td></tr><tr><td><code>src/free.c</code></td><td><code>error_msg</code></td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>cd_builtin</code></td><td><code>(t_pipe_list *node, t_hash_table **table)</code></td><td><code>void</code></td><td>Usa só <code>args[1]</code> 🟢</td></tr><tr><td><code>cd_expand</code> (static)</td><td><code>(t_hash_table **table, char *old_pwd, char *expand)</code></td><td><code>void</code></td><td>Hoje sempre chamado com <code>&quot;HOME&quot;</code> 🟢</td></tr><tr><td><code>update_var_env</code></td><td><code>(t_hash_table **table, char *key, char *val)</code></td><td><code>void</code></td><td><code>table_delete</code> (se existir) + <code>hash_insert</code>; também usado por <code>export</code> 🟢</td></tr><tr><td><code>pwd_builtin</code></td><td><code>(t_hash_table **table)</code></td><td><code>void</code></td><td><code>printf(&quot;%s\n&quot;, PWD)</code> se existir 🟢</td></tr></tbody></table></div>
+<p>Erros vão para <code>g_minishell.line-&gt;status_code</code> (lido por <code>update_status_code</code>) 🟢.</p>
+<h3>Fluxo Principal</h3>
+<h4><code>cd</code> (<code>src/builtins/cd.c:19-40</code>)</h4>
+<pre class="code" data-lang="text"><code>getcwd(buffer, 500); old = strdup(buffer)
+se args[1] == NULL ou args[1] == &quot;~&quot;:
+   cd_expand(table, old, &quot;HOME&quot;)
+senão se chdir(args[1]) == -1:
+   status_code = 1; perror(args[1])
+senão:
+   getcwd(buffer, 500)
+   update_var_env(&quot;PWD&quot;, buffer)
+   update_var_env(&quot;OLDPWD&quot;, old)
+free(old)</code></pre>
+<h4><code>cd_expand</code> (<code>src/builtins/cd.c:53-72</code>)</h4>
+<pre class="code" data-lang="text"><code>v = search_item(table, &quot;HOME&quot;)
+se v:
+   se chdir(v) == -1: status_code = 1; perror(v); retorna
+   update_var_env(&quot;PWD&quot;, v)            # valor literal, sem getcwd
+   update_var_env(&quot;OLDPWD&quot;, old)
+senão: &quot;cd: HOME not set&quot; em stderr     # status_code não é alterado</code></pre>
+<h4><code>pwd</code> (<code>src/builtins/pwd.c:15-22</code>)</h4>
+<pre class="code" data-lang="text"><code>v = search_item(table, &quot;PWD&quot;)
+se v: printf(&quot;%s\n&quot;, v)</code></pre>
+<h3>Fluxos Alternativos</h3>
+<ul><li>**<code>cd</code> em filho** (com redirecionamento ou não final num pipeline): roda, mas o <code>chdir</code> acontece no filho; o shell não muda e <code>$?=0</code> (BUG-10) 🟢</li><li>**<code>HOME</code> vazio** (<code>HOME=</code> herdado): <code>chdir(&quot;&quot;)</code> falha → <code>perror(&quot;&quot;)</code> → <code>: No such file or directory</code>... na prática a saída observada é <code>No such file or directory</code>, e <code>$?=1</code> 🟢 (observado com <code>cd &quot;&quot;</code>)</li><li>**<code>getcwd</code> falho** (caminho maior que 500 bytes ou diretório removido): <code>buffer</code> não é atualizado; <code>old</code>/<code>PWD</code> ficam com lixo ou com o valor anterior 🟡</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>gerenciar-variaveis-de-ambiente:</strong> <code>search_item</code>, <code>update_var_env</code>, <code>table_delete</code>, <code>hash_insert</code></li><li><strong>executar-comando-simples:</strong> <code>exec_builtins</code>; efeito só como último nó</li><li><strong>POSIX:</strong> <code>chdir</code>, <code>getcwd</code></li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td><code>pwd</code> lê <code>PWD</code> da tabela em vez de chamar <code>getcwd</code></td><td><code>src/builtins/pwd.c:19</code></td><td>🟢</td></tr><tr><td><code>PWD</code> com <code>getcwd</code> no caminho explícito e com o valor literal de <code>HOME</code> no <code>cd</code> sem argumento</td><td><code>src/builtins/cd.c:32-33,67</code></td><td>🟢</td></tr><tr><td>Buffer de 500 bytes na pilha</td><td><code>src/builtins/cd.c:20</code></td><td>🟢</td></tr><tr><td><code>cd_expand</code> foi escrito genérico (<code>expand</code>), mas só é usado com <code>HOME</code></td><td><code>src/builtins/cd.c:24,53</code></td><td>🟡</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p>Diretório de trabalho do processo (kernel) e as chaves <code>PWD</code>/<code>OLDPWD</code> da tabela. Os dois só ficam coerentes se nada alterar <code>PWD</code> por fora (<code>export PWD=...</code>, <code>unset PWD</code>) 🟢.</p>
+<h3>Observabilidade</h3>
+<p><code>perror(&lt;dir&gt;)</code>, <code>cd: HOME not set</code> 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 BUG-12: <code>HOME not set</code> não grava <code>$?=1</code></li><li>🟢 <code>pwd</code> incoerente com o diretório real (PW-02 a PW-04)</li><li>🟡 Caminhos maiores que 500 bytes</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: <code>cd -</code>, <code>~/x</code>, <code>too many arguments</code> e o prefixo <code>cd: </code> nas mensagens fazem parte do alvo?</li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>gerenciar-variaveis-de-ambiente</code> implementada (<code>search_item</code>, <code>update_var_env</code>)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>executar-comando-simples</code> com builtin no pai quando é o último nó</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisão de L-07 sobre <code>pwd</code> (variável ou diretório real) e sobre as mensagens do <code>cd</code> → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Implementar <code>update_var_env</code> (apagar se existir e inserir)<ul><li>Origem no legado: <code>src/builtins/cd.c:42-51</code></li><li>Critério de pronto: <code>PWD</code> atualizado depois de 100 <code>cd</code> alternados, sem duplicatas na tabela</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Implementar <code>cd &lt;dir&gt;</code> com <code>getcwd</code> antes e depois, <code>PWD</code> e <code>OLDPWD</code><ul><li>Origem no legado: <code>src/builtins/cd.c:19-40</code></li><li>Critério de pronto: cenários "Mudar de diretório" e "Caminho com '..' é resolvido"</li><li>Confiança: 🟢</li><li>Nota: usar <code>getcwd(NULL, 0)</code> (alocação dinâmica) elimina o limite de 500 bytes 🟡</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Implementar <code>cd</code> e <code>cd ~</code> via <code>HOME</code>, com <code>cd: HOME not set</code><ul><li>Origem no legado: <code>src/builtins/cd.c:24-25,53-72</code></li><li>Critério de pronto: cenário "cd sem argumento"; <code>unset HOME</code>; <code>cd</code> → mensagem</li><li>Confiança: 🟢</li><li>Nota: gravar <code>$?=1</code> em <code>HOME not set</code> (BUG-12) e <code>PWD</code> resolvido depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Tratar falha de <code>chdir</code> com <code>perror(&lt;dir&gt;)</code> e <code>$?=1</code><ul><li>Origem no legado: <code>src/builtins/cd.c:26-30</code></li><li>Critério de pronto: cenário "Diretório inexistente"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Implementar <code>pwd</code> imprimindo <code>PWD</code> da tabela<ul><li>Origem no legado: <code>src/builtins/pwd.c:15-22</code></li><li>Critério de pronto (as-is): cenários <code>@divergente</code> de <code>pwd</code>. Critério de pronto (corrigido): <code>pwd</code> = <code>getcwd()</code></li><li>Confiança: 🟢</li><li>Nota: depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Cenários de <code>requirements.md</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Cenários <code>@divergente</code> (BUG-12, <code>cd -</code>, <code>pwd</code> com <code>PWD</code> falso ou ausente)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, <code>cd</code> com redirecionamento (<code>cd /tmp &gt; /dev/null</code>) não muda o diretório (as-is RE-01)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, Caminho com mais de 500 bytes: documentar o comportamento</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 → T-04 (núcleo do <code>cd</code>)</li><li>T-03 (<code>HOME</code>)</li><li>T-05 (<code>pwd</code>)</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: <code>pwd</code> pela variável ou pelo diretório real; <code>$?</code> do <code>HOME not set</code>; suporte a <code>cd -</code> e <code>~/</code></li></ul></div></details>
+</section><nav class="feature-pager"><a href="gerenciar-variaveis-de-ambiente.html">← Gerenciar Variáveis de Ambiente</a><a href="imprimir-texto-echo.html">Imprimir Texto (echo) →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-navegar-diretorios">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/navegar-diretorios/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

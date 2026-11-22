@@ -19,3 +19,6 @@ minishell_tester/
 /target
 *.snap.new
 *.pending-snap
+
+# Reversa
+.reversa/config.user.toml

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura 3D | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="arquitetura">
+    <meta name="reversa-source-md" content="../reversa-sdd/architecture.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-mapper">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/site.css">
+    <script src="assets/vendor/three.min.js"></script>
+    <script src="assets/vendor/OrbitControls.js"></script>
+</head>
+<body data-style="premium" data-page="arquitetura">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="index.html" data-page-id="index">Visão geral</a><a href="arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="modulos.html" data-page-id="modulos">Módulos</a><a href="metricas.html" data-page-id="metricas">Métricas</a><a href="glossario.html" data-page-id="glossario">Glossário</a><a href="deck.html" data-page-id="deck">Deck</a><a href="index.html#features" data-page-id="features">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Arquitetura 3D</h1>
+            <p class="lead">Cada prédio é um arquivo do código. A altura é o número de linhas (LOC) e a cor é a complexidade ciclomática aproximada, do dourado (simples) ao vermelho (complexa). Cada distrito é uma pasta. Arraste para girar, use a roda do mouse para aproximar e passe o mouse sobre um prédio para ver os detalhes.</p>
+<section class="reversa-doc-3d-stage" data-mode="code-city">
+  <div id="three-canvas" class="reversa-doc-three-canvas"></div>
+  <div id="tip" class="rv-tooltip"></div>
+  <div class="reversa-doc-3d-loader" aria-live="polite">Carregando Code City...</div>
+</section>
+<div class="legend-swatches" id="legend"></div>
+<details class="reversa-doc-3d-legend"><summary>Legenda</summary><ul>
+<li>Altura do prédio: linhas de código (LOC, sem linhas vazias e comentários).</li>
+<li>Cor: complexidade ciclomática aproximada (1 + if/while/for/case/&amp;&amp;/||/?).</li>
+<li>Distrito (chão colorido): pasta de origem.</li>
+<li>Prédios com borda vermelha fazem parte de um ciclo de dependência.</li></ul></details>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="arquitetura">
+        <div class="rv-sidebar"><h2>Controles</h2>
+<label for="p-height">Escala vertical</label><input id="p-height" type="range" min="0.3" max="3" step="0.1" value="1" data-param="height" data-default="1">
+<label for="p-light">Intensidade da luz</label><input id="p-light" type="range" min="0.2" max="2" step="0.1" value="1" data-param="light" data-default="1">
+<label for="p-libft">Mostrar Libft</label><select id="p-libft" data-param="libft" data-default="sim"><option value="sim">Sim</option><option value="nao">Não</option></select>
+<button type="button" data-action="reset">Restaurar padrões</button>
+<button type="button" data-action="export-png">Baixar PNG</button></div>
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../reversa-sdd/architecture.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/nav.js"></script>
+    <script src="assets/js/sidebar.js"></script>
+    <script>
+(function(){
+  var D = window.RV_DATA || {}; var mods = (D.modules && D.modules.modules) || []; var cyc = new Set(((D.deps||{}).cycles||[]).flat());
+  var stage = document.getElementById('three-canvas'), tip = document.getElementById('tip');
+  var loader = document.querySelector('.reversa-doc-3d-loader');
+  if (!window.THREE || !mods.length) { loader.textContent = 'Biblioteca 3D ou dados indisponíveis.'; return; }
+  var W = stage.clientWidth, H = stage.clientHeight;
+  var renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer:true}); renderer.setPixelRatio(window.devicePixelRatio||1);
+  renderer.setSize(W, H); stage.appendChild(renderer.domElement);
+  var scene = new THREE.Scene(); scene.background = new THREE.Color(0x07070d); scene.fog = new THREE.Fog(0x07070d, 160, 420);
+  var cam = new THREE.PerspectiveCamera(45, W/H, 0.1, 2000); cam.position.set(90, 110, 150);
+  var ctl = new THREE.OrbitControls(cam, renderer.domElement); ctl.enableDamping = true; ctl.autoRotate = true; ctl.autoRotateSpeed = 0.4;
+  var amb = new THREE.AmbientLight(0xffffff, 0.45); scene.add(amb);
+  var dir = new THREE.DirectionalLight(0xfff3d6, 0.9); dir.position.set(80, 160, 60); scene.add(dir);
+  var grid = new THREE.GridHelper(400, 40, 0x2a2a38, 0x16161f); scene.add(grid);
+  var folders = []; mods.forEach(function(m){ if (folders.indexOf(m.folder) < 0) folders.push(m.folder); });
+  var dpal = [0x3b2f63,0x24485e,0x4a3a1a,0x1f4a3a,0x4a1f3a,0x2f3b63,0x3a4a1f,0x5e3b24];
+  var maxCx = Math.max.apply(null, mods.map(function(m){return m.complexity;}));
+  function cxColor(c){ var t = Math.min(1, (c-1)/Math.max(1,maxCx-1)); var a = new THREE.Color(0xd4af37), b = new THREE.Color(0xe5534b); return a.lerp(b, t); }
+  var groups = {}, boxes = [], col = 0, row = 0, perRow = 4, cell = 58, legend = document.getElementById('legend');
+  folders.forEach(function(f, fi){
+    var items = mods.filter(function(m){return m.folder===f;}); var n = Math.ceil(Math.sqrt(items.length)); var size = n*9+6;
+    var gx = (fi % perRow) * cell - (perRow-1)*cell/2, gz = Math.floor(fi / perRow) * cell - cell;
+    var g = new THREE.Group(); g.position.set(gx, 0, gz); scene.add(g); groups[f] = g; g.userData.lib = f.indexOf('Libft')===0;
+    var base = new THREE.Mesh(new THREE.BoxGeometry(size, 0.6, size), new THREE.MeshLambertMaterial({color: dpal[fi % dpal.length]}));
+    base.position.y = 0.3; g.add(base);
+    legend.insertAdjacentHTML('beforeend', '<span><i style="background:#' + new THREE.Color(dpal[fi % dpal.length]).getHexString() + '"></i>' + (f||'(raiz)') + '</span>');
+    items.forEach(function(m, i){
+      var h = Math.max(1, m.loc / 2.2); var geo = new THREE.BoxGeometry(6, 1, 6);
+      var mat = new THREE.MeshPhongMaterial({color: cxColor(m.complexity), shininess: 60, emissive: cxColor(m.complexity).multiplyScalar(0.12)});
+      var b = new THREE.Mesh(geo, mat); b.userData = {m: m, h: h};
+      b.position.set((i % n)*9 - (n-1)*4.5, 0.6 + h/2, Math.floor(i / n)*9 - (n-1)*4.5); b.scale.y = h; g.add(b); boxes.push(b);
+      if (cyc.has(m.id)) { var e = new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({color: 0xff4d4d})); b.add(e); }
+    });
+  });
+  var hScale = 1;
+  function applyHeight(){ boxes.forEach(function(b){ b.scale.y = b.userData.h * hScale; b.position.y = 0.6 + b.userData.h*hScale/2; }); }
+  document.addEventListener('reversa:param-change', function(ev){
+    var p = ev.detail.param, v = ev.detail.value;
+    if (p==='height') { hScale = parseFloat(v); applyHeight(); }
+    if (p==='light') { dir.intensity = 0.9*parseFloat(v); amb.intensity = 0.45*parseFloat(v); }
+    if (p==='libft') { Object.keys(groups).forEach(function(k){ if (groups[k].userData.lib) groups[k].visible = (v!=='nao'); }); }
+  }, true);
+  var ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+  renderer.domElement.addEventListener('mousemove', function(e){
+    var r = renderer.domElement.getBoundingClientRect(); mouse.x = ((e.clientX-r.left)/r.width)*2-1; mouse.y = -((e.clientY-r.top)/r.height)*2+1;
+    ray.setFromCamera(mouse, cam); var hit = ray.intersectObjects(boxes.filter(function(b){return b.parent.visible;}))[0];
+    if (hit) { var m = hit.object.userData.m; tip.style.display='block'; tip.style.left=(e.clientX-r.left+14)+'px'; tip.style.top=(e.clientY-r.top+14)+'px';
+      tip.innerHTML = '<b>'+m.id+'</b><br>'+m.loc+' LOC · complexidade '+m.complexity+' · '+m.functions+' funções<br>Unit: '+m.unit+(cyc.has(m.id)?'<br><span style="color:#ff6b6b">em ciclo de dependência</span>':''); ctl.autoRotate=false; }
+    else tip.style.display='none';
+  });
+  window.addEventListener('resize', function(){ W = stage.clientWidth; H = stage.clientHeight; cam.aspect = W/H; cam.updateProjectionMatrix(); renderer.setSize(W, H); });
+  loader.textContent = mods.length + ' arquivos em ' + folders.length + ' pastas';
+  (function loop(){ requestAnimationFrame(loop); ctl.update(); renderer.render(scene, cam); })();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+/* Reversa Docs, estilos do mini-site do minishell (complementa style.css) */
+body[data-style="premium"] {
+    --rv-gold: #d4af37;
+    --rv-gold-soft: rgba(212, 175, 55, 0.14);
+    --rv-red: #e5534b;
+    --rv-green: #3fb950;
+    --rv-yellow: #d29922;
+    background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(212, 175, 55, 0.08), transparent 60%),
+        radial-gradient(900px 500px at -10% 110%, rgba(90, 90, 200, 0.07), transparent 60%),
+        var(--reversa-bg);
+    background-attachment: fixed;
+}
+body { min-height: 100vh; }
+.reversa-doc-header { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); flex-wrap: wrap; }
+.reversa-doc-logo .seal svg { width: 34px; height: 34px; display: block; }
+.reversa-doc-nav { flex-wrap: wrap; }
+.reversa-doc-nav a.is-active { color: var(--reversa-accent); border-bottom: 1px solid var(--reversa-accent); }
+.reversa-doc-main { max-width: 1280px; margin: 0 auto; }
+.reversa-doc-sidebar:empty { display: none; }
+.reversa-doc-payload { min-width: 0; }
+.reversa-doc-title { font-weight: 600; }
+.lead { color: var(--reversa-fg-muted); font-size: 1.08em; max-width: 72ch; }
+
+/* Hero */
+.reversa-doc-hero { display: grid; grid-template-columns: minmax(220px, 360px) 1fr; gap: 48px; align-items: center; padding: 24px 0 48px; }
+.reversa-doc-hero-seal svg { width: 100%; height: auto; filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.25)); animation: rv-spin 120s linear infinite; }
+@keyframes rv-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .reversa-doc-hero-seal svg { animation: none; } }
+.reversa-doc-hero-title { font-size: clamp(40px, 7vw, 76px); letter-spacing: -0.02em; margin: 0 0 12px; background: linear-gradient(90deg, #f6e7b0, var(--reversa-accent) 60%, #a88323); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.reversa-doc-hero-tagline { font-size: 1.25em; color: var(--reversa-fg-muted); max-width: 60ch; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 28px 0; }
+.kpi { background: var(--reversa-surface); border: 1px solid var(--reversa-border); border-radius: 12px; padding: 16px 18px; }
+.kpi b { display: block; font-family: var(--reversa-font-heading); font-size: 30px; color: var(--reversa-accent); line-height: 1.1; }
+.kpi span { color: var(--reversa-fg-muted); font-size: 0.9em; }
+
+/* Cards */
+.reversa-doc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-bottom: 40px; }
+.rv-card { display: block; text-decoration: none; color: var(--reversa-fg); background: var(--reversa-surface); border: 1px solid var(--reversa-border); border-radius: 14px; padding: 20px; transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+.rv-card:hover { transform: translateY(-3px); border-color: var(--reversa-accent); background: var(--reversa-surface-hover); }
+.rv-card .ico { font-size: 26px; display: block; margin-bottom: 8px; }
+.rv-card h3 { margin: 0 0 6px; font-size: 1.1em; color: var(--reversa-accent); }
+.rv-card p { margin: 0; color: var(--reversa-fg-muted); font-size: 0.93em; }
+.rv-card .meta { margin-top: 10px; font-size: 0.82em; color: var(--reversa-fg-muted); }
+.badge { display: inline-block; font-size: 0.78em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--reversa-border); margin-right: 4px; }
+.badge.bug { color: var(--rv-red); border-color: rgba(229, 83, 75, .5); }
+.badge.ok { color: var(--rv-green); border-color: rgba(63, 185, 80, .5); }
+
+/* Tabelas e markdown */
+.table-wrap { overflow-x: auto; margin: 12px 0 20px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92em; }
+th, td { border: 1px solid var(--reversa-border); padding: 7px 10px; text-align: left; vertical-align: top; }
+th { background: var(--reversa-surface); font-family: var(--reversa-font-heading); }
+blockquote { border-left: 3px solid var(--reversa-accent); margin: 12px 0; padding: 6px 14px; color: var(--reversa-fg-muted); background: var(--rv-gold-soft); border-radius: 0 8px 8px 0; }
+pre.code { border: 1px solid var(--reversa-border); border-radius: 10px; font-size: 0.86em; line-height: 1.45; }
+pre.code[data-lang="gherkin"] code { color: #c9d1d9; }
+pre.code[data-lang="mermaid"]::before { content: "diagrama mermaid (fonte)"; display: block; font-size: .78em; color: var(--reversa-fg-muted); margin-bottom: 6px; }
+.chk { color: var(--reversa-accent); }
+
+/* Feature */
+.reversa-doc-feature-tldr { background: linear-gradient(135deg, var(--rv-gold-soft), transparent); border: 1px solid var(--reversa-border); border-radius: 14px; padding: 18px 22px; margin-bottom: 22px; }
+.reversa-doc-feature-tldr h2 { margin-top: 0; font-size: 1.1em; color: var(--reversa-accent); }
+.reversa-doc-feature-accordion details { background: var(--reversa-surface); border: 1px solid var(--reversa-border); border-radius: 12px; margin-bottom: 14px; }
+.reversa-doc-feature-accordion summary { cursor: pointer; padding: 14px 20px; font-family: var(--reversa-font-heading); font-size: 1.1em; color: var(--reversa-accent); }
+.reversa-doc-feature-accordion details > div { padding: 0 22px 18px; }
+.feature-pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; }
+.feature-pager a { color: var(--reversa-accent); text-decoration: none; }
+
+/* 3D e grafo */
+.reversa-doc-3d-stage, .reversa-doc-graph-stage { position: relative; height: 68vh; min-height: 460px; border: 1px solid var(--reversa-border); border-radius: 14px; overflow: hidden; background: #07070d; }
+.reversa-doc-three-canvas, .reversa-doc-d3-canvas { width: 100%; height: 100%; display: block; }
+.reversa-doc-3d-loader { position: absolute; inset: auto 0 12px 0; text-align: center; color: var(--reversa-fg-muted); font-size: .9em; pointer-events: none; }
+.rv-tooltip { position: absolute; pointer-events: none; background: rgba(15, 15, 24, .95); border: 1px solid var(--reversa-accent); color: var(--reversa-fg); padding: 8px 10px; border-radius: 8px; font-size: 12.5px; line-height: 1.4; max-width: 300px; display: none; z-index: 5; }
+.rv-tooltip b { color: var(--reversa-accent); }
+details.reversa-doc-3d-legend, details.reversa-doc-graph-legend { margin-top: 12px; color: var(--reversa-fg-muted); }
+.legend-swatches { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0; font-size: .85em; color: var(--reversa-fg-muted); }
+.legend-swatches i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.rv-sidebar h2 { font-size: 1em; color: var(--reversa-accent); }
+.rv-sidebar label { display: block; font-size: .88em; color: var(--reversa-fg-muted); margin: 14px 0 6px; }
+.rv-sidebar input[type=range], .rv-sidebar select { width: 100%; }
+.rv-sidebar button { margin-top: 16px; width: 100%; }
+
+/* Dashboard */
+.reversa-doc-dashboard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.reversa-doc-chart { background: var(--reversa-surface); border: 1px solid var(--reversa-border); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.reversa-doc-chart.wide { grid-column: 1 / -1; }
+.reversa-doc-chart h2 { font-size: 1.05em; margin: 0 0 8px; color: var(--reversa-accent); }
+.reversa-doc-chart > div { height: 360px; }
+@media (max-width: 900px) { .reversa-doc-dashboard { grid-template-columns: 1fr; } .reversa-doc-hero { grid-template-columns: 1fr; } }
+
+/* Glossário */
+#glossary-search { width: 100%; max-width: 520px; padding: 12px 14px; font-size: 1em; margin-bottom: 18px; border-radius: 10px; border: 1px solid var(--reversa-border); background: var(--reversa-surface); color: var(--reversa-fg); }
+.reversa-doc-glossary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+.gl-card { background: var(--reversa-surface); border: 1px solid var(--reversa-border); border-radius: 12px; padding: 16px 18px; }
+.gl-card h3 { margin: 0 0 6px; color: var(--reversa-accent); font-size: 1.05em; }
+.gl-card p { margin: 0 0 8px; }
+.gl-card small { color: var(--reversa-fg-muted); }
+.gl-card:target { border-color: var(--reversa-accent); box-shadow: 0 0 0 2px var(--rv-gold-soft); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* Deck */
+.reversa-doc-deck { position: relative; }
+.reversa-doc-deck-slides { list-style: none; margin: 0; padding: 0; }
+.reversa-doc-deck-slides > li { display: none; min-height: 62vh; border: 1px solid var(--reversa-border); border-radius: 18px; padding: 48px 56px; background: radial-gradient(800px 400px at 90% 0%, var(--rv-gold-soft), transparent 70%), var(--reversa-surface); }
+.reversa-doc-deck-slides > li.is-current { display: block; animation: rv-fade .35s ease; }
+@keyframes rv-fade { from { transform: translateY(8px); } to { transform: none; } }
+.reversa-doc-deck-slides h2 { font-size: clamp(28px, 4vw, 44px); color: var(--reversa-accent); margin-top: 0; }
+.reversa-doc-deck-slides li ul { font-size: 1.15em; line-height: 1.7; }
+.slide-cover { display: grid !important; grid-template-columns: 260px 1fr; gap: 40px; align-items: center; }
+.slide-cover:not(.is-current) { display: none !important; }
+.slide-cover svg { width: 100%; height: auto; }
+.reversa-doc-deck-nav { display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 16px; }
+.reversa-doc-deck-counter { min-width: 70px; text-align: center; color: var(--reversa-fg-muted); }
+.reversa-doc-deck:fullscreen { background: var(--reversa-bg); padding: 24px; }
+.reversa-doc-deck:fullscreen .reversa-doc-deck-slides > li { min-height: calc(100vh - 110px); }
+section.aux h2, section.feat h2 { margin-top: 10px; }
+
+/* páginas sem sidebar ocupam a largura toda */
+body.no-sidebar { grid-template-columns: 1fr; grid-template-areas: "header" "main" "footer"; }
+body.no-sidebar .reversa-doc-sidebar { display: none; }
+body.no-sidebar .reversa-doc-main { justify-self: center; }

@@ -1,0 +1,330 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reversa-pricing-research-v1.0",
+  "title": "Reversa Pricing Research",
+  "description": "Resultado de uma pesquisa de mercado na web gerada pelo agente reversa-pricing-research, consumido pelos agentes reversa-pricing-profile (hourly_rate) e reversa-pricing-product (comparables, store_commission). O valor só entra no profile ou no product depois que o usuário confirma no agente chamador.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kind",
+    "created_at",
+    "available",
+    "reason",
+    "inputs",
+    "level_used",
+    "levels_tried",
+    "queries_run",
+    "sources",
+    "skipped_sources",
+    "faixa_min",
+    "faixa_max",
+    "faixa_mediana",
+    "confidence",
+    "weak",
+    "disclaimer_pt_br"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Versão do schema."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["hourly_rate", "comparables", "store_commission"],
+      "description": "Tipo de pesquisa. Define o nome do arquivo em _pricing/research/<kind>.json."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp ISO 8601 UTC da criação ou da última regeneração da pesquisa."
+    },
+    "available": {
+      "type": "boolean",
+      "description": "true quando a pesquisa produziu pelo menos uma fonte aceita; false quando o engine não tem busca, a busca falhou ou nenhuma fonte foi aceita."
+    },
+    "reason": {
+      "type": ["string", "null"],
+      "enum": ["engine_sem_busca", "busca_falhou", "sem_fontes_aceitas", null],
+      "description": "Motivo quando available = false. null quando available = true."
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["country", "currency", "seniority", "region", "description", "model", "store", "store_billing"],
+      "properties": {
+        "country": {
+          "type": ["string", "null"],
+          "pattern": "^[A-Z]{2}$",
+          "description": "Código ISO 3166-1 alpha-2. Obrigatório em hourly_rate e comparables; null permitido apenas em store_commission."
+        },
+        "currency": {
+          "type": ["string", "null"],
+          "pattern": "^[A-Z]{3}$",
+          "description": "Código ISO 4217 da moeda das fontes aceitas. Obrigatório em hourly_rate e comparables; null permitido apenas em store_commission."
+        },
+        "seniority": {
+          "type": ["string", "null"],
+          "enum": ["junior", "mid", "senior", "staff_lead", "principal", null],
+          "description": "Senioridade canônica. Usada em hourly_rate; null nos outros kinds."
+        },
+        "region": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "city": {
+              "type": ["string", "null"],
+              "description": "Cidade informada pelo usuário, ou null."
+            },
+            "state": {
+              "type": ["string", "null"],
+              "description": "Estado ou província informada pelo usuário, ou null."
+            }
+          },
+          "description": "Região para a cadeia geográfica de hourly_rate. null quando o usuário pulou ou nos outros kinds."
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Descrição de uma linha do software (comparables) ou nome da loja quando store = outra. null nos demais casos."
+        },
+        "model": {
+          "type": ["string", "null"],
+          "enum": ["assinatura", "aluguel", "licenca_perpetua", "loja_de_apps", null],
+          "description": "Modelo de venda comparado em comparables. null nos outros kinds."
+        },
+        "store": {
+          "type": ["string", "null"],
+          "enum": ["google_play", "app_store", "microsoft_store", "steam", "outra", null],
+          "description": "Loja pesquisada em store_commission, ou loja do modelo em comparables quando model = loja_de_apps. null nos demais casos."
+        },
+        "store_billing": {
+          "type": ["string", "null"],
+          "enum": ["unica", "assinatura", null],
+          "description": "Em comparables com model = loja_de_apps, fixa a unidade das fontes: assinatura = mes, unica = licenca. null nos demais casos."
+        }
+      }
+    },
+    "level_used": {
+      "type": ["string", "null"],
+      "enum": ["cidade", "estado", "pais", null],
+      "description": "Nível geográfico aceito na cadeia de hourly_rate. null em comparables, store_commission ou quando nenhuma fonte foi aceita."
+    },
+    "levels_tried": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["cidade", "estado", "pais"]
+      },
+      "uniqueItems": true,
+      "description": "Níveis efetivamente pesquisados, na ordem. Vazio fora de hourly_rate."
+    },
+    "queries_run": {
+      "type": "array",
+      "maxItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Consultas de busca executadas nesta execução, com ou sem resultado útil. Limite de 6."
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "url", "value_min", "value_max", "unit", "derived", "accessed_at", "note"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Nome da fonte, como Glassdoor Brasil ou Google Play Console Help."
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1,
+            "description": "URL da página de onde o número foi lido."
+          },
+          "value_min": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Menor valor da fonte, já normalizado para a unidade. Igual a value_max quando a fonte traz um único número."
+          },
+          "value_max": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maior valor da fonte, já normalizado para a unidade."
+          },
+          "unit": {
+            "type": "string",
+            "enum": ["hora", "mes", "licenca", "percentual"],
+            "description": "hora = taxa hora (hourly_rate); mes = preço por mês (comparables recorrentes); licenca = preço por licença (comparables de venda única); percentual = comissão de loja."
+          },
+          "derived": {
+            "type": "boolean",
+            "description": "true quando o valor foi calculado a partir de outra unidade (salário mensal / 160, salário anual / 1920, plano anual / 12)."
+          },
+          "accessed_at": {
+            "type": "string",
+            "format": "date",
+            "description": "Data de acesso à fonte, AAAA-MM-DD, igual em todas as fontes da execução."
+          },
+          "note": {
+            "type": ["string", "null"],
+            "description": "Conta de normalização, nível geográfico de origem, nome do plano ou data de publicação da fonte. null quando não há observação."
+          }
+        }
+      },
+      "description": "Fontes aceitas, na ordem em que foram encontradas."
+    },
+    "skipped_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "url", "reason"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "sem_numero",
+              "texto_gerado_sem_fonte",
+              "sem_data",
+              "moeda_diferente",
+              "unidade_diferente",
+              "fora_do_escopo"
+            ],
+            "description": "Motivo canônico da rejeição, conforme research-policy.md seção 4."
+          }
+        }
+      },
+      "description": "Fontes encontradas e rejeitadas, com motivo. Nunca convertidas nem usadas na faixa."
+    },
+    "faixa_min": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Menor value_min entre as fontes aceitas. null quando available = false."
+    },
+    "faixa_max": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Maior value_max entre as fontes aceitas. null quando available = false."
+    },
+    "faixa_mediana": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Mediana dos pontos médios das fontes aceitas. null quando available = false."
+    },
+    "confidence": {
+      "type": ["string", "null"],
+      "enum": ["high", "medium", "low", null],
+      "description": "high = ratio max/min dos pontos médios menor que 2; medium = de 2 a 3; low = maior que 3 ou menos de 2 fontes. null quando available = false."
+    },
+    "weak": {
+      "type": "boolean",
+      "description": "true quando há menos de 2 fontes aceitas. O agente chamador avisa o usuário antes de aceitar uma faixa fraca."
+    },
+    "disclaimer_pt_br": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Texto fixo: referência de mercado, não recomendação; valor só entra no profile ou product após confirmação do usuário."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "available": { "const": false }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": { "type": "string" },
+          "faixa_min": { "type": "null" },
+          "faixa_max": { "type": "null" },
+          "faixa_mediana": { "type": "null" },
+          "confidence": { "type": "null" },
+          "weak": { "const": true }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "available": { "const": true }
+        }
+      },
+      "then": {
+        "properties": {
+          "reason": { "type": "null" },
+          "faixa_min": { "type": "number" },
+          "faixa_max": { "type": "number" },
+          "faixa_mediana": { "type": "number" },
+          "confidence": { "type": "string" },
+          "sources": { "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": { "const": "hourly_rate" }
+        }
+      },
+      "then": {
+        "properties": {
+          "inputs": {
+            "properties": {
+              "country": { "type": "string" },
+              "currency": { "type": "string" },
+              "seniority": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": { "const": "comparables" }
+        }
+      },
+      "then": {
+        "properties": {
+          "inputs": {
+            "properties": {
+              "country": { "type": "string" },
+              "currency": { "type": "string" },
+              "description": { "type": "string", "minLength": 1 },
+              "model": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": { "const": "store_commission" }
+        }
+      },
+      "then": {
+        "properties": {
+          "inputs": {
+            "properties": {
+              "store": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

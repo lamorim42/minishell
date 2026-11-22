@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métricas | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="metricas">
+    <meta name="reversa-source-md" content="../reversa-sdd/confidence-report.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-analyst">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/site.css">
+    <script src="assets/vendor/highcharts.js"></script>
+    <script src="assets/vendor/highcharts-accessibility.js"></script>
+    <script src="assets/vendor/highcharts-exporting.js"></script>
+    <script src="assets/vendor/highcharts-treemap.js"></script>
+    <script src="assets/vendor/highcharts-sankey.js"></script>
+</head>
+<body class="no-sidebar" data-style="premium" data-page="metricas">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="index.html" data-page-id="index">Visão geral</a><a href="arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="modulos.html" data-page-id="modulos">Módulos</a><a href="metricas.html" data-page-id="metricas">Métricas</a><a href="glossario.html" data-page-id="glossario">Glossário</a><a href="deck.html" data-page-id="deck">Deck</a><a href="index.html#features" data-page-id="features">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Métricas</h1>
+            <p class="lead">Números extraídos do código C do minishell (src/, includes/ e as funções da Libft que o shell chama) e dos artefatos do Reversa.</p>
+<div class="kpis">
+<div class="kpi"><b>61</b><span>arquivos</span></div><div class="kpi"><b>2362</b><span>linhas de código</span></div>
+<div class="kpi"><b>143</b><span>funções</span></div><div class="kpi"><b>221</b><span>dependências entre arquivos</span></div>
+<div class="kpi"><b>2</b><span>ciclos de dependência</span></div><div class="kpi"><b>21</b><span>bugs documentados</span></div>
+<div class="kpi"><b>97,9%</b><span>confiança das specs</span></div></div>
+<section class="reversa-doc-dashboard" data-layout="grid-2x2">
+<article class="reversa-doc-chart"><h2>LOC por pasta</h2><div id="chart-treemap"></div></article>
+<article class="reversa-doc-chart"><h2>Top 20 complexidade</h2><div id="chart-complexity"></div></article>
+<article class="reversa-doc-chart"><h2>Distribuição de tamanho</h2><div id="chart-histogram"></div></article>
+<article class="reversa-doc-chart"><h2>Fluxo de dependências entre pastas</h2><div id="chart-sankey"></div></article>
+<article class="reversa-doc-chart"><h2>Bugs por severidade</h2><div id="chart-bugs"></div></article>
+<article class="reversa-doc-chart"><h2>Confiança por spec</h2><div id="chart-conf"></div></article>
+<article class="reversa-doc-chart wide"><h2>Bugs documentados</h2><div id="bug-table" style="height:auto"></div></article>
+</section>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="metricas">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../reversa-sdd/confidence-report.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/nav.js"></script>
+    <script src="assets/js/sidebar.js"></script>
+    <script>
+(function(){
+  var M = (window.RV_DATA || {}).metrics; if (!window.Highcharts || !M || !M.totals) { document.querySelector('.reversa-doc-dashboard').insertAdjacentHTML('afterbegin', '<p>Biblioteca de gráficos ou dados indisponíveis.</p>'); return; }
+  var gold = ['#d4af37','#6cb6ff','#3fb950','#f778ba','#a371f7','#e3b341','#56d4dd','#ff9b6b'];
+  Highcharts.setOptions({ colors: gold, chart: { backgroundColor: 'transparent', style: { fontFamily: 'Inter, system-ui, sans-serif' } }, title: { text: null }, credits: { enabled: false },
+    legend: { itemStyle: { color: '#c9c9d3' } }, xAxis: { labels: { style: { color: '#9b9ba3' } }, lineColor: '#2a2a38', gridLineColor: '#1f1f2c' },
+    yAxis: { labels: { style: { color: '#9b9ba3' } }, gridLineColor: '#1f1f2c', title: { style: { color: '#9b9ba3' } } }, tooltip: { backgroundColor: '#14141e', style: { color: '#eaeaea' }, borderColor: '#d4af37' },
+    exporting: { buttons: { contextButton: { theme: { fill: 'transparent' } } } } });
+  Highcharts.chart('chart-treemap', { series: [{ type: 'treemap', layoutAlgorithm: 'squarified', colorByPoint: true, dataLabels: { style: { textOutline: 'none', color: '#0a0a14' } },
+    data: M.treemap_loc_by_folder.map(function(f){ return { name: f.folder + ' (' + f.modules + ')', value: f.loc }; }) }], tooltip: { pointFormat: '{point.name}: <b>{point.value} LOC</b>' } });
+  Highcharts.chart('chart-complexity', { chart: { type: 'bar' }, xAxis: { categories: M.top_complexity.map(function(m){ return m.id.split('/').pop(); }) }, yAxis: { title: { text: 'complexidade' } }, legend: { enabled: false },
+    series: [{ name: 'Complexidade', data: M.top_complexity.map(function(m){ return { y: m.complexity, custom: m }; }), color: '#e5534b' }], tooltip: { pointFormatter: function(){ return this.custom.id + '<br>complexidade <b>' + this.y + '</b>, ' + this.custom.loc + ' LOC'; } } });
+  var b = M.loc_histogram.bins, cats = []; for (var i = 0; i < b.length - 1; i++) cats.push(b[i] + (i === b.length - 2 ? '+' : '–' + (b[i+1]-1)));
+  Highcharts.chart('chart-histogram', { chart: { type: 'column' }, xAxis: { categories: cats, title: { text: 'LOC por arquivo', style: { color: '#9b9ba3' } } }, yAxis: { title: { text: 'arquivos' }, allowDecimals: false }, legend: { enabled: false },
+    series: [{ name: 'Arquivos', data: M.loc_histogram.counts, color: '#d4af37' }] });
+  Highcharts.chart('chart-sankey', { series: [{ type: 'sankey', keys: ['from','to','weight'], data: M.dependency_sankey.links.map(function(l){ return [l.source, l.target, l.value]; }), dataLabels: { style: { color: '#eaeaea', textOutline: 'none' } } }],
+    tooltip: { pointFormat: '{point.fromNode.name} → {point.toNode.name}: <b>{point.weight} chamadas</b>' } });
+  var sev = M.bugs_by_severity; Highcharts.chart('chart-bugs', { chart: { type: 'pie' }, plotOptions: { pie: { innerSize: '55%', dataLabels: { style: { color: '#eaeaea', textOutline: 'none' } } } },
+    series: [{ name: 'Bugs', data: Object.keys(sev).map(function(k){ return { name: k, y: sev[k], color: /Crash/.test(k) ? '#ff4d4d' : /Alta/.test(k) ? '#e5534b' : /dia/.test(k) ? '#d29922' : '#6cb6ff' }; }) }] });
+  var cs = M.confidence_by_spec.filter(function(c){ return c.spec.indexOf('/') < 0; });
+  Highcharts.chart('chart-conf', { chart: { type: 'bar' }, xAxis: { categories: cs.map(function(c){ return c.spec; }) }, yAxis: { min: 0, title: { text: 'afirmações' } }, plotOptions: { series: { stacking: 'normal' } },
+    series: [{ name: '🟢 confirmado', data: cs.map(function(c){return c.green;}), color: '#3fb950' }, { name: '🟡 inferido', data: cs.map(function(c){return c.yellow;}), color: '#d29922' }, { name: '🔴 lacuna', data: cs.map(function(c){return c.red;}), color: '#e5534b' }] });
+  function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }).replace(/`([^`]+)`/g, '<code>$1</code>'); }
+  document.getElementById('bug-table').innerHTML = '<div class="table-wrap"><table><thead><tr><th>ID</th><th>Severidade</th><th>Resumo</th><th>Onde</th></tr></thead><tbody>' +
+    M.bugs.map(function(x){ return '<tr><td>' + x.id + '</td><td>' + esc(x.severity) + '</td><td>' + esc(x.summary) + '</td><td>' + esc(x.where) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+})();
+</script>
+</body>
+</html>

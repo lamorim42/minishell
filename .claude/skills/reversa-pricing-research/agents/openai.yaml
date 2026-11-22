@@ -1,0 +1,5 @@
+interface:
+  display_name: "Reversa Pricing Research"
+  short_description: "Pesquisa na web referencias de preco para o time de…"
+policy:
+  allow_implicit_invocation: false

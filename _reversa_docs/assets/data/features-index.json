@@ -1,0 +1,168 @@
+{
+ "schemaVersion": 1,
+ "sddRoot": "reversa-sdd",
+ "specs": [
+  {
+   "id": "iniciar-sessao-e-ler-comando",
+   "title": "Iniciar Sessão e Ler Comando",
+   "href": "features/iniciar-sessao-e-ler-comando.html",
+   "tldr": "Inicializa o shell (estado da linha e ambiente) e mantém o laço interativo **ler → filtrar → despachar**. Cada linha digitada no prompt `miau> ` é verificada (EOF, aspas, comentário) antes de seguir para o processamento (`facade`). É a porta de entrada de todos os outros casos de uso.",
+   "bugs": [
+    "BUG-19"
+   ],
+   "divergences": 3,
+   "confidence": 97,
+   "icon": "⌨️"
+  },
+  {
+   "id": "analisar-linha-de-comando",
+   "title": "Analisar Linha de Comando",
+   "href": "features/analisar-linha-de-comando.html",
+   "tldr": "Transforma a linha crua aceita pelo laço interativo (já com aspas balanceadas e sem ser comentário) em uma sequência de **tokens** com uma **categoria léxica** paralela, valida a gramática e, depois da expansão, gera os **tokens limpos** sem aspas. É a ponte entre `iniciar-sessao-e-ler-comando` e a montagem da lista de execução.",
+   "bugs": [
+    "BUG-11",
+    "BUG-12",
+    "BUG-13",
+    "BUG-17"
+   ],
+   "divergences": 10,
+   "confidence": 98,
+   "icon": "🔤"
+  },
+  {
+   "id": "expandir-variaveis",
+   "title": "Expandir Variáveis",
+   "href": "features/expandir-variaveis.html",
+   "tldr": "Substitui as referências `$NOME` e `$?` dentro dos tokens pelos valores da tabela de ambiente, depois de a gramática ser validada e antes da remoção de aspas. O resultado alimenta `clean_tokens` (unit `analisar-linha-de-comando`) e, a partir dele, os argumentos dos comandos.",
+   "bugs": [
+    "BUG-05",
+    "BUG-13",
+    "BUG-17"
+   ],
+   "divergences": 12,
+   "confidence": 98,
+   "icon": "💲"
+  },
+  {
+   "id": "executar-comando-simples",
+   "title": "Executar Comando Simples",
+   "href": "features/executar-comando-simples.html",
+   "tldr": "Transforma os tokens limpos em uma **lista de nós** (comandos e operadores), resolve o binário de cada comando (builtin, caminho literal ou busca no `PATH`), executa e grava o status em `$?`. Esta unit cobre a linha com **um** comando; a combinação com `|` fica em `executar-pipeline` e a abertura de arquivos em `redirecionar-entrada-e-saida`.",
+   "bugs": [
+    "BUG-03",
+    "BUG-04",
+    "BUG-10",
+    "BUG-16",
+    "BUG-20"
+   ],
+   "divergences": 8,
+   "confidence": 98,
+   "icon": "▶️"
+  },
+  {
+   "id": "executar-pipeline",
+   "title": "Executar Pipeline",
+   "href": "features/executar-pipeline.html",
+   "tldr": "Encadeia dois ou mais comandos com `|`, ligando o stdout de cada um ao stdin do seguinte por um `pipe()`. Os comandos rodam em paralelo e `$?` recebe o status do último. Usa a montagem da lista e a execução de `executar-comando-simples`.",
+   "bugs": [
+    "BUG-02",
+    "BUG-20"
+   ],
+   "divergences": 4,
+   "confidence": 98,
+   "icon": "🔗"
+  },
+  {
+   "id": "redirecionar-entrada-e-saida",
+   "title": "Redirecionar Entrada e Saída",
+   "href": "features/redirecionar-entrada-e-saida.html",
+   "tldr": "Abre os arquivos de `<`, `>` e `>>` e liga os descritores ao stdin e ao stdout de cada comando, com prioridade sobre os pipes. Os arquivos são abertos no shell antes de qualquer execução, e os `dup2` são feitos dentro de cada filho. O heredoc (`<<`) entra pelo mesmo mecanismo de entrada, e a leitura do conteúdo fica em `ler-heredoc`.",
+   "bugs": [
+    "BUG-01",
+    "BUG-08",
+    "BUG-09",
+    "BUG-13"
+   ],
+   "divergences": 4,
+   "confidence": 98,
+   "icon": "↪️"
+  },
+  {
+   "id": "ler-heredoc",
+   "title": "Ler Heredoc",
+   "href": "features/ler-heredoc.html",
+   "tldr": "Implementa `<< DELIM`: lê linhas do usuário com o prompt `> ` até uma linha igual ao delimitador e entrega o conteúdo como stdin do comando. A leitura de **todos** os heredocs da linha acontece em um processo filho, antes de qualquer comando ser executado.",
+   "bugs": [
+    "BUG-13",
+    "BUG-15"
+   ],
+   "divergences": 4,
+   "confidence": 99,
+   "icon": "📜"
+  },
+  {
+   "id": "gerenciar-variaveis-de-ambiente",
+   "title": "Gerenciar Variáveis de Ambiente",
+   "href": "features/gerenciar-variaveis-de-ambiente.html",
+   "tldr": "Mantém o ambiente do shell em uma tabela hash própria, carregada do `envp` na inicialização, e oferece os builtins `export`, `unset` e `env` para consultá-la e alterá-la. A tabela também guarda `$?` (chave `?`). Ela é lida pela expansão de variáveis, pela busca no `PATH` e pelo `cd`.",
+   "bugs": [
+    "BUG-03",
+    "BUG-05",
+    "BUG-06",
+    "BUG-07"
+   ],
+   "divergences": 9,
+   "confidence": 99,
+   "icon": "🌱"
+  },
+  {
+   "id": "navegar-diretorios",
+   "title": "Navegar Diretórios",
+   "href": "features/navegar-diretorios.html",
+   "tldr": "Implementa os builtins `cd` (mudar o diretório de trabalho do shell e atualizar `PWD`/`OLDPWD` na tabela) e `pwd` (mostrar o diretório). O `pwd` mostra a variável `PWD` da tabela, não o diretório real do processo.",
+   "bugs": [
+    "BUG-12"
+   ],
+   "divergences": 11,
+   "confidence": 95,
+   "icon": "📂"
+  },
+  {
+   "id": "imprimir-texto-echo",
+   "title": "Imprimir Texto (echo)",
+   "href": "features/imprimir-texto-echo.html",
+   "tldr": "Implementa o builtin `echo`: escreve os argumentos separados por espaço, seguidos de `\\n`, com a opção `-n` para omitir a quebra de linha. A saída usa `printf` (stdio com buffer).",
+   "bugs": [
+    "BUG-14"
+   ],
+   "divergences": 4,
+   "confidence": 99,
+   "icon": "🗣️"
+  },
+  {
+   "id": "encerrar-shell",
+   "title": "Encerrar Shell",
+   "href": "features/encerrar-shell.html",
+   "tldr": "Implementa o builtin `exit [n]`: libera a linha e a tabela e termina o processo do shell com o código pedido. O encerramento por Ctrl-D (EOF no prompt) está em `iniciar-sessao-e-ler-comando` (RN-02).",
+   "bugs": [
+    "BUG-02",
+    "BUG-21"
+   ],
+   "divergences": 6,
+   "confidence": 100,
+   "icon": "🚪"
+  },
+  {
+   "id": "tratar-sinais",
+   "title": "Tratar Sinais",
+   "href": "features/tratar-sinais.html",
+   "tldr": "Define como o shell reage a Ctrl-C (SIGINT) e Ctrl-\\ (SIGQUIT) em cada fase: prompt, leitura de heredoc e execução de comandos. O comportamento troca conforme a fase, instalando handlers diferentes com `signal()`.",
+   "bugs": [
+    "BUG-15"
+   ],
+   "divergences": 3,
+   "confidence": 95,
+   "icon": "⚡"
+  }
+ ]
+}

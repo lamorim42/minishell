@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reversa-pricing-advisor-v1.0",
+  "title": "Reversa Pricing Advisor",
+  "description": "Modelo de venda gerado pelo agente reversa-pricing-advisor a partir de seis respostas e regras determinísticas de viabilidade. Consumido por reversa-pricing (orquestrador), reversa-pricing-profile e reversa-pricing-product.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "answers",
+    "recommendations",
+    "selected_models",
+    "forced_models",
+    "store_choice",
+    "tracks",
+    "notes_pt_br"
+  ],
+  "$defs": {
+    "sale_model": {
+      "type": "string",
+      "enum": [
+        "servico_sob_medida",
+        "licenca_perpetua",
+        "aluguel",
+        "assinatura",
+        "loja_de_apps"
+      ],
+      "description": "Chave canônica de um modelo de venda, conforme references/sale-models.md."
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Versão do schema."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp ISO 8601 UTC da criação ou da última sobrescrita do advisor."
+    },
+    "answers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "software_type",
+        "origin",
+        "payer",
+        "hosting",
+        "monthly_recurring_cost",
+        "recurring_cost_known",
+        "income_preference"
+      ],
+      "properties": {
+        "software_type": {
+          "type": "string",
+          "enum": ["app_mobile", "app_desktop", "sistema_web", "api_servico", "ferramenta_interna", "outro"],
+          "description": "Resposta da pergunta 1: tipo de software."
+        },
+        "origin": {
+          "type": "string",
+          "enum": ["encomenda", "muitos", "ambos"],
+          "description": "Resposta da pergunta 2: feito sob encomenda, para muitos, ou os dois."
+        },
+        "payer": {
+          "type": "string",
+          "enum": ["pessoa_fisica", "empresa", "ambos"],
+          "description": "Resposta da pergunta 3: quem paga."
+        },
+        "hosting": {
+          "type": "string",
+          "enum": ["eu_hospedo", "cliente_instala", "nao_sei"],
+          "description": "Resposta da pergunta 4: quem mantém o software rodando."
+        },
+        "monthly_recurring_cost": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "Resposta da pergunta 5: custo mensal para manter rodando, na moeda do usuário. null quando o usuário respondeu 'nao sei'."
+        },
+        "recurring_cost_known": {
+          "type": "boolean",
+          "description": "true quando o usuário informou um número (inclusive 0); false quando respondeu 'nao sei'."
+        },
+        "income_preference": {
+          "type": "string",
+          "enum": ["unico", "recorrente", "tanto_faz"],
+          "description": "Resposta da pergunta 6: preferência entre pagamento único e renda recorrente."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "recurring_cost_known": { "const": false }
+            }
+          },
+          "then": {
+            "properties": {
+              "monthly_recurring_cost": { "type": "null" }
+            }
+          },
+          "else": {
+            "properties": {
+              "monthly_recurring_cost": { "type": "number" }
+            }
+          }
+        }
+      ]
+    },
+    "recommendations": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "description": "Sempre os cinco modelos do catálogo, na ordem apresentada ao usuário (score decrescente, empate pela ordem do catálogo).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["model", "viable", "score", "reason_pt_br", "risks_pt_br"],
+        "properties": {
+          "model": { "$ref": "#/$defs/sale_model" },
+          "viable": {
+            "type": "boolean",
+            "description": "true quando score >= 1 e nenhum bloqueio bateu."
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Soma dos pontos das regras que bateram. Um bloqueio não zera o score."
+          },
+          "reason_pt_br": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Motivo em linguagem leiga: frase do bloqueio, ou frases das regras que bateram, ou motivo padrão de score 0."
+          },
+          "risks_pt_br": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Riscos padrão do modelo, com os riscos obrigatórios condicionais na frente quando a condição bate."
+          }
+        }
+      }
+    },
+    "selected_models": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/sale_model" },
+      "description": "Modelos que o usuário escolheu precificar. Inclui os forçados."
+    },
+    "forced_models": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/sale_model" },
+      "description": "Subconjunto de selected_models que era inviável pelas regras e o usuário manteve mesmo assim."
+    },
+    "store_choice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["store", "store_billing"],
+      "properties": {
+        "store": {
+          "type": ["string", "null"],
+          "enum": ["google_play", "app_store", "microsoft_store", "steam", "outra", null],
+          "description": "Loja escolhida quando loja_de_apps está em selected_models. null caso contrário."
+        },
+        "store_billing": {
+          "type": ["string", "null"],
+          "enum": ["unica", "assinatura", null],
+          "description": "Cobrança dentro da loja: venda única ou assinatura. null quando loja_de_apps não foi escolhido."
+        }
+      },
+      "description": "Detalhes da loja. Ambos null quando loja_de_apps não está em selected_models."
+    },
+    "tracks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service", "product"],
+      "properties": {
+        "service": {
+          "type": "boolean",
+          "description": "true quando selected_models inclui servico_sob_medida. Leva ao pipeline size e estimate por feature."
+        },
+        "product": {
+          "type": "boolean",
+          "description": "true quando selected_models inclui qualquer modelo diferente de servico_sob_medida. Leva ao product."
+        }
+      }
+    },
+    "notes_pt_br": {
+      "type": "string",
+      "description": "Notas em linguagem leiga, como a nota de hosting desconhecido. String vazia quando não há nota."
+    }
+  }
+}

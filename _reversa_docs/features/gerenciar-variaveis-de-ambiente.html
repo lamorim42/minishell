@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Variáveis de Ambiente | minishell</title>
+
+    <!-- Meta-tags do Reversa para auto-discovery -->
+    <meta name="reversa-category" content="diagram">
+    <meta name="reversa-template" content="feature">
+    <meta name="reversa-source-md" content="../../reversa-sdd/gerenciar-variaveis-de-ambiente/requirements.md">
+    <meta name="reversa-producer-agent" content="reversa-docs-storyteller">
+    <meta name="reversa-generated-at" content="2026-11-22T14:15:03+00:00">
+    <meta name="reversa-schema-version" content="1">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    
+</head>
+<body class="no-sidebar" data-style="premium" data-page="feature-gerenciar-variaveis-de-ambiente">
+
+    <header class="reversa-doc-header">
+        <a class="reversa-doc-logo" href="../index.html" aria-label="Início">
+            <span class="seal" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="64" height="64" class="seal-mini" role="img" aria-label="Selo do projeto minishell"><defs><radialGradient id="gm" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1f1f30"/><stop offset="1" stop-color="#0a0a14"/></radialGradient></defs><circle cx="400" cy="400" r="392" fill="url(#gm)" stroke="#d4af37" stroke-width="6"/><circle cx="400" cy="400" r="360" fill="none" stroke="#d4af37" stroke-opacity="0.35" stroke-width="5" stroke-dasharray="19 12"/><circle cx="400" cy="400" r="280" fill="none" stroke="#d4af37" stroke-opacity="0.50" stroke-width="2" stroke-dasharray="12 9"/><circle cx="400" cy="400" r="200" fill="none" stroke="#d4af37" stroke-opacity="0.65" stroke-width="3" stroke-dasharray="6 6"/><line x1="505.3" y1="457.5" x2="682.6" y2="554.4" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="682.6" cy="554.4" r="15" fill="#d4af37"/><line x1="457.5" y1="505.3" x2="564.3" y2="701.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="564.3" cy="701.1" r="13" fill="#f6e7b0"/><line x1="391.4" y1="519.7" x2="376.2" y2="732.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="376.2" cy="732.1" r="11" fill="#d4af37"/><line x1="328.1" y1="496.1" x2="212.4" y2="650.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="212.4" cy="650.5" r="11" fill="#f6e7b0"/><line x1="287.6" y1="441.9" x2="77.7" y2="520.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="77.7" cy="520.2" r="17" fill="#d4af37"/><line x1="282.7" y1="374.5" x2="79.5" y2="330.2" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="79.5" cy="330.2" r="12" fill="#f6e7b0"/><line x1="315.2" y1="315.1" x2="166.7" y2="166.6" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="166.7" cy="166.6" r="15" fill="#d4af37"/><line x1="374.5" y1="282.7" x2="334.0" y2="96.1" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="334.0" cy="96.1" r="8" fill="#f6e7b0"/><line x1="442.0" y1="287.6" x2="512.6" y2="98.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="512.6" cy="98.3" r="15" fill="#d4af37"/><line x1="496.1" y1="328.1" x2="674.6" y2="194.5" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="674.6" cy="194.5" r="13" fill="#f6e7b0"/><line x1="519.7" y1="391.5" x2="732.2" y2="376.3" stroke="#d4af37" stroke-opacity=".55" stroke-width="3"/><circle cx="732.2" cy="376.3" r="11" fill="#d4af37"/><polygon points="400.0,250.0 529.9,475.0 270.1,475.0" fill="none" stroke="#f6e7b0" stroke-width="8" stroke-linejoin="round"/><circle cx="400" cy="400" r="40" fill="#d4af37"/><text x="400" y="418" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="52" font-weight="700" fill="#0a0a14">&gt;_</text></svg></span>
+            <span class="project-name">minishell</span>
+        </a>
+        <nav class="reversa-doc-nav" aria-label="Seções da documentação">
+            <a href="../index.html" data-page-id="index">Visão geral</a><a href="../arquitetura.html" data-page-id="arquitetura">Arquitetura 3D</a><a href="../modulos.html" data-page-id="modulos">Módulos</a><a href="../metricas.html" data-page-id="metricas">Métricas</a><a href="../glossario.html" data-page-id="glossario">Glossário</a><a href="../deck.html" data-page-id="deck">Deck</a><a href="../index.html#features" data-page-id="features" class="is-active" aria-current="page">Casos de uso</a>
+        </nav>
+        <div class="reversa-doc-toolbar">
+            <button type="button" class="theme-toggle" aria-label="Alternar tema">
+                <span class="theme-toggle-label">Tema</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="reversa-doc-main" role="main">
+        <div class="reversa-doc-payload">
+            <h1 class="reversa-doc-title">Gerenciar Variáveis de Ambiente</h1>
+            <article class="reversa-doc-feature">
+<section class="reversa-doc-feature-tldr"><h2>TL;DR</h2><p>Mantém o ambiente do shell em uma tabela hash própria, carregada do <code>envp</code> na inicialização, e oferece os builtins <code>export</code>, <code>unset</code> e <code>env</code> para consultá-la e alterá-la. A tabela também guarda <code>$?</code> (chave <code>?</code>). Ela é lida pela expansão de variáveis, pela busca no <code>PATH</code> e pelo <code>cd</code>.</p><p><span class="badge bug">BUG-03</span><span class="badge bug">BUG-05</span><span class="badge bug">BUG-06</span><span class="badge bug">BUG-07</span><span class="badge ok">confiança 99%</span></p></section>
+<section class="reversa-doc-feature-accordion">
+<details open><summary>Requisitos</summary><div data-section="requirements"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash<br>Casos "(observado)" foram executados contra o <code>main.c</code> legado compilado na scratchpad (readline substituto lendo stdin). Ambiente de teste: <code>HOME=/home/u USER=luis PATH=/usr/bin:/bin</code>. O repositório não foi alterado.</blockquote>
+<h3>Visão Geral</h3>
+<p>Mantém o ambiente do shell em uma tabela hash própria, carregada do <code>envp</code> na inicialização, e oferece os builtins <code>export</code>, <code>unset</code> e <code>env</code> para consultá-la e alterá-la. A tabela também guarda <code>$?</code> (chave <code>?</code>). Ela é lida pela expansão de variáveis, pela busca no <code>PATH</code> e pelo <code>cd</code> 🟢.</p>
+<h3>Responsabilidades</h3>
+<ul><li>Armazenar pares chave/valor em uma tabela hash de 149 posições com encadeamento 🟢</li><li><code>export K=V</code>: criar ou atualizar variáveis 🟢</li><li><code>export</code> sem argumentos: listar as variáveis no formato <code>declare -x K=&quot;V&quot;</code> 🟢</li><li><code>unset K</code>: remover variáveis 🟢</li><li><code>env</code>: listar as variáveis no formato <code>K=V</code> 🟢</li><li>Validar identificadores e informar erros 🟢</li></ul>
+<h3>Regras de Negócio</h3>
+<h4><code>export</code></h4>
+<ul><li>EX-01: <code>export K=V</code> cria <code>K</code> ou atualiza o valor: <code>export A=1 B=2</code> cria as duas; <code>export A=3</code> atualiza 🟢 (observado)</li><li>EX-02: o identificador é válido quando o <strong>primeiro caractere é letra</strong> (<code>ft_isalpha</code>); os outros não são verificados 🟢<ul><li><code>_X=1</code> → <code>_X=1: not a valid identifier</code>, <code>$?=1</code> 🟢 (observado). ⚠️ O bash aceita <code>_</code></li><li><code>1A=2</code> → <code>not a valid identifier</code>, <code>$?=1</code> 🟢 (observado), igual ao bash</li><li><code>A-B=1</code> é <strong>aceito</strong> e aparece no <code>env</code> 🟢 (observado). ⚠️ O bash rejeita</li></ul></li><li>EX-03: <code>export K</code> (sem <code>=</code>) é <strong>ignorado</strong> em silêncio 🟢 (observado). ⚠️ O bash marca <code>K</code> para exportação e a lista no <code>export</code></li><li>BUG-06: <code>export K=</code> (valor vazio) é <strong>ignorado</strong>; <code>K</code> não é criada 🟢 (observado). ⚠️ O bash cria <code>K</code> vazia</li><li>BUG-06: valor com <code>=</code> é corrompido: <code>export E=b=c</code> → <code>E</code> = <code>b=b=</code> 🟢 (observado). ⚠️ O bash grava <code>b=c</code></li><li>EX-04: o valor chega já expandido e sem aspas (<code>export A=$HOME</code> → <code>A=/home/u</code>) 🟢 (observado em <code>expandir-variaveis</code>)</li><li>EX-05: <code>export</code> sem argumentos lista <strong>todas</strong> as chaves, **inclusive <code>?</code>**, na ordem dos buckets da tabela (não ordenada): <code>declare -x ?=&quot;0&quot;</code> 🟢 (observado). ⚠️ O bash ordena e não mostra <code>?</code></li><li>EX-06: identificadores inválidos não interrompem o laço; os válidos seguintes são processados 🟢</li></ul>
+<h4><code>unset</code></h4>
+<ul><li>UN-01: <code>unset K</code> remove <code>K</code> se existir; se não existir, não faz nada 🟢</li><li>UN-02: argumento cujo primeiro caractere não é letra → <code>&lt;arg&gt;: not a valid identifier</code>, <code>$?=1</code>: <code>unset 9</code>, <code>unset ?</code> 🟢 (observado). Isso protege a chave <code>?</code></li><li>BUG-07: <code>unset</code> <strong>falha em silêncio</strong> quando a chave é a <strong>cabeça</strong> de uma lista de colisão: com <code>A</code> e <code>kk</code> no mesmo bucket (soma dos caracteres ≡ 65 mod 149), <code>unset A</code> não remove <code>A</code> 🟢 (observado). ⚠️ No bash sempre remove</li></ul>
+<h4><code>env</code></h4>
+<ul><li>EN-01: <code>env</code> sem argumentos lista <code>K=V</code> de todas as chaves da tabela, **inclusive <code>?=&lt;status&gt;</code>**, na ordem dos buckets 🟢 (observado). ⚠️ O bash não mostra <code>?</code></li><li>EN-02: <code>env &lt;qualquer coisa&gt;</code> → <code>&lt;arg&gt;: No such file or directory</code>, <code>$?=127</code>; não executa programas 🟢 (observado). ≈ O bash (<code>env</code> do coreutils) executaria o programa</li></ul>
+<h4>Escopo</h4>
+<ul><li>RN-37 / BUG-03: as alterações <strong>não</strong> chegam aos processos filhos, porque o <code>execve</code> usa o <code>envp</code> original (detalhado em <code>executar-comando-simples</code>) 🟢 (observado)</li><li>RE-01: <code>export</code>/<code>unset</code> só têm efeito quando são o último nó da linha; <code>export X=1 &gt; f</code> ou <code>export X=1 | cat</code> não alteram nada 🟢 (observado)</li><li>A tabela é carregada do <code>envp</code>: <code>K=V</code> com <code>=</code> dentro do valor preserva o valor (<code>preper_to_insert</code>); <code>K</code> sem <code>=</code> vira <code>K=&quot;&quot;</code> (unit <code>iniciar-sessao-e-ler-comando</code>) 🟢</li><li>✅ L-03 (respondida em 2026-11-22): é um <strong>bug</strong> (BUG-03), confirmado pelo autor; documentado como comportamento atual (L-07)</li><li>✅ L-07 (decidida em 2026-11-22, [Revisão]): <strong>documentar o comportamento atual</strong>. As ⚠️ DIVERGÊNCIAS desta unit são o comportamento especificado, não defeitos a corrigir. (Pendência original: BUG-06, BUG-07, EX-02, EX-03, EX-05 e EN-01)</li></ul>
+<h3>Requisitos Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Requisito</th><th>Prioridade</th><th>Critério de Aceite</th></tr></thead><tbody><tr><td>RF-01</td><td><code>export K=V</code> cria ou atualiza <code>K</code></td><td>Must</td><td><code>export A=1</code>; <code>echo $A</code> → <code>1</code></td></tr><tr><td>RF-02</td><td><code>export</code> sem argumentos lista no formato <code>declare -x K=&quot;V&quot;</code></td><td>Should</td><td>Saída contém <code>declare -x HOME=&quot;/home/u&quot;</code></td></tr><tr><td>RF-03</td><td>Rejeitar identificadores que não começam com letra, com <code>$?=1</code></td><td>Must</td><td><code>export 1A=2</code> → mensagem e <code>$?=1</code></td></tr><tr><td>RF-04</td><td><code>unset K</code> remove <code>K</code></td><td>Must</td><td><code>export A=1</code>; <code>unset A</code>; <code>echo [$A]</code> → vazio (ver BUG-05)</td></tr><tr><td>RF-05</td><td><code>unset</code> com identificador inválido → mensagem e <code>$?=1</code></td><td>Should</td><td><code>unset 9</code> → <code>9: not a valid identifier</code></td></tr><tr><td>RF-06</td><td><code>env</code> lista <code>K=V</code></td><td>Must</td><td>Saída contém <code>HOME=/home/u</code></td></tr><tr><td>RF-07</td><td><code>env</code> com argumento → <code>No such file or directory</code> e <code>$?=127</code></td><td>Could</td><td><code>env x</code> → mensagem</td></tr><tr><td>RF-08</td><td>Guardar <code>?</code> na tabela com o último status</td><td>Must</td><td>Ver <code>expandir-variaveis</code> RF-03</td></tr></tbody></table></div>
+<h3>Requisitos Não Funcionais</h3>
+<div class="table-wrap"><table><thead><tr><th>Tipo</th><th>Requisito inferido</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Desempenho</td><td>Tabela hash fixa de 149 buckets; função de hash = soma dos bytes mod 149 (muitas colisões em chaves com as mesmas letras)</td><td><code>includes/minishell.h</code> (<code>SIZE_TABLE</code>), <code>src/hash_table/hash_function.c</code></td><td>🟢</td></tr><tr><td>Consistência</td><td>Atualização = <code>table_delete</code> + <code>hash_insert</code>; não é atômica</td><td><code>src/builtins/cd.c:42-51</code></td><td>🟢</td></tr><tr><td>Memória</td><td>Chave e valor duplicados com <code>ft_strdup</code> em cada item; <code>search_item</code> devolve cópia</td><td><code>src/hash_table/create_node.c</code>, <code>src/hash_table/search_item.c</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Critérios de Aceitação</h3>
+<pre class="code" data-lang="gherkin"><code>Funcionalidade: Variáveis de ambiente
+
+  Cenário: Criar e ler
+    Quando o usuário digita &quot;export A=1 B=2&quot;
+    E depois digita &quot;echo $A $B&quot;
+    Então a saída é &quot;1 2&quot;
+
+  Cenário: Atualizar
+    Dado A=1
+    Quando o usuário digita &quot;export A=3&quot;
+    E depois digita &quot;echo $A&quot;
+    Então a saída é &quot;3&quot;
+
+  Cenário: Identificador inválido
+    Quando o usuário digita &quot;export 1A=2&quot;
+    Então &quot;1A=2: not a valid identifier&quot; é escrito em stderr
+    E $? é 1
+
+  Cenário: Remover
+    Dado A=1
+    Quando o usuário digita &quot;unset A&quot;
+    Então A não existe mais
+
+  Cenário: env com argumento
+    Quando o usuário digita &quot;env x&quot;
+    Então &quot;x: No such file or directory&quot; é escrito em stderr
+    E $? é 127
+
+  @divergente
+  Cenário: Valor com &quot;=&quot; corrompido (BUG-06)
+    Quando o usuário digita &quot;export E=b=c&quot;
+    E depois digita &quot;echo $E&quot;
+    Então a saída é &quot;b=b=&quot;
+
+  @divergente
+  Cenário: Valor vazio ignorado (BUG-06)
+    Quando o usuário digita &quot;export D=&quot;
+    Então D não é criada
+
+  @divergente
+  Cenário: unset em cabeça de colisão (BUG-07)
+    Dado &quot;export A=1 kk=2&quot;
+    Quando o usuário digita &quot;unset A&quot;
+    E depois digita &quot;echo $A&quot;
+    Então a saída é &quot;1&quot;
+
+  @divergente
+  Cenário: env mostra a chave &quot;?&quot; (EN-01)
+    Quando o usuário digita &quot;env&quot;
+    Então a saída contém &quot;?=0&quot;</code></pre>
+<h3>Prioridade (MoSCoW)</h3>
+<div class="table-wrap"><table><thead><tr><th>Requisito</th><th>MoSCoW</th><th>Justificativa</th></tr></thead><tbody><tr><td>RF-01, RF-03, RF-04, RF-06, RF-08</td><td>Must</td><td><code>export</code>, <code>unset</code> e <code>env</code> são obrigatórios no subject; a tabela alimenta expansão e <code>PATH</code></td></tr><tr><td>RF-02, RF-05</td><td>Should</td><td>Saída e mensagens auxiliares</td></tr><tr><td>RF-07</td><td>Could</td><td>Caso raro</td></tr></tbody></table></div>
+<h3>Rastreabilidade de Código</h3>
+<div class="table-wrap"><table><thead><tr><th>Arquivo</th><th>Função</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>src/builtins/export.c</code></td><td><code>export_builtin</code>, <code>building_var</code>, <code>print_export</code>, <code>print_var_line</code></td><td>🟢</td></tr><tr><td><code>src/builtins/unset.c</code></td><td><code>unset_builtin</code></td><td>🟢</td></tr><tr><td><code>src/builtins/env.c</code></td><td><code>env_builtin</code></td><td>🟢</td></tr><tr><td><code>src/builtins/builtins_utils.c</code></td><td><code>is_args_ok</code>, <code>insert_var_in_hash</code>, <code>insert_simple_var_in_hash</code></td><td>🟢</td></tr><tr><td><code>src/builtins/cd.c</code></td><td><code>update_var_env</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/create_table.c</code></td><td><code>create_table</code>, <code>population_hash_table</code>, <code>count_split_chr</code>, <code>preper_to_insert</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/insert_node.c</code></td><td><code>hash_insert</code>, <code>handle_collision</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/delete_node.c</code></td><td><code>table_delete</code>, <code>delete_node</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/search_item.c</code></td><td><code>search_item</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/print_table.c</code></td><td><code>print_table</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/hash_function.c</code></td><td><code>hash_function</code></td><td>🟢</td></tr><tr><td><code>src/hash_table/create_node.c</code>, <code>free_hash_table.c</code></td><td><code>create_item</code>, <code>free_item</code>, <code>free_table</code></td><td>🟢</td></tr></tbody></table></div></div></details>
+<details><summary>Design</summary><div data-section="design"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Interface</h3>
+<h4>Tabela hash (<code>src/hash_table/</code>)</h4>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Retorno</th><th>Observação</th></tr></thead><tbody><tr><td><code>create_table</code></td><td><code>(int size)</code></td><td><code>t_hash_table *</code></td><td><code>size = SIZE_TABLE = 149</code>; buckets zerados 🟢</td></tr><tr><td><code>hash_function</code></td><td><code>(char *str)</code></td><td><code>unsigned long</code></td><td><code>Σ bytes mod 149</code> 🟢</td></tr><tr><td><code>create_item</code></td><td><code>(char *key, char *value)</code></td><td><code>t_hash_item *</code></td><td>Duplica chave e valor 🟢</td></tr><tr><td><code>hash_insert</code></td><td><code>(t_hash_table **t, char *key, char *value)</code></td><td><code>void</code></td><td>Atualiza se a <strong>cabeça</strong> do bucket tem a chave; senão encadeia no fim 🟢</td></tr><tr><td><code>handle_collision</code></td><td><code>(t_hash_table **t, t_hash_item *item, int index)</code></td><td><code>void</code></td><td>Anexa no fim da lista 🟢</td></tr><tr><td><code>search_item</code></td><td><code>(t_hash_table *t, char *key)</code></td><td><code>char *</code> (cópia) ou <code>NULL</code></td><td>Igualdade exata (<code>ft_strncmp</code> com <code>len + 1</code>) 🟢</td></tr><tr><td><code>table_delete</code></td><td><code>(t_hash_table **t, char *key)</code></td><td><code>void</code></td><td>Bucket com 1 item: apaga <strong>sem conferir a chave</strong>; com mais: <code>delete_node</code> 🟢</td></tr><tr><td><code>delete_node</code></td><td><code>(t_hash_table **t, t_hash_item *head, char *key)</code></td><td><code>void</code></td><td>Procura a chave; só remove se <strong>não</strong> for a cabeça 🟢</td></tr><tr><td><code>print_table</code></td><td><code>(t_hash_table **t)</code></td><td><code>void</code></td><td><code>printf(&quot;%s=%s\n&quot;)</code> na ordem dos buckets 🟢</td></tr><tr><td><code>free_item</code> / <code>free_table</code></td><td>—</td><td><code>void</code></td><td>🟢</td></tr></tbody></table></div>
+<p>Estruturas: <code>t_hash_table { int size; int count; t_hash_item **item; }</code> e <code>t_hash_item { char *key; char *value; t_hash_item *next; }</code> 🟢.</p>
+<h4>Builtins</h4>
+<div class="table-wrap"><table><thead><tr><th>Símbolo</th><th>Assinatura</th><th>Observação</th></tr></thead><tbody><tr><td><code>export_builtin</code></td><td><code>(t_pipe_list *node, t_hash_table **table)</code></td><td>🟢</td></tr><tr><td><code>is_args_ok</code></td><td><code>(char *arg)</code> → bool</td><td><code>ft_isalpha(arg[0])</code> 🟢</td></tr><tr><td><code>insert_var_in_hash</code></td><td><code>(char *arg, t_hash_table **table)</code></td><td><code>ft_split(arg, &#x27;=&#x27;)</code> e "remontagem" do valor 🟢</td></tr><tr><td><code>building_var</code></td><td><code>(char **split, char *str, char *s)</code></td><td><code>split[1] = str + s</code> 🟢</td></tr><tr><td><code>insert_simple_var_in_hash</code></td><td><code>(t_hash_table **table, char **split)</code></td><td>Novo → <code>hash_insert</code>; existente → <code>update_var_env</code> 🟢</td></tr><tr><td><code>update_var_env</code></td><td><code>(t_hash_table **table, char *key, char *val)</code></td><td><code>table_delete</code> (se existir) + <code>hash_insert</code> 🟢</td></tr><tr><td><code>unset_builtin</code></td><td><code>(t_pipe_list *node, t_hash_table **table)</code></td><td>🟢</td></tr><tr><td><code>env_builtin</code></td><td><code>(t_pipe_list *node, t_hash_table **table)</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Fluxo Principal</h3>
+<h4><code>export</code> (<code>src/builtins/export.c:27-43</code>)</h4>
+<pre class="code" data-lang="text"><code>para cada args[i], i ≥ 1:
+  se primeiro caractere é letra e contém &#x27;=&#x27;: insert_var_in_hash(args[i])
+  senão se primeiro caractere não é letra: status_code = 1; &quot;&lt;arg&gt;: not a valid identifier&quot;
+  # letra sem &#x27;=&#x27;: nada
+se não há args[1]: print_export   # &quot;declare -x K=\&quot;V\&quot;&quot; por bucket</code></pre>
+<h4><code>insert_var_in_hash</code> (<code>src/builtins/builtins_utils.c:60-84</code>)</h4>
+<pre class="code" data-lang="text"><code>s = ft_split(arg, &#x27;=&#x27;)                 # &quot;E=b=c&quot; → [&quot;E&quot;,&quot;b&quot;,&quot;c&quot;]; &quot;D=&quot; → [&quot;D&quot;]
+se len(s) &gt; 2:
+  para i = 1 .. fim:
+    i ímpar: s[1] = s[i] + &quot;=&quot;         # i=1: &quot;b=&quot;
+    i par:   s[1] = s[1] + s[1]        # i=2: &quot;b=b=&quot;   (deveria acrescentar s[i])
+se s[1] existe: insert_simple_var_in_hash(s)     # &quot;D=&quot; não tem s[1] → ignorado</code></pre>
+<p>Esse é o mecanismo do BUG-06 🟢.</p>
+<h4><code>unset</code> (<code>src/builtins/unset.c:17-39</code>)</h4>
+<pre class="code" data-lang="text"><code>para cada args[i]:
+  se primeiro caractere é letra:
+     se search_item(args[i]) existe: table_delete(args[i])
+  senão: status_code = 1; &quot;&lt;arg&gt;: not a valid identifier&quot;</code></pre>
+<h4><code>table_delete</code> + <code>delete_node</code> (<code>src/hash_table/delete_node.c:17-48</code>)</h4>
+<pre class="code" data-lang="text"><code>cabeça = bucket[hash(key)]
+se cabeça-&gt;next == NULL: free(cabeça); bucket = NULL         # sem conferir a chave
+senão:
+  anterior = NULL; atual = cabeça
+  enquanto atual e atual-&gt;key != key: anterior = atual; atual = atual-&gt;next
+  se atual e anterior: anterior-&gt;next = atual-&gt;next; free(atual)
+  # se a chave é a cabeça (anterior == NULL): nada acontece → BUG-07</code></pre>
+<h4><code>env</code> (<code>src/builtins/env.c:17-26</code>)</h4>
+<p>Com argumento: <code>status_code = 127</code> e mensagem. Sem argumento: <code>print_table</code> 🟢.</p>
+<h3>Fluxos Alternativos</h3>
+<ul><li><strong>Atualização de chave existente na cabeça de uma lista:</strong> <code>update_var_env</code> → <code>table_delete</code> não remove (BUG-07) → <code>hash_insert</code> encontra a chave na cabeça e atualiza o valor. O resultado final é correto 🟢</li><li><strong>Atualização de chave existente fora da cabeça:</strong> <code>delete_node</code> remove → <code>hash_insert</code> anexa de novo no fim. Correto 🟢</li><li>**<code>hash_insert</code> de chave existente fora da cabeça, sem <code>table_delete</code> antes:<strong> cria </strong>duplicata** no bucket. Hoje nenhum chamador faz isso, porque <code>update_var_env</code> sempre apaga antes 🟡</li><li>**Atualização de <code>?</code>** (<code>update_status_code</code>): <code>table_delete(&quot;?&quot;)</code> + <code>hash_insert(&quot;?&quot;, status)</code>. Funciona pelas mesmas razões 🟢</li></ul>
+<h3>Dependências</h3>
+<ul><li><strong>Libft:</strong> <code>ft_split</code>, <code>ft_strjoin</code>, <code>ft_strdup</code>, <code>ft_isalpha</code>, <code>ft_strncmp</code></li><li><strong>iniciar-sessao-e-ler-comando:</strong> <code>population_hash_table</code> na inicialização</li><li><strong>expandir-variaveis, executar-comando-simples, navegar-diretorios:</strong> leitores da tabela (<code>search_item</code>)</li><li><strong>executar-comando-simples:</strong> <code>exec_builtins</code> despacha; o builtin só altera o shell se for o último nó</li></ul>
+<h3>Decisões de Design Identificadas</h3>
+<div class="table-wrap"><table><thead><tr><th>Decisão</th><th>Evidência no código</th><th>Confiança</th></tr></thead><tbody><tr><td>Ambiente próprio em tabela hash com encadeamento (ADR-004)</td><td><code>src/hash_table/</code></td><td>🟢</td></tr><tr><td><code>$?</code> como chave <code>?</code> na mesma tabela</td><td><code>src/hash_table/create_table.c:55</code></td><td>🟢</td></tr><tr><td>Tamanho fixo (149), sem <em>rehash</em></td><td><code>includes/minishell.h</code></td><td>🟢</td></tr><tr><td><code>execve</code> não recebe a tabela (os filhos usam o <code>envp</code> original)</td><td><code>src/exec/exec_path.c:34</code></td><td>🟢</td></tr><tr><td>Erros de builtin gravados em <code>g_minishell.line-&gt;status_code</code></td><td><code>src/builtins/export.c:36</code>, <code>unset.c:33</code>, <code>env.c:21</code></td><td>🟢</td></tr></tbody></table></div>
+<h3>Estado Interno</h3>
+<p>A tabela vive no heap durante a sessão inteira, apontada por <code>main</code> e por <code>g_minishell.table</code>. <code>count</code> é mantido, mas não é usado para decisões 🟢.</p>
+<h3>Observabilidade</h3>
+<p>Mensagens em stderr: <code>&lt;arg&gt;: not a valid identifier</code> e <code>&lt;arg&gt;: No such file or directory</code> 🟢.</p>
+<h3>Riscos e Lacunas</h3>
+<ul><li>🟢 BUG-06: valores com <code>=</code> e valores vazios</li><li>🟢 BUG-07: <code>unset</code> da cabeça de colisão; <code>table_delete</code> apaga sem conferir a chave em bucket com 1 item</li><li>🟢 EX-02: validação só do primeiro caractere</li><li>🟢 EN-01 e EX-05: <code>?</code> exposto em <code>env</code> e <code>export</code></li><li>🟡 A função de hash (soma dos bytes) gera colisões entre anagramas (<code>AB</code>/<code>BA</code>) e torna o BUG-07 comum</li><li>✅ L-03 (respondida em 2026-11-22): é um <strong>bug</strong> (BUG-03), confirmado pelo autor; documentado como comportamento atual (L-07)</li><li>✅ L-07 (decidida em 2026-11-22): documentar o as-is. Nota para uma eventual reimplementação corretiva, fora do escopo atual: corrigir a tabela (<code>delete</code> da cabeça) muda o comportamento observável só do <code>unset</code></li></ul></div></details>
+<details><summary>Tasks</summary><div data-section="tasks"><blockquote>Unit de caso de uso · Redator (Reversa) · 2026-11-22<br>Escala: 🟢 CONFIRMADO · 🟡 INFERIDO · 🔴 LACUNA · ⚠️ DIVERGÊNCIA em relação ao bash</blockquote>
+<h3>Pré-requisitos</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Libft com <code>ft_split</code>, <code>ft_strjoin</code>, <code>ft_strdup</code>, <code>ft_isalpha</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; Unit <code>executar-comando-simples</code> com o despacho de builtins (<code>exec_builtins</code>)</li><li>&lt;span class="chk"&gt;☑&lt;/span&gt; Decisões de L-03 (ambiente dos filhos: <strong>bug</strong>, respondida) e L-07 (BUG-06, BUG-07, validação, <code>?</code> visível) → <strong>L-07 decidida em 2026-11-22: documentar o as-is</strong></li></ul>
+<h3>Tarefas</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-01, Implementar a tabela: <code>create_table</code>, <code>hash_function</code>, <code>create_item</code>, <code>hash_insert</code>, <code>handle_collision</code>, <code>search_item</code>, <code>free_item</code>, <code>free_table</code><ul><li>Origem no legado: <code>src/hash_table/*.c</code></li><li>Critério de pronto: inserir 500 chaves e encontrar todas; <code>search_item</code> devolve cópia</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-02, Implementar <code>table_delete</code> / <code>delete_node</code> removendo também a cabeça da lista e conferindo a chave em buckets de 1 item<ul><li>Origem no legado: <code>src/hash_table/delete_node.c:17-48</code> (BUG-07)</li><li>Critério de pronto (corrigido): <code>export A=1 kk=2</code>; <code>unset A</code> → <code>A</code> removida. Critério de pronto (as-is): <code>A</code> continua</li><li>Confiança: 🟢</li><li>Nota: depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-03, Implementar <code>export K=V</code> (criação e atualização via <code>update_var_env</code>), com o laço sobre todos os argumentos<ul><li>Origem no legado: <code>src/builtins/export.c:27-43</code>, <code>src/builtins/builtins_utils.c:60-102</code>, <code>src/builtins/cd.c:42-51</code></li><li>Critério de pronto: cenários "Criar e ler" e "Atualizar"</li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-04, Tratar valores com <code>=</code> e valores vazios<ul><li>Origem no legado: <code>src/builtins/builtins_utils.c:60-84</code> (BUG-06)</li><li>Critério de pronto (corrigido): <code>export E=b=c</code> → <code>b=c</code>; <code>export D=</code> → <code>D</code> vazia. Critério de pronto (as-is): <code>b=b=</code> e <code>D</code> ausente</li><li>Confiança: 🟢</li><li>Nota: separar só no <strong>primeiro</strong> <code>=</code> resolve os dois; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-05, Validar identificadores (<code>is_args_ok</code>) e informar <code>not a valid identifier</code> com <code>$?=1</code><ul><li>Origem no legado: <code>src/builtins/builtins_utils.c:53-58</code>, <code>src/builtins/export.c:34-38</code></li><li>Critério de pronto: <code>export 1A=2</code> e <code>unset 9</code> → mensagem e <code>$?=1</code></li><li>Confiança: 🟢</li><li>Nota: aceitar <code>_</code> e validar todos os caracteres (<code>[A-Za-z_][A-Za-z0-9_]*</code>) alinha com o bash; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-06, Implementar <code>export</code> sem argumentos (<code>declare -x K=&quot;V&quot;</code>)<ul><li>Origem no legado: <code>src/builtins/export.c:54-86</code></li><li>Critério de pronto: a saída contém uma linha por variável</li><li>Confiança: 🟢</li><li>Nota: ordenar e esconder <code>?</code> alinha com o bash; depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-07, Implementar <code>unset</code> com validação<ul><li>Origem no legado: <code>src/builtins/unset.c:17-39</code></li><li>Critério de pronto: cenário "Remover"; <code>unset ?</code> → <code>not a valid identifier</code></li><li>Confiança: 🟢</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-08, Implementar <code>env</code> (sem argumento: <code>print_table</code>; com argumento: <code>No such file or directory</code>, 127)<ul><li>Origem no legado: <code>src/builtins/env.c:17-26</code>, <code>src/hash_table/print_table.c</code></li><li>Critério de pronto: cenário "env com argumento"</li><li>Confiança: 🟢</li><li>Nota: esconder <code>?</code> (EN-01) depende de L-07 — ✅ decidida: manter o as-is; a correção fica fora do escopo atual</li></ul></li></ul>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; T-09, (Correção do BUG-03, só numa reimplementação corretiva) gerar um <code>envp</code> a partir da tabela para o <code>execve</code><ul><li>Origem no legado: <code>src/exec/exec_path.c:34</code> (BUG-03)</li><li>Critério de pronto: <code>export ZZ=1</code>; <code>sh -c &#x27;echo $ZZ&#x27;</code> → <code>1</code></li><li>Confiança: 🟢</li><li>Nota: L-03 respondida: é bug; fora do escopo atual (L-07 = documentar)</li></ul></li></ul>
+<h3>Tarefas de Teste</h3>
+<ul><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-01, Testes unitários da tabela: inserção, busca, atualização, remoção da cabeça, do meio e do fim de uma lista de colisão (chaves <code>A</code>/<code>kk</code>, soma 65)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-02, Cenários de <code>requirements.md</code></li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-03, Cenários <code>@divergente</code> (BUG-06, BUG-07, EN-01) (L-07 = as-is: estes cenários são o comportamento esperado)</li><li>&lt;span class="chk"&gt;☐&lt;/span&gt; TT-04, Valgrind: 1.000 <code>export</code>/<code>unset</code> alternados sem vazamento</li></ul>
+<h3>Ordem Sugerida</h3>
+<ol><li>T-01 → T-02 (estrutura; todas as outras units dependem dela)</li><li>T-03 → T-04 → T-05 (export)</li><li>T-06 → T-07 → T-08 (listagem e remoção)</li><li>T-09 só numa reimplementação corretiva</li></ol>
+<h3>Lacunas Pendentes (🔴)</h3>
+<ul><li>✅ L-03 (respondida em 2026-11-22): é um <strong>bug</strong> (BUG-03), confirmado pelo autor; documentado como comportamento atual (L-07)</li><li>✅ L-07 decidida em 2026-11-22 (documentar o as-is). Só para uma eventual reimplementação corretiva: BUG-06, BUG-07, validação de identificadores (EX-02), <code>export K</code> sem <code>=</code> (EX-03), <code>?</code> visível (EX-05, EN-01)</li></ul></div></details>
+</section><nav class="feature-pager"><a href="ler-heredoc.html">← Ler Heredoc</a><a href="navegar-diretorios.html">Navegar Diretórios →</a></nav></article>
+        </div>
+    </main>
+
+    <aside class="reversa-doc-sidebar" aria-label="Controles" data-page="feature-gerenciar-variaveis-de-ambiente">
+        
+    </aside>
+
+    <footer class="reversa-doc-footer">
+        <span class="reversa-doc-footer-text">
+            Gerado por Reversa em <time datetime="2026-11-22T14:15:03+00:00">22/11/2026 11:15</time>
+        </span>
+        <span class="reversa-doc-footer-sep" aria-hidden="true">·</span>
+        <a href="../../reversa-sdd/gerenciar-variaveis-de-ambiente/requirements.md" class="reversa-doc-source-link">Fonte em markdown</a>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    
+</body>
+</html>

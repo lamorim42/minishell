@@ -1,0 +1,1125 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-22T14:09:30.335212+00:00",
+ "edges": [
+  {
+   "source": "Libft/ft_atoi.c",
+   "target": "Libft/ft_isdigit.c",
+   "weight": 1
+  },
+  {
+   "source": "Libft/ft_putstr_fd.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 1
+  },
+  {
+   "source": "Libft/ft_strjoin.c",
+   "target": "Libft/ft_strlcpy.c",
+   "weight": 1
+  },
+  {
+   "source": "Libft/ft_strjoin.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 2
+  },
+  {
+   "source": "Libft/ft_strlcpy.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 2
+  },
+  {
+   "source": "Libft/ft_strtrim.c",
+   "target": "Libft/ft_strchr.c",
+   "weight": 2
+  },
+  {
+   "source": "Libft/ft_strtrim.c",
+   "target": "Libft/ft_strlcpy.c",
+   "weight": 1
+  },
+  {
+   "source": "Libft/ft_strtrim.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 1
+  },
+  {
+   "source": "Libft/ft_substr.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 1
+  },
+  {
+   "source": "Libft/ft_substr.c",
+   "target": "Libft/ft_strlcpy.c",
+   "weight": 1
+  },
+  {
+   "source": "Libft/ft_substr.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/arr_utils.c",
+   "weight": 3
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/builtins/builtins_utils.c",
+   "weight": 5
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/builtins/cd.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/builtins/echo.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/builtins/env.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/builtins/exit.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/builtins/export.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/builtins/pwd.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/builtins/unset.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/creat_cmd_table.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/exec_list.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/exec_path.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/exec_utils.c",
+   "weight": 3
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/expand_var.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/expand_var_utils.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/here_doc.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/here_doc_utils.c",
+   "weight": 4
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/init_fork.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/list_generation_bin.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/make_list.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/exec/path_finder.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/facade.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/fd_handler.c",
+   "weight": 5
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/fd_handler_utils.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/free.c",
+   "weight": 6
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/hash_table/create_node.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/hash_table/create_table.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/hash_table/delete_node.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/hash_table/free_hash_table.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/hash_table/hash_function.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/hash_table/insert_node.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/hash_table/print_table.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/hash_table/search_item.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/init.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/main.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/signals.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/signals_utils.c",
+   "weight": 5
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/tokens/clean_tokens.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/tokens/count_tks.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/tokens/lexical_analyzer.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/tokens/sintax_analysis.c",
+   "weight": 2
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/tokens/tokenizer.c",
+   "weight": 1
+  },
+  {
+   "source": "includes/minishell.h",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 2
+  },
+  {
+   "source": "src/arr_utils.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "Libft/ft_free_arr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "Libft/ft_isalpha.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "Libft/ft_split.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 7
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/arr_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/builtins/cd.c",
+   "weight": 2
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/builtins/echo.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/builtins/env.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/builtins/exit.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/builtins/export.c",
+   "weight": 3
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/builtins/pwd.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/builtins/unset.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/free.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/hash_table/insert_node.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/hash_table/search_item.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/builtins_utils.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 7
+  },
+  {
+   "source": "src/builtins/cd.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/cd.c",
+   "target": "src/free.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/cd.c",
+   "target": "src/hash_table/delete_node.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/cd.c",
+   "target": "src/hash_table/insert_node.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/cd.c",
+   "target": "src/hash_table/search_item.c",
+   "weight": 2
+  },
+  {
+   "source": "src/builtins/cd.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 2
+  },
+  {
+   "source": "src/builtins/echo.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 2
+  },
+  {
+   "source": "src/builtins/env.c",
+   "target": "src/free.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/env.c",
+   "target": "src/hash_table/print_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/exit.c",
+   "target": "Libft/ft_atoi.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/exit.c",
+   "target": "Libft/ft_isdigit.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/exit.c",
+   "target": "src/free.c",
+   "weight": 2
+  },
+  {
+   "source": "src/builtins/exit.c",
+   "target": "src/hash_table/free_hash_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/export.c",
+   "target": "Libft/ft_strchr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/export.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/export.c",
+   "target": "Libft/ft_strjoin.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/export.c",
+   "target": "src/builtins/builtins_utils.c",
+   "weight": 3
+  },
+  {
+   "source": "src/builtins/export.c",
+   "target": "src/free.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/pwd.c",
+   "target": "src/hash_table/search_item.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/unset.c",
+   "target": "Libft/ft_isalpha.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/unset.c",
+   "target": "src/free.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/unset.c",
+   "target": "src/hash_table/delete_node.c",
+   "weight": 1
+  },
+  {
+   "source": "src/builtins/unset.c",
+   "target": "src/hash_table/search_item.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/creat_cmd_table.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/creat_cmd_table.c",
+   "target": "Libft/ft_strjoin.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/creat_cmd_table.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 7
+  },
+  {
+   "source": "src/exec/creat_cmd_table.c",
+   "target": "src/arr_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/creat_cmd_table.c",
+   "target": "src/exec/make_list.c",
+   "weight": 2
+  },
+  {
+   "source": "src/exec/exec_list.c",
+   "target": "Libft/ft_itoa.c",
+   "weight": 4
+  },
+  {
+   "source": "src/exec/exec_list.c",
+   "target": "src/builtins/builtins_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_list.c",
+   "target": "src/exec/exec_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_list.c",
+   "target": "src/exec/init_fork.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_list.c",
+   "target": "src/fd_handler.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_list.c",
+   "target": "src/hash_table/delete_node.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_list.c",
+   "target": "src/hash_table/insert_node.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_list.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_path.c",
+   "target": "src/builtins/builtins_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_path.c",
+   "target": "src/fd_handler.c",
+   "weight": 3
+  },
+  {
+   "source": "src/exec/exec_path.c",
+   "target": "src/free.c",
+   "weight": 5
+  },
+  {
+   "source": "src/exec/exec_path.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_utils.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/exec_utils.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 5
+  },
+  {
+   "source": "src/exec/exec_utils.c",
+   "target": "Libft/ft_substr.c",
+   "weight": 2
+  },
+  {
+   "source": "src/exec/expand_var.c",
+   "target": "Libft/ft_strchr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/expand_var.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 3
+  },
+  {
+   "source": "src/exec/expand_var.c",
+   "target": "Libft/ft_strjoin.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/expand_var.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 3
+  },
+  {
+   "source": "src/exec/expand_var.c",
+   "target": "src/exec/exec_utils.c",
+   "weight": 2
+  },
+  {
+   "source": "src/exec/expand_var.c",
+   "target": "src/exec/expand_var_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/expand_var.c",
+   "target": "src/hash_table/search_item.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/expand_var.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/expand_var_utils.c",
+   "target": "Libft/ft_strchr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/expand_var_utils.c",
+   "target": "Libft/ft_substr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/here_doc.c",
+   "target": "Libft/ft_strjoin.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/here_doc.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 3
+  },
+  {
+   "source": "src/exec/here_doc.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/here_doc.c",
+   "target": "src/exec/creat_cmd_table.c",
+   "weight": 2
+  },
+  {
+   "source": "src/exec/here_doc.c",
+   "target": "src/free.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/here_doc_utils.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/here_doc_utils.c",
+   "target": "src/exec/here_doc.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/here_doc_utils.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 3
+  },
+  {
+   "source": "src/exec/init_fork.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 3
+  },
+  {
+   "source": "src/exec/init_fork.c",
+   "target": "src/exec/exec_path.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/init_fork.c",
+   "target": "src/exec/exec_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/init_fork.c",
+   "target": "src/fd_handler_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/init_fork.c",
+   "target": "src/signals.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/list_generation_bin.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 2
+  },
+  {
+   "source": "src/exec/list_generation_bin.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 3
+  },
+  {
+   "source": "src/exec/list_generation_bin.c",
+   "target": "src/builtins/builtins_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/list_generation_bin.c",
+   "target": "src/exec/exec_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/list_generation_bin.c",
+   "target": "src/exec/path_finder.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/path_finder.c",
+   "target": "Libft/ft_free_arr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/path_finder.c",
+   "target": "Libft/ft_split.c",
+   "weight": 1
+  },
+  {
+   "source": "src/exec/path_finder.c",
+   "target": "Libft/ft_strjoin.c",
+   "weight": 2
+  },
+  {
+   "source": "src/exec/path_finder.c",
+   "target": "src/hash_table/search_item.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "Libft/ft_calloc.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/exec/creat_cmd_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/exec/exec_list.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/exec/exec_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/exec/expand_var.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/exec/here_doc_utils.c",
+   "weight": 3
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/exec/list_generation_bin.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/fd_handler_utils.c",
+   "weight": 2
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/free.c",
+   "weight": 3
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/hash_table/free_hash_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/signals.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/signals_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/tokens/clean_tokens.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/tokens/sintax_analysis.c",
+   "weight": 1
+  },
+  {
+   "source": "src/facade.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/fd_handler.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 10
+  },
+  {
+   "source": "src/fd_handler.c",
+   "target": "src/free.c",
+   "weight": 1
+  },
+  {
+   "source": "src/fd_handler.c",
+   "target": "src/main.c",
+   "weight": 2
+  },
+  {
+   "source": "src/fd_handler_utils.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 3
+  },
+  {
+   "source": "src/fd_handler_utils.c",
+   "target": "src/free.c",
+   "weight": 2
+  },
+  {
+   "source": "src/fd_handler_utils.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 3
+  },
+  {
+   "source": "src/free.c",
+   "target": "Libft/ft_free_arr.c",
+   "weight": 6
+  },
+  {
+   "source": "src/free.c",
+   "target": "Libft/ft_putstr_fd.c",
+   "weight": 1
+  },
+  {
+   "source": "src/free.c",
+   "target": "Libft/ft_strjoin.c",
+   "weight": 1
+  },
+  {
+   "source": "src/free.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 6
+  },
+  {
+   "source": "src/free.c",
+   "target": "src/hash_table/free_hash_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/create_node.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 2
+  },
+  {
+   "source": "src/hash_table/create_table.c",
+   "target": "Libft/ft_calloc.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/create_table.c",
+   "target": "Libft/ft_free_arr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/create_table.c",
+   "target": "Libft/ft_split.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/create_table.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 2
+  },
+  {
+   "source": "src/hash_table/create_table.c",
+   "target": "Libft/ft_strjoin.c",
+   "weight": 2
+  },
+  {
+   "source": "src/hash_table/create_table.c",
+   "target": "src/hash_table/insert_node.c",
+   "weight": 3
+  },
+  {
+   "source": "src/hash_table/delete_node.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/delete_node.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/delete_node.c",
+   "target": "src/hash_table/free_hash_table.c",
+   "weight": 2
+  },
+  {
+   "source": "src/hash_table/delete_node.c",
+   "target": "src/hash_table/hash_function.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/insert_node.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/insert_node.c",
+   "target": "src/hash_table/create_node.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/insert_node.c",
+   "target": "src/hash_table/free_hash_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/insert_node.c",
+   "target": "src/hash_table/hash_function.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/insert_node.c",
+   "target": "src/tokens/tokenizer_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/search_item.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/search_item.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/search_item.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 1
+  },
+  {
+   "source": "src/hash_table/search_item.c",
+   "target": "src/hash_table/hash_function.c",
+   "weight": 1
+  },
+  {
+   "source": "src/init.c",
+   "target": "Libft/ft_bzero.c",
+   "weight": 1
+  },
+  {
+   "source": "src/main.c",
+   "target": "src/facade.c",
+   "weight": 1
+  },
+  {
+   "source": "src/main.c",
+   "target": "src/fd_handler_utils.c",
+   "weight": 2
+  },
+  {
+   "source": "src/main.c",
+   "target": "src/hash_table/create_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/main.c",
+   "target": "src/hash_table/free_hash_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/main.c",
+   "target": "src/init.c",
+   "weight": 1
+  },
+  {
+   "source": "src/main.c",
+   "target": "src/signals_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/main.c",
+   "target": "src/tokens/sintax_analysis.c",
+   "weight": 1
+  },
+  {
+   "source": "src/signals_utils.c",
+   "target": "src/fd_handler_utils.c",
+   "weight": 1
+  },
+  {
+   "source": "src/signals_utils.c",
+   "target": "src/free.c",
+   "weight": 1
+  },
+  {
+   "source": "src/signals_utils.c",
+   "target": "src/hash_table/free_hash_table.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/clean_tokens.c",
+   "target": "Libft/ft_strchr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/clean_tokens.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 2
+  },
+  {
+   "source": "src/tokens/clean_tokens.c",
+   "target": "Libft/ft_strtrim.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/count_tks.c",
+   "target": "Libft/ft_strchr.c",
+   "weight": 10
+  },
+  {
+   "source": "src/tokens/lexical_analyzer.c",
+   "target": "Libft/ft_strchr.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/lexical_analyzer.c",
+   "target": "Libft/ft_strdup.c",
+   "weight": 7
+  },
+  {
+   "source": "src/tokens/lexical_analyzer.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 3
+  },
+  {
+   "source": "src/tokens/lexical_analyzer.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 5
+  },
+  {
+   "source": "src/tokens/sintax_analysis.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 11
+  },
+  {
+   "source": "src/tokens/tokenizer.c",
+   "target": "Libft/ft_strchr.c",
+   "weight": 8
+  },
+  {
+   "source": "src/tokens/tokenizer.c",
+   "target": "Libft/ft_strlcpy.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/tokenizer.c",
+   "target": "src/tokens/count_tks.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/tokenizer_utils.c",
+   "target": "Libft/ft_strlen.c",
+   "weight": 2
+  },
+  {
+   "source": "src/tokens/tokenizer_utils.c",
+   "target": "Libft/ft_strncmp.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/tokenizer_utils.c",
+   "target": "src/tokens/count_tks.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/tokenizer_utils.c",
+   "target": "src/tokens/lexical_analyzer.c",
+   "weight": 1
+  },
+  {
+   "source": "src/tokens/tokenizer_utils.c",
+   "target": "src/tokens/tokenizer.c",
+   "weight": 1
+  }
+ ],
+ "cycles": [
+  [
+   "src/builtins/builtins_utils.c",
+   "src/builtins/export.c"
+  ],
+  [
+   "src/exec/exec_list.c",
+   "src/exec/exec_path.c",
+   "src/exec/init_fork.c",
+   "src/facade.c",
+   "src/fd_handler.c",
+   "src/main.c"
+  ]
+ ]
+}
