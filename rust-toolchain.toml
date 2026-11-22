@@ -1,5 +1,8 @@
-# ADR-001: Rust estável via rustup, igual no CI e nas máquinas de desenvolvimento.
+# ADR-001: Rust via rustup, na MESMA versão no CI e nas máquinas de
+# desenvolvimento. A versão é fixa (e não "stable") porque cada versão nova
+# do clippy traz lints novos, e o CI roda com -D warnings. Para atualizar:
+# mude o número, rode `cargo clippy --workspace --all-targets` e corrija.
 [toolchain]
-channel = "stable"
+channel = "1.100.0"
 components = ["rustfmt", "clippy"]
 profile = "minimal"

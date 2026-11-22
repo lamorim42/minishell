@@ -73,7 +73,7 @@ fn redirects_keep_order_and_leave_argv() {
 #[test]
 fn redirect_only_command_is_valid() {
     let cmd = simple("> out");
-    assert!(cmd.argv.is_empty());
+    assert_eq!(cmd.argv, []);
     assert_eq!(cmd.redirects, [Redirect::Out(lit("out"))]);
 }
 
