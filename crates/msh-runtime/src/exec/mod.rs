@@ -3,20 +3,25 @@
 //! [`Shell::execute_line`] é a fachada (o `facade.c` da versão em C):
 //! analisa, expande e executa, e grava o `$?`.
 
+pub mod heredoc;
 pub mod path;
+pub mod redirect;
 pub mod sys;
 
 use std::ffi::CString;
 use std::io::Write;
 use std::ops::ControlFlow;
+use std::os::fd::{AsFd, OwnedFd};
 use std::os::unix::ffi::OsStrExt;
 
-use msh_syntax::{Command, Node, SimpleCommand, Word, WordPart};
+use msh_syntax::{Command, Node, Pipeline, SimpleCommand, Word, WordPart};
 use nix::errno::Errno;
+use nix::fcntl::OFlag;
 
 use crate::builtins::{Builtin, Io};
 use crate::env::is_valid_name;
 use crate::expand::{expand_assignment, expand_words};
+use crate::input::LineSource;
 use crate::shell::Shell;
 
 /// Status de erro de sintaxe e de uso (POSIX 2.8.2).
@@ -25,17 +30,28 @@ pub const STATUS_SYNTAX: i32 = 2;
 pub const STATUS_NOT_EXECUTABLE: i32 = 126;
 /// Comando não encontrado (POSIX 2.8.2).
 pub const STATUS_NOT_FOUND: i32 = 127;
+/// Linha cancelada com Ctrl+C (128 + SIGINT).
+pub const STATUS_INTERRUPTED: i32 = 130;
+
+/// Onde um comando simples roda.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum Place {
+    /// No processo do shell: comando sozinho na pipeline.
+    Shell,
+    /// Num filho já criado (estágio de uma pipeline, POSIX 2.9.2).
+    Child,
+}
 
 impl Shell {
-    /// Analisa e executa uma linha.
+    /// Analisa e executa uma linha. Os heredocs são lidos de `input`.
     ///
     /// Retorna `Break(código)` quando o shell deve sair: `exit`, ou um erro
     /// que encerra o shell não interativo (erro de sintaxe ou de builtin
     /// especial, POSIX 2.8.1).
-    pub fn execute_line(&mut self, line: &str) -> ControlFlow<i32> {
+    pub fn execute_line(&mut self, line: &str, input: &mut dyn LineSource) -> ControlFlow<i32> {
         match msh_syntax::parse(line) {
             Ok(None) => {}
-            Ok(Some(node)) => self.last_status = self.execute(&node),
+            Ok(Some(node)) => self.last_status = self.execute(&node, input),
             Err(e) => {
                 self.error(&e);
                 self.last_status = STATUS_SYNTAX;
@@ -51,48 +67,190 @@ impl Shell {
     }
 
     /// Executa uma árvore já analisada e devolve o status.
-    pub fn execute(&mut self, node: &Node) -> i32 {
+    pub fn execute(&mut self, node: &Node, input: &mut dyn LineSource) -> i32 {
         match node {
-            Node::Pipeline(pipeline) => match pipeline.commands.as_slice() {
-                [Command::Simple(cmd)] if cmd.redirects.is_empty() => self.run_simple(cmd),
-                [Command::Simple(_)] => self.not_yet("redirections"),
-                [_] => self.not_yet("subshells"),
-                _ => self.not_yet("pipelines"),
-            },
-            Node::And(..) | Node::Or(..) => self.not_yet("&& and ||"),
+            Node::Pipeline(pipeline) => self.run_pipeline(pipeline, input),
+            Node::And(..) | Node::Or(..) => {
+                self.error("&& and ||: not supported");
+                STATUS_SYNTAX
+            }
         }
     }
 
-    // M4 tira isto: pipes e redirecionamentos.
-    fn not_yet(&self, what: &str) -> i32 {
-        self.error(format_args!("{what}: not implemented yet"));
-        STATUS_SYNTAX
+    fn run_pipeline(&mut self, pipeline: &Pipeline, input: &mut dyn LineSource) -> i32 {
+        // Heredocs primeiro, no pai, na ordem em que aparecem (ADR-009).
+        let Ok(heredocs) = heredoc::read_all(pipeline, self, input) else {
+            return STATUS_INTERRUPTED;
+        };
+        match (pipeline.commands.as_slice(), heredocs) {
+            ([Command::Simple(cmd)], mut heredocs) => {
+                let fds = heredocs.pop().unwrap_or_default();
+                self.run_simple(cmd, fds, Place::Shell)
+            }
+            (commands, heredocs) => self.run_stages(commands, heredocs),
+        }
     }
 
-    /// Comando simples (POSIX 2.9.1): atribuições, expansão, e então
-    /// builtin ou programa externo.
-    fn run_simple(&mut self, cmd: &SimpleCommand) -> i32 {
+    /// Pipeline com mais de um comando: cada um num filho, ligados por
+    /// `pipe2(O_CLOEXEC)` (POSIX 2.9.2). O status é o do último.
+    fn run_stages(&mut self, commands: &[Command], heredocs: Vec<Vec<OwnedFd>>) -> i32 {
+        let mut pids = Vec::with_capacity(commands.len());
+        let mut prev_read: Option<OwnedFd> = None;
+        let last = commands.len() - 1;
+        let mut status = None;
+
+        for (i, (cmd, fds)) in commands.iter().zip(heredocs).enumerate() {
+            let pipe = if i < last {
+                match nix::unistd::pipe2(OFlag::O_CLOEXEC) {
+                    Ok(p) => Some(p),
+                    Err(e) => {
+                        self.error(format_args!("pipe: {}", e.desc()));
+                        status = Some(1);
+                        break;
+                    }
+                }
+            } else {
+                None
+            };
+            let _ = std::io::stdout().flush();
+            match sys::fork() {
+                Ok(sys::Fork::Child) => {
+                    sys::reset_signals_in_child();
+                    if let Some(read) = &prev_read {
+                        let _ = sys::dup2_std(read.as_fd(), 0);
+                    }
+                    if let Some((_, write)) = &pipe {
+                        let _ = sys::dup2_std(write.as_fd(), 1);
+                    }
+                    // Os originais têm O_CLOEXEC; fechamos já para um builtin
+                    // (que não faz execve) não segurar a ponta de escrita.
+                    drop(prev_read);
+                    drop(pipe);
+                    let code = match cmd {
+                        Command::Simple(cmd) => self.run_simple(cmd, fds, Place::Child),
+                        Command::Subshell { .. } => {
+                            self.error("subshells: not supported");
+                            STATUS_SYNTAX
+                        }
+                    };
+                    let _ = std::io::stdout().flush();
+                    sys::exit_child(code)
+                }
+                Ok(sys::Fork::Parent { child }) => {
+                    pids.push(child);
+                    // O pai fecha o que não usa: a ponta de leitura anterior e
+                    // a de escrita nova (o drop do OwnedFd faz isso).
+                    prev_read = pipe.map(|(read, _write)| read);
+                }
+                Err(e) => {
+                    self.error(format_args!("fork: {}", e.desc()));
+                    status = Some(1);
+                    break;
+                }
+            }
+        }
+        drop(prev_read);
+
+        let mut last_waited = None;
+        for pid in pids {
+            last_waited = Some(sys::wait(pid));
+        }
+        match (status, last_waited) {
+            (Some(s), _) => s,
+            (None, Some(waited)) => {
+                self.report_signal(waited);
+                waited.status()
+            }
+            (None, None) => 0,
+        }
+    }
+
+    /// Comando simples (POSIX 2.9.1): expansão das palavras, depois os
+    /// redirecionamentos, depois as atribuições; então builtin ou programa.
+    fn run_simple(&mut self, cmd: &SimpleCommand, heredocs: Vec<OwnedFd>, place: Place) -> i32 {
         let (assignments, words) = split_assignments(&cmd.argv);
         let fields = expand_words(words, self);
-        let assignments: Vec<(String, String)> = assignments
-            .into_iter()
-            .map(|(name, value)| (name, expand_assignment(&value, self)))
-            .collect();
+        let mut heredocs = heredocs.into_iter();
 
         let Some(name) = fields.first() else {
-            // Só atribuições: valem no shell.
+            // Sem comando: os redirecionamentos são feitos (e desfeitos) e as
+            // atribuições ficam no shell.
+            let mut saved = redirect::Saved::default();
+            if let Err(e) = redirect::apply(&cmd.redirects, &mut heredocs, self, Some(&mut saved)) {
+                self.error(e);
+                return 1;
+            }
+            drop(saved);
             for (name, value) in assignments {
+                let value = expand_assignment(&value, self);
                 self.env.set(name, value);
             }
             return 0;
         };
-        match Builtin::lookup(name) {
-            Some(builtin) => self.run_builtin(builtin, &fields[1..], assignments),
-            None => self.run_external(&fields, &assignments),
+
+        if let Some(builtin) = Builtin::lookup(name) {
+            // Builtin roda no processo atual: o shell, quando está sozinho,
+            // ou o filho da pipeline.
+            let mut saved = redirect::Saved::default();
+            let saved_ref = (place == Place::Shell).then_some(&mut saved);
+            if let Err(e) = redirect::apply(&cmd.redirects, &mut heredocs, self, saved_ref) {
+                self.error(e);
+                if builtin.is_special() && !self.interactive {
+                    self.exit_request.get_or_insert(1);
+                }
+                return 1;
+            }
+            let assignments = assignments
+                .into_iter()
+                .map(|(name, value)| (name, expand_assignment(&value, self)))
+                .collect();
+            return self.run_builtin(builtin, &fields[1..], assignments);
+        }
+
+        match place {
+            Place::Child => {
+                if let Err(e) = redirect::apply(&cmd.redirects, &mut heredocs, self, None) {
+                    self.error(e);
+                    return 1;
+                }
+                let assignments: Vec<_> = assignments
+                    .into_iter()
+                    .map(|(name, value)| (name, expand_assignment(&value, self)))
+                    .collect();
+                self.exec_external(&fields, &assignments)
+            }
+            Place::Shell => {
+                let assignments: Vec<_> = assignments
+                    .into_iter()
+                    .map(|(name, value)| (name, expand_assignment(&value, self)))
+                    .collect();
+                let _ = std::io::stdout().flush();
+                match sys::fork() {
+                    Ok(sys::Fork::Child) => {
+                        sys::reset_signals_in_child();
+                        if let Err(e) = redirect::apply(&cmd.redirects, &mut heredocs, self, None) {
+                            self.error(e);
+                            sys::exit_child(1);
+                        }
+                        let code = self.exec_external(&fields, &assignments);
+                        sys::exit_child(code)
+                    }
+                    Ok(sys::Fork::Parent { child }) => {
+                        drop(heredocs);
+                        let waited = sys::wait(child);
+                        self.report_signal(waited);
+                        waited.status()
+                    }
+                    Err(e) => {
+                        self.error(format_args!("fork: {}", e.desc()));
+                        1
+                    }
+                }
+            }
         }
     }
 
-    /// Builtin no próprio processo do shell.
+    /// Builtin no processo atual, com os redirecionamentos já aplicados.
     ///
     /// Atribuições antes de um builtin especial ficam no shell; antes de um
     /// builtin comum, valem só durante ele (POSIX 2.9.1).
@@ -132,8 +290,9 @@ impl Shell {
         status
     }
 
-    /// Programa externo: `fork`, `execve` no filho e `waitpid` no pai.
-    fn run_external(&mut self, argv: &[String], assignments: &[(String, String)]) -> i32 {
+    /// No filho: resolve o nome e chama `execve`. Só retorna o status de
+    /// erro (126 ou 127), com a mensagem já escrita.
+    fn exec_external(&self, argv: &[String], assignments: &[(String, String)]) -> i32 {
         let path = match path::resolve(&argv[0], self) {
             Ok(path) => path,
             Err(e) => {
@@ -150,32 +309,13 @@ impl Shell {
             }
             env.to_envp()
         };
-        // Tudo o que o filho precisa é preparado antes do fork.
         let Ok(c_path) = CString::new(path.as_os_str().as_bytes()) else {
             self.error(format_args!("{}: invalid name", argv[0]));
             return STATUS_NOT_FOUND;
         };
         let c_argv: Vec<CString> = argv.iter().map(|a| to_cstring(a)).collect();
-        // O filho herda os buffers do pai: esvazia antes.
-        let _ = std::io::stdout().flush();
-
-        match sys::fork() {
-            Ok(sys::Fork::Child) => {
-                sys::reset_signals_in_child();
-                let errno = sys::execve(&c_path, &c_argv, &envp);
-                let code = self.report_exec_error(&argv[0], &path, errno, &c_argv, &envp);
-                sys::exit_child(code)
-            }
-            Ok(sys::Fork::Parent { child }) => {
-                let waited = sys::wait(child);
-                self.report_signal(waited);
-                waited.status()
-            }
-            Err(e) => {
-                self.error(format_args!("fork: {}", e.desc()));
-                1
-            }
-        }
+        let errno = sys::execve(&c_path, &c_argv, &envp);
+        self.report_exec_error(&argv[0], &path, errno, &c_argv, &envp)
     }
 
     /// Mensagem quando o comando morre por sinal, como no bash: quebra de

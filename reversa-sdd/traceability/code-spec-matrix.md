@@ -121,7 +121,9 @@
 | `crates/msh-runtime/src/builtins/echo.rs` | `imprimir-texto-echo/` | `src/builtins/echo.c` | M3 ✅ | segue o dash onde o POSIX deixa aberto: só o 1º `-n` é opção (`-nn` é texto, EC-04 coincide), escapes do XSI; `echo a "" b` dá `a  b` (EC-07 corrigido) |
 | `crates/msh-runtime/src/builtins/cd.rs`, `pwd.rs` | `navegar-diretorios/` | `src/builtins/cd.c`, `pwd.c` | M3 ✅ | POSIX `cd`/`pwd`: `cd -`, `CDPATH`, `-L`/`-P`, `PWD`/`OLDPWD`; `HOME` ausente dá erro e status 1 (BUG-12 corrigido); `pwd` usa `getcwd` se `PWD` for inválido |
 | `crates/msh-runtime/src/builtins/exit.rs` | `encerrar-shell/` | `src/builtins/exit.c` | M3 ✅ | `exit` sem argumento usa `$?` (XT-01 corrigido); `exit 2 3` dá `too many arguments` (BUG-21 corrigido); negativo é erro, como no dash |
-| `msh-runtime` (pipes, redirecionamentos, heredoc) | `executar-pipeline/`, `redirecionar-entrada-e-saida/`, `ler-heredoc/` | `src/exec/*.c`, `src/fd_handler*.c` | M4 ⏳ | POSIX 2.7, 2.9.2; builtin com redirecionamento roda no pai (RE-01) |
+| `crates/msh-runtime/src/exec/mod.rs` (`run_stages`) | `executar-pipeline/` | `src/exec/exec_list.c`, `init_fork.c` | M4 ✅ | POSIX 2.9.2: cada estágio num filho, `pipe2(O_CLOEXEC)`, `$?` do último; builtins na pipeline não mudam o shell |
+| `crates/msh-runtime/src/exec/redirect.rs` | `redirecionar-entrada-e-saida/` | `src/fd_handler*.c`, `src/exec/exec_utils.c` | M4 ✅ | POSIX 2.7: ordem da esquerda para a direita, criação com 0666 menos a umask, alvo sem field splitting (como o dash); builtin com redirecionamento roda no pai e o fd é restaurado (RE-01 corrigido) |
+| `crates/msh-runtime/src/exec/heredoc.rs`, `src/input.rs` | `ler-heredoc/` | `src/exec/here_doc*.c` | M4 ✅ | POSIX 2.7.4: lido no pai antes dos forks, em `memfd` (ADR-009), sem limite de 64 KiB; expansão só com delimitador sem aspas, `\` como entre aspas duplas |
 | `crates/msh-cli/src/main.rs`, `input.rs` | `iniciar-sessao-e-ler-comando/`, `encerrar-shell/` (Ctrl+D) | `src/main.c` | M3 ✅ | POSIX `sh`: interativo só com terminal; `-c`, script e stdin lido sem consumir além da linha; Ctrl+D sai com `$?` (cenário divergente corrigido); aspas abertas continuam na linha seguinte |
 | `msh-cli` (sinais, OSC 7) | `tratar-sinais/` | `src/signals*.c` | M5 ⏳ | ADR-008 (sem estado global) |
 
@@ -133,4 +135,5 @@
 | `crates/msh-runtime/tests/expand.rs` | `expandir-variaveis/` | |
 | `crates/msh-runtime/tests/builtins.rs` | `gerenciar-variaveis-de-ambiente/`, `imprimir-texto-echo/`, `encerrar-shell/` | |
 | `crates/msh-cli/tests/compat_m3.rs` (+ `common/mod.rs`) | `executar-comando-simples/`, `imprimir-texto-echo/`, `navegar-diretorios/`, `encerrar-shell/` | compara com o dash e o `bash --posix`; cobre os cenários `@divergente` (TT-04 e TT-02 das units) |
+| `crates/msh-cli/tests/compat_m4.rs` | `executar-pipeline/`, `redirecionar-entrada-e-saida/`, `ler-heredoc/` | inclui o teste de vazamento de fds (`/proc/self/fd`, RNF-10) |
 | `crates/msh-cli/tests/modes.rs` | `iniciar-sessao-e-ler-comando/` | `-c`, script e stdin |

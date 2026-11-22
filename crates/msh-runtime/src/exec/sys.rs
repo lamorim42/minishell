@@ -5,7 +5,7 @@
 #![allow(unsafe_code)]
 
 use std::ffi::{CStr, CString};
-use std::os::fd::{BorrowedFd, OwnedFd};
+use std::os::fd::BorrowedFd;
 
 use nix::errno::Errno;
 use nix::sys::signal::{SigHandler, Signal, signal};
@@ -111,17 +111,4 @@ pub fn dup2_std(fd: BorrowedFd<'_>, target: i32) -> nix::Result<()> {
         1 => nix::unistd::dup2_stdout(fd),
         _ => nix::unistd::dup2_stderr(fd),
     }
-}
-
-/// Cópia de `fd` com `O_CLOEXEC`, acima do 9 (para não ocupar fds que o
-/// usuário pode citar).
-///
-/// # Errors
-///
-/// Erro do kernel.
-pub fn dup_cloexec(fd: BorrowedFd<'_>) -> nix::Result<OwnedFd> {
-    let raw = nix::fcntl::fcntl(fd, nix::fcntl::FcntlArg::F_DUPFD_CLOEXEC(10))?;
-    // SAFETY: o fcntl acabou de criar este fd, que não pertence a mais
-    // ninguém.
-    Ok(unsafe { std::os::fd::FromRawFd::from_raw_fd(raw) })
 }

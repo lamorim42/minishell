@@ -189,7 +189,8 @@ fn canonical_form() {
     let cases = [
         ("echo   oi", "echo oi"),
         ("< in cat>out", "cat < in > out"),
-        ("echo \"a $B\"'c'", "echo \"a ${B}\"'c'"),
+        ("echo \"a ${B}\"'c'", "echo \"a $B\"'c'"),
+        ("echo $A_ ${A}_ ${10} $1", "echo $A_ ${A}_ ${10} $1"),
         ("echo it\\'s", "echo it''\\'''s"),
         ("echo ${A}b $?", "echo ${A}b $?"),
         ("cat << 'E F'", "cat << 'E F'"),

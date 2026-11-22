@@ -115,7 +115,7 @@ O MiauShell está sendo reescrito em Rust, seguindo o POSIX.1-2024 (capítulo 2,
 | [`crates/msh-syntax`](./crates/msh-syntax/) | M1, pronto | Lexer, parser e AST, sem I/O |
 | [`crates/msh-runtime`](./crates/msh-runtime/) | M2, pronto | Variáveis, expansão (`$VAR`, `~`, field splitting) e builtins `env`, `export` e `unset` |
 | `msh-runtime` (execução) | M3, pronto | Comando simples, busca no `PATH`, atribuições (`A=1 cmd`), status 126, 127 e 2, e builtins `echo`, `cd`, `pwd` e `exit` |
-| `msh-runtime` (execução) | M4 | Pipes, redirecionamentos e heredoc |
+| `msh-runtime` (execução) | M4, pronto | Pipes, redirecionamentos `<`, `>` e `>>`, e heredoc `<<` guardado em memória (`memfd_create`) |
 | [`crates/msh-cli`](./crates/msh-cli/) | M3, pronto | Binário `minishell` em Rust: prompt `miau> ` com rustyline, `-c` e scripts |
 
 ## Dependências no Linux
@@ -211,7 +211,7 @@ make rust-run                          # ou: cargo run -p msh-cli
 ./target/debug/minishell script.sh     # um script
 ```
 
-Aparece o mesmo prompt `miau>`. Pipes, redirecionamentos e heredoc chegam no M4; até lá, o shell em Rust avisa que ainda não os implementa.
+Aparece o mesmo prompt `miau>`.
 
 ### Exemplo
 

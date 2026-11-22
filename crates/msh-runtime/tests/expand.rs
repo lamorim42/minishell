@@ -1,7 +1,7 @@
 //! Expansão de palavras (POSIX 2.6). Os resultados esperados batem com o
 //! `bash --posix` e o dash.
 
-use msh_runtime::{Env, ExpandError, Shell, expand_redirect_target, expand_words};
+use msh_runtime::{Env, Shell, expand_redirect_target, expand_words};
 use msh_syntax::{Command, Node, Redirect, parse};
 use proptest::prelude::*;
 
@@ -20,7 +20,7 @@ fn argv(src: &str, sh: &Shell) -> Vec<String> {
     }
 }
 
-fn redirect_target(src: &str, sh: &Shell) -> Result<String, ExpandError> {
+fn redirect_target(src: &str, sh: &Shell) -> String {
     let Some(Node::Pipeline(p)) = parse(src).unwrap() else {
         unreachable!()
     };
@@ -130,21 +130,14 @@ fn tilde() {
 }
 
 #[test]
-fn redirect_target_must_be_one_field() {
+fn redirect_target_is_not_field_split() {
+    // POSIX 2.7: o alvo não passa por field splitting (como no dash).
     let sh = shell(&[("A", "a b"), ("F", "out.txt"), ("EMPTY", "")]);
-    assert_eq!(redirect_target("> $F", &sh), Ok("out.txt".into()));
-    assert_eq!(redirect_target("> \"$A\"", &sh), Ok("a b".into()));
-    assert_eq!(
-        redirect_target("> $A", &sh),
-        Err(ExpandError::AmbiguousRedirect {
-            word: "${A}".into()
-        })
-    );
-    assert!(redirect_target("< $EMPTY", &sh).is_err());
-    assert_eq!(
-        redirect_target(">> $EMPTY", &sh).unwrap_err().to_string(),
-        "${EMPTY}: ambiguous redirect"
-    );
+    assert_eq!(redirect_target("> $F", &sh), "out.txt");
+    assert_eq!(redirect_target("> \"$A\"", &sh), "a b");
+    assert_eq!(redirect_target("> $A", &sh), "a b");
+    assert_eq!(redirect_target("< $EMPTY", &sh), "");
+    assert_eq!(redirect_target(">> x$F", &sh), "xout.txt");
 }
 
 proptest! {

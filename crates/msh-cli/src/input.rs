@@ -4,18 +4,9 @@
 use std::io::{BufRead, BufReader};
 use std::os::fd::AsFd;
 
+use msh_runtime::{LineSource, ReadLine as Line};
 use rustyline::DefaultEditor;
 use rustyline::error::ReadlineError;
-
-/// Resultado de uma leitura.
-#[derive(Debug)]
-pub enum Line {
-    Text(String),
-    /// Ctrl+C durante a leitura.
-    Interrupted,
-    /// Fim da entrada (Ctrl+D na linha vazia, fim do arquivo ou do `-c`).
-    Eof,
-}
 
 /// Fonte de linhas, com ou sem prompt.
 pub enum Input {
@@ -52,8 +43,18 @@ impl Input {
         )
     }
 
+    pub fn add_history(&mut self, line: &str) {
+        if let Self::Terminal(editor) = self
+            && !line.trim().is_empty()
+        {
+            let _ = editor.add_history_entry(line);
+        }
+    }
+}
+
+impl LineSource for Input {
     /// Lê uma linha, sem o `\n` final. `prompt` só aparece no terminal.
-    pub fn read_line(&mut self, prompt: &str) -> Line {
+    fn read_line(&mut self, prompt: &str) -> Line {
         match self {
             Self::Terminal(editor) => match editor.readline(prompt) {
                 Ok(line) => Line::Text(line),
@@ -69,14 +70,6 @@ impl Input {
                 }
             }
             Self::Stdin => read_stdin_line(),
-        }
-    }
-
-    pub fn add_history(&mut self, line: &str) {
-        if let Self::Terminal(editor) = self
-            && !line.trim().is_empty()
-        {
-            let _ = editor.add_history_entry(line);
         }
     }
 }

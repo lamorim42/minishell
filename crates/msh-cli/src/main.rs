@@ -16,17 +16,15 @@ use std::io::BufReader;
 use std::ops::ControlFlow;
 use std::process::ExitCode;
 
-use msh_runtime::Shell;
-use msh_runtime::exec::{STATUS_NOT_FOUND, STATUS_SYNTAX, sys};
+use msh_runtime::exec::{STATUS_INTERRUPTED, STATUS_NOT_FOUND, STATUS_SYNTAX, sys};
+use msh_runtime::{LineSource, ReadLine as Line, Shell};
 use msh_syntax::ParseError;
 
-use crate::input::{Input, Line};
+use crate::input::Input;
 
 const PROMPT: &str = "miau> ";
 /// Prompt de continuação (o `PS2` do POSIX).
 const PROMPT_MORE: &str = "> ";
-/// `$?` depois de Ctrl+C no prompt (128 + SIGINT).
-const STATUS_INTERRUPTED: i32 = 130;
 
 const USAGE: &str = "usage: minishell [-i] [-c command [name] | script]";
 
@@ -121,7 +119,7 @@ fn run(sh: &mut Shell, input: &mut Input) -> i32 {
             }
         }
         input.add_history(&line);
-        if let ControlFlow::Break(code) = sh.execute_line(&line) {
+        if let ControlFlow::Break(code) = sh.execute_line(&line, input) {
             return code;
         }
     }

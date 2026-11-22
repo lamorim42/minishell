@@ -17,13 +17,6 @@ use crate::shell::Shell;
 /// `IFS` padrão quando a variável não existe (POSIX 2.5.3).
 const DEFAULT_IFS: &str = " \t\n";
 
-#[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
-pub enum ExpandError {
-    /// O alvo de um redirecionamento virou zero ou vários campos.
-    #[error("{word}: ambiguous redirect")]
-    AmbiguousRedirect { word: String },
-}
-
 /// Expande uma palavra em campos.
 #[must_use]
 pub fn expand_word(word: &Word, sh: &Shell) -> Vec<String> {
@@ -87,21 +80,13 @@ pub fn expand_assignment(word: &Word, sh: &Shell) -> String {
     out
 }
 
-/// Alvo de `<`, `>` e `>>`: precisa virar exatamente um campo.
-///
-/// # Errors
-///
-/// [`ExpandError::AmbiguousRedirect`] se a expansão der zero ou vários campos,
-/// como em `> $VAZIA` ou `> $A` com `A="a b"`.
-pub fn expand_redirect_target(word: &Word, sh: &Shell) -> Result<String, ExpandError> {
-    let mut fields = expand_word(word, sh);
-    if fields.len() == 1 {
-        Ok(fields.remove(0))
-    } else {
-        Err(ExpandError::AmbiguousRedirect {
-            word: word.to_string(),
-        })
-    }
+/// Alvo de `<`, `>` e `>>` (POSIX 2.7): til, parâmetros e remoção de aspas,
+/// sem field splitting nem expansão de caminho. Por isso `> $A` com
+/// `A="a b"` cria o arquivo `a b`, como no dash; o bash recusa com
+/// "ambiguous redirect", que o POSIX não prevê (ADR-013).
+#[must_use]
+pub fn expand_redirect_target(word: &Word, sh: &Shell) -> String {
+    expand_assignment(word, sh)
 }
 
 fn param_value(part: &WordPart, sh: &Shell) -> Option<String> {

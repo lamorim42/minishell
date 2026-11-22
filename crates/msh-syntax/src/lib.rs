@@ -15,7 +15,7 @@
 //! assert_eq!(pipeline.commands.len(), 2);
 //! assert!(matches!(pipeline.commands[0], Command::Simple(_)));
 //! // A AST volta para texto em forma canônica:
-//! assert_eq!(ast.to_string(), "echo \"oi ${USER}\" | wc -c");
+//! assert_eq!(ast.to_string(), "echo \"oi $USER\" | wc -c");
 //! ```
 
 pub mod ast;

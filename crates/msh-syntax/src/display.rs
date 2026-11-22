@@ -82,20 +82,42 @@ impl Display for Redirect {
 
 impl Display for Word {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        for part in &self.parts {
-            write_part(f, part)?;
-        }
-        Ok(())
+        write_parts(f, &self.parts)
     }
 }
 
-fn write_part(f: &mut Formatter<'_>, part: &WordPart) -> fmt::Result {
+fn write_parts(f: &mut Formatter<'_>, parts: &[WordPart]) -> fmt::Result {
+    for (i, part) in parts.iter().enumerate() {
+        write_part(f, part, parts.get(i + 1))?;
+    }
+    Ok(())
+}
+
+/// `$A` precisa de chaves quando o que vem depois continuaria o nome
+/// (`${A}b`) ou quando o nome tem mais de um dígito (`${10}`). Fora disso,
+/// fica como o usuário costuma escrever, o que importa nas mensagens de erro
+/// (`$A: ambiguous redirect`, como no bash).
+fn needs_braces(name: &str, next: Option<&WordPart>) -> bool {
+    let mut chars = name.chars();
+    let first = chars.next().unwrap_or('_');
+    if first.is_ascii_digit() || !(first.is_ascii_alphabetic() || first == '_') {
+        // Parâmetro especial ou posicional: só `${10}` e afins.
+        return name.len() > 1;
+    }
+    let continues = |c: char| c.is_ascii_alphanumeric() || c == '_';
+    match next {
+        Some(WordPart::Literal(s)) => s.starts_with(continues),
+        _ => false,
+    }
+}
+
+fn write_part(f: &mut Formatter<'_>, part: &WordPart, next: Option<&WordPart>) -> fmt::Result {
     match part {
         WordPart::Literal(s) => f.write_str(s),
         WordPart::SingleQuoted(s) => write_single_quoted(f, s),
         WordPart::DoubleQuoted(inner) => {
             f.write_char('"')?;
-            for p in inner {
+            for (i, p) in inner.iter().enumerate() {
                 match p {
                     WordPart::Literal(s) => {
                         for c in s.chars() {
@@ -105,13 +127,13 @@ fn write_part(f: &mut Formatter<'_>, part: &WordPart) -> fmt::Result {
                             f.write_char(c)?;
                         }
                     }
-                    other => write_part(f, other)?,
+                    other => write_part(f, other, inner.get(i + 1))?,
                 }
             }
             f.write_char('"')
         }
-        // Sempre com chaves, para `${A}b` não virar `$Ab`.
-        WordPart::Var(name) => write!(f, "${{{name}}}"),
+        WordPart::Var(name) if needs_braces(name, next) => write!(f, "${{{name}}}"),
+        WordPart::Var(name) => write!(f, "${name}"),
         WordPart::LastStatus => f.write_str("$?"),
         WordPart::Tilde(None) => f.write_char('~'),
         WordPart::Tilde(Some(user)) => write!(f, "~{user}"),
